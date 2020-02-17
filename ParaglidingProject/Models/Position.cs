@@ -10,6 +10,8 @@ namespace ParaglidingProject.Models
         public int ID { get; set; }
 
         public string Name { get; set; }
-
+        public int PilotID { get; set; }
+        public Pilot Pilot { get; set; }
 
     }
+}

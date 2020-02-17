@@ -25,7 +25,10 @@ namespace ParaglidingProject.Data
         public DbSet<Pilot> Pilots { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<Teaching> Teachings { get; set; }
-        
+        public DbSet<Site> Sites { get; set; }
+        public DbSet<Position> Positions { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Course>().ToTable("Course");
@@ -40,6 +43,8 @@ namespace ParaglidingProject.Data
             modelBuilder.Entity<Pilot>().ToTable("Pilot");
             modelBuilder.Entity<Subscription>().ToTable("Subscription");
             modelBuilder.Entity<Teaching>().ToTable("Teaching");
+            modelBuilder.Entity<Site>().ToTable("Site");
+            modelBuilder.Entity<Position>().ToTable("Position");
 
         }
     }

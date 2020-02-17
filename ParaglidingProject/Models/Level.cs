@@ -12,6 +12,6 @@ namespace ParaglidingProject.Models
         public string Skill { get; set; }
         public int DifficultyNumber { get; set; }
         public ICollection<License> Licenses { get; set; }
-        public ICollection<Site> Site { get; set; }
+        public ICollection<Site> Sites { get; set; }
     }
 }

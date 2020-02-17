@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,15 +12,18 @@ namespace ParaglidingProject.Models
 
         public DateTime FlightDate { get; set; }
 
-        public float FlightDuration { get; set; }
+        [DataType(DataType.Time)]
+        public DateTime FlightStart { get; set; }
+
+        [DataType(DataType.Time)]
+        public DateTime FlightEnd { get; set; }
+
         public int PilotID { get; set; }
         public int ParaglidingID { get; set; }
-        public int LandingSiteID { get; set; }
-        public int TakeOffSiteID { get; set; }
+        public int SiteID { get; set; }
         public Pilot Pilot { get; set; }
         public Paragliding Paragliding { get; set; }
-        public LandingSite LandingSite { get; set; }
-        public TakeOffSite TakeOffSites { get; set; }
+        public Site Site { get; set; }
 
 
     }

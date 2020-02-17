@@ -16,6 +16,7 @@ namespace ParaglidingProject.Models
         public string PhoneNumber { get; set; }
 
         public int Weight { get; set; }
+        public int? PostitionID { get; set; }
 
         public Position? Position { get; set; }
         public bool IsActif { get; set; }
