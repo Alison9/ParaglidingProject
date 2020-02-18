@@ -35,7 +35,7 @@ namespace ParaglidingProject.Data
 
             #endregion
 
-            #region Flights(pas fini)
+            #region Flights
             if (context.Flights.Any())
             {
                 return;
@@ -215,6 +215,7 @@ namespace ParaglidingProject.Data
 
             context.SaveChanges();
             #endregion
+
            #region Subscriptions
 
             if(context.Subscriptions.Any())

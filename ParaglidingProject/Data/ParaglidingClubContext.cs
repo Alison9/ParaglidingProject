@@ -46,6 +46,81 @@ namespace ParaglidingProject.Data
             modelBuilder.Entity<Site>().ToTable("Site");
             modelBuilder.Entity<Position>().ToTable("Position");
 
+            modelBuilder.Entity<Course>()
+                .HasMany(p => p.Participations)
+                .WithOne(c => c.Course)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Course>()
+                .HasMany(t => t.Teachings)
+                .WithOne(c => c.Course)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Level>()
+                .HasMany(l => l.Licenses)
+                .WithOne(lv => lv.Level)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Level>()
+                .HasMany(s => s.Sites)
+                .WithOne(lv => lv.Level)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<License>()
+                .HasMany(o => o.Obtainings)
+                .WithOne(l => l.License)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<License>()
+                .HasMany(c => c.Courses)
+                .WithOne(l => l.License)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ModelParagliding>()
+                .HasMany(pa => pa.Paraglidings)
+                .WithOne(mp => mp.ModelParagliding)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Paragliding>()
+                .HasMany(f => f.Flights)
+                .WithOne(pa => pa.Paragliding)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Pilot>()
+                .HasMany(f => f.Flights)
+                .WithOne(pi => pi.Pilot)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Pilot>()
+                .HasMany(py => py.Payments)
+                .WithOne(pi => pi.Pilot)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Pilot>()
+                .HasMany(pt => pt.Participations)
+                .WithOne(pi => pi.Pilot)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Pilot>()
+                .HasMany(t => t.Teachings)
+                .WithOne(pi => pi.Pilot)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Pilot>()
+                .HasMany(o => o.Obtainings)
+                .WithOne(pi => pi.Pilot)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Site>()
+                .HasMany(f => f.Flights)
+                .WithOne(s => s.Site)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Subscription>()
+                .HasMany(py => py.Payments)
+                .WithOne(sb => sb.Subscription)
+                .OnDelete(DeleteBehavior.Restrict);
+
         }
     }
 }
