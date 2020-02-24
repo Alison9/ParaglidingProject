@@ -1,0 +1,63 @@
+﻿@model IEnumerable<ParaglidingProject.Models.ModelParagliding>
+
+@{
+    ViewData["Title"] = "Index";
+
+}
+@{ 
+    Layout = "_Layout";
+}
+
+<h1>Modèle de parapente</h1>
+
+<p>
+    <a asp-action="Create">Créer un nouveau modèle</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.HeightParagliding)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaxWeightPilot)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MinWeightPilot)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AprovalNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AprovalDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.HeightParagliding)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxWeightPilot)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MinWeightPilot)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AprovalNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AprovalDate)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Publier</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Supprimer</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

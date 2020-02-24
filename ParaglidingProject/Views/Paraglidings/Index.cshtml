@@ -1,0 +1,50 @@
+﻿@model IEnumerable<ParaglidingProject.Models.Paragliding>
+
+@{
+    ViewData["Title"] = "Index";
+}
+@{ 
+    Layout = "_Layout";
+}
+
+<h1>Modèle de parapente</h1>
+
+<p>
+    <a asp-action="Create">Créer un nouveau modèle</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfCommissioning)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfLastRevision)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModelParagliding)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfCommissioning)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfLastRevision)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModelParagliding.ID)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Publier</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Supprimer</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -11,11 +11,16 @@ namespace ParaglidingProject.Models
         public int ID { get; set; }
 
         [DataType(DataType.Date)]
+        [Display(Name = "Date de mise en service")]
+        [Required]
         public DateTime DateOfCommissioning { get; set; }
 
         [DataType(DataType.Date)]
+        [Display(Name = "Date de la dernière révision")]
+        [Required]
         public DateTime DateOfLastRevision { get; set; }
         public int ModelParaglidingID { get; set; }
+        [Display(Name = "Modèle")]
         public ModelParagliding ModelParagliding { get; set; }
         public ICollection<Flight> Flights { get; set; }
     }

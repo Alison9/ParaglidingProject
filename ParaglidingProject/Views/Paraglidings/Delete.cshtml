@@ -1,0 +1,39 @@
+﻿@model ParaglidingProject.Models.Paragliding
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Supprimer</h1>
+
+<h3>Etes-vous sûr de vouloir supprimer ce parapente ?</h3>
+<div>
+    <h4>Paragliding</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DateOfCommissioning)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DateOfCommissioning)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DateOfLastRevision)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DateOfLastRevision)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ModelParagliding)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ModelParagliding.ID)
+        </dd class>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ID" />
+        <input type="submit" value="Supprimer" class="btn btn-danger" /> |
+        <a asp-action="Index">Retour à la liste</a>
+    </form>
+</div>
