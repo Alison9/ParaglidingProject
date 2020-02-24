@@ -4,6 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
+@{ 
+    Layout = "_Layout";
+}
+
 <h1>Index</h1>
 
 <p>
@@ -13,6 +17,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.YearID)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Price)
             </th>
             <th></th>
@@ -21,6 +28,9 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.YearID)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
             </td>

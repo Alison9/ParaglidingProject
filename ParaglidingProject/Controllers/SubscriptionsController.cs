@@ -34,6 +34,8 @@ namespace ParaglidingProject.Controllers
             }
 
             var subscription = await _context.Subscriptions
+                .Include(s => s.Payments)
+                .ThenInclude(p => p.Pilot)
                 .FirstOrDefaultAsync(m => m.YearID == id);
             if (subscription == null)
             {
