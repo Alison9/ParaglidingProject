@@ -22,7 +22,8 @@ namespace ParaglidingProject.Controllers
         // GET: Subscriptions
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Subscriptions.ToListAsync());
+            
+            return View(await _context.Subscriptions.OrderByDescending(s => s.YearID).ToListAsync());
         }
 
         // GET: Subscriptions/Details/5
@@ -34,6 +35,9 @@ namespace ParaglidingProject.Controllers
             }
 
             var subscription = await _context.Subscriptions
+                .Include(p => p.Payments)
+                .ThenInclude(pi => pi.Pilot)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.YearID == id);
             if (subscription == null)
             {

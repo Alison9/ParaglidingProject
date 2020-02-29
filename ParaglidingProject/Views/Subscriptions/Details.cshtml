@@ -4,17 +4,47 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+@{
+    Layout = "_Layout";
+}
+
+<h1>Details des cotisations pour @Model.YearID</h1>
 
 <div>
-    <h4>Subscription</h4>
+    <h4>Cotisations</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Price)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Payments)
+        </dt>
+        <dd class="col-sm-10">
+            <table class="table">
+                <tr>
+                    <th>Pilotes</th>
+                    <th>Payé?</th>
+                    <th>Date de payement</th>
+                </tr>
+                @foreach(var item in Model.Payments)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItems => item.Pilot.FirstName) @Html.DisplayFor(modelItems => item.Pilot.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItems => item.IsPay)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modeItems => item.DatePay)
+                        </td>
+                    </tr>
+                }
+            </table>
         </dd>
     </dl>
 </div>
