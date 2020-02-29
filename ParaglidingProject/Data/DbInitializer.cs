@@ -27,7 +27,7 @@ namespace ParaglidingProject.Data
                 new Pilot{FirstName="Natacha", LastName="Romanov", Adress="70 Arnold St. Los Angeles, CA 90042", PhoneNumber="04598617", Weight=55, IsActif=true },
             };
 
-            foreach(Pilot p in pilots)
+            foreach (Pilot p in pilots)
             {
                 context.Pilots.Add(p);
             }
@@ -35,11 +35,146 @@ namespace ParaglidingProject.Data
 
             #endregion
 
-            #region Flights
-            if (context.Flights.Any())
+            #region ModelParaglidings
+
+
+            var models = new ModelParagliding[]
             {
-                return;
+                new ModelParagliding{HeightParagliding="25m²", MaxWeightPilot=90, MinWeightPilot=40, AprovalDate=DateTime.Parse("2015-03-15"), AprovalNumber="152689" },
+                new ModelParagliding{HeightParagliding="26m²", MaxWeightPilot=100, MinWeightPilot=45, AprovalDate=DateTime.Parse("2012-07-28"), AprovalNumber="256986" },
+                new ModelParagliding{HeightParagliding="28m²", MaxWeightPilot=120, MinWeightPilot=60, AprovalDate=DateTime.Parse("2017-01-04"), AprovalNumber="362514" },
+            };
+
+            foreach (ModelParagliding m in models)
+            {
+                context.ModelParaglidings.Add(m);
             }
+
+            context.SaveChanges();
+            #endregion
+
+            #region Paraglidings
+
+            var paraglidings = new Paragliding[]
+            {
+                new Paragliding{ModelParaglidingID=1, DateOfCommissioning=DateTime.Parse("2015-07-02"), DateOfLastRevision=DateTime.Parse("2019-12-09") },
+                new Paragliding{ModelParaglidingID=1, DateOfCommissioning=DateTime.Parse("2016-01-28"), DateOfLastRevision=DateTime.Parse("2019-11-04") },
+                new Paragliding{ModelParaglidingID=2, DateOfCommissioning=DateTime.Parse("2014-02-12"), DateOfLastRevision=DateTime.Parse("2020-01-10") },
+                new Paragliding{ModelParaglidingID=2, DateOfCommissioning=DateTime.Parse("2013-08-03"), DateOfLastRevision=DateTime.Parse("2019-09-18") },
+                new Paragliding{ModelParaglidingID=3, DateOfCommissioning=DateTime.Parse("2017-04-22"), DateOfLastRevision=DateTime.Parse("2019-11-25") },
+
+            };
+
+            foreach (Paragliding p in paraglidings)
+            {
+                context.Paraglidings.Add(p);
+            }
+            context.SaveChanges();
+
+            #endregion
+
+            #region Levels
+
+
+            var levels = new Level[]
+            {
+                new Level{Name="Colibri", Skill="Savoir decoller, savoir atterrir", DifficultyNumber=1},
+                new Level{Name="Mouette", Skill="Bonne maitrise du parapente, savoir évaluer les conditions météo", DifficultyNumber=2},
+                new Level{Name="Aigle de bronze", Skill="Savoir enseigner aux aspirants pilotes, savoir voler avec treuil, très bonne maitrise", DifficultyNumber=3},
+                new Level{Name="Aigle d'argent", Skill="Maitrise totale du parapente à tous temps", DifficultyNumber=4},
+                new Level{Name="Aigle d'or", Skill="Savoir évaluer les aspirants pilotes et les moniteurs", DifficultyNumber=5},
+
+            };
+
+            foreach (Level l in levels)
+            {
+                context.Levels.Add(l);
+            }
+
+            context.SaveChanges();
+            #endregion
+
+            #region Licenses
+
+            var licenses = new License[]
+            {
+                new License{Title="Pilote de parapente", LevelID=1},
+                new License{Title="Pilote XC de parapente", LevelID=2},
+                new License{Title="Moniteur de parapente", LevelID=3},
+                new License{Title="Pilote au treuil de parapente", LevelID=4},
+                new License{Title="Examinateur de parapente", LevelID=5}
+            };
+
+            foreach (License l in licenses)
+            {
+                context.Licenses.Add(l);
+            }
+
+            context.SaveChanges();
+
+            #endregion
+
+            #region Courses
+
+
+            var courses = new Course[]
+            {
+                new Course{StartDate=DateTime.Parse("2018-04-29"), EndDate=DateTime.Parse("2018-05-30"), CoursePrice=70.00M, LicenseID=1},
+                new Course{StartDate=DateTime.Parse("2018-06-18"), EndDate=DateTime.Parse("2018-07-10"), CoursePrice=30.50M, LicenseID=3},
+                new Course{StartDate=DateTime.Parse("2018-09-15"), EndDate=DateTime.Parse("2018-11-12"), CoursePrice=46.00M, LicenseID=2},
+                new Course{StartDate=DateTime.Parse("2019-01-15"), EndDate=DateTime.Parse("2019-03-20"), CoursePrice=60.00M, LicenseID=4},
+                new Course{StartDate=DateTime.Parse("2019-05-25"), EndDate=DateTime.Parse("2019-07-19"), CoursePrice=35.80M, LicenseID=5},
+                new Course{StartDate=DateTime.Parse("2019-10-02"), EndDate=DateTime.Parse("2019-12-23"), CoursePrice=30.50M, LicenseID=3}
+            };
+
+            foreach (Course c in courses)
+            {
+                context.Courses.Add(c);
+            }
+
+            context.SaveChanges();
+            #endregion
+
+            #region Sites
+
+
+            var sites = new Site[]
+            {
+                new Site{Name="Boom", FlightType="Thermodynamiques", OrientationLanding="Est", AltitudeTakeOff=25, OrientationTakeOff="Sud", LevelID=1},
+                new Site{Name="Ouren", FlightType="Thermodynamiques", OrientationLanding="Nord", OrientationTakeOff="Ouest", LevelID=3},
+                new Site{Name="Hornu", FlightType="Termodynamiques", OrientationLanding="Sud", OrientationTakeOff="Est", LevelID=2},
+            };
+
+            foreach (Site s in sites)
+            {
+                context.Sites.Add(s);
+            }
+
+            context.SaveChanges();
+            #endregion
+
+            #region Subscriptions
+
+
+            var subscriptions = new Subscription[]
+            {
+                new Subscription{YearID=2017, Price=20.00M},
+                new Subscription{YearID=2018, Price=25.00M},
+                new Subscription{YearID=2019, Price=15.50M},
+                new Subscription{YearID=2020, Price=19.50M},
+
+            };
+
+            foreach (Subscription s in subscriptions)
+            {
+                context.Subscriptions.Add(s);
+            }
+
+            context.SaveChanges();
+            #endregion
+
+            #region Flights
+
 
             var flights = new Flight[]
             {
@@ -72,180 +207,8 @@ namespace ParaglidingProject.Data
             context.SaveChanges();
             #endregion
 
-            #region Paraglidings
-            if (context.Paraglidings.Any())
-            {
-                return;
-            }
-
-            var paraglidings = new Paragliding[]
-            {
-                new Paragliding{ModelParaglidingID=1, DateOfCommissioning=DateTime.Parse("2015-07-02"), DateOfLastRevision=DateTime.Parse("2019-12-09") },
-                new Paragliding{ModelParaglidingID=1, DateOfCommissioning=DateTime.Parse("2016-01-28"), DateOfLastRevision=DateTime.Parse("2019-11-04") },
-                new Paragliding{ModelParaglidingID=2, DateOfCommissioning=DateTime.Parse("2014-02-12"), DateOfLastRevision=DateTime.Parse("2020-01-10") },
-                new Paragliding{ModelParaglidingID=2, DateOfCommissioning=DateTime.Parse("2013-08-03"), DateOfLastRevision=DateTime.Parse("2019-09-18") },
-                new Paragliding{ModelParaglidingID=3, DateOfCommissioning=DateTime.Parse("2017-04-22"), DateOfLastRevision=DateTime.Parse("2019-11-25") },
-
-            };
-
-            foreach(Paragliding p in paraglidings)
-            {
-                context.Paraglidings.Add(p);
-            }
-            context.SaveChanges();
-
-            #endregion
-
-            #region ModelParaglidings
-
-            if (context.ModelParaglidings.Any())
-            {
-                return;
-            }
-
-            var models = new ModelParagliding[]
-            {
-                new ModelParagliding{HeightParagliding="25m²", MaxWeightPilot=90, MinWeightPilot=40, AprovalDate=DateTime.Parse("2015-03-15"), AprovalNumber="152689" },
-                new ModelParagliding{HeightParagliding="26m²", MaxWeightPilot=100, MinWeightPilot=45, AprovalDate=DateTime.Parse("2012-07-28"), AprovalNumber="256986" },
-                new ModelParagliding{HeightParagliding="28m²", MaxWeightPilot=120, MinWeightPilot=60, AprovalDate=DateTime.Parse("2017-01-04"), AprovalNumber="362514" },
-            };
-
-            foreach(ModelParagliding m in models)
-            {
-                context.ModelParaglidings.Add(m);
-            }
-
-            context.SaveChanges();
-            #endregion
-
-            #region Licenses
-
-            if(context.Licenses.Any())
-            {
-                return;
-            }
-
-            var licenses = new License[]
-            {
-                new License{Title="Pilote de parapente", LevelID=1},
-                new License{Title="Pilote XC de parapente", LevelID=2},
-                new License{Title="Moniteur de parapente", LevelID=3},
-                new License{Title="Pilote au treuil de parapente", LevelID=4},
-                new License{Title="Examinateur de parapente", LevelID=5}
-            };
-
-            foreach(License l in licenses)
-            {
-                context.Licenses.Add(l);
-            }
-
-            context.SaveChanges();
-
-            #endregion
-
-            #region Courses
-
-            if(context.Courses.Any())
-            {
-                return;
-            }
-
-            var courses = new Course[]
-            {
-                new Course{StartDate=DateTime.Parse("2018-04-29"), EndDate=DateTime.Parse("2018-05-30"), CoursePrice=70.00M, LicenseID=1},
-                new Course{StartDate=DateTime.Parse("2018-06-18"), EndDate=DateTime.Parse("2018-07-10"), CoursePrice=30.50M, LicenseID=3},
-                new Course{StartDate=DateTime.Parse("2018-09-15"), EndDate=DateTime.Parse("2018-11-12"), CoursePrice=46.00M, LicenseID=2},
-                new Course{StartDate=DateTime.Parse("2019-01-15"), EndDate=DateTime.Parse("2019-03-20"), CoursePrice=60.00M, LicenseID=4},
-                new Course{StartDate=DateTime.Parse("2019-05-25"), EndDate=DateTime.Parse("2019-07-19"), CoursePrice=35.80M, LicenseID=5},
-                new Course{StartDate=DateTime.Parse("2019-10-02"), EndDate=DateTime.Parse("2019-12-23"), CoursePrice=30.50M, LicenseID=3}
-            };
-
-            foreach(Course c in courses)
-            {
-                context.Courses.Add(c);
-            }
-
-            context.SaveChanges();
-            #endregion
-
-            #region Levels
-
-            if(context.Levels.Any())
-            {
-                return;
-            }
-
-            var levels = new Level[]
-            {
-                new Level{Name="Colibri", Skill="Savoir decoller, savoir atterrir", DifficultyNumber=1},
-                new Level{Name="Mouette", Skill="Bonne maitrise du parapente, savoir évaluer les conditions météo", DifficultyNumber=2},
-                new Level{Name="Aigle de bronze", Skill="Savoir enseigner aux aspirants pilotes, savoir voler avec treuil, très bonne maitrise", DifficultyNumber=3},
-                new Level{Name="Aigle d'argent", Skill="Maitrise totale du parapente à tous temps", DifficultyNumber=4},
-                new Level{Name="Aigle d'or", Skill="Savoir évaluer les aspirants pilotes et les moniteurs", DifficultyNumber=5},
-
-            };
-
-            foreach(Level l in levels)
-            {
-                context.Levels.Add(l);
-            }
-
-            context.SaveChanges();
-            #endregion
-
-
-            #region Sites
-
-            if(context.Sites.Any())
-            {
-                return;
-            }
-
-            var sites = new Site[]
-            {
-                new Site{Name="Boom", FlightType="Thermodynamiques", OrientationLanding="Est", AltitudeTakeOff=25, OrientationTakeOff="Sud", LevelID=1},
-                new Site{Name="Ouren", FlightType="Thermodynamiques", OrientationLanding="Nord", OrientationTakeOff="Ouest", LevelID=3},
-                new Site{Name="Hornu", FlightType="Termodynamiques", OrientationLanding="Sud", OrientationTakeOff="Est", LevelID=2},
-            };
-
-            foreach(Site s in sites)
-            {
-                context.Sites.Add(s);
-            }
-
-            context.SaveChanges();
-            #endregion
-
-           #region Subscriptions
-
-            if(context.Subscriptions.Any())
-            {
-                return;
-            }
-
-            var subscriptions = new Subscription[]
-            {
-                new Subscription{YearID=2017, Price=20.00M},
-                new Subscription{YearID=2018, Price=25.00M},
-                new Subscription{YearID=2019, Price=15.50M},
-                new Subscription{YearID=2020, Price=19.50M},
-
-            };
-
-            foreach(Subscription s in subscriptions)
-            {
-                context.Subscriptions.Add(s);
-            }
-
-            context.SaveChanges();
-            #endregion
-
             #region Payments
 
-            if(context.Payments.Any())
-            {
-                return;
-            }
 
             var payments = new Payment[]
             {
@@ -270,7 +233,7 @@ namespace ParaglidingProject.Data
                 new Payment{SubsciptionID=3, PilotID=5, IsPay=false},
             };
 
-            foreach(Payment p in payments)
+            foreach (Payment p in payments)
             {
                 context.Payments.Add(p);
             }
@@ -280,10 +243,6 @@ namespace ParaglidingProject.Data
 
             #region Obtainings
 
-            if(context.Obtainings.Any())
-            {
-                return;
-            }
 
             var obtainings = new Obtaining[]
             {
@@ -298,7 +257,7 @@ namespace ParaglidingProject.Data
                 new Obtaining{PilotID=5, LicenseID=3, IsSucced=true, ObtainingDate=DateTime.Parse("2019-12-23") },
             };
 
-            foreach(Obtaining o in obtainings)
+            foreach (Obtaining o in obtainings)
             {
                 context.Obtainings.Add(o);
             }
@@ -309,10 +268,6 @@ namespace ParaglidingProject.Data
 
             #region Teachings
 
-            if(context.Teachings.Any())
-            {
-                return;
-            }
 
             var teachings = new Teaching[]
             {
@@ -325,7 +280,7 @@ namespace ParaglidingProject.Data
                 new Teaching{PilotID=3, CourseID=6},
             };
 
-            foreach(Teaching t in teachings)
+            foreach (Teaching t in teachings)
             {
                 context.Teachings.Add(t);
             }
@@ -336,10 +291,6 @@ namespace ParaglidingProject.Data
 
             #region Participations
 
-            if(context.Participations.Any())
-            {
-                return;
-            }
 
             var participations = new Participation[]
             {
@@ -354,7 +305,7 @@ namespace ParaglidingProject.Data
                 new Participation{CourseID=6, PilotID=5,  DateOfParticipation=DateTime.Parse("2019-09-19"), IsPay=true},
             };
 
-            foreach(Participation p in participations)
+            foreach (Participation p in participations)
             {
                 context.Participations.Add(p);
             }
@@ -365,10 +316,6 @@ namespace ParaglidingProject.Data
 
             #region Positions
 
-            if (context.Positions.Any())
-            {
-                return;
-            }
 
             var positions = new Position[]
             {
