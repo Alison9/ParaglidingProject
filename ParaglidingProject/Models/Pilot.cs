@@ -11,15 +11,12 @@ namespace ParaglidingProject.Models
         public int ID { get; set; }
         [Required]
         [Display(Name ="Prénom")]
-        [MaxLength(20, ErrorMessage = "Prénom trop long.Max.20 caractères")]
         public string FirstName { get; set; }
         [Required]
         [Display(Name ="Nom")]
-        [MaxLength(20, ErrorMessage ="Nom trop long.Max.20 caractères")]
         public string LastName { get; set; }
 
         [Display(Name = "Adresse")]
-        [MaxLength(200, ErrorMessage = "Adresse trop longue. Max.200 caractères")]
         public string Adress { get; set; }
 
         [Display(Name="Numéro de téléphone")]
