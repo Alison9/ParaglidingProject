@@ -11,7 +11,9 @@ namespace ParaglidingProject.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Display(Name="Année")]
         public int YearID { get; set; }
+        [Display(Name = "Prix")]
         public decimal Price { get; set; }
         public ICollection<Payment> Payments { get; set; }
     }
