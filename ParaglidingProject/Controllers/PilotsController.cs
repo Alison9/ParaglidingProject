@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ParaglidingProject.Data;
@@ -34,13 +35,17 @@ namespace ParaglidingProject.Controllers
             }
 
             var pilot = await _context.Pilots
+                .Include(f => f.Flights)
                 .FirstOrDefaultAsync(m => m.ID == id);
+                
             if (pilot == null)
             {
                 return NotFound();
             }
 
             return View(pilot);
+            
+            
         }
 
         // GET: Pilots/Create
@@ -54,13 +59,20 @@ namespace ParaglidingProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,FirstName,LastName,Adress,PhoneNumber,Weight,PostitionID,IsActif")] Pilot pilot)
+        public async Task<IActionResult> Create([Bind("FirstName,LastName,Adress,PhoneNumber,Weight,Position,IsActif")] Pilot pilot)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Add(pilot);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    _context.Add(pilot);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            catch(DbUpdateException)
+            {
+                ModelState.AddModelError("", "Pas bien !");
             }
             return View(pilot);
         }
