@@ -96,38 +96,38 @@ namespace ParaglidingProject.Controllers
         // POST: Pilots/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,FirstName,LastName,Adress,PhoneNumber,Weight,PostitionID,IsActif")] Pilot pilot)
+        public async Task<IActionResult> EditPost(int? id)
         {
-            if (id != pilot.ID)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            var pilotToUpdate = await _context.Pilots.FindAsync(id);
+            if (await TryUpdateModelAsync<Pilot>(pilotToUpdate, "", s => s.FirstName, s => s.LastName, s => s.Adress,
+               s => s.PhoneNumber, s => s.Weight, s => s.Position, s => s.IsActif))
             {
-                try
-                {
-                    _context.Update(pilot);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!PilotExists(pilot.ID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(pilot);
-        }
+                if (ModelState.IsValid)
 
+                {
+                    try
+                    {
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
+                    }
+                    catch (DbUpdateException /* ex */)
+                    {
+                        //Log the error (uncomment ex variable name and write a log.)
+                        ModelState.AddModelError("", "Unable to save changes. " +
+                            "Try again, and if the problem persists, " +
+                            "see your system administrator.");
+                    }
+                }
+            }
+            return View(pilotToUpdate);
+        }
         // GET: Pilots/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -152,9 +152,23 @@ namespace ParaglidingProject.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var pilot = await _context.Pilots.FindAsync(id);
-            _context.Pilots.Remove(pilot);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            if(pilot == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            try 
+            {
+                _context.Pilots.Remove(pilot);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            catch (DbUpdateException )
+            {
+                
+                return RedirectToAction(nameof(Delete), new { id = id, saveChangesError = true });
+            }
+
         }
 
         private bool PilotExists(int id)
