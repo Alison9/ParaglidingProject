@@ -42,6 +42,9 @@
                         <td>
                             @Html.DisplayFor(modeItems => item.DatePay)
                         </td>
+                        <td>
+                            <a href="/Subscriptions/EditPayment/@item.ID" asp-route-id="@item.ID" asp-action="EditPayment">Editer</a>
+                        </td>
                     </tr>
                 }
             </table>

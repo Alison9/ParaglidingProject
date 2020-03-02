@@ -1,0 +1,44 @@
+﻿@model ParaglidingProject.Models.Payment
+
+@{
+    ViewData["Title"] = "EditPayment";
+}
+
+@{
+    Layout = "_Layout";
+}
+
+<h1>Edition du payement de @Model.Pilot.FirstName @Model.Pilot.LastName</h1>
+
+<h4>Payement pour @Model.Subscription.YearID</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ID" />
+            <div class="form-group">
+                @*<label asp-for="IsPay" class="control-label"></label>
+                <input type="checkbox" asp-for="IsPay" class="form-control" />*@
+                @*@Html.DisplayNameFor(m => m.IsPay)
+                @Html.EditorFor(m => m.IsPay, new { @class="form-control"})*@
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @*<label asp-for="DatePay" class="control-label"></label>
+                <input type="datetime" asp-for="DatePay" class="form-control" />*@
+                @*@Html.DisplayNameFor(m => m.DatePay)
+                @Html.EditorFor(m => m.DatePay, new { @class="form-control"})*@
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

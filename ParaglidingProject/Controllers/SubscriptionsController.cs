@@ -38,7 +38,9 @@ namespace ParaglidingProject.Controllers
                 .Include(p => p.Payments)
                 .ThenInclude(pi => pi.Pilot)
                 .AsNoTracking()
-                .FirstOrDefaultAsync(m => m.YearID == id);
+                .FirstOrDefaultAsync(y => y.YearID == id);
+              
+  
             if (subscription == null)
             {
                 return NotFound();
@@ -88,36 +90,52 @@ namespace ParaglidingProject.Controllers
         // POST: Subscriptions/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("YearID,Price")] Subscription subscription)
+        public async Task<IActionResult> EditPost(int? id)
         {
-            if (id != subscription.YearID)
+            if (id == null)
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
+            var subscriptionToUpdate = await _context.Subscriptions.FirstOrDefaultAsync(s => s.YearID == id);
+            if (await TryUpdateModelAsync<Subscription>(
+                subscriptionToUpdate, "", s => s.YearID, s => s.Price))
             {
                 try
                 {
-                    _context.Update(subscription);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateException)
                 {
-                    if (!SubscriptionExists(subscription.YearID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    ModelState.AddModelError("", "Unable to save changes. " +
+                "Try again, and if the problem persists, " +
+                "see your system administrator.");
                 }
-                return RedirectToAction(nameof(Index));
             }
-            return View(subscription);
+
+            //if (ModelState.IsValid)
+            //{
+            //    try
+            //    {
+            //        _context.Update(subscription);
+            //        await _context.SaveChangesAsync();
+            //    }
+            //    catch (DbUpdateConcurrencyException)
+            //    {
+            //        if (!SubscriptionExists(subscription.YearID))
+            //        {
+            //            return NotFound();
+            //        }
+            //        else
+            //        {
+            //            throw;
+            //        }
+            //    }
+            //    return RedirectToAction(nameof(Index));
+            //}
+            return View(subscriptionToUpdate);
         }
 
         // GET: Subscriptions/Delete/5
@@ -152,6 +170,57 @@ namespace ParaglidingProject.Controllers
         private bool SubscriptionExists(int id)
         {
             return _context.Subscriptions.Any(e => e.YearID == id);
+        }
+
+        public async Task<IActionResult> EditPayment(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var payment = await _context.Payments
+                .Include(p => p.Pilot)
+                .Include(s => s.Subscription)
+                .FirstOrDefaultAsync(i => i.ID == id);
+                //.FindAsync(id);
+            if (payment == null)
+            {
+                return NotFound();
+            }
+            return View(payment);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditPayment(int id, [Bind("ID,IsPay,DatePay")] Payment payment)
+        {
+            if (id != payment.ID)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(payment);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!SubscriptionExists(payment.ID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Details));
+            }
+            return View(payment);
         }
     }
 }
