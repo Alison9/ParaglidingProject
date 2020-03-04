@@ -11,7 +11,7 @@
 <h1>Historique des cotisations</h1>
 
 <p>
-    <a href="/Subscriptions/Create" asp-action="Create">Create New</a>
+    <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -34,9 +34,9 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                <a href="/Subscriptions/Edit/@item.YearID" asp-action="Edit" asp-route-id="@item.YearID">Publier</a> |
-                <a href="/Subscriptions/Details/@item.YearID" asp-action="Details" asp-route-id="@item.YearID">Details</a> |
-                <a href="/Subscriptions/Delete/@item.YearID" asp-action="Delete" asp-route-id="@item.YearID">Supprimer</a>
+                <a asp-action="Edit" asp-route-id="@item.YearID">Publier</a> |
+                <a asp-action="Details" asp-route-id="@item.YearID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.YearID">Supprimer</a>
             </td>
         </tr>
 }

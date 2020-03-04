@@ -11,7 +11,7 @@
 <h1>Pilote</h1>
 
 <p>
-    <a href="/Pilots/Create" asp-action="Create">Créer un charmant pilote</a>
+    <a asp-action="Create">Créer un charmant pilote</a>
 </p>
 <table class="table">
     <thead>
@@ -59,9 +59,9 @@
                 @Html.DisplayFor(modelItem => item.IsActif)
             </td>
             <td>
-                <a href="/Pilots/Edit/@item.ID"  asp-action="Edit" asp-route-id="@item.ID">Publier</a> |
-                <a href="/Pilots/Details/@item.ID"  asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a href="/Pilots/Delete/@item.ID" asp-action="Delete" asp-route-id="@item.ID">Supprimer</a>
+                <a  asp-action="Edit" asp-route-id="@item.ID">Publier</a> |
+                <a  asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a  asp-action="Delete" asp-route-id="@item.ID">Supprimer</a>
             </td>
         </tr>
 }
