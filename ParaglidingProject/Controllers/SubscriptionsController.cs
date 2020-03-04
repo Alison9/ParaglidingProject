@@ -191,36 +191,60 @@ namespace ParaglidingProject.Controllers
             return View(payment);
         }
 
-        [HttpPost]
+        [HttpPost, ActionName("EditPayment")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditPayment(int id, [Bind("ID,IsPay,DatePay")] Payment payment)
+        public async Task<IActionResult> EditPaymentPost(int? id)
         {
-            if (id != payment.ID)
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var paymentToUpdate = await _context.Payments.FirstOrDefaultAsync(p => p.ID == id);
+            if (await TryUpdateModelAsync<Payment>(
+                paymentToUpdate, "", p => p.IsPay, p => p.DatePay))
+            {
+                try
+                {
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (DbUpdateException)
+                {
+                    ModelState.AddModelError("", "Unable to save changes. " +
+                "Try again, and if the problem persists, " +
+                "see your system administrator.");
+                }
+            }
+            return View(paymentToUpdate);
+        }
+
+        public async Task<IActionResult> DeletePayment(int? id)
+        {
+            if (id == null)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            var payment = await _context.Payments
+                .Include(p => p.Pilot)
+                .Include(s => s.Subscription)
+                .FirstOrDefaultAsync(m => m.ID == id);
+            if (payment == null)
             {
-                try
-                {
-                    _context.Update(payment);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!SubscriptionExists(payment.ID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Details));
+                return NotFound();
             }
+
             return View(payment);
+        }
+
+        [HttpPost, ActionName("DeletePayment")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeletePaymentConfirmed(int id)
+        {
+            var payment = await _context.Payments.FindAsync(id);
+            _context.Payments.Remove(payment);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
     }
 }
