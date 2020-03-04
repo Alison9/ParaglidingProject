@@ -29,25 +29,25 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index" href="/Home/Index">Bienvenue</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Bienvenue</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About" href="/Home/Index">A propos</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">A propos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Pilots" asp-action="Index" href="/Pilots/Index">Pilotes</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Pilots" asp-action="Index">Pilotes</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Subscriptions" asp-action="Index" href="/Subscriptions/Index">Cotisations</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Subscriptions" asp-action="Index">Cotisations</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Courses" asp-action="Index" href="/Courses/Index">Stages</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Courses" asp-action="Index">Stages</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="ModelParaglidings" asp-action="Index" href="/ModelParaglidings/Index">Modèles de parapentes</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="ModelParaglidings" asp-action="Index">Modèles de parapentes</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Sites" asp-action="Index" href="/Sites/Index">Sites</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Sites" asp-action="Index">Sites</a>
                         </li>
                     </ul>
                 </div>
@@ -55,7 +55,7 @@
         </nav>
     </header>
     <div class="container">
-        <partial name="_CookieConsentPartial" />
+        @*<partial name="_CookieConsentPartial" />*@
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
