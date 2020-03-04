@@ -119,6 +119,8 @@ namespace ParaglidingProject.Data
             modelBuilder.Entity<Subscription>()
                 .HasMany(py => py.Payments)
                 .WithOne(sb => sb.Subscription)
+                .HasForeignKey(si => si.SubsciptionID)
+                .IsRequired(false)
                 .OnDelete(DeleteBehavior.Restrict);
 
         }

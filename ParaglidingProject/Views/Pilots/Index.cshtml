@@ -32,12 +32,9 @@
                 @Html.DisplayNameFor(model => model.Weight)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PostitionID)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.IsActif)
             </th>
-            <th></th>
+            
         </tr>
     </thead>
     <tbody>
@@ -59,15 +56,12 @@
                 @Html.DisplayFor(modelItem => item.Weight)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PostitionID)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.IsActif)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Publier</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Supprimer</a>
+                <a  asp-action="Edit" asp-route-id="@item.ID">Publier</a> |
+                <a  asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a  asp-action="Delete" asp-route-id="@item.ID">Supprimer</a>
             </td>
         </tr>
 }

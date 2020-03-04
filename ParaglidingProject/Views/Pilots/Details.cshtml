@@ -45,17 +45,42 @@
             @Html.DisplayFor(model => model.Weight)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PostitionID)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PostitionID)
-        </dd>
-        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.IsActif)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.IsActif)
         </dd>
+        <dt class="col-sm-2">
+           @Html.DisplayNameFor(model => model.Flights)
+        </dt>
+        <dd>
+           @Html.DisplayFor(model => model.Flights)
+        </dd>
+        <table>
+            <tr>
+                <th>FlightDate</th>
+                <th>FlightStart</th>
+                <th>FlightEnd</th>
+                <th>Site</th>
+            </tr>
+            @foreach (var item in Model.Flights)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FlightDate);
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FlightStart);
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FlightEnd);
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Site);
+                    </td>
+                </tr>
+            }
+        </table>
     </dl>
 </div>
 <div>
