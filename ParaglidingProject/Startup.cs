@@ -29,7 +29,7 @@ namespace ParaglidingProject
             
             services.AddDbContext<ParaglidingClubContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllersWithViews();
-            services.AddRazorPages();
+           
             services.AddRazorPages();
         }
 
