@@ -24,6 +24,8 @@ namespace ParaglidingProject.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _context.Pilots.ToListAsync());
+
+
         }
 
         // GET: Pilots/Details/5
@@ -36,13 +38,30 @@ namespace ParaglidingProject.Controllers
 
             var pilot = await _context.Pilots
                 .Include(f => f.Flights)
+                .Include(o => o.Obtainings)
+                    .ThenInclude(li => li.License)
+                       .ThenInclude(le =>le.Level)
                 .FirstOrDefaultAsync(m => m.ID == id);
-                
+
+            var flight = _context.Flights.Where(f => f.PilotID == id);
+            var collectionflight = flight.Count();
+            ViewData["collectionflight"] = collectionflight;
+            TimeSpan flightTime = new TimeSpan();
+
             if (pilot == null)
             {
                 return NotFound();
             }
 
+            foreach (var item in flight)
+            {
+                TimeSpan FlightDuration = (item.FlightEnd) - (item.FlightStart);
+                        ViewData["flightDuration"] = FlightDuration;
+                        flightTime += FlightDuration;
+                        ViewData["flightTimeTotal"] = flightTime;
+                
+            }
+            
             return View(pilot);
             
             

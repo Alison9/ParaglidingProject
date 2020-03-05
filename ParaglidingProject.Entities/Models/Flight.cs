@@ -9,7 +9,7 @@ namespace ParaglidingProject.Models
     public class Flight
     {
         public int ID { get; set; }
-
+        [DataType(DataType.Date)]
         public DateTime FlightDate { get; set; }
 
         [DataType(DataType.Time)]
