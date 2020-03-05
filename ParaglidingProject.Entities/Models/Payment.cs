@@ -9,6 +9,7 @@ namespace ParaglidingProject.Models
     public class Payment
     {
         public int ID { get; set; }
+        [Display(Name="Pilote")]
         public int PilotID { get; set; }
         public int SubsciptionID { get; set; }
         [Display(Name="Payé?")]

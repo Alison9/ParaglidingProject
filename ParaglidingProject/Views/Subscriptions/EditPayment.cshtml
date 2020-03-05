@@ -5,7 +5,7 @@
 }
 
 
-<h1>Edition du payement de @Model.Pilot.FirstName @Model.Pilot.LastName</h1>
+    <h1>Edition du payement de @Model.Pilot.FirstName @Model.Pilot.LastName pour l'année @Model.Subscription.YearID</h1>
 
 <h4>Payement pour @Model.Subscription.YearID</h4>
 <hr />
@@ -17,16 +17,11 @@
             <div class="form-group">
                 <label asp-for="IsPay" class="control-label"></label>
                 <input asp-for="IsPay" class="form-control" />
-                @*@Html.DisplayNameFor(m => m.IsPay)
-                @Html.EditorFor(m => m.IsPay, new { @class="form-control"})*@
                 <span asp-validation-for="IsPay" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DatePay" class="control-label"></label>
                 <input asp-for="DatePay" class="form-control" />
-                @*@Html.DisplayNameFor(m => m.DatePay)
-                @Html.EditorFor(m => m.DatePay, new { @class="form-control"})*@
-                @*<span asp-validation-for="DatePay" class="text-danger"></span>*@
             </div>
             <div class="form-group">
                 <input type="submit" value="Sauver" class="btn btn-primary" />

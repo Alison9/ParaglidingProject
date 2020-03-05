@@ -114,27 +114,6 @@ namespace ParaglidingProject.Controllers
                 "see your system administrator.");
                 }
             }
-
-            //if (ModelState.IsValid)
-            //{
-            //    try
-            //    {
-            //        _context.Update(subscription);
-            //        await _context.SaveChangesAsync();
-            //    }
-            //    catch (DbUpdateConcurrencyException)
-            //    {
-            //        if (!SubscriptionExists(subscription.YearID))
-            //        {
-            //            return NotFound();
-            //        }
-            //        else
-            //        {
-            //            throw;
-            //        }
-            //    }
-            //    return RedirectToAction(nameof(Index));
-            //}
             return View(subscriptionToUpdate);
         }
 
@@ -245,6 +224,27 @@ namespace ParaglidingProject.Controllers
             _context.Payments.Remove(payment);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult CreatePayment(int? id)
+        {
+            ViewData["SubsciptionID"] = id;
+            ViewData["PilotID"] = new SelectList(_context.Pilots, "ID", "FirstName");
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreatePayment([Bind("PilotID, SubsciptionID, IsPay,DatePay")] Payment payment)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(payment);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["PilotID"] = new SelectList(_context.Pilots, "ID", "FirstName", payment.PilotID);
+            return View(payment);
         }
     }
 }

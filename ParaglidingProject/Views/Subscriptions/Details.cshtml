@@ -8,7 +8,7 @@
 <h1>Details des cotisations pour @Model.YearID</h1>
 
 <div>
-    <h4>Cotisations</h4>
+    <h4>Cotisations @Model.YearID</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -26,7 +26,7 @@
                     <th>Pilotes</th>
                     <th>Payé?</th>
                     <th>Date de payement</th>
-                    <a class="btn btn-primary" asp-action="CreatePayment">Ajouter un payment</a>
+                    <a class="btn btn-primary" asp-route-id="@Model.YearID" asp-action="CreatePayment">Ajouter un payment</a>
                 </tr>
                 @foreach(var item in Model.Payments)
                 {
