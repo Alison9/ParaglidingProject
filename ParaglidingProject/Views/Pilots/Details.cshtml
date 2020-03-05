@@ -51,12 +51,19 @@
             @Html.DisplayFor(model => model.IsActif)
         </dd>
         <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Position)
+        </dt>
+        <dd class=" col-sm-10">
+            @Html.DisplayFor(model => model.Position)
+        </dd>
+        <dt class="col-sm-2">
             Nombre total d'heures de vol
         </dt>
-        <dd>
-           @ViewData["flightTimeTotal"]
+        <dd class="col-sm-10">
+            @ViewData["flightTimeTotal"]
         </dd>
-        </dl>
+
+    </dl>
         <table>
             <tr>
                 <th class="col-sm-2">FlightDate</th>
@@ -118,6 +125,14 @@
         </tr>
             }
         </table>
+    <dl>
+        <dt>
+            @Html.DisplayNameFor(model => model.Participations)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Participations)
+        </dd>
+    </dl>
     
 </div>
 <div>
