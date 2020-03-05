@@ -14,6 +14,7 @@ namespace ParaglidingProject.Models
         [Display(Name="Année")]
         public int YearID { get; set; }
         [Display(Name = "Prix")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal Price { get; set; }
         public ICollection<Payment> Payments { get; set; }
     }

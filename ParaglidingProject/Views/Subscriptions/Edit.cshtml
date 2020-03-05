@@ -7,9 +7,8 @@
     Layout = "_Layout";
 }
 
-<h1>Edit</h1>
+<h1>Editer les information des cotisations pour l'année @Model.YearID</h1>
 
-<h4>Subscription</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -18,16 +17,12 @@
             <input type="hidden" asp-for="YearID" />
             <div class="form-group">
                 <label asp-for="YearID" class="control-label">Année</label>
-        <input asp-for="YearID" class="form-control" />
-             @*@Html.DisplayNameFor(m => m.YearID)
-               @Html.EditorFor(m => m.YearID, new { @class="form-control"})*@
+            <input asp-for="YearID" class="form-control" />
                 <span asp-validation-for="YearID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Price" class="control-label">Prix</label>
                 <input asp-for="Price" class="form-control" />
-                @*@Html.DisplayNameFor(m => m.Price)
-                @Html.EditorFor(m => m.Price, new { @class = "form-control" })*@
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
             <div class="form-group">

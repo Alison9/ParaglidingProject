@@ -12,15 +12,17 @@ namespace ParaglidingProject.Models
 
         [DataType(DataType.Date)]
         [Display(Name = "Date de mise en service")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         [Required]
         public DateTime DateOfCommissioning { get; set; }
 
         [DataType(DataType.Date)]
         [Display(Name = "Date de la dernière révision")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         [Required]
         public DateTime DateOfLastRevision { get; set; }
-        public int ModelParaglidingID { get; set; }
-        [Display(Name = "Modèle")]
+        [Display(Name = "Numéro du modèle")]
+        public int ModelParaglidingID { get; set; } 
         public ModelParagliding ModelParagliding { get; set; }
         public ICollection<Flight> Flights { get; set; }
     }
