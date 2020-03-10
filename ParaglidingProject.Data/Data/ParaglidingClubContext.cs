@@ -79,11 +79,13 @@ namespace ParaglidingProject.Data
             modelBuilder.Entity<ModelParagliding>()
                 .HasMany(pa => pa.Paraglidings)
                 .WithOne(mp => mp.ModelParagliding)
+                .HasForeignKey(mp => mp.ModelParaglidingID)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Paragliding>()
                 .HasMany(f => f.Flights)
                 .WithOne(pa => pa.Paragliding)
+                .HasForeignKey(p => p.ParaglidingID)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Pilot>()

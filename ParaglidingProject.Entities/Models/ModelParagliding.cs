@@ -9,6 +9,7 @@ namespace ParaglidingProject.Models
 {
     public class ModelParagliding
     {
+        [Display(Name="Numero du modèle")]
         public int ID { get; set; }
         [Display(Name = "Taille")]
         public string HeightParagliding { get; set; }
