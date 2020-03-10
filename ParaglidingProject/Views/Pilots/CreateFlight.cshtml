@@ -1,0 +1,63 @@
+﻿@model ParaglidingProject.Models.Flight
+
+@{
+    ViewData["Title"] = "CreateFlight";
+}
+
+<h1>CreateFlight</h1>
+
+<h4>Flight</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateFlight">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ID" class="control-label"></label>
+                <input asp-for="ID" class="form-control" />
+                <span asp-validation-for="ID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FlightDate" class="control-label"></label>
+                <input asp-for="FlightDate" class="form-control" />
+                <span asp-validation-for="FlightDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FlightStart" class="control-label"></label>
+                <input asp-for="FlightStart" class="form-control" />
+                <span asp-validation-for="FlightStart" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FlightEnd" class="control-label"></label>
+                <input asp-for="FlightEnd" class="form-control" />
+                <span asp-validation-for="FlightEnd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PilotID" class="control-label"></label>
+                <input asp-for="PilotID" class="form-control" />
+                <span asp-validation-for="PilotID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ParaglidingID" class="control-label"></label>
+                <input asp-for="ParaglidingID" class="form-control" />
+                <span asp-validation-for="ParaglidingID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SiteID" class="control-label"></label>
+                <input asp-for="SiteID" class="form-control" />
+                <span asp-validation-for="SiteID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

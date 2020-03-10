@@ -190,6 +190,9 @@ namespace ParaglidingProject.Controllers
 
         }
 
+        
+
+       
         private bool PilotExists(int id)
         {
             return _context.Pilots.Any(e => e.ID == id);
