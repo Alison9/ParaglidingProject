@@ -17,6 +17,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.ID)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.HeightParagliding)
             </th>
             <th>
@@ -38,6 +41,9 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.HeightParagliding)
             </td>
             <td>
@@ -53,9 +59,9 @@
                 @Html.DisplayFor(modelItem => item.AprovalDate)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Publier</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Supprimer</a>
+                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.ID">Publier</a> |
+                <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a class="btn btn-primary" asp-action="Delete" asp-route-id="@item.ID">Supprimer</a>
             </td>
         </tr>
 }

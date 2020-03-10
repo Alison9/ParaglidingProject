@@ -8,6 +8,7 @@ namespace ParaglidingProject.Models
 {
     public class Paragliding
     {
+        [Display(Name="Numéro du parapente")]
         public int ID { get; set; }
 
         [DataType(DataType.Date)]
