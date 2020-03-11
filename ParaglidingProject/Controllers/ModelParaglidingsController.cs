@@ -85,36 +85,58 @@ namespace ParaglidingProject.Controllers
         // POST: ModelParaglidings/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,HeightParagliding,MaxWeightPilot,MinWeightPilot,AprovalNumber,AprovalDate")] ModelParagliding modelParagliding)
+        public async Task<IActionResult> EditPost(int? id)
         {
-            if (id != modelParagliding.ID)
+            if (id == null)
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
+            var modelParaglidingToUpdate = await _context.ModelParaglidings.FirstOrDefaultAsync(p => p.ID == id);
+            if (await TryUpdateModelAsync<ModelParagliding>(
+                modelParaglidingToUpdate, "", p => p.HeightParagliding, p => p.AprovalDate, p => p.AprovalNumber, p => p.MaxWeightPilot, p => p.MinWeightPilot))
             {
                 try
                 {
-                    _context.Update(modelParagliding);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateException)
                 {
-                    if (!ModelParaglidingExists(modelParagliding.ID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    ModelState.AddModelError("", "Unable to save changes. " +
+                "Try again, and if the problem persists, " +
+                "see your system administrator.");
                 }
-                return RedirectToAction(nameof(Index));
             }
-            return View(modelParagliding);
+            return View(modelParaglidingToUpdate);
+
+            //if (id != modelParagliding.ID)
+            //{
+            //    return NotFound();
+            //}
+
+            //if (ModelState.IsValid)
+            //{
+            //    try
+            //    {
+            //        _context.Update(modelParagliding);
+            //        await _context.SaveChangesAsync();
+            //    }
+            //    catch (DbUpdateConcurrencyException)
+            //    {
+            //        if (!ModelParaglidingExists(modelParagliding.ID))
+            //        {
+            //            return NotFound();
+            //        }
+            //        else
+            //        {
+            //            throw;
+            //        }
+            //    }
+            //    return RedirectToAction(nameof(Index));
+            //}
+            //return View(modelParagliding);
         }
 
         // GET: ModelParaglidings/Delete/5
@@ -213,6 +235,7 @@ namespace ParaglidingProject.Controllers
             {
                 return NotFound();
             }
+            ViewData["ModelParaglidingID"] = new SelectList(_context.ModelParaglidings, "ID", "ID");
             return View(paragliding);
         }
 
@@ -225,11 +248,13 @@ namespace ParaglidingProject.Controllers
                 return NotFound();
             }
             var paraglidingToUpdate = await _context.Paraglidings.FirstOrDefaultAsync(p => p.ID == id);
+            
             if (await TryUpdateModelAsync<Paragliding>(
                 paraglidingToUpdate, "", p => p.DateOfCommissioning, p => p.DateOfLastRevision, p => p.ModelParaglidingID))
             {
                 try
                 {
+                   
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
@@ -240,7 +265,38 @@ namespace ParaglidingProject.Controllers
                 "see your system administrator.");
                 }
             }
+
             return View(paraglidingToUpdate);
+        }
+
+        public async Task<IActionResult> DetailsParagliding(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var paragliding = await _context.Paraglidings
+                .Include(p => p.ModelParagliding)
+                .Include(f => f.Flights)
+                .ThenInclude(p => p.Pilot)
+                .FirstOrDefaultAsync(m => m.ID == id);
+            if (paragliding == null)
+            {
+                return NotFound();
+            }
+
+            var flights = _context.Flights.Where(f => f.ParaglidingID == id);
+            ViewData["flightCount"] = flights.Count();
+
+            foreach(var item in flights)
+            {
+                var flightDuration = item.FlightEnd - item.FlightStart;
+                ViewData["flightTime"] = + flightDuration;
+            }
+
+
+            return View(paragliding);
         }
     }
 }
