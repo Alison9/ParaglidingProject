@@ -1,0 +1,89 @@
+﻿@model ParaglidingProject.Models.Paragliding
+@{
+    ViewData["Title"] = "DetailsParagliding";
+}
+
+<h1>Details du parapente numéro @Model.ID</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DateOfCommissioning)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DateOfCommissioning)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DateOfLastRevision)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DateOfLastRevision)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ModelParagliding.ID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ModelParagliding.ID)
+        </dd>
+        <dt class="col-sm-2">
+            Nombre de vols
+        </dt>
+        <dd class="col-sm-10">
+            @ViewBag.flightCount
+        </dd>
+        <dt class="col-sm-2">
+            Nombre d'heures de vols
+        </dt>
+        <dd class="col-sm-10">
+            @ViewBag.flightTime
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Flights)
+        </dt>
+        <dd class="col-sm-10">
+            <table class="table">
+                <tr>
+                    <th>Date du vol</th>
+                    <th>Heure de début</th>
+                    <th>Heure de fin</th>
+                    <th>Pilote</th>
+                    @*<a class="btn btn-primary" asp-route-id="@Model.ID" asp-action="CreateParagliding">Ajouter un parapente</a>*@
+                </tr>
+                @foreach (var item in Model.Flights)
+                {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItems => item.FlightDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItems => item.FlightStart)
+                </td>
+                <td>
+                    @Html.DisplayFor(modeItems => item.FlightEnd)
+                </td>
+                <td>
+                    @Html.DisplayFor(modeItems => item.Pilot.FirstName) @Html.DisplayFor(modeItems => item.Pilot.LastName)
+                </td>
+                <td>
+                    <a class="btn btn-primary" asp-route-id="@item.ID" asp-action="DetailsParagliding">Détails</a> |
+                    <a class="btn btn-primary" asp-route-id="@item.ID" asp-action="EditParagliding">Editer</a> |
+                    <a class="btn btn-primary" asp-route-id="@item.ID" asp-action="DeleteParagliding">Supprimer</a>
+                </td>
+            </tr>
+                }
+            </table>
+        </dd>
+    </dl>
+</div>
+<div>
+    @*<a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.ID">Publier</a> |*@
+    <a class="btn btn-primary" asp-action="Index">Retour à la liste</a>
+</div>
+
