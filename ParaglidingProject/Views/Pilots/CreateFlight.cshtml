@@ -13,9 +13,9 @@
         <form asp-action="CreateFlight">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="ID" class="control-label"></label>
-                <input asp-for="ID" class="form-control" />
-                <span asp-validation-for="ID" class="text-danger"></span>
+                <label asp-for="PilotID" class="control-label"></label>
+                <input asp-for="PilotID" class="control-label" />
+                <span asp-validation-for="PilotID" class="text-start"></span>
             </div>
             <div class="form-group">
                 <label asp-for="FlightDate" class="control-label"></label>
@@ -33,11 +33,6 @@
                 <span asp-validation-for="FlightEnd" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PilotID" class="control-label"></label>
-                <input asp-for="PilotID" class="form-control" />
-                <span asp-validation-for="PilotID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="ParaglidingID" class="control-label"></label>
                 <input asp-for="ParaglidingID" class="form-control" />
                 <span asp-validation-for="ParaglidingID" class="text-danger"></span>
@@ -48,14 +43,14 @@
                 <span asp-validation-for="SiteID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Créer" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Retour à la liste</a>
 </div>
 
 @section Scripts {
