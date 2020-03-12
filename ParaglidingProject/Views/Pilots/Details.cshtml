@@ -51,39 +51,89 @@
             @Html.DisplayFor(model => model.IsActif)
         </dd>
         <dt class="col-sm-2">
-           @Html.DisplayNameFor(model => model.Flights)
+            @Html.DisplayNameFor(model => model.Position)
+        </dt>
+        <dd class=" col-sm-10">
+            @Html.DisplayFor(model => model.Position)
+        </dd>
+        <dt class="col-sm-2">
+            Nombre total d'heures de vol
+        </dt>
+        <dd class="col-sm-10">
+            @ViewData["flightTimeTotal"]
+        </dd>
+
+    </dl>
+    <table>
+        <tr>
+            <th class="col-sm-2">FlightDate</th>
+            <th class="col-sm-2">FlightStart</th>
+            <th class="col-sm-2">FlightEnd</th>
+            <th class="col-sm-2">Durée de vol</th>
+
+
+        </tr>
+        @foreach (var item in Model.Flights)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FlightDate);
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FlightStart);
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FlightEnd);
+                </td>
+                <td>
+                    @ViewData["flightDuration"]
+                </td>
+            </tr>
+        }
+        <a class="btn btn-primary" asp-action="CreateFlight">Créer</a>
+    </table>
+       
+        <br />
+    <table>
+        <tr>
+            <td>Nbre de vols : @ViewData["collectionflight"]</td>
+        </tr>
+    </table>
+    <br />
+    <table>
+        <tr>
+            <th class="col-sm-3">Brevet(s) Obtenu(s)</th>
+            <th class="col-sm-3">Niveau</th>
+            <th class="col-sm-3">Date d'obtention</th>
+
+        </tr>
+        @foreach (var item in Model.Obtainings)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.License.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.License.Level.DifficultyNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ObtainingDate)
+                </td>
+
+            </tr>
+        }
+    </table>
+    <dl>
+        <dt>
+            @Html.DisplayNameFor(model => model.Participations)
         </dt>
         <dd>
-           @Html.DisplayFor(model => model.Flights)
+            @Html.DisplayFor(model => model.Participations)
         </dd>
-        <table>
-            <tr>
-                <th>FlightDate</th>
-                <th>FlightStart</th>
-                <th>FlightEnd</th>
-                <th>Site</th>
-            </tr>
-            @foreach (var item in Model.Flights)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FlightDate);
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FlightStart);
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FlightEnd);
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Site);
-                    </td>
-                </tr>
-            }
-        </table>
     </dl>
+
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.ID">Publier</a> |
-    <a asp-action="Index">Retour à la liste</a>
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.ID">Publier</a> |
+    <a class="btn btn-primary" asp-action="Index">Retour à la liste</a>
 </div>

@@ -1,37 +1,37 @@
 ﻿@model ParaglidingProject.Models.Paragliding
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "DeleteParagliding";
 }
 
 <h1>Supprimer</h1>
 
-<h3>Etes-vous sûr de vouloir supprimer ce parapente ?</h3>
+<h3>Etes-vous sûr de vouloir supprimer ce superbe parapente de modèle @ViewBag.ModelParagliding ?</h3>
 <div>
-    <h4>Paragliding</h4>
+    <h4>Parapente</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ID)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.DateOfCommissioning)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.DateOfCommissioning)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.DateOfLastRevision)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.DateOfLastRevision)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ModelParagliding)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ModelParagliding.ID)
-        </dd class>
     </dl>
-    
-    <form asp-action="Delete">
+
+    <form asp-action="DeleteParagliding">
         <input type="hidden" asp-for="ID" />
         <input type="submit" value="Supprimer" class="btn btn-danger" /> |
         <a class="btn btn-primary" asp-action="Index">Retour à la liste</a>

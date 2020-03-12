@@ -34,6 +34,7 @@ namespace ParaglidingProject.Controllers
             }
 
             var modelParagliding = await _context.ModelParaglidings
+                .Include(p => p.Paraglidings)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (modelParagliding == null)
             {
@@ -84,36 +85,58 @@ namespace ParaglidingProject.Controllers
         // POST: ModelParaglidings/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,HeightParagliding,MaxWeightPilot,MinWeightPilot,AprovalNumber,AprovalDate")] ModelParagliding modelParagliding)
+        public async Task<IActionResult> EditPost(int? id)
         {
-            if (id != modelParagliding.ID)
+            if (id == null)
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
+            var modelParaglidingToUpdate = await _context.ModelParaglidings.FirstOrDefaultAsync(p => p.ID == id);
+            if (await TryUpdateModelAsync<ModelParagliding>(
+                modelParaglidingToUpdate, "", p => p.HeightParagliding, p => p.AprovalDate, p => p.AprovalNumber, p => p.MaxWeightPilot, p => p.MinWeightPilot))
             {
                 try
                 {
-                    _context.Update(modelParagliding);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateException)
                 {
-                    if (!ModelParaglidingExists(modelParagliding.ID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    ModelState.AddModelError("", "Unable to save changes. " +
+                "Try again, and if the problem persists, " +
+                "see your system administrator.");
                 }
-                return RedirectToAction(nameof(Index));
             }
-            return View(modelParagliding);
+            return View(modelParaglidingToUpdate);
+
+            //if (id != modelParagliding.ID)
+            //{
+            //    return NotFound();
+            //}
+
+            //if (ModelState.IsValid)
+            //{
+            //    try
+            //    {
+            //        _context.Update(modelParagliding);
+            //        await _context.SaveChangesAsync();
+            //    }
+            //    catch (DbUpdateConcurrencyException)
+            //    {
+            //        if (!ModelParaglidingExists(modelParagliding.ID))
+            //        {
+            //            return NotFound();
+            //        }
+            //        else
+            //        {
+            //            throw;
+            //        }
+            //    }
+            //    return RedirectToAction(nameof(Index));
+            //}
+            //return View(modelParagliding);
         }
 
         // GET: ModelParaglidings/Delete/5
@@ -148,6 +171,132 @@ namespace ParaglidingProject.Controllers
         private bool ModelParaglidingExists(int id)
         {
             return _context.ModelParaglidings.Any(e => e.ID == id);
+        }
+
+        public IActionResult CreateParagliding(int? id)
+        {
+            ViewData["ModelParagliding"] = id;
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateParagliding([Bind("DateOfCommissioning, DateOfLastRevision, ModelParaglidingID")] Paragliding paragliding)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(paragliding);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(paragliding);
+        }
+
+        public async Task<IActionResult> DeleteParagliding(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            ViewData["ModelParagliding"] = id;
+
+            var paragliding = await _context.Paraglidings
+                .FirstOrDefaultAsync(m => m.ID == id);
+            if (paragliding == null)
+            {
+                return NotFound();
+            }
+
+            return View(paragliding);
+        }
+
+        [HttpPost, ActionName("DeleteParagliding")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteParaglidingConfirmed(int id)
+        {
+            var paragliding = await _context.Paraglidings.FindAsync(id);
+            _context.Paraglidings.Remove(paragliding);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> EditParagliding(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var paragliding = await _context.Paraglidings
+                .FirstOrDefaultAsync(i => i.ID == id);
+            //.FindAsync(id);
+            if (paragliding == null)
+            {
+                return NotFound();
+            }
+            ViewData["ModelParaglidingID"] = new SelectList(_context.ModelParaglidings, "ID", "ID");
+            return View(paragliding);
+        }
+
+        [HttpPost, ActionName("EditParagliding")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditParaglidingPost(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var paraglidingToUpdate = await _context.Paraglidings.FirstOrDefaultAsync(p => p.ID == id);
+            
+            if (await TryUpdateModelAsync<Paragliding>(
+                paraglidingToUpdate, "", p => p.DateOfCommissioning, p => p.DateOfLastRevision, p => p.ModelParaglidingID))
+            {
+                try
+                {
+                   
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (DbUpdateException)
+                {
+                    ModelState.AddModelError("", "Unable to save changes. " +
+                "Try again, and if the problem persists, " +
+                "see your system administrator.");
+                }
+            }
+
+            return View(paraglidingToUpdate);
+        }
+
+        public async Task<IActionResult> DetailsParagliding(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var paragliding = await _context.Paraglidings
+                .Include(p => p.ModelParagliding)
+                .Include(f => f.Flights)
+                .ThenInclude(p => p.Pilot)
+                .FirstOrDefaultAsync(m => m.ID == id);
+            if (paragliding == null)
+            {
+                return NotFound();
+            }
+
+            var flights = _context.Flights.Where(f => f.ParaglidingID == id);
+            ViewData["flightCount"] = flights.Count();
+
+            foreach(var item in flights)
+            {
+                var flightDuration = item.FlightEnd - item.FlightStart;
+                ViewData["flightTime"] = + flightDuration;
+            }
+
+
+            return View(paragliding);
         }
     }
 }

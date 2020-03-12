@@ -9,6 +9,7 @@ namespace ParaglidingProject.Models
 {
     public class ModelParagliding
     {
+        [Display(Name="Numero du modèle")]
         public int ID { get; set; }
         [Display(Name = "Taille")]
         public string HeightParagliding { get; set; }
@@ -16,7 +17,7 @@ namespace ParaglidingProject.Models
         public int MaxWeightPilot { get; set; }
         [Display(Name = "Poids minimum du pilote")]
         public int MinWeightPilot { get; set; }
-        [Display(Name = "Numéro d'homologation")]
+        [Display(Name = "Numéro d'homologation du modèle")]
         public string AprovalNumber { get; set; }
 
         [Display(Name = "Date d'homologation")]

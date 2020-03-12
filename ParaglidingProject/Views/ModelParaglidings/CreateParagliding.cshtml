@@ -1,17 +1,17 @@
 ﻿@model ParaglidingProject.Models.Paragliding
-
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "CreateParagliding";
 }
 
-<h1>Créer</h1>
+<h1>Créer un nouveau parapente de modèle @ViewBag.ModelParagliding</h1>
 
 <h4>Parapente</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="CreateParagliding">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ModelParaglidingID" value="@ViewBag.ModelParagliding" />
             <div class="form-group">
                 <label asp-for="DateOfCommissioning" class="control-label"></label>
                 <input asp-for="DateOfCommissioning" class="form-control" />
@@ -21,10 +21,6 @@
                 <label asp-for="DateOfLastRevision" class="control-label"></label>
                 <input asp-for="DateOfLastRevision" class="form-control" />
                 <span asp-validation-for="DateOfLastRevision" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ModelParaglidingID" class="control-label"></label>
-                <select asp-for="ModelParaglidingID" class ="form-control" asp-items="ViewBag.ModelParaglidingID"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Créer" class="btn btn-primary" />
@@ -37,6 +33,3 @@
     <a class="btn btn-primary" asp-action="Index">Retour à la liste</a>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
