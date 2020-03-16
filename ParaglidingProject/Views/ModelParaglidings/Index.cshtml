@@ -11,9 +11,9 @@
 <h1>Modèle de parapente</h1>
 
 <p>
-    <a asp-action="Create">Créer un nouveau modèle</a>
+    <a class="create" asp-action="Create">Créer un nouveau modèle</a>
 </p>
-<table class="table">
+<table class="table" cellspacing="0">
     <thead>
         <tr>
             <th>
@@ -58,10 +58,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.AprovalDate)
             </td>
-            <td>
-                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.ID">Publier</a> |
-                <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a class="btn btn-primary" asp-action="Delete" asp-route-id="@item.ID">Supprimer</a>
+            <td class="last">
+                <a class="btn btn-primary styleLink" asp-action="Edit" asp-route-id="@item.ID">Publier</a> |
+                <a class="btn btn-primary styleLink" asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a class="btn btn-primary styleLink" asp-action="Delete" asp-route-id="@item.ID">Supprimer</a>
             </td>
         </tr>
 }

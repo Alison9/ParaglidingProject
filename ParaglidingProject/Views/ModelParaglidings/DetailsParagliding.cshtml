@@ -72,9 +72,9 @@
                     @Html.DisplayFor(modeItems => item.Pilot.FirstName) @Html.DisplayFor(modeItems => item.Pilot.LastName)
                 </td>
                 <td>
-                    <a class="btn btn-primary" asp-route-id="@item.ID" asp-action="DetailsParagliding">Détails</a> |
-                    <a class="btn btn-primary" asp-route-id="@item.ID" asp-action="EditParagliding">Editer</a> |
-                    <a class="btn btn-primary" asp-route-id="@item.ID" asp-action="DeleteParagliding">Supprimer</a>
+                    <a class="btn btn-primary" asp-route-id="@item.ID" asp-action="DetailsFlight">Détails</a> |
+                    @*<a class="btn btn-primary" asp-route-id="@item.ID" asp-action="EditParagliding">Editer</a> |
+                    <a class="btn btn-primary" asp-route-id="@item.ID" asp-action="DeleteParagliding">Supprimer</a>*@
                 </td>
             </tr>
                 }

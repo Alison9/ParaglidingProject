@@ -1,0 +1,98 @@
+﻿html {
+    width: 90%;
+    margin: auto;
+}
+
+header{
+    background-color:black;
+}
+
+.container {
+    display: flex;
+}
+
+.containerNav{
+    display: flex;
+}
+
+li {
+    margin-left: 15px;
+    list-style: none;
+
+}
+
+a{
+    text-decoration: none;
+}
+
+.nav-link {
+    color: white;
+    font-size:20px;
+    font-family: 'Girassol';
+}
+
+.nav-link:hover {
+   color: #e68a00;
+}
+
+.navbar-brand {
+    color: white;
+    font-family: 'Oleo Script';
+    font-size: 30px;
+    margin-top: 7px;
+    margin-left: 10px;
+}
+
+h1 {
+    font-family:'Oleo Script';
+}
+
+.main {
+    width: 98%;
+    margin: auto;
+}
+
+td {
+    text-align: center;
+    padding: 15px;
+    font-family: 'Girassol';
+    border-bottom: 1px outset lightgrey;
+}
+
+th {
+    text-align: center;
+    padding: 15px;
+    font-family: 'Oleo Script';
+    border-bottom: 1px outset lightgrey;
+    font-size:20px;
+}
+
+.styleLink {
+    padding: 5px;
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    border: 2px outset white;
+}
+
+.styleLink:hover {
+    border: 2px inset white;
+}
+
+.last {
+    margin: 0;
+    padding:0;
+}
+
+.create {
+    color: black;
+    font-family: 'Girassol';
+    font-size: 18px;
+}
+
+    .create:hover {
+        color: #e68a00;
+    }
+
+
+

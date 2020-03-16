@@ -288,15 +288,37 @@ namespace ParaglidingProject.Controllers
 
             var flights = _context.Flights.Where(f => f.ParaglidingID == id);
             ViewData["flightCount"] = flights.Count();
-
-            foreach(var item in flights)
+            TimeSpan flightTime = new TimeSpan();
+            foreach (var item in flights)
             {
                 var flightDuration = item.FlightEnd - item.FlightStart;
-                ViewData["flightTime"] = + flightDuration;
+                flightTime  +=  flightDuration;
+                
+
             }
 
+            ViewData["flightTime"] = flightTime;
 
             return View(paragliding);
+        }
+
+        public async Task<IActionResult> DetailsFlight(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var flight = await _context.Flights
+                .Include(p => p.Site)
+                .Include(f => f.Pilot)
+                .FirstOrDefaultAsync(m => m.ID == id);
+            if (flight == null)
+            {
+                return NotFound();
+            }
+
+            return View(flight);
         }
     }
 }
