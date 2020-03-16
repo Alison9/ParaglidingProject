@@ -198,27 +198,20 @@ namespace ParaglidingProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult>CreateFlight([Bind("PilotID,FlightDate, FlightStart, FlightEnd, ParaglidingID, SiteID")] Flight flight)
+        public async Task<IActionResult> CreateFlight([Bind("PilotID, FlightDate, FlightStart, FlightEnd, ParaglidingID, SiteID")] Flight flight)
         {
 
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    _context.Add(flight);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
-                }
-            }
-            catch
             
+            if (ModelState.IsValid)
             {
-                ModelState.AddModelError("", "Pas bien !");
+                _context.Flights.Add(flight);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
-         
+
+
             return View("CreateFlight");
         }
-
        
         private bool PilotExists(int id)
         {
