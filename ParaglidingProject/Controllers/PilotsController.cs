@@ -190,7 +190,7 @@ namespace ParaglidingProject.Controllers
 
         }
 
-        //Get CreateFligth
+        /*Get CreateFligth*/ 
         public IActionResult CreateFlight()
         {
             return View("CreateFlight");
@@ -201,10 +201,10 @@ namespace ParaglidingProject.Controllers
         public async Task<IActionResult> CreateFlight([Bind("PilotID, FlightDate, FlightStart, FlightEnd, ParaglidingID, SiteID")] Flight flight)
         {
 
-            
+
             if (ModelState.IsValid)
             {
-                _context.Flights.Add(flight);
+                _context.Add(flight);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -212,7 +212,7 @@ namespace ParaglidingProject.Controllers
 
             return View("CreateFlight");
         }
-       
+
         private bool PilotExists(int id)
         {
             return _context.Pilots.Any(e => e.ID == id);
