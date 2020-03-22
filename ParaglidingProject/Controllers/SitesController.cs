@@ -22,7 +22,53 @@ namespace ParaglidingProject.Web.Controllers
         // GET: Sites
         public async Task<IActionResult> Index()
         {
-            var paraglidingClubContext = _context.Sites.Include(s => s.Level);
+            var paraglidingClubContext = _context.Sites
+                .Include(s => s.Level)
+                .Include(f => f.Flights);
+
+            int biggerFlightsNumber = 0;
+            int tinyFlightsNumber = 0;
+            List<string> namesSitesBigger = new List<string>();
+            List<string> namesSitesTiny = new List<string>();
+          
+           foreach(var item in paraglidingClubContext)
+           {
+                var flights = _context.Flights.Where(f => f.SiteID == item.ID);
+                var totalFlights = flights.Count();
+                
+                if(totalFlights >= biggerFlightsNumber)
+                {
+                    if(totalFlights == biggerFlightsNumber)
+                    {
+                        namesSitesBigger.Add(item.Name);
+                    }
+                    else
+                    {
+                        namesSitesBigger.Clear();
+                        namesSitesBigger.Add(item.Name);
+                    }
+                    biggerFlightsNumber = totalFlights;
+                }
+                else
+                {
+                    if(totalFlights <= tinyFlightsNumber)
+                    {
+                        if(totalFlights == tinyFlightsNumber)
+                        {
+                            namesSitesTiny.Add(item.Name);
+                        }
+                        else
+                        {
+                            namesSitesTiny.Clear();
+                            namesSitesTiny.Add(item.Name);
+                        }
+                        tinyFlightsNumber = totalFlights;
+                    }
+                }
+           }
+
+            ViewData["BiggerFlightsData"] = namesSitesBigger;
+            ViewData["TinyFlightsData"] = namesSitesTiny;
             return View(await paraglidingClubContext.ToListAsync());
         }
 
