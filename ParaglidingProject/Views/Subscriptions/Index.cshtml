@@ -32,7 +32,7 @@
                 @Html.DisplayFor(modelItem => item.YearID)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Price.ToString("c"))
+                @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
                 <a class="btn btn-primary styleLink" asp-action="Edit" asp-route-id="@item.YearID">Editer</a> |
