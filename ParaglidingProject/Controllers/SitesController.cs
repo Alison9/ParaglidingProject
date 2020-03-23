@@ -51,19 +51,23 @@ namespace ParaglidingProject.Web.Controllers
                 }
                 else
                 {
-                    if(totalFlights <= tinyFlightsNumber)
+                    
+                    if(tinyFlightsNumber == 0)
                     {
-                        if(totalFlights == tinyFlightsNumber)
-                        {
-                            namesSitesTiny.Add(item.Name);
-                        }
-                        else
-                        {
+                       tinyFlightsNumber = totalFlights;  
+                    }
+                    if (totalFlights == tinyFlightsNumber)
+                    {
+                        namesSitesTiny.Add(item.Name);
+                    }
+
+                   if (totalFlights < tinyFlightsNumber)
+                   {
                             namesSitesTiny.Clear();
                             namesSitesTiny.Add(item.Name);
-                        }
-                        tinyFlightsNumber = totalFlights;
                     }
+                    
+                    tinyFlightsNumber = totalFlights;
                 }
            }
 
@@ -82,6 +86,7 @@ namespace ParaglidingProject.Web.Controllers
 
             var site = await _context.Sites
                 .Include(s => s.Level)
+                .Include(f => f.Flights)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (site == null)
             {

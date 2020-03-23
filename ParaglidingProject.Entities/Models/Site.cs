@@ -21,6 +21,7 @@ namespace ParaglidingProject.Models
         public string FlightType { get; set; }
         [Display(Name = "Niveau requis")]
         public int LevelID { get; set; }
+        [Display(Name="Historique des vols")]
         public ICollection<Flight> Flights { get; set; }
         [Display(Name = "Niveau requis")]
         public Level Level { get; set; }
