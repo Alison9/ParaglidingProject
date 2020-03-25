@@ -36,8 +36,10 @@ namespace ParaglidingProject.Controllers
 
             var course = await _context.Courses
                 .Include(c => c.License)
-                 /*.ThenInclude(c => c.Level)*/ //Inclusion du niveau auquel donne droit la licence ?
-                .AsNoTracking()
+                .Include(t => t.Teachings)
+                   .ThenInclude(p => p.Pilot)
+                                 /*.ThenInclude(c => c.Level)*/ //Inclusion du niveau auquel donne droit la licence ?
+                //.AsNoTracking()
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (course == null)
             {

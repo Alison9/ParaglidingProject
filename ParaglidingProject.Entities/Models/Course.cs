@@ -24,6 +24,7 @@ namespace ParaglidingProject.Models
         public decimal CoursePrice { get; set; }
         public int LicenseID { get; set; }
         public ICollection<Participation> Participations { get; set; }
+        [Display(Name ="Coach")]
         public ICollection<Teaching> Teachings { get; set; }
         [Display(Name = "Brevet délivré")]
         public License License { get; set; }
