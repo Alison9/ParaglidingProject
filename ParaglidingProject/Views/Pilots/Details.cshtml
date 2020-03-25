@@ -128,7 +128,8 @@
             @Html.DisplayNameFor(model => model.Participations)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Participations)
+            @foreach(var item in Model.Participations)
+                 @Html.DisplayFor(modelItem => item.Course)
         </dd>
     </dl>
 

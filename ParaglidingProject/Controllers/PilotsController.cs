@@ -28,7 +28,7 @@ namespace ParaglidingProject.Controllers
 
         }
 
-        // GET: Pilots/Details/5
+        // POST: Pilots/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -41,6 +41,8 @@ namespace ParaglidingProject.Controllers
                 .Include(o => o.Obtainings)
                     .ThenInclude(li => li.License)
                        .ThenInclude(le =>le.Level)
+                .Include(pa => pa.Participations)
+                    
                 .FirstOrDefaultAsync(m => m.ID == id);
 
             var flight = _context.Flights.Where(f => f.PilotID == id);

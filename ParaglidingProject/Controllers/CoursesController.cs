@@ -38,6 +38,7 @@ namespace ParaglidingProject.Controllers
                 .Include(c => c.License)
                 .Include(t => t.Teachings)
                    .ThenInclude(p => p.Pilot)
+                
                                  /*.ThenInclude(c => c.Level)*/ //Inclusion du niveau auquel donne droit la licence ?
                 //.AsNoTracking()
                 .FirstOrDefaultAsync(m => m.ID == id);
