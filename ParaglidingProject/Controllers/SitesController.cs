@@ -87,6 +87,7 @@ namespace ParaglidingProject.Web.Controllers
             var site = await _context.Sites
                 .Include(s => s.Level)
                 .Include(f => f.Flights)
+                .ThenInclude(p => p.Pilot)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (site == null)
             {
@@ -206,6 +207,26 @@ namespace ParaglidingProject.Web.Controllers
         private bool SiteExists(int id)
         {
             return _context.Sites.Any(e => e.ID == id);
+        }
+
+        public async Task<IActionResult> DetailsFlight(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var site = await _context.Flights
+                .Include(p => p.Paragliding)
+                .Include(p => p.Pilot)
+                .Include(s => s.Site)
+                .FirstOrDefaultAsync(m => m.ID == id);
+            if (site == null)
+            {
+                return NotFound();
+            }
+
+            return View(site);
         }
     }
 }

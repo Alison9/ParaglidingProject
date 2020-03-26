@@ -1,0 +1,46 @@
+﻿@model ParaglidingProject.Models.Flight
+@{
+    ViewData["Title"] = "DetailsFlight";
+}
+
+<h1>Details du vol numéro @Model.ID du site de @Model.Site.Name</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FlightDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FlightDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FlightStart)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FlightStart)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FlightEnd)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FlightEnd)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Pilot)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pilot.FirstName) @Html.DisplayFor(model => model.Pilot.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Paragliding)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ParaglidingID)
+        </dd>
+    </dl>
+</div>
+<div>
+    @*<a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.ID">Publier</a> |*@
+    <a class="btn btn-primary" asp-action="Index">Retour à la liste</a>
+</div>

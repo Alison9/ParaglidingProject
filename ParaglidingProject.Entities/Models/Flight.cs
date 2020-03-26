@@ -19,8 +19,10 @@ namespace ParaglidingProject.Models
         [DataType(DataType.Time)]
         public DateTime FlightEnd { get; set; }
         public int PilotID { get; set; }
+        [Display(Name = "Numéro du parapente")]
         public int ParaglidingID { get; set; }
         public int SiteID { get; set; }
+        [Display(Name = "Pilote")]
         public Pilot Pilot { get; set; }
         public Paragliding Paragliding { get; set; }
         public Site Site { get; set; }
