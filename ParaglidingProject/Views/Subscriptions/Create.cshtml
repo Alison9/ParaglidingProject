@@ -1,35 +1,33 @@
 ﻿@model ParaglidingProject.Models.Subscription
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Créer une cotisation";
 }
 
 <h1>Créer une nouvelle cotisation</h1>
-
-<h4>Cotisations</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="YearID" class="control-label"></label>
-                <input asp-for="YearID" class="form-control" />
-                <span asp-validation-for="YearID" class="text-danger"></span>
+                <label asp-for="YearID" class="control-label"></label><br />
+                <input asp-for="YearID" class="form-control" /><br />
+                <span asp-validation-for="YearID" class="text-danger validator"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
+                <label asp-for="Price" class="control-label"></label><br />
+                <input asp-for="Price" class="form-control" /><br />
+                <span asp-validation-for="Price" class="text-danger validator"></span>
+            </div><br />
             <div class="form-group">
-                <input type="submit" value="Ajouter" class="btn btn-primary" />
+                <input type="submit" value="Ajouter" class="btn btn-primary add" />
             </div>
         </form>
     </div>
 </div>
-
+<br />
 <div>
-    <a asp-action="Index" class="btn btn-primary">Retour</a>
+    <a asp-action="Index" class="btn btn-primary styleLink">Retour</a>
 </div>
 

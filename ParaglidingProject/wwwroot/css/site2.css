@@ -3,37 +3,36 @@
     margin: auto;
 }
 
-header{
-    background-color:black;
+header {
+    background-color: black;
 }
 
 .container {
     display: flex;
 }
 
-.containerNav{
+.containerNav {
     display: flex;
 }
 
 li {
     margin-left: 15px;
     list-style: none;
-
 }
 
-a{
+a {
     text-decoration: none;
 }
 
 .nav-link {
     color: white;
-    font-size:20px;
+    font-size: 20px;
     font-family: 'Girassol';
 }
 
-.nav-link:hover {
-   color: #e68a00;
-}
+    .nav-link:hover {
+        color: #e68a00;
+    }
 
 .navbar-brand {
     color: white;
@@ -44,7 +43,7 @@ a{
 }
 
 h1 {
-    font-family:'Oleo Script';
+    font-family: 'Oleo Script';
 }
 
 .main {
@@ -64,24 +63,25 @@ th {
     padding: 15px;
     font-family: 'Oleo Script';
     border-bottom: 1px outset lightgrey;
-    font-size:20px;
+    font-size: 20px;
 }
 
 .styleLink {
     padding: 5px;
     background-color: black;
     color: white;
+    font-family: 'Girassol';
     border-radius: 10px;
     border: 2px outset white;
 }
 
-.styleLink:hover {
-    border: 2px inset white;
-}
+    .styleLink:hover {
+        border: 2px inset white;
+    }
 
 .last {
     margin: 0;
-    padding:0;
+    padding: 0;
 }
 
 .create {
@@ -90,9 +90,63 @@ th {
     font-size: 18px;
 }
 
-    .create:hover {
+.create:hover {
         color: #e68a00;
-    }
+}
 
+h4 {
+    font-family: 'Oleo Script';
+    font-size:22px;
+}
 
+dt {
+    font-family: 'Oleo Script';
+    font-size:22px;
+}
 
+dd {
+    font-family: 'Girassol';
+}
+
+label {
+    font-family: 'Oleo Script';
+    font-size: 22px;
+}
+
+input {
+    height: 25px;
+    width: 200px;
+    border-radius:10px;
+    font-family: 'Girassol';
+    border: 2px outset black;
+    font-size:20px;
+}
+
+input:focus{
+        border: 3px groove #e68a00;
+}
+
+.add {
+    background-color: black;
+    color: white;
+    font-family: 'Girassol';
+    border-radius: 10px;
+    border: 2px outset white;
+    height:35px;
+    font-size:20px;
+}
+
+.validator {
+    font-family: 'Girassol';
+    color:red;
+    font-size:20px;
+}
+
+select {
+    height: 30px;
+    width: 200px;
+    border-radius: 10px;
+    font-family: 'Girassol';
+    border: 2px outset black;
+    font-size:20px;
+}

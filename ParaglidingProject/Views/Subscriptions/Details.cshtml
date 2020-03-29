@@ -1,14 +1,13 @@
 ﻿@model ParaglidingProject.Models.Subscription
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Details des cotisations";
 }
 
 
-<h1>Details des cotisations pour @Model.YearID</h1>
+<h1>Détails des cotisations pour @Model.YearID</h1>
 
 <div>
-    <h4>Cotisations @Model.YearID</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -21,12 +20,12 @@
             @Html.DisplayNameFor(model => model.Payments)
         </dt>
         <dd class="col-sm-10">
-            <table class="table">
+            <table class="table" cellspacing="0">
                 <tr>
                     <th>Pilotes</th>
                     <th>Payé?</th>
                     <th>Date de payement</th>
-                    <a class="btn btn-primary" asp-route-id="@Model.YearID" asp-action="CreatePayment">Ajouter un payment</a>
+                    <a class="btn btn-primary styleLink" asp-route-id="@Model.YearID" asp-action="CreatePayment">Ajouter un payment</a>
                 </tr>
                 @foreach(var item in Model.Payments)
                 {
@@ -41,8 +40,8 @@
                             @Html.DisplayFor(modeItems => item.DatePay)
                         </td>
                         <td>
-                            <a class="btn btn-primary" asp-route-id="@item.ID" asp-action="EditPayment">Editer</a> |
-                            <a class="btn btn-primary" asp-route-id="@item.ID" asp-action="DeletePayment">Supprimer</a>
+                            <a class="btn btn-primary styleLink" asp-route-id="@item.ID" asp-action="EditPayment">Editer</a> |
+                            <a class="btn btn-primary styleLink" asp-route-id="@item.ID" asp-action="DeletePayment">Supprimer</a>
                         </td>
                     </tr>
                 }
@@ -52,5 +51,5 @@
 </div>
 <div>
     @*<a asp-action="Edit" asp-route-id="@Model.YearID" class="btn btn-primary">Editer</a> |*@
-    <a asp-action="Index" class="btn btn-primary">Retour</a>
+    <a asp-action="Index" class="btn btn-primary styleLink">Retour</a>
 </div>
