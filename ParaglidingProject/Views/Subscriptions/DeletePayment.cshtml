@@ -1,14 +1,13 @@
 ﻿@model ParaglidingProject.Models.Payment
 
 @{
-    ViewData["Title"] = "DeletePayment";
+    ViewData["Title"] = "Supprimer";
 }
 
 <h1>Suppression du payment de @Model.Pilot.FirstName @Model.Pilot.LastName pour l'année @Model.Subscription.YearID</h1>
 
 <h3>Voulez-vous supprimer ce payment?</h3>
 <div>
-    <h4>Payment</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -39,8 +38,8 @@
 
     <form asp-action="DeletePayment">
         <input type="hidden" asp-for="ID" />
-        <input type="submit" value="Supprimer" class="btn btn-danger" /> |
-        <a asp-action="Index" class="btn btn-primary">Retour</a>
+        <input type="submit" value="Supprimer" class="btn btn-danger add" /> |
+        <a asp-action="Index" class="btn btn-primary styleLink">Retour</a>
     </form>
 </div>
 

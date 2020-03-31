@@ -7,9 +7,9 @@
 <h1>Sites</h1>
 
 <p>
-    <a asp-action="Create">Créer un nouveau site</a>
+    <a class="create" asp-action="Create">Créer un nouveau site</a>
 </p>
-<table class="table">
+<table class="table" cellspacing="0">
     <thead>
         <tr>
             <th>
@@ -56,9 +56,9 @@
                     @Html.DisplayFor(modelItem => item.Level.ID)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.ID">Editer</a> |
-                    <a asp-action="Details" asp-route-id="@item.ID">Détails</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ID">Supprimer</a>
+                    <a asp-action="Edit" asp-route-id="@item.ID" class="styleLink">Editer</a> |
+                    <a asp-action="Details" asp-route-id="@item.ID"  class="styleLink">Détails</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID" class="styleLink">Supprimer</a>
                 </td>
             </tr>
         }

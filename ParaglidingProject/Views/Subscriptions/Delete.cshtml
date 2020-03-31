@@ -1,14 +1,13 @@
 ﻿@model ParaglidingProject.Models.Subscription
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Supprimer";
 }
 
 <h1>Supprimer l'année de cotisation @Model.YearID?</h1>
 
 <h3>Etes-vous sûr de vouloir supprimer?</h3>
 <div>
-    <h4>Subscription</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -21,7 +20,7 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="YearID" />
-        <input type="submit" value="Supprimer" class="btn btn-danger" /> |
-        <a asp-action="Index" class="btn btn-primary">Retour</a>
+        <input type="submit" value="Supprimer" class="btn btn-danger add" /> |
+        <a asp-action="Index" class="btn btn-primary styleLink">Retour</a>
     </form>
 </div>

@@ -1,56 +1,55 @@
 ﻿@model ParaglidingProject.Models.Site
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editer";
 }
 
-<h1>Edit</h1>
+<h1>Editer le site de @Model.Name</h1>
 
-<h4>Site</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="ModelOnly" class="text-danger validator"></div>
             <input type="hidden" asp-for="ID" />
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="Name" class="control-label"></label><br />
+                <input asp-for="Name" class="form-control" /><br />
+                <span asp-validation-for="Name" class="text-danger validator"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OrientationLanding" class="control-label"></label>
-                <input asp-for="OrientationLanding" class="form-control" />
-                <span asp-validation-for="OrientationLanding" class="text-danger"></span>
+                <label asp-for="OrientationLanding" class="control-label"></label><br />
+                <input asp-for="OrientationLanding" class="form-control" /><br />
+                <span asp-validation-for="OrientationLanding" class="text-danger validator"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OrientationTakeOff" class="control-label"></label>
-                <input asp-for="OrientationTakeOff" class="form-control" />
-                <span asp-validation-for="OrientationTakeOff" class="text-danger"></span>
+                <label asp-for="OrientationTakeOff" class="control-label"></label><br />
+                <input asp-for="OrientationTakeOff" class="form-control" /><br />
+                <span asp-validation-for="OrientationTakeOff" class="text-danger validator"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AltitudeTakeOff" class="control-label"></label>
-                <input asp-for="AltitudeTakeOff" class="form-control" />
-                <span asp-validation-for="AltitudeTakeOff" class="text-danger"></span>
+                <label asp-for="AltitudeTakeOff" class="control-label"></label><br />
+                <input asp-for="AltitudeTakeOff" class="form-control" /><br />
+                <span asp-validation-for="AltitudeTakeOff" class="text-danger validator"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FlightType" class="control-label"></label>
-                <input asp-for="FlightType" class="form-control" />
-                <span asp-validation-for="FlightType" class="text-danger"></span>
+                <label asp-for="FlightType" class="control-label"></label><br />
+                <input asp-for="FlightType" class="form-control" /><br />
+                <span asp-validation-for="FlightType" class="text-danger validator"></span>
             </div>
             <div class="form-group">
-                <label asp-for="LevelID" class="control-label"></label>
-                <select asp-for="LevelID" class="form-control" asp-items="ViewBag.LevelID"></select>
-                <span asp-validation-for="LevelID" class="text-danger"></span>
-            </div>
+                <label asp-for="LevelID" class="control-label"></label><br />
+                <select asp-for="LevelID" class="form-control" asp-items="ViewBag.LevelID"></select><br />
+                <span asp-validation-for="LevelID" class="text-danger validator"></span>
+            </div><br />
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Sauver" class="btn btn-primary add" />
             </div>
         </form>
     </div>
 </div>
-
+<br />
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="styleLink">Retour</a>
 </div>
 

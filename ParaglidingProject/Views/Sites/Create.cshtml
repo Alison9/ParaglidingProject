@@ -10,44 +10,44 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="ModelOnly" class="text-danger validator"></div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="Name" class="control-label"></label><br />
+                <input asp-for="Name" class="form-control" /><br />
+                <span asp-validation-for="Name" class="text-danger validator"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OrientationLanding" class="control-label"></label>
-                <input asp-for="OrientationLanding" class="form-control" />
-                <span asp-validation-for="OrientationLanding" class="text-danger"></span>
+                <label asp-for="OrientationLanding" class="control-label"></label><br />
+                <input asp-for="OrientationLanding" class="form-control" /><br />
+                <span asp-validation-for="OrientationLanding" class="text-danger validator"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OrientationTakeOff" class="control-label"></label>
-                <input asp-for="OrientationTakeOff" class="form-control" />
-                <span asp-validation-for="OrientationTakeOff" class="text-danger"></span>
+                <label asp-for="OrientationTakeOff" class="control-label"></label><br />
+                <input asp-for="OrientationTakeOff" class="form-control" /><br />
+                <span asp-validation-for="OrientationTakeOff" class="text-danger validator"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AltitudeTakeOff" class="control-label"></label>
-                <input asp-for="AltitudeTakeOff" class="form-control" />
-                <span asp-validation-for="AltitudeTakeOff" class="text-danger"></span>
+                <label asp-for="AltitudeTakeOff" class="control-label"></label><br />
+                <input asp-for="AltitudeTakeOff" class="form-control" /><br />
+                <span asp-validation-for="AltitudeTakeOff" class="text-danger validator"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FlightType" class="control-label"></label>
-                <input asp-for="FlightType" class="form-control" />
-                <span asp-validation-for="FlightType" class="text-danger"></span>
+                <label asp-for="FlightType" class="control-label"></label><br />
+                <input asp-for="FlightType" class="form-control" /><br />
+                <span asp-validation-for="FlightType" class="text-danger validator"></span>
             </div>
             <div class="form-group">
-                <label asp-for="LevelID" class="control-label"></label>
+                <label asp-for="LevelID" class="control-label"></label><br />
                 <select asp-for="LevelID" class ="form-control" asp-items="ViewBag.LevelID"></select>
-            </div>
+            </div><br />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Ajouter" class="btn btn-primary add" />
             </div>
         </form>
     </div>
 </div>
-
+<br />
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a class="styleLink" asp-action="Index">Retour</a>
 </div>
 

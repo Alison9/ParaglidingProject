@@ -13,26 +13,26 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="ModelOnly" class="text-danger validator"></div>
             <input type="hidden" asp-for="YearID" />
             <div class="form-group">
-                <label asp-for="YearID" class="control-label">Année</label>
-            <input asp-for="YearID" class="form-control" />
-                <span asp-validation-for="YearID" class="text-danger"></span>
+                <label asp-for="YearID" class="control-label">Année</label><br />
+            <input asp-for="YearID" class="form-control" /><br />
+                <span asp-validation-for="YearID" class="text-danger validator"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Price" class="control-label">Prix</label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
+                <label asp-for="Price" class="control-label">Prix</label><br />
+                <input asp-for="Price" class="form-control" /><br />
+                <span asp-validation-for="Price" class="text-danger validator"></span>
+            </div><br />
             <div class="form-group">
-                <input type="submit" action="EditPost" value="Sauver" class="btn btn-primary" />
+                <input type="submit" action="EditPost" value="Sauver" class="btn btn-primary add" />
             </div>
         </form>
     </div>
 </div>
-
+<br />
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a class="styleLink" asp-action="Index">Back to List</a>
 </div>
 
