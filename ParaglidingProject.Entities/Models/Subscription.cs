@@ -4,10 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using ParaglidingProject.Entities.Models;
 
 namespace ParaglidingProject.Models
 {
-    public class Subscription
+    public class Subscription: IMyEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]

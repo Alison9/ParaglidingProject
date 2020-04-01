@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ParaglidingProject.Data;
+using ParaglidingProject.Data.Repositories;
+using ParaglidingProject.Models;
 
 namespace ParaglidingProject
 {
@@ -29,7 +31,7 @@ namespace ParaglidingProject
             
             services.AddDbContext<ParaglidingClubContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllersWithViews();
-           
+            services.AddTransient<IRepository<Subscription, int>, SubsciptionsRepository>(); //Injection de dépendance
             services.AddRazorPages();
         }
 
