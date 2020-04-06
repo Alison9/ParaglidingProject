@@ -4,16 +4,13 @@
     ViewData["Title"] = "Index";
 }
 
-@{ 
-    Layout = "_Layout";
-}
 
-<h1>Pilote</h1>
+<h1>Pilotes</h1>
 
 <p>
-    <a asp-action="Create">Créer un charmant pilote</a>
+    <a asp-action="Create" class="create">Créer un charmant pilote</a>
 </p>
-<table class="table">
+<table class="table" cellspacing="0">
     <thead>
         <tr>
             <th>
@@ -31,10 +28,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Weight)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsActif)
-            </th>
-            
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -56,12 +50,9 @@
                 @Html.DisplayFor(modelItem => item.Weight)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IsActif)
-            </td>
-            <td>
-                <a  asp-action="Edit" asp-route-id="@item.ID">Publier</a> |
-                <a  asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a  asp-action="Delete" asp-route-id="@item.ID">Supprimer</a>
+                <a class="styleLink"  asp-action="Edit" asp-route-id="@item.ID">Editer</a> |
+                <a class="styleLink"  asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a  class="styleLink" asp-action="Delete" asp-route-id="@item.ID">Supprimer</a>
             </td>
         </tr>
 }

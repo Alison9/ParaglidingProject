@@ -4,53 +4,48 @@
     ViewData["Title"] = "CreateFlight";
 }
 
-<h1>CreateFlight</h1>
+<h1>Ajouter un vol à @ViewBag.FirstName @ViewBag.LastName</h1>
 
-<h4>Flight</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="CreateFlight">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="ModelOnly" class="text-danger validator"></div>
+            <input type="hidden" asp-for="PilotID" value="@ViewBag.PilotID" />
             <div class="form-group">
-                <label asp-for="PilotID" class="control-label"></label>
-                <input asp-for="PilotID" class="control-label" />
-                <span asp-validation-for="PilotID" class="text-start"></span>
+                <label asp-for="FlightDate" class="control-label"></label><br />
+                <input asp-for="FlightDate" class="form-control" /><br />
+                <span asp-validation-for="FlightDate" class="text-danger validator"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FlightDate" class="control-label"></label>
-                <input asp-for="FlightDate" class="form-control" />
-                <span asp-validation-for="FlightDate" class="text-danger"></span>
+                <label asp-for="FlightStart" class="control-label"></label><br />
+                <input asp-for="FlightStart" class="form-control" /><br />
+                <span asp-validation-for="FlightStart" class="text-danger validator"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FlightStart" class="control-label"></label>
-                <input asp-for="FlightStart" class="form-control" />
-                <span asp-validation-for="FlightStart" class="text-danger"></span>
+                <label asp-for="FlightEnd" class="control-label"></label><br />
+                <input asp-for="FlightEnd" class="form-control" /><br />
+                <span asp-validation-for="FlightEnd" class="text-danger validator"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FlightEnd" class="control-label"></label>
-                <input asp-for="FlightEnd" class="form-control" />
-                <span asp-validation-for="FlightEnd" class="text-danger"></span>
+                <label asp-for="ParaglidingID" class="control-label"></label><br />
+                <select asp-for="ParaglidingID" class="form-control" asp-items="ViewBag.ParaglidingID" ></select><br />
+                <span asp-validation-for="ParaglidingID" class="text-danger validator"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ParaglidingID" class="control-label"></label>
-                <input asp-for="ParaglidingID" class="form-control" />
-                <span asp-validation-for="ParaglidingID" class="text-danger"></span>
-            </div>
+                <label asp-for="SiteID" class="control-label"></label><br />
+                <select asp-for="SiteID" class="form-control" asp-items="ViewBag.SiteID"></select><br />
+                <span asp-validation-for="SiteID" class="text-danger validator"></span>
+            </div><br />
             <div class="form-group">
-                <label asp-for="SiteID" class="control-label"></label>
-                <input asp-for="SiteID" class="form-control" />
-                <span asp-validation-for="SiteID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Créer" class="btn btn-primary" />
+                <input type="submit" value="Ajouter" class="btn btn-primary add"  />
             </div>
         </form>
     </div>
 </div>
-
+<br />
 <div>
-    <a asp-action="Index">Retour à la liste</a>
+    <a class="styleLink" asp-action="Index">Retour</a>
 </div>
 
 @section Scripts {
