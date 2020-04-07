@@ -22,7 +22,8 @@ namespace ParaglidingProject.Controllers
         // GET: Courses
         public async Task<IActionResult> Index()
         {
-            var paraglidingClubContext = _context.Courses.Include(c => c.License);
+            var paraglidingClubContext = _context.Courses
+                .Include(c => c.License);
             return View(await paraglidingClubContext.ToListAsync());
         }
 
@@ -36,8 +37,11 @@ namespace ParaglidingProject.Controllers
 
             var course = await _context.Courses
                 .Include(c => c.License)
+                    .ThenInclude(l => l.Level)
                 .Include(t => t.Teachings)
                    .ThenInclude(p => p.Pilot)
+                .Include(p => p.Participations)
+                    .ThenInclude(p =>p.Pilot)
                 
                                  /*.ThenInclude(c => c.Level)*/ //Inclusion du niveau auquel donne droit la licence ?
                 //.AsNoTracking()

@@ -227,9 +227,12 @@ namespace ParaglidingProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateFlight([Bind("PilotID, FlightDate, FlightStart, FlightEnd, ParaglidingID, SiteID")] Flight flight)
+        public async Task<IActionResult> CreateFlight([Bind("PilotID, FlightDate, FlightStart, FlightEnd, ParaglidingID, SiteID, Pilot")] Flight flight)
         {
-            if(flight.Pilot.Weight > flight.Paragliding.ModelParagliding.MaxWeightPilot || flight.Pilot.Weight < flight.Paragliding.ModelParagliding.MinWeightPilot)
+            var pilot = _context.Pilots.Where(p => p.ID  == flight.PilotID).FirstOrDefault();
+            var paragliding = _context.Paraglidings.Where(pa => pa.ID == flight.ParaglidingID).FirstOrDefault();
+            var modelparagliding = _context.ModelParaglidings.Where(m => m.ID == paragliding.ModelParaglidingID).FirstOrDefault();
+            if(pilot.Weight > modelparagliding.MaxWeightPilot || pilot.Weight < modelparagliding.MinWeightPilot)
             {
                 ModelState.AddModelError("", "Parapente pas adapté au pilote");
             }

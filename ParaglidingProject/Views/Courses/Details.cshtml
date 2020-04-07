@@ -1,52 +1,97 @@
 ﻿@model ParaglidingProject.Models.Course
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Détails du stage";
 }
 
-<h1>Details</h1>
+<h1>Détails du stage du @Model.StartDate au @Model.EndDate</h1>
 
 <div>
-    <h4>Cours</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.StartDate)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.StartDate)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.EndDate)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.EndDate)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.CoursePrice)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.CoursePrice)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.License)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.License.Title)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.License.ID)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.License.Title)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model=>model.Teachings)
+            @Html.DisplayNameFor(model => model.License.Level.DifficultyNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.License.Level.DifficultyNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.License.Level.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.License.Level.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Teachings)
         </dt>
         <dd class="col-sm-10">
             @foreach (var item in Model.Teachings)
-                @Html.DisplayFor(modelItem => item.Pilot.FirstName) 
+                @Html.DisplayFor(modelItem => item.Pilot.FirstName)
             <hr\>
-            @foreach (var item in Model.Teachings)
-                @Html.DisplayFor(modelItem => item.Pilot.LastName)
+                @foreach (var item in Model.Teachings)
+                    @Html.DisplayFor(modelItem => item.Pilot.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Participations)
+        </dt>
+        <dd class="col-sm-10">
+            <table class="table" cellspacing="0">
+                <tr>
+                    <th>Prénom du pilote</th>
+                    <th>Nom du pilote</th>
+                    <th>Payé?</th>
+                    <th>Date de payment</th>
+                    <a class="btn btn-primary styleLink" asp-route-id="@Model.ID" asp-action="CreateParticipation">Ajouter un participant</a>
+                </tr>
+                @foreach (var item in Model.Participations)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Pilot.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItems => item.Pilot.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modeItems => item.IsPay)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modeItems => item.DateOfParticipation)
+                        </td>
+                        <td>
+                            <a class="btn btn-primary styleLink" asp-route-id="@item.ID" asp-action="EditParticipation">Editer</a> |
+                            <a class="btn btn-primary styleLink" asp-route-id="@item.ID" asp-action="DeleteParticipation">Supprimer</a>
+                        </td>
+                    </tr>
+                }
+            </table>
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.ID">Publier</a> |
-    <a asp-action="Index">Retour à la liste</a>
+    <a asp-action="Index" class="styleLink">Retour</a>
 </div>

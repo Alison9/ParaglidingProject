@@ -1,18 +1,16 @@
 ﻿@model IEnumerable<ParaglidingProject.Models.Course>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Stages";
 }
-@*@{
-    Layout = "_Layout";
-}*@
 
-<h1>Cours</h1>
+
+<h1>Stages</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="create">Créer un nouveau stage</a>
 </p>
-<table class="table">
+<table class="table" cellspacing="0">
     <thead>
         <tr>
             <th>
@@ -25,7 +23,7 @@
                 @Html.DisplayNameFor(model => model.CoursePrice)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.License)
+                @Html.DisplayNameFor(model => model.License.Title)
             </th>
             <th></th>
         </tr>
@@ -44,12 +42,12 @@
                     @Html.DisplayFor(modelItem => item.CoursePrice)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.License.ID)
+                    @Html.DisplayFor(modelItem => item.License.Title)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                    <a class="styleLink" asp-action="Edit" asp-route-id="@item.ID">Editer</a> |
+                    <a class="styleLink" asp-action="Details" asp-route-id="@item.ID">Détails</a> |
+                    <a class="styleLink" asp-action="Delete" asp-route-id="@item.ID">Supprimer</a>
                 </td>
             </tr>
         }
