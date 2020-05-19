@@ -14,7 +14,7 @@ namespace ParaglidingProject.Models
         public string Name { get; set; }
         public string Skill { get; set; }
         [Display(Name = "Niveau du brevet")]
-        public int DifficultyNumber { get; set; }
+        public bool IsActive { get; set; }
         public ICollection<License> Licenses { get; set; }
         public ICollection<Site> Sites { get; set; }
     }

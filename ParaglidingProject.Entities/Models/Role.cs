@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace ParaglidingProject.Models
 {
-    public class Position
+    public class Role
     {
         public int ID { get; set; }
         [Display(Name = "Position")]
         public string Name { get; set; }
+        public bool IsActive { get; set; }
         [Display(Name="Pilote")]
         public int PilotID { get; set; }
         public Pilot Pilot { get; set; }

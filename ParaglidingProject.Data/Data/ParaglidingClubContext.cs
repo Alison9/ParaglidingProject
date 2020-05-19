@@ -18,7 +18,7 @@ namespace ParaglidingProject.Data
         public DbSet<Level> Levels { get; set; }
         public DbSet<License> Licenses { get; set; }
         public DbSet<ModelParagliding> ModelParaglidings { get; set; }
-        public DbSet<Obtaining> Obtainings { get; set; }
+        public DbSet<Possession> Obtainings { get; set; }
         public DbSet<Paragliding> Paraglidings { get; set; }
         public DbSet<Participation> Participations { get; set; }
         public DbSet<Payment> Payments { get; set; }
@@ -36,7 +36,7 @@ namespace ParaglidingProject.Data
             modelBuilder.Entity<Level>().ToTable("Level");
             modelBuilder.Entity<License>().ToTable("License");
             modelBuilder.Entity<ModelParagliding>().ToTable("ModelParagliding");
-            modelBuilder.Entity<Obtaining>().ToTable("Obtaining");
+            modelBuilder.Entity<Possession>().ToTable("Obtaining");
             modelBuilder.Entity<Paragliding>().ToTable("Paragliding");
             modelBuilder.Entity<Participation>().ToTable("Particiption");
             modelBuilder.Entity<Payment>().ToTable("Payment");

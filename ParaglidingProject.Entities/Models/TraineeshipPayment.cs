@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace ParaglidingProject.Models
 {
-    public class Obtaining
+    public class TraineeshipPayment
     {
         public int ID { get; set; }
         public int PilotID { get; set; }
-        public int LicenseID { get; set; }
-
+        public int TraineeshipID { get; set; }
+        [Display(Name ="Date de payments")]
         [DataType(DataType.Date)]
-        public DateTime? ObtainingDate { get; set; }
-        public bool IsSucced { get; set; }
+        public DateTime PaymentDate { get; set; }
+        [Display(Name = "Payé?")]
+        public bool IsPaid { get; set; }
         public Pilot Pilot { get; set; }
-        public License License { get; set; }
-        
+        public Traineeship Traineeship { get; set; }
     }
 }

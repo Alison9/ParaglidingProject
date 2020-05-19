@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ParaglidingProject.Models
 {
-    public class Course
+    public class Traineeship
     {
         public int ID { get; set; }
 
@@ -21,9 +21,10 @@ namespace ParaglidingProject.Models
         public DateTime EndDate { get; set; }
         [Display(Name = "Prix du cours")]
         [DisplayFormat(DataFormatString ="{0:C}")]
-        public decimal CoursePrice { get; set; }
+        public decimal Price { get; set; }
+        public bool IsActive { get; set; }
         public int LicenseID { get; set; }
-        public ICollection<Participation> Participations { get; set; }
+        public ICollection<TraineeshipPayment> Follows { get; set; }
         [Display(Name ="Coach")]
         public ICollection<Teaching> Teachings { get; set; }
         [Display(Name = "Brevet délivré")]

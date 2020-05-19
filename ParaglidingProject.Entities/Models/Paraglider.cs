@@ -6,25 +6,26 @@ using System.Threading.Tasks;
 
 namespace ParaglidingProject.Models
 {
-    public class Paragliding
+    public class Paraglider
     {
         [Display(Name="Numéro du parapente")]
         public int ID { get; set; }
-
+        public string Name { get; set; }
         [DataType(DataType.Date)]
         [Display(Name = "Date de mise en service")]
         //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         [Required]
-        public DateTime DateOfCommissioning { get; set; }
+        public DateTime CommissioningDate { get; set; }
 
         [DataType(DataType.Date)]
         [Display(Name = "Date de la dernière révision")]
         //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         [Required]
-        public DateTime DateOfLastRevision { get; set; }
+        public DateTime LastRevisionDate { get; set; }
+        public bool IsActive { get; set; }
         [Display(Name = "Numéro du modèle")]
-        public int ModelParaglidingID { get; set; } 
-        public ModelParagliding ModelParagliding { get; set; }
+        public int ParagliderModelID { get; set; } 
+        public ParagliderModel ParagliderModel { get; set; }
         [Display(Name="Historique des vols")]
         public ICollection<Flight> Flights { get; set; }
     }

@@ -11,14 +11,15 @@ namespace ParaglidingProject.Models
         public int ID { get; set; }
         [Display(Name="Nom du site")]
         public string Name { get; set; }
-        [Display(Name="Orientation au décollage")]
-        public string OrientationLanding{ get; set; }
         [Display(Name = "Orientation à l'atterrisage")]
-        public string OrientationTakeOff { get; set; } // variable type spatial (longitude/latitude)
+        public string Orientation { get; set; } // variable type spatial (longitude/latitude)
         [Display(Name = "Altitude")]
-        public int? AltitudeTakeOff { get; set; }
+        public int AltitudeTakeOff { get; set; }
         [Display(Name = "Type de vol")]
         public string FlightType { get; set; }
+        public string ApproachManeuver { get; set; }
+        public string SiteGeoCoordinate { get; set; }
+        public int  SiteType { get; set; }
         [Display(Name = "Niveau requis")]
         public int LevelID { get; set; }
         [Display(Name="Historique des vols")]

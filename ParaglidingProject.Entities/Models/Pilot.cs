@@ -17,28 +17,28 @@ namespace ParaglidingProject.Models
         public string LastName { get; set; }
 
         [Display(Name = "Adresse")]
-        public string Adress { get; set; }
+        public string Address { get; set; }
 
         [Display(Name="Numéro de téléphone")]
         public string PhoneNumber { get; set; }
 
         [Display(Name ="Poids")]
         public int Weight { get; set; }
-        public int? PostitionID { get; set; }
+        public int? RoleID { get; set; }
 
         [Display(Name ="Fonction au sein du comité")]
-        public Position? Position { get; set; }
+        public Role? Role { get; set; }
         [Display(Name ="Est actif?")]
         public bool IsActif { get; set; }
         [Display(Name ="Vol(s)")]
         public ICollection<Flight> Flights { get; set; }
         [Display(Name ="Payements")]
-        public ICollection<Payment> Payments { get; set; }
+        public ICollection<SubscriptionPayment> SubscriptionsPayments { get; set; }
         [Display(Name ="Cours suivi(s)")]
-        public ICollection<Participation> Participations { get; set; }
+        public ICollection<TraineeshipPayment> TraineeshipPayments { get; set; }
         [Display(Name ="Cours donné(s)")]
-        public ICollection<Teaching> Teachings { get; set; }
+        public ICollection<Teaching> Treachings { get; set; }
         [Display(Name ="Brevet(s) obtenu(s)")]
-        public ICollection<Obtaining> Obtainings { get; set; }
+        public ICollection<Possession> Possessions { get; set; }
     }
 }

@@ -244,20 +244,20 @@ namespace ParaglidingProject.Data
             #region Obtainings
 
 
-            var obtainings = new Obtaining[]
+            var obtainings = new Possession[]
             {
-                new Obtaining{PilotID=1, LicenseID=5, IsSucced=true, ObtainingDate=DateTime.Parse("2019-07-19") },
-                new Obtaining{PilotID=2, LicenseID=1, IsSucced=true, ObtainingDate=DateTime.Parse("2018-05-30") },
-                new Obtaining{PilotID=3, LicenseID=3, IsSucced=true, ObtainingDate=DateTime.Parse("2018-07-10") },
-                new Obtaining{PilotID=3, LicenseID=4, IsSucced=false },
-                new Obtaining{PilotID=4, LicenseID=1, IsSucced=true, ObtainingDate=DateTime.Parse("2018-05-30") },
-                new Obtaining{PilotID=4, LicenseID=2, IsSucced=true, ObtainingDate=DateTime.Parse("2018-11-12") },
-                new Obtaining{PilotID=5, LicenseID=1, IsSucced=true, ObtainingDate=DateTime.Parse("2018-05-30") },
-                new Obtaining{PilotID=5, LicenseID=2, IsSucced=true, ObtainingDate=DateTime.Parse("2018-11-12") },
-                new Obtaining{PilotID=5, LicenseID=3, IsSucced=true, ObtainingDate=DateTime.Parse("2019-12-23") },
+                new Possession{PilotID=1, LicenseID=5, IsSucced=true, ObtainingDate=DateTime.Parse("2019-07-19") },
+                new Possession{PilotID=2, LicenseID=1, IsSucced=true, ObtainingDate=DateTime.Parse("2018-05-30") },
+                new Possession{PilotID=3, LicenseID=3, IsSucced=true, ObtainingDate=DateTime.Parse("2018-07-10") },
+                new Possession{PilotID=3, LicenseID=4, IsSucced=false },
+                new Possession{PilotID=4, LicenseID=1, IsSucced=true, ObtainingDate=DateTime.Parse("2018-05-30") },
+                new Possession{PilotID=4, LicenseID=2, IsSucced=true, ObtainingDate=DateTime.Parse("2018-11-12") },
+                new Possession{PilotID=5, LicenseID=1, IsSucced=true, ObtainingDate=DateTime.Parse("2018-05-30") },
+                new Possession{PilotID=5, LicenseID=2, IsSucced=true, ObtainingDate=DateTime.Parse("2018-11-12") },
+                new Possession{PilotID=5, LicenseID=3, IsSucced=true, ObtainingDate=DateTime.Parse("2019-12-23") },
             };
 
-            foreach (Obtaining o in obtainings)
+            foreach (Possession o in obtainings)
             {
                 context.Obtainings.Add(o);
             }
