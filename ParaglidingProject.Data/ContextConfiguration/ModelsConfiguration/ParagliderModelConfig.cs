@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Paraglider.DAL.Models;
+using ParaglidingProject.Entities.Models;
+using ParaglidingProject.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Paraglider.DAL.ContextConfiguration.ModelsConfiguration
+namespace Paraglider.Data.ContextConfiguration.ModelsConfiguration
 {
     internal class ParagliderModelConfig : IEntityTypeConfiguration<ParagliderModel>
     {
@@ -13,18 +14,18 @@ namespace Paraglider.DAL.ContextConfiguration.ModelsConfiguration
         {
             builder.HasQueryFilter(p => p.IsActive);
 
-            builder.Property(p => p.DateOfHomologation)
+            builder.Property(p => p.ApprovalDate)
                 .HasColumnType("date");
             builder.Property(p => p.Size)
                 .HasColumnType("decimal(5,2)");
-            builder.Property(p => p.MinimalWeight)
+            builder.Property(p => p.MinWeightPilot)
                 .HasColumnType("decimal(5,2)");
-            builder.Property(p => p.MaximumWeight)
+            builder.Property(p => p.MaxWeightPilot)
                 .HasColumnType("decimal(5,2)");
 
             builder.HasMany(p => p.Paragliders)
                 .WithOne(p => p.ParagliderModel)
-                .HasForeignKey(p => p.ParagliderModelId)
+                .HasForeignKey(p => p.ID)
                 .IsRequired(true)
                 .OnDelete(DeleteBehavior.Restrict);
         }
