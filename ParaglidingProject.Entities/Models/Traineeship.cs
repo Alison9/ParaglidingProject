@@ -24,7 +24,7 @@ namespace ParaglidingProject.Models
         public decimal Price { get; set; }
         public bool IsActive { get; set; }
         public int LicenseID { get; set; }
-        public ICollection<TraineeshipPayment> Follows { get; set; }
+        public ICollection<TraineeshipPayment> TraineeshipPayments { get; set; }
         [Display(Name ="Coach")]
         public ICollection<Teaching> Teachings { get; set; }
         [Display(Name = "Brevet délivré")]
