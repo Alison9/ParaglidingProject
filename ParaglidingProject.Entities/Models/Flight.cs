@@ -16,8 +16,10 @@ namespace ParaglidingProject.Models
         public int PilotID { get; set; }
         [Display(Name = "Numéro du parapente")]
         public int ParagliderID { get; set; }
-        [Display(Name ="Site")]
-        public int SiteID { get; set; }
+        [Display(Name ="Site de décollage")]
+        public int TakeOffSiteID { get; set; }
+        [Display(Name = "Site d'atterrissage")]
+        public int LandingSiteID { get; set; }
         [Display(Name = "Pilote")]
         public Pilot Pilot { get; set; }
         public Paraglider Paraglider { get; set; }
