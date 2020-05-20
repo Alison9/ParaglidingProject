@@ -11,7 +11,21 @@ namespace ParaglidingProject.Data.ContextConfiguration.ModelsConfiguration
     {
         public void Configure(EntityTypeBuilder<Site> builder)
         {
+            builder.HasQueryFilter(p => p.IsActive);
 
+            builder.HasMany(s=> s.Flights)
+                .WithOne(f => f.Site)
+                .HasForeignKey(f=> f.SiteID)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(l => l.Level)
+                .WithMany(s=>s.Sites)
+               .HasForeignKey(s=> s.LevelID)
+               .IsRequired(true)
+               .OnDelete(DeleteBehavior.Restrict);
+
+           
 
         }
     }

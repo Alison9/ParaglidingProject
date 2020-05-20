@@ -19,12 +19,14 @@ namespace ParaglidingProject.Models
         public string FlightType { get; set; }
         public string ApproachManeuver { get; set; }
         public string SiteGeoCoordinate { get; set; }
-        public int  SiteType { get; set; }
+        public int  SiteType { get; set; }// column de descrimimation
+        
         [Display(Name = "Niveau requis")]
         public int LevelID { get; set; }
         [Display(Name="Historique des vols")]
         public ICollection<Flight> Flights { get; set; }
         [Display(Name = "Niveau requis")]
         public Level Level { get; set; }
+        public bool IsActive { get; set; }
     }
 }
