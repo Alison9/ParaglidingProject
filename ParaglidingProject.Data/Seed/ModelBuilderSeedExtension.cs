@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ParaglidingProject.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -45,6 +46,58 @@ namespace ParaglidingProject.Data.Seed
         public static void PossessionSeed(this ModelBuilder modelBuilder)
         {
             //Ruaa
+            modelBuilder.Entity<Possession>().HasData(
+            new Possession
+            {
+                PilotID = 1,
+                LicenseID = 2,
+                ExamDate = new DateTime(2019, 5, 12),
+                IsSucceeded = true,
+                IsActive = false
+            },
+            new Possession
+            {
+                PilotID = 2,
+                LicenseID = 1,
+                ExamDate = new DateTime(2019,9, 19),
+                IsSucceeded = true,
+                IsActive = true
+            },
+            new Possession
+            {
+                PilotID = 3,
+                LicenseID = 4,
+                ExamDate = new DateTime(2019, 12, 11),
+                IsSucceeded = true,
+                IsActive = true
+            },
+            new Possession
+            {
+                PilotID = 4,
+                LicenseID = 3,
+                ExamDate = new DateTime(2017, 4, 9),
+                IsSucceeded = true,
+                IsActive =true
+            },
+            new Possession
+            {
+                PilotID = 5,
+                LicenseID = 4,
+                ExamDate = new DateTime(2018, 6, 15),
+                IsSucceeded = true,
+                IsActive = true
+            },
+             new Possession
+             {
+                 PilotID = 2,
+                 LicenseID = 2,
+                 ExamDate = new DateTime(2020,2, 19),
+                 IsSucceeded = true,
+                 IsActive = true
+             }
+            );
+
+
         }
 
         public static void RoleSeed(this ModelBuilder modelBuilder)
