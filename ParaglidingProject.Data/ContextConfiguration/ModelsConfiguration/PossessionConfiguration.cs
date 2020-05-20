@@ -11,13 +11,13 @@ namespace ParaglidingProject.Data.ContextConfiguration.ModelsConfiguration
     {
         public void Configure(EntityTypeBuilder<Possession> builder)
         {
-            builder.HasKey(po => new { po.PilotID, po.LicenceID });
+            builder.HasKey(po => new { po.PilotID, po.LicenseID});
 
             builder.Property(po => po.ExamDate).HasColumnType("date");
 
             builder.HasOne(po => po.License)
                 .WithMany(l => l.Possessions)
-                .HasForeignKey(po => po.LicenceID)
+                .HasForeignKey(po => po.LicenseID)
                 .IsRequired(true)
                 .OnDelete(DeleteBehavior.Restrict);
             builder.HasOne(po => po.Pilot)
