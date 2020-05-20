@@ -29,7 +29,7 @@ namespace ParaglidingProject.Models
         [Display(Name ="Fonction au sein du comité")]
         public Role? Role { get; set; }
         [Display(Name ="Est actif?")]
-        public bool IsActif { get; set; }
+        public bool IsActive { get; set; }
         [Display(Name ="Vol(s)")]
         public ICollection<Flight> Flights { get; set; }
         [Display(Name ="Payements")]
