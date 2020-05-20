@@ -12,7 +12,7 @@ namespace Paraglider.DAL.ContextConfiguration.ModelsConfiguration
     {
         public void Configure(EntityTypeBuilder<Flight> builder)
         {
-          // builder.HasQueryFilter(p => p. IsActive);
+           builder.HasQueryFilter(p => p. IsActive);
 
             builder.HasOne(p => p.Paraglider)
                 .WithMany(fs => fs.Flights)
@@ -24,6 +24,7 @@ namespace Paraglider.DAL.ContextConfiguration.ModelsConfiguration
                 .HasForeignKey(k => k.PilotID)
                 .IsRequired(true)
                 .OnDelete(DeleteBehavior.Restrict);
+
             builder.HasOne(s => s.Site)
                 .WithMany(fs => fs.Flights)
                 .HasForeignKey(k => k.SiteID)

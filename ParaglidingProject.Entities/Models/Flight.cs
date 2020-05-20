@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -21,8 +21,8 @@ namespace ParaglidingProject.Models
         [Display(Name = "Pilote")]
         public Pilot Pilot { get; set; }
         public Paraglider Paraglider { get; set; }
-        public Site Site { get; set; }
-
-
-    }
+        public Site LandingSite { get; set; }
+        public Site TakeOffSite { get; set; }
+        public bool IsActive { get; set; }
+  }
 }
