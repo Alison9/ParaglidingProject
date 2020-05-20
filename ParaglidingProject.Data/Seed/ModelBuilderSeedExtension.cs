@@ -55,8 +55,8 @@ namespace ParaglidingProject.Data.Seed
              );
 
         }
-    }
-        }
+    
+        
 
         public static void LicenseSeed(this ModelBuilder modelBuilder)
         {
