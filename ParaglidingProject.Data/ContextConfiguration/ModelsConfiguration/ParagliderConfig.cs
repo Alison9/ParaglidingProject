@@ -17,7 +17,6 @@ namespace ParaglidingProject.Data.ContextConfiguration.ModelsConfiguration
             builder.Property(p => p.Name).HasColumnType("string");
             builder.Property(p => p.CommissioningDate).HasColumnType("date");
             builder.Property(p => p.LastRevisionDate).HasColumnType("date");
-            builder.Property(p => p.FlightHours).HasColumnType("decimal(5,2)");
 
             builder.HasOne(p => p.ParagliderModel)
                 .WithMany(p => p.Paragliders)

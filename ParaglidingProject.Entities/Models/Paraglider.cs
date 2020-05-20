@@ -28,7 +28,7 @@ namespace ParaglidingProject.Models
         public bool IsActive { get; set; }
 
         [Display(Name = "Numéro du modèle")]
-        public int ParagliderModelID { get; set; } 
+        public int ParagliderModelID { get; set; }
 
         public ParagliderModel ParagliderModel { get; set; }
 
