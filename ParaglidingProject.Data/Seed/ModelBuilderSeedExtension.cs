@@ -159,6 +159,51 @@ namespace ParaglidingProject.Data.Seed
         public static void TraineeshipSeed(this ModelBuilder modelBuilder)
         {
             //Steve
+            modelBuilder.Entity<Traineeship>()
+                .HasData(
+                    new Traineeship
+                    {
+                        ID = 1,
+                        StartDate = DateTime.Parse("2020-04-17"),
+                        EndDate = DateTime.Parse("2020-09-17"),
+                        Price = 620,
+                        IsActive = true
+                    },
+                    new Traineeship
+                    {
+                        ID = 2,
+                        StartDate = DateTime.Parse("2020-05-17"),
+                        EndDate = DateTime.Parse("2020-10-17"),
+                        Price = 590,
+                        IsActive = true
+                    },
+                    new Traineeship
+                    {
+                        ID = 3,
+                        StartDate = DateTime.Parse("2020-06-17"),
+                        EndDate = DateTime.Parse("2020-11-17"),
+                        Price = 590,
+                        IsActive = true
+                    },
+                    new Traineeship
+                    {
+                        ID = 4,
+                        StartDate = DateTime.Parse("2020-07-17"),
+                        EndDate = DateTime.Parse("2020-12-17"),
+                        Price = 620,
+                        IsActive = true
+                    },
+                    new Traineeship
+                    {
+                        ID = 5,
+                        StartDate = DateTime.Parse("2020-08-17"),
+                        EndDate = DateTime.Parse("2021-01-17"),
+                        Price = 520,
+                        IsActive = false
+                    }
+
+                );
+
         }
 
         public static void TraineeshipPaymentSeed(this ModelBuilder modelBuilder)
