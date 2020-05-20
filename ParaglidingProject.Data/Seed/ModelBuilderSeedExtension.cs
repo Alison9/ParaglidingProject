@@ -134,11 +134,84 @@ namespace ParaglidingProject.Data.Seed
         public static void PossessionSeed(this ModelBuilder modelBuilder)
         {
             //Ruaa
+            modelBuilder.Entity<Possession>().HasData(
+            new Possession
+            {
+                PilotID = 1,
+                LicenseID = 2,
+                ExamDate = new DateTime(2019, 5, 12),
+                IsSucceeded = true,
+                IsActive = false
+            },
+            new Possession
+            {
+                PilotID = 2,
+                LicenseID = 1,
+                ExamDate = new DateTime(2019,9, 19),
+                IsSucceeded = true,
+                IsActive = true
+            },
+            new Possession
+            {
+                PilotID = 3,
+                LicenseID = 4,
+                ExamDate = new DateTime(2019, 12, 11),
+                IsSucceeded = true,
+                IsActive = true
+            },
+            new Possession
+            {
+                PilotID = 4,
+                LicenseID = 3,
+                ExamDate = new DateTime(2017, 4, 9),
+                IsSucceeded = true,
+                IsActive =true
+            },
+            new Possession
+            {
+                PilotID = 5,
+                LicenseID = 4,
+                ExamDate = new DateTime(2018, 6, 15),
+                IsSucceeded = true,
+                IsActive = true
+            },
+             new Possession
+             {
+                 PilotID = 2,
+                 LicenseID = 2,
+                 ExamDate = new DateTime(2020,2, 19),
+                 IsSucceeded = true,
+                 IsActive = true
+             }
+            );
+
+
         }
 
         public static void RoleSeed(this ModelBuilder modelBuilder)
         {
-            //Lionel
+            modelBuilder.Entity<Role>().HasData(
+                new Role 
+                {
+                    IsActive = true,
+                    Name = "Secretary",
+                    PilotID = 1,
+                    ID = 3
+                },
+               new Role
+               {
+                    IsActive = true,
+                    Name = "Treasurer",
+                    PilotID = 8,
+                    ID = 2
+               },
+               new Role
+               {
+                    IsActive = true,
+                    Name = "President",
+                    PilotID = 4,
+                    ID = 1
+               });
         }
 
         public static void SiteSeed(this ModelBuilder modelBuilder)
@@ -148,7 +221,33 @@ namespace ParaglidingProject.Data.Seed
 
         public static void SubscriptionSeed(this ModelBuilder modelBuilder)
         {
-            //Lionel
+            modelBuilder.Entity<Subscription>().HasData(
+                new Subscription
+                {
+                    IsActive = true,
+                    Year = 2017,
+                    SubscriptionAmount = 180
+                },
+                new Subscription
+                {
+                    IsActive = true,
+                    Year = 2018,
+                    SubscriptionAmount = 200
+                },
+                new Subscription
+                {
+                    IsActive = true,
+                    Year = 2019,
+                    SubscriptionAmount = 225
+                },
+                new Subscription
+                {
+                    IsActive = true,
+                    Year = 2020,
+                    SubscriptionAmount = 250
+                }
+                ); ;
+            
         }
 
         public static void SubscriptionPaymentSeed(this ModelBuilder modelBuilder)
