@@ -11,7 +11,7 @@ namespace ParaglidingProject.Models
       
         [Display(Name="Pilote")]
         public int PilotID { get; set; }
-        public int SubsciptionID { get; set; }
+        public int SubscriptionID { get; set; }
         [Display(Name = "Date de payement")]
         [DataType(DataType.Date)]
         //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]

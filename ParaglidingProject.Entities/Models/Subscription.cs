@@ -16,7 +16,11 @@ namespace ParaglidingProject.Models
         public int Year { get; set; }
         [Display(Name = "Prix")]
         [DisplayFormat(DataFormatString = "{0:C}")]
+
         public decimal SubscriptionAmount { get; set; }
+
         public ICollection<SubscriptionPayment> SubscriptionPayments { get; set; }
+
+        public bool IsActive { get; set; }
     }
 }
