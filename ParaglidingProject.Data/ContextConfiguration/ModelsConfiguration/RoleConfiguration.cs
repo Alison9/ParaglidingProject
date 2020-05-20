@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Paraglider.DAL.Models;
+using ParaglidingProject.Entities.Models;
+using ParaglidingProject.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Paraglider.DAL.ContextConfiguration.ModelsConfiguration
+namespace ParaglidingProject.Data.ContextConfiguration.ModelsConfiguration
 {
     class RoleConfiguration : IEntityTypeConfiguration<Role>
     {
@@ -15,7 +16,7 @@ namespace Paraglider.DAL.ContextConfiguration.ModelsConfiguration
 
             builder.HasOne(p => p.Pilot)
                 .WithOne(r => r.Role)
-                .HasForeignKey<Pilot>(k => k.RoleId)
+                .HasForeignKey<Pilot>(p => p.RoleID)
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.Restrict);
         }
