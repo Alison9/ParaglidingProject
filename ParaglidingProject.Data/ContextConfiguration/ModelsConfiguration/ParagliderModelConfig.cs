@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Paraglider.Data.ContextConfiguration.ModelsConfiguration
+namespace ParaglidingProject.Data.ContextConfiguration.ModelsConfiguration
 {
     internal class ParagliderModelConfig : IEntityTypeConfiguration<ParagliderModel>
     {

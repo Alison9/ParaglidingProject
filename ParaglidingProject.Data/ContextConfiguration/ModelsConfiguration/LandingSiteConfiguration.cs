@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Paraglider.DAL.ContextConfiguration.ModelsConfiguration
+namespace ParaglidingProject.Data.ContextConfiguration.ModelsConfiguration
 {
     class LandingSiteConfiguration : IEntityTypeConfiguration<LandingSite>
     {

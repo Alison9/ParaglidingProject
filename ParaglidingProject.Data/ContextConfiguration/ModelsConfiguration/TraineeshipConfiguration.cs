@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Paraglider.DAL.Models;
+using ParaglidingProject.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Paraglider.DAL.ContextConfiguration.ModelsConfiguration
+namespace ParaglidingProject.Data.ContextConfiguration.ModelsConfiguration
 {
     class TraineeshipConfiguration : IEntityTypeConfiguration<Traineeship>
     {
