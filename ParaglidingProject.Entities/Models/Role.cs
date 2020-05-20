@@ -9,7 +9,7 @@ namespace ParaglidingProject.Models
     public class Role
     {
         public int ID { get; set; }
-        [Display(Name = "Position")]
+        [Display(Name = "Role Administratif")]
         public string Name { get; set; }
         public bool IsActive { get; set; }
         [Display(Name="Pilote")]
