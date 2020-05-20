@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ParaglidingProject.Entities.Models;
 using ParaglidingProject.Models;
 using System;
 using System.Collections.Generic;
@@ -8,15 +7,17 @@ using System.Text;
 
 namespace ParaglidingProject.Data.ContextConfiguration.ModelsConfiguration
 {
-    class RoleConfiguration : IEntityTypeConfiguration<Role>
+    class SubscriptionConfiguration : IEntityTypeConfiguration<Subscription>
     {
-        public void Configure(EntityTypeBuilder<Role> builder)
+        public void Configure(EntityTypeBuilder<Subscription> builder)
         {
             builder.HasQueryFilter(p => p.IsActive);
 
-            builder.HasOne(p => p.Pilot)
-                .WithOne(r => r.Role)
-                .HasForeignKey<Pilot>(p => p.RoleID)
+            builder.Property(m => m.SubscriptionAmount)
+                .HasColumnType("decimal(5,2)");
+            builder.HasMany(pms => pms.SubscriptionPayments)
+                .WithOne(m => m.Subscription)
+                .HasForeignKey(k => k.SubscriptionID)
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.Restrict);
         }
