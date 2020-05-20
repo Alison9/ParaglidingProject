@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ParaglidingProject.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -70,6 +71,59 @@ namespace ParaglidingProject.Data.Seed
         public static void ParagliderModelSeed(this ModelBuilder modelBuilder)
         {
             //Steve
+            modelBuilder.Entity<ParagliderModel>()
+                .HasData(
+                    new ParagliderModel
+                    {
+                        ID = 1,
+                        Size = "22 m²",
+                        MinWeightPilot = 50,
+                        MaxWeightPilot = 70,
+                        ApprovalNumber = "EN/LTF A",
+                        ApprovalDate = DateTime.Parse("1990-03-02"),
+                        IsActive = true
+                    }, 
+                    new ParagliderModel
+                    {
+                        ID = 2,
+                        Size = "24 m²",
+                        MinWeightPilot = 60,
+                        MaxWeightPilot = 80,
+                        ApprovalNumber = "EN/LTF A",
+                        ApprovalDate = DateTime.Parse("1993-09-17"),
+                        IsActive = true
+                    },
+                    new ParagliderModel
+                    {
+                        ID = 3,
+                        Size = "26 m²",
+                        MinWeightPilot = 70,
+                        MaxWeightPilot = 95,
+                        ApprovalNumber = "EN/LTF A",
+                        ApprovalDate = DateTime.Parse("2001-07-21"),
+                        IsActive = true
+                    },
+                    new ParagliderModel
+                    {
+                        ID = 4,
+                        Size = "28 m²",
+                        MinWeightPilot = 85,
+                        MaxWeightPilot = 110,
+                        ApprovalNumber = "EN/LTF A",
+                        ApprovalDate = DateTime.Parse("2002-10-02"),
+                        IsActive = true
+                    },
+                    new ParagliderModel
+                    {
+                        ID = 5,
+                        Size = "31 m²",
+                        MinWeightPilot = 100,
+                        MaxWeightPilot = 130,
+                        ApprovalNumber = "EN/LTF A",
+                        ApprovalDate = DateTime.Parse("2019-11-17"),
+                        IsActive = false
+                    }
+                ) ;
         }
 
         public static void PilotTraineeshipSeed(this ModelBuilder modelBuilder)
