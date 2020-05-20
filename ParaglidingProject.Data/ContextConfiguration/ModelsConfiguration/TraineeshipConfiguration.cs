@@ -13,26 +13,26 @@ namespace ParaglidingProject.Data.ContextConfiguration.ModelsConfiguration
         {
             builder.HasQueryFilter(p => p.IsActive);
 
-            builder.Property(De => De.DateOfEnd)
+            builder.Property(Sd => Sd.StartDate)
                 .HasColumnType("date");
-            builder.Property(Ds => Ds.DateOfStart)
+            builder.Property(Ed => Ed.EndDate)
                 .HasColumnType("date");
-            builder.Property(p => p.Prize)
-                .HasColumnType("decimal(5,2)");
+            builder.Property(p => p.Price)
+                .HasColumnType("decimal");
 
-            builder.HasMany(pts => pts.PilotTraineeships)
-                .WithOne(t => t.Traineeship)
-                .HasForeignKey(k => k.TraineeshipId)
+            builder.HasMany(pts => pts.pilotTraineeships)
+                .WithOne(ts => ts.Traineeship)
+                .HasForeignKey(ts => ts.TraineeshipID)
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.Restrict);
-            builder.HasOne(c => c.Certificate)
-                .WithMany(ts => ts.Traineeships)
-                .HasForeignKey(k => k.CertificateId)
+            builder.HasMany(l => l.TraineeshipPayments)
+                .WithOne(ts => ts.Traineeship)
+                .HasForeignKey(ts => ts.TraineeshipID)
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.Restrict);
-            builder.HasOne(l => l.Level)
+            builder.HasOne(l => l.License)
                 .WithMany(ts => ts.Traineeships)
-                .HasForeignKey(k => k.LevelId)
+                .HasForeignKey(k => k.LicenseID)
                 .IsRequired(true)
                 .OnDelete(DeleteBehavior.Restrict);
         }
