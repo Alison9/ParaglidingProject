@@ -16,12 +16,12 @@ namespace ParaglidingProject.Data.ContextConfiguration.ModelsConfiguration
 
             builder.HasOne(p => p.ParagliderModel)
                 .WithMany(p => p.Paragliders)
-                .HasForeignKey(p => p.ParagliderModelId)
+                .HasForeignKey(p => p.ParagliderModelID)
                 .IsRequired(true)
                 .OnDelete(DeleteBehavior.Restrict);
             builder.HasMany(fs => fs.Flights)
                 .WithOne(p => p.Paraglider)
-                .HasForeignKey(k => k.ParagliderId)
+                .HasForeignKey(k => k.ParagliderID)
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.Restrict);
         }
