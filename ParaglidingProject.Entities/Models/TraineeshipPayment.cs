@@ -8,7 +8,7 @@ namespace ParaglidingProject.Models
 {
     public class TraineeshipPayment
     {
-        public int ID { get; set; }
+        //public int ID { get; set; }
         public int PilotID { get; set; }
         public int TraineeshipID { get; set; }
         [Display(Name ="Date de payments")]

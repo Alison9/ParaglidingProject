@@ -24,8 +24,8 @@ namespace Paraglider.Data.ContextConfiguration.ModelsConfiguration
                 .HasColumnType("decimal(5,2)");
 
             builder.HasMany(p => p.Paragliders)
-                .WithOne(p => p.ParagliderModel)
-                .HasForeignKey(p => p.ID)
+                .WithOne(pm => pm.ParagliderModel)
+                .HasForeignKey(p => p.ParagliderModelID)
                 .IsRequired(true)
                 .OnDelete(DeleteBehavior.Restrict);
         }
