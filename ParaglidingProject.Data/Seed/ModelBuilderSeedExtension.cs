@@ -25,20 +25,20 @@ namespace ParaglidingProject.Data.Seed
             modelBuilder.Entity<Level>().HasData(
                 new Level
                 {
-                    LevelID = 1,
+                    ID = 1,
                     Name = "Level 1",
                     Skill = "brevet A",
                     IsActive = true
                 },
                 new Level
-                   { LevelID = 2,
+                   { ID = 2,
                     Name = "Level 2",
                     Skill = "brevet B",
                     IsActive = true
                 },
                 new Level
                 {
-                    LevelID = 3,
+                    ID = 3,
                     Name = "Level 3",
                     Skill = "brevet C",
                     IsActive = true
@@ -46,7 +46,7 @@ namespace ParaglidingProject.Data.Seed
                 },
                 new Level
                 {
-                    LevelID = 4,
+                    ID = 4,
                     Name = "Level 4",
                     Skill = "brevet D",
                     IsActive = false
