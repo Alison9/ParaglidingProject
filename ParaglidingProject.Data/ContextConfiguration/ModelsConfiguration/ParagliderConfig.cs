@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Paraglider.DAL.Models;
+using ParaglidingProject;
 using System;
 using System.Collections.Generic;
 using System.Text;
