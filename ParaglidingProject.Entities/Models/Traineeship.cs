@@ -26,8 +26,10 @@ namespace ParaglidingProject.Models
         public int LicenseID { get; set; }
         public ICollection<TraineeshipPayment> TraineeshipPayments { get; set; }
         [Display(Name ="Coach")]
-        public ICollection<Teaching> Teachings { get; set; }
+        public ICollection<PilotTraineeship> pilotTraineeships { get; set; }
+        // public ICollection<Teaching> Teachings { get; set; }
         [Display(Name = "Brevet délivré")]
         public License License { get; set; }
+       
     }
 }

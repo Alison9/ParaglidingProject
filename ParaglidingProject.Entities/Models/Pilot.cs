@@ -37,8 +37,10 @@ namespace ParaglidingProject.Models
         [Display(Name ="Cours suivi(s)")]
         public ICollection<TraineeshipPayment> TraineeshipPayments { get; set; }
         [Display(Name ="Cours donné(s)")]
-        public ICollection<Teaching> Teachings { get; set; }
+        public ICollection<PilotTraineeship> pilotTraineeships { get; set; }
+        //public ICollection<Teaching> Teachings { get; set; }
         [Display(Name ="Brevet(s) obtenu(s)")]
         public ICollection<Possession> Possessions { get; set; }
+       
     }
 }
