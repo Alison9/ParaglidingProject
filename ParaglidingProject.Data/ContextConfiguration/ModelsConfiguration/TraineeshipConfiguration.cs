@@ -20,7 +20,7 @@ namespace ParaglidingProject.Data.ContextConfiguration.ModelsConfiguration
             builder.Property(p => p.Price)
                 .HasColumnType("decimal");
 
-            builder.HasMany(pts => pts.pilotTraineeships)
+            builder.HasMany(pts => pts.PilotTraineeships)
                 .WithOne(ts => ts.Traineeship)
                 .HasForeignKey(ts => ts.TraineeshipID)
                 .IsRequired(false)

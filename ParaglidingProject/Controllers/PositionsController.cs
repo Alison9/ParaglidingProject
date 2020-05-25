@@ -22,7 +22,7 @@ namespace ParaglidingProject.Web.Controllers
         // GET: Positions
         public async Task<IActionResult> Index()
         {
-            var paraglidingClubContext = _context.Positions.Include(p => p.Pilot);
+            var paraglidingClubContext = _context.Roles.Include(p => p.Pilot);
             return View(await paraglidingClubContext.ToListAsync());
         }
 
@@ -34,7 +34,7 @@ namespace ParaglidingProject.Web.Controllers
                 return NotFound();
             }
 
-            var position = await _context.Positions
+            var position = await _context.Roles
                 .Include(p => p.Pilot)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (position == null)
@@ -57,7 +57,7 @@ namespace ParaglidingProject.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name,PilotID")] Position position)
+        public async Task<IActionResult> Create([Bind("ID,Name,PilotID")] Role position)
         {
             if (ModelState.IsValid)
             {
@@ -77,7 +77,7 @@ namespace ParaglidingProject.Web.Controllers
                 return NotFound();
             }
 
-            var position = await _context.Positions.FindAsync(id);
+            var position = await _context.Roles.FindAsync(id);
             if (position == null)
             {
                 return NotFound();
@@ -91,7 +91,7 @@ namespace ParaglidingProject.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,PilotID")] Position position)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,PilotID")] Role position)
         {
             if (id != position.ID)
             {
@@ -130,7 +130,7 @@ namespace ParaglidingProject.Web.Controllers
                 return NotFound();
             }
 
-            var position = await _context.Positions
+            var position = await _context.Roles
                 .Include(p => p.Pilot)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (position == null)
@@ -146,15 +146,15 @@ namespace ParaglidingProject.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var position = await _context.Positions.FindAsync(id);
-            _context.Positions.Remove(position);
+            var position = await _context.Roles.FindAsync(id);
+            _context.Roles.Remove(position);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool PositionExists(int id)
         {
-            return _context.Positions.Any(e => e.ID == id);
+            return _context.Roles.Any(e => e.ID == id);
         }
     }
 }

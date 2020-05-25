@@ -22,7 +22,7 @@ namespace ParaglidingProject.Controllers
         // GET: Paraglidings
         public async Task<IActionResult> Index()
         {
-            var paraglidingClubContext = _context.Paraglidings.Include(p => p.ModelParagliding);
+            var paraglidingClubContext = _context.Paragliders.Include(p => p.ParagliderModel);
             return View(await paraglidingClubContext.ToListAsync());
         }
 
@@ -34,8 +34,8 @@ namespace ParaglidingProject.Controllers
                 return NotFound();
             }
 
-            var paragliding = await _context.Paraglidings
-                .Include(p => p.ModelParagliding)
+            var paragliding = await _context.Paragliders
+                .Include(p => p.ParagliderModel)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (paragliding == null)
             {
@@ -48,7 +48,7 @@ namespace ParaglidingProject.Controllers
         // GET: Paraglidings/Create
         public IActionResult Create()
         {
-            ViewData["ModelParaglidingID"] = new SelectList(_context.ModelParaglidings, "ID", "ID");
+            ViewData["ModelParaglidingID"] = new SelectList(_context.ParagliderModels, "ID", "ID");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace ParaglidingProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,DateOfCommissioning,DateOfLastRevision,ModelParaglidingID")] Paragliding paragliding)
+        public async Task<IActionResult> Create([Bind("ID,DateOfCommissioning,DateOfLastRevision,ModelParaglidingID")] Paraglider paragliding)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +65,7 @@ namespace ParaglidingProject.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ModelParaglidingID"] = new SelectList(_context.ModelParaglidings, "ID", "ID", paragliding.ModelParaglidingID);
+            ViewData["ModelParaglidingID"] = new SelectList(_context.ParagliderModels, "ID", "ID", paragliding.ParagliderModelID);
             return View(paragliding);
         }
 
@@ -77,12 +77,12 @@ namespace ParaglidingProject.Controllers
                 return NotFound();
             }
 
-            var paragliding = await _context.Paraglidings.FindAsync(id);
+            var paragliding = await _context.Paragliders.FindAsync(id);
             if (paragliding == null)
             {
                 return NotFound();
             }
-            ViewData["ModelParaglidingID"] = new SelectList(_context.ModelParaglidings, "ID", "ID", paragliding.ModelParaglidingID);
+            ViewData["ModelParaglidingID"] = new SelectList(_context.ParagliderModels, "ID", "ID", paragliding.ParagliderModelID);
             return View(paragliding);
         }
 
@@ -91,7 +91,7 @@ namespace ParaglidingProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,DateOfCommissioning,DateOfLastRevision,ModelParaglidingID")] Paragliding paragliding)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,DateOfCommissioning,DateOfLastRevision,ModelParaglidingID")] Paraglider paragliding)
         {
             if (id != paragliding.ID)
             {
@@ -118,7 +118,7 @@ namespace ParaglidingProject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ModelParaglidingID"] = new SelectList(_context.ModelParaglidings, "ID", "ID", paragliding.ModelParaglidingID);
+            ViewData["ModelParaglidingID"] = new SelectList(_context.ParagliderModels, "ID", "ID", paragliding.ParagliderModelID);
             return View(paragliding);
         }
 
@@ -130,8 +130,8 @@ namespace ParaglidingProject.Controllers
                 return NotFound();
             }
 
-            var paragliding = await _context.Paraglidings
-                .Include(p => p.ModelParagliding)
+            var paragliding = await _context.Paragliders
+                .Include(p => p.ParagliderModel)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (paragliding == null)
             {
@@ -146,15 +146,15 @@ namespace ParaglidingProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var paragliding = await _context.Paraglidings.FindAsync(id);
-            _context.Paraglidings.Remove(paragliding);
+            var paragliding = await _context.Paragliders.FindAsync(id);
+            _context.Paragliders.Remove(paragliding);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ParaglidingExists(int id)
         {
-            return _context.Paraglidings.Any(e => e.ID == id);
+            return _context.Paragliders.Any(e => e.ID == id);
         }
     }
 }

@@ -37,7 +37,7 @@ namespace ParaglidingProject.Data.ContextConfiguration.ModelsConfiguration
                 .IsRequired(true)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasMany(p => p.Teachings)
+            builder.HasMany(p => p.PilotTraineeships)
                .WithOne(t => t.Pilot)
                .HasForeignKey(t => t.PilotID)
                .IsRequired(true)

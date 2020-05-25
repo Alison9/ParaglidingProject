@@ -10,11 +10,11 @@ using ParaglidingProject.Models;
 
 namespace ParaglidingProject.Controllers
 {
-    public class CoursesController : Controller
+    public class TraineeshipsController : Controller
     {
         private readonly ParaglidingClubContext _context;
 
-        public CoursesController(ParaglidingClubContext context)
+        public TraineeshipsController(ParaglidingClubContext context)
         {
             _context = context;
         }
@@ -22,7 +22,7 @@ namespace ParaglidingProject.Controllers
         // GET: Courses
         public async Task<IActionResult> Index()
         {
-            var paraglidingClubContext = _context.Courses
+            var paraglidingClubContext = _context.Traineeships
                 .Include(c => c.License);
             return View(await paraglidingClubContext.ToListAsync());
         }
@@ -35,16 +35,16 @@ namespace ParaglidingProject.Controllers
                 return NotFound();
             }
 
-            var course = await _context.Courses
+            var course = await _context.Traineeships
                 .Include(c => c.License)
                     .ThenInclude(l => l.Level)
-                .Include(t => t.Teachings)
+                .Include(t => t.PilotTraineeships)
                    .ThenInclude(p => p.Pilot)
-                .Include(p => p.Participations)
-                    .ThenInclude(p =>p.Pilot)
-                
-                                 /*.ThenInclude(c => c.Level)*/ //Inclusion du niveau auquel donne droit la licence ?
-                //.AsNoTracking()
+                .Include(p => p.TraineeshipPayments)
+                    .ThenInclude(p => p.Pilot)
+
+                /*.ThenInclude(c => c.Level)*/ //Inclusion du niveau auquel donne droit la licence ?
+                                               //.AsNoTracking()
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (course == null)
             {
@@ -66,7 +66,7 @@ namespace ParaglidingProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,StartDate,EndDate,CoursePrice,LicenseID")] Course course)
+        public async Task<IActionResult> Create([Bind("ID,StartDate,EndDate,CoursePrice,LicenseID")] Traineeship course)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace ParaglidingProject.Controllers
                 return NotFound();
             }
 
-            var course = await _context.Courses.FindAsync(id);
+            var course = await _context.Traineeships.FindAsync(id);
             if (course == null)
             {
                 return NotFound();
@@ -100,7 +100,7 @@ namespace ParaglidingProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,StartDate,EndDate,CoursePrice,LicenseID")] Course course)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,StartDate,EndDate,CoursePrice,LicenseID")] Traineeship course)
         {
             if (id != course.ID)
             {
@@ -139,7 +139,7 @@ namespace ParaglidingProject.Controllers
                 return NotFound();
             }
 
-            var course = await _context.Courses
+            var course = await _context.Traineeships
                 .Include(c => c.License)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (course == null)
@@ -155,15 +155,15 @@ namespace ParaglidingProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var course = await _context.Courses.FindAsync(id);
-            _context.Courses.Remove(course);
+            var course = await _context.Traineeships.FindAsync(id);
+            _context.Traineeships.Remove(course);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool CourseExists(int id)
         {
-            return _context.Courses.Any(e => e.ID == id);
+            return _context.Traineeships.Any(e => e.ID == id);
         }
     }
 }

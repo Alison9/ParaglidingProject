@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ParaglidingProject.Models.Course>
+﻿@model IEnumerable<ParaglidingProject.Models.Traineeship>
 
 @{
     ViewData["Title"] = "Stages";
@@ -20,7 +20,7 @@
                 @Html.DisplayNameFor(model => model.EndDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CoursePrice)
+                @Html.DisplayNameFor(model => model.Price)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.License.Title)
@@ -39,7 +39,7 @@
                     @Html.DisplayFor(modelItem => item.EndDate)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CoursePrice)
+                    @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.License.Title)

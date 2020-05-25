@@ -1,4 +1,4 @@
-﻿@model ParaglidingProject.Models.Course
+﻿@model ParaglidingProject.Models.Traineeship
 
 @{
     ViewData["Title"] = "Détails du stage";
@@ -22,10 +22,10 @@
             @Html.DisplayFor(model => model.EndDate)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CoursePrice)
+            @Html.DisplayNameFor(model => model.Price)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CoursePrice)
+            @Html.DisplayFor(model => model.Price)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.License.Title)

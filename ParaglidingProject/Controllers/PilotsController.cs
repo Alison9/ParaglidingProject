@@ -38,14 +38,14 @@ namespace ParaglidingProject.Controllers
 
             var pilot = await _context.Pilots
                 .Include(f => f.Flights)
-                .Include(o => o.Obtainings)
+                .Include(o => o.Possessions)
                     .ThenInclude(li => li.License)
                        .ThenInclude(le =>le.Level)
-                .Include(pa => pa.Participations)
-                   .ThenInclude(c => c.Course)
-                .Include(p => p.Position)
-                .Include(t => t.Teachings)
-                    .ThenInclude(c => c.Course)
+                .Include(pa => pa.TraineeshipPayments)
+                   .ThenInclude(c => c.Traineeship)
+                .Include(p => p.Role)
+                .Include(t => t.PilotTraineeships)
+                    .ThenInclude(c => c.Traineeship)
                     
                 .FirstOrDefaultAsync(m => m.ID == id);
 
@@ -59,16 +59,16 @@ namespace ParaglidingProject.Controllers
                 return NotFound();
             }
 
-            foreach (var item in flight)
-            {
-                TimeSpan FlightDuration = (item.FlightEnd) - (item.FlightStart);
-                        ViewData["flightDuration"] = FlightDuration;
-                        flightTime += FlightDuration;
-                        ViewData["flightTimeTotal"] = flightTime;
+            //foreach (var item in flight)
+            //{
+            //    TimeSpan FlightDuration = (item.FlightEnd) - (item.FlightStart);
+            //            ViewData["flightDuration"] = FlightDuration;
+            //            flightTime += FlightDuration;
+            //            ViewData["flightTimeTotal"] = flightTime;
                 
-            }
+            //}
 
-            ViewData["Position"] = pilot.Position.Name;
+            //ViewData["Position"] = pilot.Position.Name;
             return View(pilot);
             
             
@@ -77,7 +77,7 @@ namespace ParaglidingProject.Controllers
         // GET: Pilots/Create
         public IActionResult Create()
         {
-            ViewData["PositionID"] = new SelectList(_context.Positions, "ID", "Name");
+            ViewData["PositionID"] = new SelectList(_context.Roles, "ID", "Name");
             return View();
         }
 
@@ -114,7 +114,7 @@ namespace ParaglidingProject.Controllers
             }
 
             var pilot = await _context.Pilots.FindAsync(id);
-           ViewData["PositionID"] = new SelectList(_context.Positions, "ID", "Name", pilot.PostitionID);
+           ViewData["PositionID"] = new SelectList(_context.Roles, "ID", "Name", pilot.RoleID);
             if (pilot == null)
             {
                 return NotFound();
@@ -135,8 +135,8 @@ namespace ParaglidingProject.Controllers
             }
 
             var pilotToUpdate = await _context.Pilots.FindAsync(id);
-            if (await TryUpdateModelAsync<Pilot>(pilotToUpdate, "", s => s.FirstName, s => s.LastName, s => s.Adress,
-               s => s.PhoneNumber, s => s.Weight, s => s.Position, s => s.IsActif))
+            if (await TryUpdateModelAsync<Pilot>(pilotToUpdate, "", s => s.FirstName, s => s.LastName, s => s.Address,
+               s => s.PhoneNumber, s => s.Weight, s => s.Role, s => s.IsActive))
             {
                 if (ModelState.IsValid)
 
@@ -166,15 +166,15 @@ namespace ParaglidingProject.Controllers
             }
 
             var pilot = await _context.Pilots
-                .Include(p => p.Position)
+                .Include(p => p.Role)
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if(pilot.Position  == null)
+            if(pilot.Role  == null)
             {
                 ViewData["Position"] = "Pas dans le comité";
             }
             else
             {
-                ViewData["Position"] = pilot.Position.Name;
+                ViewData["Position"] = pilot.Role.Name;
             }
             
             if (pilot == null)
@@ -219,7 +219,7 @@ namespace ParaglidingProject.Controllers
             ViewData["FirstName"] = pilot.FirstName;
             ViewData["LastName"] = pilot.LastName;
             ViewData["PilotID"] = pilot.ID;
-            ViewData["ParaglidingID"] = new SelectList(_context.Paraglidings, "ID", "ID");
+            ViewData["ParaglidingID"] = new SelectList(_context.Paragliders, "ID", "ID");
             ViewData["SiteID"] = new SelectList(_context.Sites, "ID", "Name");
 
             return View("CreateFlight");
@@ -230,8 +230,8 @@ namespace ParaglidingProject.Controllers
         public async Task<IActionResult> CreateFlight([Bind("PilotID, FlightDate, FlightStart, FlightEnd, ParaglidingID, SiteID, Pilot")] Flight flight)
         {
             var pilot = _context.Pilots.Where(p => p.ID  == flight.PilotID).FirstOrDefault();
-            var paragliding = _context.Paraglidings.Where(pa => pa.ID == flight.ParaglidingID).FirstOrDefault();
-            var modelparagliding = _context.ModelParaglidings.Where(m => m.ID == paragliding.ModelParaglidingID).FirstOrDefault();
+            var paragliding = _context.Paragliders.Where(pa => pa.ID == flight.ParagliderID).FirstOrDefault();
+            var modelparagliding = _context.ParagliderModels.Where(m => m.ID == paragliding.ParagliderModelID).FirstOrDefault();
             if(pilot.Weight > modelparagliding.MaxWeightPilot || pilot.Weight < modelparagliding.MinWeightPilot)
             {
                 ModelState.AddModelError("", "Parapente pas adapté au pilote");

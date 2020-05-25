@@ -1,4 +1,4 @@
-﻿@model ParaglidingProject.Models.ModelParagliding
+﻿@model ParaglidingProject.Models.ParagliderModel
 
 @{
     ViewData["Title"] = "Create";
@@ -13,8 +13,8 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="HeightParagliding" class="control-label"></label>
-                <input asp-for="HeightParagliding" class="form-control" />
+                <label asp-for="Size" class="control-label"></label>
+                <input asp-for="Size" class="form-control" />
                 <span asp-validation-for="HeightParagliding" class="text-danger"></span>
             </div>
             <div class="form-group">

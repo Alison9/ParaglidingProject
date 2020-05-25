@@ -10,11 +10,11 @@ using ParaglidingProject.Models;
 
 namespace ParaglidingProject.Controllers
 {
-    public class ModelParaglidingsController : Controller
+    public class ParagliderModelsController : Controller
     {
         private readonly ParaglidingClubContext _context;
 
-        public ModelParaglidingsController(ParaglidingClubContext context)
+        public ParagliderModelsController(ParaglidingClubContext context)
         {
             _context = context;
         }
@@ -22,7 +22,7 @@ namespace ParaglidingProject.Controllers
         // GET: ModelParaglidings
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ModelParaglidings.ToListAsync());
+            return View(await _context.ParagliderModels.ToListAsync());
         }
 
         // GET: ModelParaglidings/Details/5
@@ -33,8 +33,8 @@ namespace ParaglidingProject.Controllers
                 return NotFound();
             }
 
-            var modelParagliding = await _context.ModelParaglidings
-                .Include(p => p.Paraglidings)
+            var modelParagliding = await _context.ParagliderModels
+                .Include(p => p.Paragliders)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (modelParagliding == null)
             {
@@ -55,7 +55,7 @@ namespace ParaglidingProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,HeightParagliding,MaxWeightPilot,MinWeightPilot,AprovalNumber,AprovalDate")] ModelParagliding modelParagliding)
+        public async Task<IActionResult> Create([Bind("ID,HeightParagliding,MaxWeightPilot,MinWeightPilot,AprovalNumber,AprovalDate")] ParagliderModel modelParagliding)
         {
             if (ModelState.IsValid)
             {
@@ -74,7 +74,7 @@ namespace ParaglidingProject.Controllers
                 return NotFound();
             }
 
-            var modelParagliding = await _context.ModelParaglidings.FindAsync(id);
+            var modelParagliding = await _context.ParagliderModels.FindAsync(id);
             if (modelParagliding == null)
             {
                 return NotFound();
@@ -93,9 +93,9 @@ namespace ParaglidingProject.Controllers
             {
                 return NotFound();
             }
-            var modelParaglidingToUpdate = await _context.ModelParaglidings.FirstOrDefaultAsync(p => p.ID == id);
-            if (await TryUpdateModelAsync<ModelParagliding>(
-                modelParaglidingToUpdate, "", p => p.HeightParagliding, p => p.AprovalDate, p => p.AprovalNumber, p => p.MaxWeightPilot, p => p.MinWeightPilot))
+            var modelParaglidingToUpdate = await _context.ParagliderModels.FirstOrDefaultAsync(p => p.ID == id);
+            if (await TryUpdateModelAsync<ParagliderModel>(
+                modelParaglidingToUpdate, "", p => p.Size, p => p.ApprovalDate, p => p.ApprovalNumber, p => p.MaxWeightPilot, p => p.MinWeightPilot))
             {
                 try
                 {
@@ -147,7 +147,7 @@ namespace ParaglidingProject.Controllers
                 return NotFound();
             }
 
-            var modelParagliding = await _context.ModelParaglidings
+            var modelParagliding = await _context.ParagliderModels
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (modelParagliding == null)
             {
@@ -162,15 +162,15 @@ namespace ParaglidingProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var modelParagliding = await _context.ModelParaglidings.FindAsync(id);
-            _context.ModelParaglidings.Remove(modelParagliding);
+            var modelParagliding = await _context.ParagliderModels.FindAsync(id);
+            _context.ParagliderModels.Remove(modelParagliding);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ModelParaglidingExists(int id)
         {
-            return _context.ModelParaglidings.Any(e => e.ID == id);
+            return _context.ParagliderModels.Any(e => e.ID == id);
         }
 
         public IActionResult CreateParagliding(int? id)
@@ -181,7 +181,7 @@ namespace ParaglidingProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateParagliding([Bind("DateOfCommissioning, DateOfLastRevision, ModelParaglidingID")] Paragliding paragliding)
+        public async Task<IActionResult> CreateParagliding([Bind("DateOfCommissioning, DateOfLastRevision, ModelParaglidingID")] Paraglider paragliding)
         {
             if (ModelState.IsValid)
             {
@@ -201,7 +201,7 @@ namespace ParaglidingProject.Controllers
 
             ViewData["ModelParagliding"] = id;
 
-            var paragliding = await _context.Paraglidings
+            var paragliding = await _context.Paragliders
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (paragliding == null)
             {
@@ -215,8 +215,8 @@ namespace ParaglidingProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteParaglidingConfirmed(int id)
         {
-            var paragliding = await _context.Paraglidings.FindAsync(id);
-            _context.Paraglidings.Remove(paragliding);
+            var paragliding = await _context.Paragliders.FindAsync(id);
+            _context.Paragliders.Remove(paragliding);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
@@ -228,14 +228,14 @@ namespace ParaglidingProject.Controllers
                 return NotFound();
             }
 
-            var paragliding = await _context.Paraglidings
+            var paragliding = await _context.Paragliders
                 .FirstOrDefaultAsync(i => i.ID == id);
             //.FindAsync(id);
             if (paragliding == null)
             {
                 return NotFound();
             }
-            ViewData["ModelParaglidingID"] = new SelectList(_context.ModelParaglidings, "ID", "ID");
+            ViewData["ModelParaglidingID"] = new SelectList(_context.ParagliderModels, "ID", "ID");
             return View(paragliding);
         }
 
@@ -247,10 +247,10 @@ namespace ParaglidingProject.Controllers
             {
                 return NotFound();
             }
-            var paraglidingToUpdate = await _context.Paraglidings.FirstOrDefaultAsync(p => p.ID == id);
+            var paraglidingToUpdate = await _context.Paragliders.FirstOrDefaultAsync(p => p.ID == id);
             
-            if (await TryUpdateModelAsync<Paragliding>(
-                paraglidingToUpdate, "", p => p.DateOfCommissioning, p => p.DateOfLastRevision, p => p.ModelParaglidingID))
+            if (await TryUpdateModelAsync<Paraglider>(
+                paraglidingToUpdate, "", p => p.CommissioningDate, p => p.LastRevisionDate, p => p.ParagliderModelID))
             {
                 try
                 {
@@ -276,8 +276,8 @@ namespace ParaglidingProject.Controllers
                 return NotFound();
             }
 
-            var paragliding = await _context.Paraglidings
-                .Include(p => p.ModelParagliding)
+            var paragliding = await _context.Paragliders
+                .Include(p => p.ParagliderModelID)
                 .Include(f => f.Flights)
                 .ThenInclude(p => p.Pilot)
                 .FirstOrDefaultAsync(m => m.ID == id);
@@ -286,18 +286,18 @@ namespace ParaglidingProject.Controllers
                 return NotFound();
             }
 
-            var flights = _context.Flights.Where(f => f.ParaglidingID == id);
-            ViewData["flightCount"] = flights.Count();
-            TimeSpan flightTime = new TimeSpan();
-            foreach (var item in flights)
-            {
-                var flightDuration = item.FlightEnd - item.FlightStart;
-                flightTime  +=  flightDuration;
+            //var flights = _context.Flights.Where(f => f.ParagliderID == id);
+            //ViewData["flightCount"] = flights.Count();
+            //TimeSpan flightTime = new TimeSpan();
+            //foreach (var item in flights)
+            //{
+            //    var flightDuration = item.FlightEnd - item.FlightStart;
+            //    flightTime  +=  flightDuration;
                 
 
-            }
+            //}
 
-            ViewData["flightTime"] = flightTime;
+            //ViewData["flightTime"] = flightTime;
 
             return View(paragliding);
         }
@@ -310,7 +310,8 @@ namespace ParaglidingProject.Controllers
             }
 
             var flight = await _context.Flights
-                .Include(p => p.Site)
+                .Include(p => p.LandingSite)
+                .Include(p => p.TakeOffSite)
                 .Include(f => f.Pilot)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (flight == null)

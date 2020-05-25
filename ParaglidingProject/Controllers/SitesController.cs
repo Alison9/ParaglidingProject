@@ -33,7 +33,7 @@ namespace ParaglidingProject.Web.Controllers
           
            foreach(var item in paraglidingClubContext)
            {
-                var flights = _context.Flights.Where(f => f.SiteID == item.ID);
+                var flights = _context.Flights.Where(f => f.LandingSiteID == item.ID);
                 var totalFlights = flights.Count();
                 
                 if(totalFlights >= biggerFlightsNumber)
@@ -217,9 +217,10 @@ namespace ParaglidingProject.Web.Controllers
             }
 
             var site = await _context.Flights
-                .Include(p => p.Paragliding)
+                .Include(p => p.Paraglider)
                 .Include(p => p.Pilot)
-                .Include(s => s.Site)
+                .Include(s => s.LandingSite)
+                 .Include(s => s.TakeOffSite)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (site == null)
             {

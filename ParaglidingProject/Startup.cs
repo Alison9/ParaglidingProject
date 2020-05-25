@@ -31,7 +31,7 @@ namespace ParaglidingProject
             
             services.AddDbContext<ParaglidingClubContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllersWithViews();
-            services.AddTransient<IRepository<Subscription, int>, SubsciptionsRepository>(); //Injection de dépendance
+            /*services.AddTransient<IRepository<Subscription, int>, SubsciptionsRepository>();*/ //Injection de dépendance
             services.AddRazorPages();
         }
 
