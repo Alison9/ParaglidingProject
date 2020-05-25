@@ -16,8 +16,8 @@ namespace ParaglidingProject.Data.ContextConfiguration.ModelsConfiguration
 
             builder.Property(p => p.ApprovalDate)
                 .HasColumnType("date");
-            builder.Property(p => p.Size)
-                .HasColumnType("decimal(5,2)");
+            //builder.Property(p => p.Size)
+            //    .HasColumnType("decimal(5,2)");
             builder.Property(p => p.MinWeightPilot)
                 .HasColumnType("decimal(5,2)");
             builder.Property(p => p.MaxWeightPilot)

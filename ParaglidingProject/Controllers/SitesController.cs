@@ -24,7 +24,8 @@ namespace ParaglidingProject.Web.Controllers
         {
             var paraglidingClubContext = _context.Sites
                 .Include(s => s.Level)
-                .Include(f => f.Flights);
+                .Include(f => f.LandingFlights)
+                .Include(f => f.TakeOffFlights);
 
             int biggerFlightsNumber = 0;
             int tinyFlightsNumber = 0;
@@ -86,7 +87,9 @@ namespace ParaglidingProject.Web.Controllers
 
             var site = await _context.Sites
                 .Include(s => s.Level)
-                .Include(f => f.Flights)
+                .Include(f => f.TakeOffFlights)
+                .ThenInclude(p => p.Pilot)
+                .Include(f => f.LandingFlights)
                 .ThenInclude(p => p.Pilot)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (site == null)
@@ -220,7 +223,7 @@ namespace ParaglidingProject.Web.Controllers
                 .Include(p => p.Paraglider)
                 .Include(p => p.Pilot)
                 .Include(s => s.LandingSite)
-                 .Include(s => s.TakeOffSite)
+                 //.Include(s => s.TakeOffSite)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (site == null)
             {

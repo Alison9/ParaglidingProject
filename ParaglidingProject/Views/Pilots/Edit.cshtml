@@ -38,11 +38,11 @@
                 <input asp-for="Weight" class="form-control" /><br />
                 <span asp-validation-for="Weight" class="text-danger validator"></span>
             </div>
-            <div class="form-group">
+            @*<div class="form-group">
                 <label asp-for="RoleID" class="control-label">Fonction dans le comité</label><br />
                 <select asp-for="RoleID" class="form-control" asp-items="ViewBag.PositionID"></select><br />
                 <span asp-validation-for="RoleID" class="text-danger validator"></span>
-            </div>
+            </div>*@
             <div class="form-group form-check">
                 <label asp-for="IsActive" class="form-check-label">Est actif</label><br />
                 <input class="form-check-input" asp-for="IsActive" /><br />

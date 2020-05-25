@@ -311,7 +311,7 @@ namespace ParaglidingProject.Controllers
 
             var flight = await _context.Flights
                 .Include(p => p.LandingSite)
-                .Include(p => p.TakeOffSite)
+               // .Include(p => p.TakeOffSite)
                 .Include(f => f.Pilot)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (flight == null)

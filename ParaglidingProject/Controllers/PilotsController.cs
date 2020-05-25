@@ -114,7 +114,7 @@ namespace ParaglidingProject.Controllers
             }
 
             var pilot = await _context.Pilots.FindAsync(id);
-           ViewData["PositionID"] = new SelectList(_context.Roles, "ID", "Name", pilot.RoleID);
+           ViewData["PositionID"] = new SelectList(_context.Roles, "ID", "Name", pilot.Role?.ID);
             if (pilot == null)
             {
                 return NotFound();

@@ -22,7 +22,7 @@ namespace ParaglidingProject.Data.Seed
                     PhoneNumber = "0489055522",
                     Weight = 100,
                     IsActive = true,
-                    RoleID = 3
+                    //RoleID = 3
                 },
                 new Pilot()
                 {
@@ -53,7 +53,7 @@ namespace ParaglidingProject.Data.Seed
                     PhoneNumber = "0489055532",
                     Weight = 80,
                     IsActive = true,
-                    RoleID = 1
+                    //RoleID = 1
                 },
                 new Pilot()
                 {
@@ -94,7 +94,7 @@ namespace ParaglidingProject.Data.Seed
                     PhoneNumber = "0489055622",
                     Weight = 75,
                     IsActive = true,
-                    RoleID = 2,
+                    //RoleID = 2,
                 },
                 new Pilot()
                 {
@@ -343,7 +343,7 @@ namespace ParaglidingProject.Data.Seed
                 },
                 new Paraglider
                 {
-                    ID = 5,
+                    ID = 6,
                     Name = "Mercedes",
                     CommissioningDate = DateTime.Parse("2010-03-02"),
                     LastRevisionDate = DateTime.Parse("2011-12-30"),

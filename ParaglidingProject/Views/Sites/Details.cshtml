@@ -61,7 +61,7 @@
             @Html.DisplayFor(model => model.Level.ID)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Flights)
+            @Html.DisplayNameFor(model => model.TakeOffFlights)
         </dt>
         <dd class="col-sm-10">
             <table class="table" cellspacing="0">
@@ -70,7 +70,7 @@
                     <th>Duration</th>
                     <th>Pilote</th>
                 </tr>
-                @foreach (var item in Model.Flights)
+                @foreach (var item in Model.TakeOffFlights)
                 {
                     <tr>
                         <td>

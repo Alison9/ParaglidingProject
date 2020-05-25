@@ -1,4 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ParagliderProject.Data.ContextConfiguration.ModelsConfiguration;
+using ParaglidingProject.Data.ContextConfiguration.ModelsConfiguration;
+using ParaglidingProject.Data.Seed;
 using ParaglidingProject.Models;
 using System;
 using System.Collections.Generic;
@@ -45,6 +48,36 @@ namespace ParaglidingProject.Data
             modelBuilder.Entity<TraineeshipPayment>().ToTable("TraineeshipPayment");
             modelBuilder.Entity<Site>().ToTable("Site");
             modelBuilder.Entity<Role>().ToTable("Role");
+
+            modelBuilder.ApplyConfiguration(new LicenseConfiguration());
+            modelBuilder.ApplyConfiguration(new FlightConfiguration());
+            modelBuilder.ApplyConfiguration(new SiteConfiguration());
+            modelBuilder.ApplyConfiguration(new LevelConfiguration());
+            modelBuilder.ApplyConfiguration(new SubscriptionPaymentConfiguration());
+            modelBuilder.ApplyConfiguration(new ParagliderConfig());
+            modelBuilder.ApplyConfiguration(new ParagliderModelConfig());
+            modelBuilder.ApplyConfiguration(new PossessionConfiguration());
+            modelBuilder.ApplyConfiguration(new PilotConfiguration());
+            modelBuilder.ApplyConfiguration(new SubscriptionConfiguration());
+            modelBuilder.ApplyConfiguration(new PilotTraineeshipConfiguration());
+            modelBuilder.ApplyConfiguration(new RoleConfiguration());
+            modelBuilder.ApplyConfiguration(new TraineeshipConfiguration());
+            modelBuilder.ApplyConfiguration(new TraineeshipPaymentConfiguration());
+
+            modelBuilder.PilotSeed();
+            modelBuilder.FlightSeed();
+            modelBuilder.LevelSeed();
+            modelBuilder.LicenseSeed();
+            modelBuilder.ParagliderSeed();
+            modelBuilder.ParagliderModelSeed();
+            modelBuilder.PilotTraineeshipSeed();
+            modelBuilder.PossessionSeed();
+            modelBuilder.RoleSeed();
+            modelBuilder.SiteSeed();
+            modelBuilder.SubscriptionSeed();
+            modelBuilder.SubscriptionPaymentSeed();
+            modelBuilder.TraineeshipSeed();
+            modelBuilder.TraineeshipPaymentSeed();
 
 
         }

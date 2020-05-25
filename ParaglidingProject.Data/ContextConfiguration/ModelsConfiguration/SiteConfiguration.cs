@@ -13,13 +13,13 @@ namespace ParaglidingProject.Data.ContextConfiguration.ModelsConfiguration
         {
             builder.HasQueryFilter(p => p.IsActive);
 
-            builder.HasMany(s=> s.Flights)
+            builder.HasMany(s => s.TakeOffFlights)
                 .WithOne(f => f.TakeOffSite)
-                .HasForeignKey(f=> f.TakeOffSiteID)
+                .HasForeignKey(f => f.TakeOffSiteID)
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasMany(s => s.Flights)
+            builder.HasMany(s => s.LandingFlights)
               .WithOne(f => f.LandingSite)
               .HasForeignKey(f => f.LandingSiteID)
               .IsRequired(false)

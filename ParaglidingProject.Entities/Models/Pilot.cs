@@ -24,7 +24,7 @@ namespace ParaglidingProject.Models
 
         [Display(Name ="Poids")]
         public int Weight { get; set; }
-        public int? RoleID { get; set; }
+        //public int? RoleID { get; set; }
 
         [Display(Name ="Fonction au sein du comité")]
         public Role? Role { get; set; }
