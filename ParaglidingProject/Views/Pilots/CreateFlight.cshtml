@@ -18,27 +18,27 @@
                 <span asp-validation-for="FlightDate" class="text-danger validator"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FlightStart" class="control-label"></label><br />
-                <input asp-for="FlightStart" class="form-control" /><br />
-                <span asp-validation-for="FlightStart" class="text-danger validator"></span>
+                <label asp-for="Duration" class="control-label"></label><br />
+                <input asp-for="Duration" class="form-control" /><br />
+                <span asp-validation-for="Duration" class="text-danger validator"></span>
+            </div>        
+            <div class="form-group">
+                <label asp-for="ParagliderID" class="control-label"></label><br />
+                <select asp-for="ParagliderID" class="form-control" asp-items="ViewBag.ParaglidingID"></select><br />
+                <span asp-validation-for="ParagliderID" class="text-danger validator"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FlightEnd" class="control-label"></label><br />
-                <input asp-for="FlightEnd" class="form-control" /><br />
-                <span asp-validation-for="FlightEnd" class="text-danger validator"></span>
-            </div>
+                <label asp-for="TakeOffSiteID" class="control-label"></label><br />
+                <select asp-for="TakeOffSiteID" class="form-control" asp-items="ViewBag.SiteID"></select><br />
+                <span asp-validation-for="TakeOffSiteID" class="text-danger validator"></span>
+            </div>  
             <div class="form-group">
-                <label asp-for="ParaglidingID" class="control-label"></label><br />
-                <select asp-for="ParaglidingID" class="form-control" asp-items="ViewBag.ParaglidingID"></select><br />
-                <span asp-validation-for="ParaglidingID" class="text-danger validator"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SiteID" class="control-label"></label><br />
-                <select asp-for="SiteID" class="form-control" asp-items="ViewBag.SiteID"></select><br />
-                <span asp-validation-for="SiteID" class="text-danger validator"></span>
+                <label asp-for="LandingSiteID" class="control-label"></label><br />
+                <select asp-for="LandingSiteID" class="form-control" asp-items="ViewBag.SiteID"></select><br />
+                <span asp-validation-for="LandingSiteID" class="text-danger validator"></span>
             </div><br />
             <div class="form-group">
-                <input type="submit" value="Ajouter" class="btn btn-primary add"  />
+                <input type="submit" value="Ajouter" class="btn btn-primary add" />
             </div>
         </form>
     </div>
