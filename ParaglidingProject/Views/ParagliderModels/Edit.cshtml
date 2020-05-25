@@ -1,4 +1,4 @@
-﻿@model ParaglidingProject.Models.ModelParagliding
+﻿@model ParaglidingProject.Models.ParagliderModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -14,9 +14,9 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ID" />
             <div class="form-group">
-                <label asp-for="HeightParagliding" class="control-label"></label>
-                <input asp-for="HeightParagliding" class="form-control" />
-                <span asp-validation-for="HeightParagliding" class="text-danger"></span>
+                <label asp-for="Size" class="control-label"></label>
+                <input asp-for="Size" class="form-control" />
+                <span asp-validation-for="Size" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="MaxWeightPilot" class="control-label"></label>
@@ -29,14 +29,14 @@
                 <span asp-validation-for="MinWeightPilot" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AprovalNumber" class="control-label"></label>
-                <input asp-for="AprovalNumber" class="form-control" />
-                <span asp-validation-for="AprovalNumber" class="text-danger"></span>
+                <label asp-for="ApprovalNumber" class="control-label"></label>
+                <input asp-for="ApprovalNumber" class="form-control" />
+                <span asp-validation-for="ApprovalNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AprovalDate" class="control-label"></label>
-                <input asp-for="AprovalDate" class="form-control" />
-                <span asp-validation-for="AprovalDate" class="text-danger"></span>
+                <label asp-for="ApprovalDate" class="control-label"></label>
+                <input asp-for="ApprovalDate" class="form-control" />
+                <span asp-validation-for="ApprovalDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

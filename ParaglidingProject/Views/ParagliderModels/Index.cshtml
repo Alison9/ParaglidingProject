@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ParaglidingProject.Models.ModelParagliding>
+﻿@model IEnumerable<ParaglidingProject.Models.ParagliderModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -20,7 +20,7 @@
                 @Html.DisplayNameFor(model => model.ID)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HeightParagliding)
+                @Html.DisplayNameFor(model => model.Size)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.MaxWeightPilot)
@@ -29,10 +29,10 @@
                 @Html.DisplayNameFor(model => model.MinWeightPilot)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AprovalNumber)
+                @Html.DisplayNameFor(model => model.ApprovalNumber)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AprovalDate)
+                @Html.DisplayNameFor(model => model.ApprovalDate)
             </th>
             <th></th>
         </tr>
@@ -44,7 +44,7 @@
                 @Html.DisplayFor(modelItem => item.ID)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.HeightParagliding)
+                @Html.DisplayFor(modelItem => item.Size)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.MaxWeightPilot)
@@ -53,10 +53,10 @@
                 @Html.DisplayFor(modelItem => item.MinWeightPilot)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AprovalNumber)
+                @Html.DisplayFor(modelItem => item.ApprovalNumber)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AprovalDate)
+                @Html.DisplayFor(modelItem => item.ApprovalDate)
             </td>
             <td class="last">
                 <a class="btn btn-primary styleLink" asp-action="Edit" asp-route-id="@item.ID">Publier</a> |
