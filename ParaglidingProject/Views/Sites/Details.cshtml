@@ -10,22 +10,23 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ID)
+        </dd>
+
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Name)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.OrientationLanding)
+            @Html.DisplayNameFor(model => model.Orientation)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.OrientationLanding)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.OrientationTakeOff)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.OrientationTakeOff)
+            @Html.DisplayFor(model => model.Orientation)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.AltitudeTakeOff)
@@ -34,11 +35,25 @@
             @Html.DisplayFor(model => model.AltitudeTakeOff)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.FlightType)
+            @Html.DisplayNameFor(model => model.ApproachManeuver)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.FlightType)
+            @Html.DisplayFor(model => model.ApproachManeuver)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SiteGeoCoordinate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SiteGeoCoordinate)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IsActive)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IsActive)
+        </dd>
+
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Level)
         </dt>
@@ -52,8 +67,7 @@
             <table class="table" cellspacing="0">
                 <tr>
                     <th>Date du vol</th>
-                    <th>Heure de départ</th>
-                    <th>Heure d'arrivée</th>
+                    <th>Duration</th>
                     <th>Pilote</th>
                 </tr>
                 @foreach (var item in Model.Flights)
@@ -63,10 +77,7 @@
                             @Html.DisplayFor(modelItems => item.FlightDate)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItems => item.FlightStart)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modeItems => item.FlightEnd)
+                            @Html.DisplayFor(modelItems => item.Duration)
                         </td>
                         <td>
                             @Html.DisplayFor(modeItems => item.Pilot.FirstName) @Html.DisplayFor(modeItems => item.Pilot.LastName)

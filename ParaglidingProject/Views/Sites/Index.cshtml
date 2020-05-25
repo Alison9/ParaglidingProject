@@ -16,16 +16,17 @@
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.OrientationLanding)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OrientationTakeOff)
+                @Html.DisplayNameFor(model => model.Orientation)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.AltitudeTakeOff)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FlightType)
+                @Html.DisplayNameFor(model => model.ApproachManeuver)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.SiteGeoCoordinate)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Level)
@@ -36,31 +37,32 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.OrientationLanding)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.OrientationTakeOff)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AltitudeTakeOff)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FlightType)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Level.ID)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.ID" class="styleLink">Editer</a> |
-                    <a asp-action="Details" asp-route-id="@item.ID"  class="styleLink">Détails</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ID" class="styleLink">Supprimer</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Orientation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AltitudeTakeOff)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApproachManeuver)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.SiteGeoCoordinate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Level.ID)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID" class="styleLink">Editer</a> |
+                <a asp-action="Details" asp-route-id="@item.ID" class="styleLink">Détails</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID" class="styleLink">Supprimer</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

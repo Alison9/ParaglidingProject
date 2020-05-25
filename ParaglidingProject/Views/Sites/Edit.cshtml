@@ -18,14 +18,9 @@
                 <span asp-validation-for="Name" class="text-danger validator"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OrientationLanding" class="control-label"></label><br />
-                <input asp-for="OrientationLanding" class="form-control" /><br />
-                <span asp-validation-for="OrientationLanding" class="text-danger validator"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="OrientationTakeOff" class="control-label"></label><br />
-                <input asp-for="OrientationTakeOff" class="form-control" /><br />
-                <span asp-validation-for="OrientationTakeOff" class="text-danger validator"></span>
+                <label asp-for="Orientation" class="control-label"></label><br />
+                <input asp-for="Orientation" class="form-control" /><br />
+                <span asp-validation-for="Orientation" class="text-danger validator"></span>
             </div>
             <div class="form-group">
                 <label asp-for="AltitudeTakeOff" class="control-label"></label><br />
@@ -33,10 +28,16 @@
                 <span asp-validation-for="AltitudeTakeOff" class="text-danger validator"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FlightType" class="control-label"></label><br />
-                <input asp-for="FlightType" class="form-control" /><br />
-                <span asp-validation-for="FlightType" class="text-danger validator"></span>
+                <label asp-for="ApproachManeuver" class="control-label"></label><br />
+                <input asp-for="ApproachManeuver" class="form-control" /><br />
+                <span asp-validation-for="ApproachManeuver" class="text-danger validator"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="SiteGeoCoordinate" class="control-label"></label><br />
+                <input asp-for="SiteGeoCoordinate" class="form-control" /><br />
+                <span asp-validation-for="SiteGeoCoordinate" class="text-danger validator"></span>
+            </div>
+
             <div class="form-group">
                 <label asp-for="LevelID" class="control-label"></label><br />
                 <select asp-for="LevelID" class="form-control" asp-items="ViewBag.LevelID"></select><br />
