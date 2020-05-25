@@ -1,4 +1,4 @@
-﻿@model  ParaglidingProject.Models.Payment
+﻿@model  ParaglidingProject.Models.SubscriptionPayment
 
  @{
      ViewData["Title"] = "CreatePayment";
@@ -11,16 +11,11 @@
     <div class="col-md-4">
         <form asp-action="CreatePayment">
             <div asp-validation-summary="ModelOnly" class="text-danger validator"></div>
-            <input type="hidden" asp-for="SubsciptionID" value="@ViewBag.SubsciptionID"/>
+            <input type="hidden" asp-for="SubscriptionID" value="@ViewBag.SubsciptionID"/>
             <div class="form-group">
                 <label asp-for="PilotID" class="control-label"></label><br />
                 <select asp-for="PilotID" class="form-control" asp-items="ViewBag.PilotID" ></select><br />
                 <span asp-validation-for="PilotID" class="text-danger validator"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IsPay" class="control-label"></label><br />
-                <input asp-for="IsPay" class="form-control" /><br />
-                <span asp-validation-for="IsPay" class="text-danger validator"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DatePay" class="control-label"></label><br />

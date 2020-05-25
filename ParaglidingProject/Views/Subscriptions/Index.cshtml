@@ -17,10 +17,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.YearID)
+                @Html.DisplayNameFor(model => model.Year)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+                @Html.DisplayNameFor(model => model.SubscriptionAmount)
             </th>
             <th>
             </th>
@@ -30,15 +30,15 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.YearID)
+                @Html.DisplayFor(modelItem => item.Year)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Price)
+                @Html.DisplayFor(modelItem => item.SubscriptionAmount)
             </td>
             <td>
-                <a class="btn btn-primary styleLink" asp-action="Edit" asp-route-id="@item.YearID">Editer</a> |
-                <a  class="btn btn-primary styleLink" asp-action="Details" asp-route-id="@item.YearID">Détails</a> |
-                <a class="btn btn-primary styleLink" asp-action="Delete" asp-route-id="@item.YearID">Supprimer</a>
+                <a class="btn btn-primary styleLink" asp-action="Edit" asp-route-id="@item.Year">Editer</a> |
+                <a  class="btn btn-primary styleLink" asp-action="Details" asp-route-id="@item.Year">Détails</a> |
+                <a class="btn btn-primary styleLink" asp-action="Delete" asp-route-id="@item.Year">Supprimer</a>
             </td>
         </tr>
 }

@@ -5,43 +5,39 @@
 }
 
 
-<h1>Détails des cotisations pour @Model.YearID</h1>
+<h1>Détails des cotisations pour @Model.Year</h1>
 
 <div>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
+            @Html.DisplayNameFor(model => model.SubscriptionAmount)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Price)
+            @Html.DisplayFor(model => model.SubscriptionAmount)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Payments)
+            @Html.DisplayNameFor(model => model.SubscriptionPayments)
         </dt>
         <dd class="col-sm-10">
             <table class="table" cellspacing="0">
                 <tr>
                     <th>Pilotes</th>
-                    <th>Payé?</th>
                     <th>Date de payement</th>
-                    <a class="btn btn-primary styleLink" asp-route-id="@Model.YearID" asp-action="CreatePayment">Ajouter un payment</a>
+                    <a class="btn btn-primary styleLink" asp-route-id="@Model.Year" asp-action="CreatePayment">Ajouter un payment</a>
                 </tr>
-                @foreach(var item in Model.Payments)
+                @foreach(var item in Model.SubscriptionPayments)
                 {
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItems => item.Pilot.FirstName) @Html.DisplayFor(modelItems => item.Pilot.LastName)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItems => item.IsPay)
-                        </td>
-                        <td>
                             @Html.DisplayFor(modeItems => item.DatePay)
                         </td>
                         <td>
-                            <a class="btn btn-primary styleLink" asp-route-id="@item.ID" asp-action="EditPayment">Editer</a> |
-                            <a class="btn btn-primary styleLink" asp-route-id="@item.ID" asp-action="DeletePayment">Supprimer</a>
+                            <a class="btn btn-primary styleLink" asp-route-id="@item.PilotID" asp-action="EditPayment">Editer</a> |
+                            <a class="btn btn-primary styleLink" asp-route-id="@item.PilotID" asp-action="DeletePayment">Supprimer</a>
                         </td>
                     </tr>
                 }

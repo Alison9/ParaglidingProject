@@ -1,22 +1,18 @@
-﻿@model ParaglidingProject.Models.Payment
+﻿@model ParaglidingProject.Models.SubscriptionPayment
 
 @{
     ViewData["Title"] = "Edition du Payment";
 }
 
 
-    <h1>Edition du payement de @Model.Pilot.FirstName @Model.Pilot.LastName pour l'année @Model.Subscription.YearID</h1>
+    <h1>Edition du payement de @Model.Pilot.FirstName @Model.Pilot.LastName pour l'année @Model.Subscription.Year</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="EditPayment">
             <div asp-validation-summary="ModelOnly" class="text-danger validator"></div>
-            <input type="hidden" asp-for="ID" />
-            <div class="form-group">
-                <label asp-for="IsPay" class="control-label"></label><br />
-                <input asp-for="IsPay" class="form-control" /><br />
-                <span asp-validation-for="IsPay" class="text-danger validator"></span>
-            </div>
+            <input type="hidden" asp-for="SubscriptionID" />
+            <input type="hidden" asp-for="PilotID" />
             <div class="form-group">
                 <label asp-for="DatePay" class="control-label"></label><br />
                 <input asp-for="DatePay" class="form-control" />
