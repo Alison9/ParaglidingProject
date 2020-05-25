@@ -25,14 +25,14 @@ namespace ParaglidingProject.Data.ContextConfiguration.ModelsConfiguration
                 .IsRequired(true)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(f => f.TakeOffSite)
-                .WithMany(s => s.TakeOffFlights)
+           builder.HasOne(f => f.TakeOffSite)
+                .WithMany(s => s.Flights)
                 .HasForeignKey(f => f.TakeOffSiteID)
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(f => f.LandingSite)
-                    .WithMany(s => s.LandingFlights)
+          builder.HasOne(f => f.LandingSite)
+                    .WithMany(s => s.Flights)
                     .HasForeignKey(f => f.LandingSiteID)
                     .IsRequired(false)
                     .OnDelete(DeleteBehavior.Restrict);
