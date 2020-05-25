@@ -34,29 +34,23 @@
             @Html.DisplayFor(model => model.License.Title)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.License.Level.DifficultyNumber)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.License.Level.DifficultyNumber)
-        </dd>
-        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.License.Level.Name)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.License.Level.Name)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Teachings)
+            @Html.DisplayNameFor(model => model.PilotTraineeships)
         </dt>
         <dd class="col-sm-10">
-            @foreach (var item in Model.Teachings)
+            @foreach (var item in Model.PilotTraineeships)
                 @Html.DisplayFor(modelItem => item.Pilot.FirstName)
             <hr\>
-                @foreach (var item in Model.Teachings)
+                @foreach (var item in Model.PilotTraineeships)
                     @Html.DisplayFor(modelItem => item.Pilot.LastName)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Participations)
+            @Html.DisplayNameFor(model => model.TraineeshipPayments)
         </dt>
         <dd class="col-sm-10">
             <table class="table" cellspacing="0">
@@ -67,7 +61,7 @@
                     <th>Date de payment</th>
                     <a class="btn btn-primary styleLink" asp-route-id="@Model.ID" asp-action="CreateParticipation">Ajouter un participant</a>
                 </tr>
-                @foreach (var item in Model.Participations)
+                @foreach (var item in Model.TraineeshipPayments)
                 {
                     <tr>
                         <td>
@@ -77,14 +71,14 @@
                             @Html.DisplayFor(modelItems => item.Pilot.LastName)
                         </td>
                         <td>
-                            @Html.DisplayFor(modeItems => item.IsPay)
+                            @Html.DisplayFor(modeItems => item.IsPaid)
                         </td>
                         <td>
-                            @Html.DisplayFor(modeItems => item.DateOfParticipation)
+                            @Html.DisplayFor(modeItems => item.PaymentDate)
                         </td>
                         <td>
-                            <a class="btn btn-primary styleLink" asp-route-id="@item.ID" asp-action="EditParticipation">Editer</a> |
-                            <a class="btn btn-primary styleLink" asp-route-id="@item.ID" asp-action="DeleteParticipation">Supprimer</a>
+                            <a class="btn btn-primary styleLink" asp-route-PilotID="@item.PilotID" asp-route-TraineeshipID="@item.TraineeshipID" asp-action="EditParticipation">Editer</a> |
+                            <a class="btn btn-primary styleLink" asp-route-PilotID="@item.PilotID" asp-route-TraineeshipID="@item.TraineeshipID"  asp-action="DeleteParticipation">Supprimer</a>
                         </td>
                     </tr>
                 }
