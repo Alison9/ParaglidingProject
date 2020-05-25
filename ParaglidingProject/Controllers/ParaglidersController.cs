@@ -10,11 +10,11 @@ using ParaglidingProject.Models;
 
 namespace ParaglidingProject.Controllers
 {
-    public class ParaglidingsController : Controller
+    public class ParaglidersController : Controller
     {
         private readonly ParaglidingClubContext _context;
 
-        public ParaglidingsController(ParaglidingClubContext context)
+        public ParaglidersController(ParaglidingClubContext context)
         {
             _context = context;
         }

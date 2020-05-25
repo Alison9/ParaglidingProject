@@ -3,7 +3,7 @@
     ViewData["Title"] = "DetailsFlight";
 }
 
-<h1>Details du vol numéro @Model.ID du parapente numéro @Model.ParaglidingID</h1>
+<h1>Details du vol numéro @Model.ID du parapente numéro @Model.ParagliderID</h1>
 
 <div>
     <hr />
@@ -15,16 +15,10 @@
             @Html.DisplayFor(model => model.FlightDate)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.FlightStart)
+            @Html.DisplayNameFor(model => model.Duration)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.FlightStart)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.FlightEnd)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.FlightEnd)
+            @Html.DisplayFor(model => model.Duration)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Pilot)
@@ -33,10 +27,16 @@
             @Html.DisplayFor(model => model.Pilot.FirstName) @Html.DisplayFor(model => model.Pilot.LastName)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Site.Name)
+            @Html.DisplayNameFor(model => model.LandingSite.Name)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Site.Name)
+            @Html.DisplayFor(model => model.LandingSite.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TakeOffSite.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TakeOffSite.Name)
         </dd>
     </dl>
 </div>

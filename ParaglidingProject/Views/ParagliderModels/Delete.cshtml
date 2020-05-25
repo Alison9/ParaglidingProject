@@ -1,4 +1,4 @@
-﻿@model ParaglidingProject.Models.ModelParagliding
+﻿@model ParaglidingProject.Models.ParagliderModel
 
 @{
     ViewData["Title"] = "Delete";
@@ -12,10 +12,10 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.HeightParagliding)
+            @Html.DisplayNameFor(model => model.Size)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.HeightParagliding)
+            @Html.DisplayFor(model => model.Size)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.MaxWeightPilot)
@@ -30,16 +30,16 @@
             @Html.DisplayFor(model => model.MinWeightPilot)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AprovalNumber)
+            @Html.DisplayNameFor(model => model.ApprovalNumber)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AprovalNumber)
+            @Html.DisplayFor(model => model.ApprovalNumber)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AprovalDate)
+            @Html.DisplayNameFor(model => model.ApprovalDate)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AprovalDate)
+            @Html.DisplayFor(model => model.ApprovalDate)
         </dd>
     </dl>
     

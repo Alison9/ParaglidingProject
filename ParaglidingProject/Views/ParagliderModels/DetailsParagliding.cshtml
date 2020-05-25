@@ -1,4 +1,4 @@
-﻿@model ParaglidingProject.Models.Paragliding
+﻿@model ParaglidingProject.Models.Paraglider
 @{
     ViewData["Title"] = "DetailsParagliding";
 }
@@ -15,22 +15,22 @@
             @Html.DisplayFor(model => model.ID)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DateOfCommissioning)
+            @Html.DisplayNameFor(model => model.CommissioningDate)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DateOfCommissioning)
+            @Html.DisplayFor(model => model.CommissioningDate)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DateOfLastRevision)
+            @Html.DisplayNameFor(model => model.LastRevisionDate)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DateOfLastRevision)
+            @Html.DisplayFor(model => model.LastRevisionDate)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ModelParagliding.ID)
+            @Html.DisplayNameFor(model => model.ParagliderModel.ID)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ModelParagliding.ID)
+            @Html.DisplayFor(model => model.ParagliderModel.ID)
         </dd>
         <dt class="col-sm-2">
             Nombre de vols
@@ -63,10 +63,7 @@
                     @Html.DisplayFor(modelItems => item.FlightDate)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItems => item.FlightStart)
-                </td>
-                <td>
-                    @Html.DisplayFor(modeItems => item.FlightEnd)
+                    @Html.DisplayFor(modelItems => item.Duration)
                 </td>
                 <td>
                     @Html.DisplayFor(modeItems => item.Pilot.FirstName) @Html.DisplayFor(modeItems => item.Pilot.LastName)
