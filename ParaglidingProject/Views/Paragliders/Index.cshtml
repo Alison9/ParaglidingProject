@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ParaglidingProject.Models.Paragliding>
+﻿@model IEnumerable<ParaglidingProject.Models.Paraglider>
 
 @{
     ViewData["Title"] = "Index";
@@ -16,13 +16,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.DateOfCommissioning)
+                @Html.DisplayNameFor(model => model.CommissioningDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DateOfLastRevision)
+                @Html.DisplayNameFor(model => model.LastRevisionDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ModelParagliding.AprovalNumber)
+                @Html.DisplayNameFor(model => model.ParagliderModel.ApprovalNumber)
             </th>
             <th></th>
         </tr>
@@ -31,13 +31,13 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.DateOfCommissioning)
+                @Html.DisplayFor(modelItem => item.CommissioningDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DateOfLastRevision)
+                @Html.DisplayFor(modelItem => item.LastRevisionDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ModelParagliding.AprovalNumber)
+                @Html.DisplayFor(modelItem => item.ParagliderModel.ApprovalNumber)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Publier</a> |
