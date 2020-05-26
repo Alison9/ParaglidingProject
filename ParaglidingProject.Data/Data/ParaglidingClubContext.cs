@@ -39,7 +39,7 @@ namespace ParaglidingProject.Data
             modelBuilder.Entity<Level>().ToTable("Level");
             modelBuilder.Entity<License>().ToTable("License");
             modelBuilder.Entity<ParagliderModel>().ToTable("ParagliderModel");
-            modelBuilder.Entity<Possession>().ToTable("Obtaining");
+            modelBuilder.Entity<Possession>().ToTable("Possession");
             modelBuilder.Entity<Paraglider>().ToTable("Paraglider");
             modelBuilder.Entity<PilotTraineeship>().ToTable("PilotTraineeship");
             modelBuilder.Entity<SubscriptionPayment>().ToTable("SubscriptionPayment");
