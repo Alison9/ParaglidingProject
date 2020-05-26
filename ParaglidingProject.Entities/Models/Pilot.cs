@@ -25,9 +25,10 @@ namespace ParaglidingProject.Models
         [Display(Name ="Poids")]
         public int Weight { get; set; }
         //public int? RoleID { get; set; }
-
+        #nullable enable
         [Display(Name ="Fonction au sein du comité")]
         public Role? Role { get; set; }
+        #nullable disable
         [Display(Name ="Est actif?")]
         public bool IsActive { get; set; }
         [Display(Name ="Vol(s)")]
