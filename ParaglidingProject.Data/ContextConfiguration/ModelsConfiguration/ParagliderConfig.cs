@@ -10,7 +10,7 @@ namespace ParaglidingProject.Data.ContextConfiguration.ModelsConfiguration
         {
             builder.HasQueryFilter(p => p.IsActive);
 
-            builder.Property(p => p.Name).HasColumnType("string");
+            //builder.Property(p => p.Name).HasColumnType("string");
             builder.Property(p => p.CommissioningDate).HasColumnType("date");
             builder.Property(p => p.LastRevisionDate).HasColumnType("date");
 

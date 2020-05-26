@@ -6,6 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200525141015_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200525141015_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200525144153_InitialCreatte.cs" />
+    <Compile Remove="Migrations\20200525144153_InitialCreatte.Designer.cs" />
+    <Compile Remove="Migrations\20200525144254_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200525144254_InitialCreate.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.1" />
@@ -16,6 +25,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ParaglidingProject.Entities\ParaglidingProject.Entities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>
