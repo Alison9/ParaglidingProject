@@ -26,13 +26,13 @@ namespace ParaglidingProject.Data.ContextConfiguration.ModelsConfiguration
                 .OnDelete(DeleteBehavior.Restrict);
 
            builder.HasOne(f => f.TakeOffSite)
-                .WithMany(s => s.Flights)
+                .WithMany(s => s.TakeOffFlights)
                 .HasForeignKey(f => f.TakeOffSiteID)
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.Restrict);
 
           builder.HasOne(f => f.LandingSite)
-                    .WithMany(s => s.Flights)
+                    .WithMany(s => s.LandingFlights)
                     .HasForeignKey(f => f.LandingSiteID)
                     .IsRequired(false)
                     .OnDelete(DeleteBehavior.Restrict);
