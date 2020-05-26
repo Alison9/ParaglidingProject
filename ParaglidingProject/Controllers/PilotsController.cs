@@ -52,7 +52,7 @@ namespace ParaglidingProject.Controllers
             var flight = _context.Flights.Where(f => f.PilotID == id);
             var collectionflight = flight.Count();
             ViewData["collectionflight"] = collectionflight;
-            TimeSpan flightTime = new TimeSpan();
+            //TimeSpan flightTime = new TimeSpan();
 
             if (pilot == null)
             {
@@ -205,7 +205,7 @@ namespace ParaglidingProject.Controllers
             catch (DbUpdateException )
             {
                 
-                return RedirectToAction(nameof(Delete), new { id = id, saveChangesError = true });
+                return RedirectToAction(nameof(Delete), new { id, saveChangesError = true });
             }
 
         }

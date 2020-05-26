@@ -14,7 +14,7 @@ namespace ParaglidingProject.Controllers
     public class SubscriptionsController : Controller
     {
         //private readonly ParaglidingClubContext _context;
-        private IRepository<Subscription, int> SubscriptionsRepository;
+        private readonly IRepository<Subscription, int> SubscriptionsRepository;
 
         public SubscriptionsController(IRepository<Subscription, int> repository)
         {
@@ -27,7 +27,7 @@ namespace ParaglidingProject.Controllers
         //}
 
         // GET: Subscriptions
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
 
             //return View(await _context.Subscriptions.OrderByDescending(s => s.YearID).ToListAsync());
