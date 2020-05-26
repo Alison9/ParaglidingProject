@@ -790,6 +790,7 @@ namespace ParaglidingProject.Data.Seed
                         StartDate = DateTime.Parse("2020-04-17"),
                         EndDate = DateTime.Parse("2020-09-17"),
                         Price = 620,
+                        LicenseID = 1,
                         IsActive = true
                     },
                     new Traineeship
@@ -798,6 +799,7 @@ namespace ParaglidingProject.Data.Seed
                         StartDate = DateTime.Parse("2020-05-17"),
                         EndDate = DateTime.Parse("2020-10-17"),
                         Price = 590,
+                        LicenseID = 1,
                         IsActive = true
                     },
                     new Traineeship
@@ -806,6 +808,7 @@ namespace ParaglidingProject.Data.Seed
                         StartDate = DateTime.Parse("2020-06-17"),
                         EndDate = DateTime.Parse("2020-11-17"),
                         Price = 590,
+                        LicenseID = 2,
                         IsActive = true
                     },
                     new Traineeship
@@ -814,6 +817,7 @@ namespace ParaglidingProject.Data.Seed
                         StartDate = DateTime.Parse("2020-07-17"),
                         EndDate = DateTime.Parse("2020-12-17"),
                         Price = 620,
+                        LicenseID = 4,
                         IsActive = true
                     },
                     new Traineeship
@@ -822,6 +826,7 @@ namespace ParaglidingProject.Data.Seed
                         StartDate = DateTime.Parse("2020-08-17"),
                         EndDate = DateTime.Parse("2021-01-17"),
                         Price = 520,
+                        LicenseID = 4,
                         IsActive = false
                     }
 
