@@ -13,6 +13,8 @@ namespace ParaglidingProject.Data.ContextConfiguration.ModelsConfiguration
         {
             builder.HasQueryFilter(p => p.IsActive);
 
+            builder.HasIndex(p => new { p.FirstName, p.LastName }).IsUnique(false);
+
             builder.HasOne<Role>(p => p.Role)
                 .WithOne(r => r.Pilot)
                 .HasForeignKey<Role>(r => r.PilotID)

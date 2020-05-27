@@ -58,7 +58,7 @@ namespace ParaglidingProject
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => {
-                endpoints.MapControllerRoute("default", "{controller=Courses}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("default", "{controller=Traineeships}/{action=Index}/{id?}");
             });
             //app.UseRouting();
 
