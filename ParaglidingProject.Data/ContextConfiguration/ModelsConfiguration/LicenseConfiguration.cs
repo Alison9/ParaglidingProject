@@ -11,6 +11,8 @@ namespace ParaglidingProject.Data.ContextConfiguration.ModelsConfiguration
     {
         public void Configure(EntityTypeBuilder<License> builder)
         {
+            builder.Property(b => b.Title).HasMaxLength(250);
+
             builder.HasOne(lic => lic.Level)
                 .WithMany(lvl => lvl.Licenses)
                 .HasForeignKey(lic => lic.LevelID)

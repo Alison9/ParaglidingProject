@@ -31,7 +31,9 @@ namespace ParaglidingProject.Data.ContextConfiguration.ModelsConfiguration
                .IsRequired(true)
                .OnDelete(DeleteBehavior.Restrict);
 
-           
+            builder.Property(s => s.Name).HasMaxLength(250);
+            builder.Property(s => s.Orientation).HasMaxLength(250);
+            builder.Property(s => s.SiteGeoCoordinate).HasMaxLength(250);
 
         }
     }
