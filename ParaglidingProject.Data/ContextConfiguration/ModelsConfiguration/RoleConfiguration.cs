@@ -12,6 +12,7 @@ namespace ParaglidingProject.Data.ContextConfiguration.ModelsConfiguration
     {
         public void Configure(EntityTypeBuilder<Role> builder)
         {
+            builder.Property(b => b.Name).HasMaxLength(250);
             builder.HasQueryFilter(p => p.IsActive);
 
             builder.HasOne(r => r.Pilot)
