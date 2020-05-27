@@ -10,7 +10,7 @@ namespace ParaglidingProject.Models
     {
         [Display(Name="Numéro du parapente")]
         public int ID { get; set; }
-
+        [StringLength(250)]
         public string Name { get; set; }
 
         [DataType(DataType.Date)]
