@@ -50,6 +50,12 @@ namespace ParaglidingProject.Data.ContextConfiguration.ModelsConfiguration
                 .HasForeignKey(po => po.PilotID)
                 .IsRequired(true)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Property(p => p.FirstName).HasMaxLength(250);
+            builder.Property(p => p.LastName).HasMaxLength(250);
+            builder.Property(p => p.Address).HasMaxLength(250);
+            builder.Property(p => p.PhoneNumber).HasMaxLength(250);
+
         }
     }
 }
