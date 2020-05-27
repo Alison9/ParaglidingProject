@@ -11,7 +11,9 @@ namespace ParaglidingProject.Models
         
         public int ID { get; set; }
         [Display(Name = "Nom du niveau")]
+        [StringLength(250)]
         public string Name { get; set; }
+        [StringLength(250)]
         public string Skill { get; set; }
         [Display(Name = "Niveau du brevet")]
         public bool IsActive { get; set; }
