@@ -10,6 +10,7 @@ namespace ParaglidingProject.Models
     {
         public int ID { get; set; }
         [Display(Name = "Role Administratif")]
+        [StringLength(250)]
         public string Name { get; set; }
         public bool IsActive { get; set; }
         [Display(Name="Pilote")]
