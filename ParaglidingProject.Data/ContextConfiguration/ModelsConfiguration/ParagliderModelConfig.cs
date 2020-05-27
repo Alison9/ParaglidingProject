@@ -14,15 +14,12 @@ namespace ParaglidingProject.Data.ContextConfiguration.ModelsConfiguration
         {
             builder.HasQueryFilter(p => p.IsActive);
 
+            builder.Property(b => b.Size).HasMaxLength(250);
+            builder.Property(b => b.ApprovalNumber).HasMaxLength(250);
             builder.Property(p => p.ApprovalDate)
                 .HasColumnType("date");
-            //builder.Property(p => p.Size)
-            //    .HasColumnType("decimal(5,2)");
-            builder.Property(p => p.MinWeightPilot)
-                .HasColumnType("decimal(5,2)");
-            builder.Property(p => p.MaxWeightPilot)
-                .HasColumnType("decimal(5,2)");
 
+           
             builder.HasMany(p => p.Paragliders)
                 .WithOne(pm => pm.ParagliderModel)
                 .HasForeignKey(p => p.ParagliderModelID)
