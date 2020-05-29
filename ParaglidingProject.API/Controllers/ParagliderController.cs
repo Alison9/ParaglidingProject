@@ -23,7 +23,7 @@ namespace ParaglidingProject.API.Controllers
         [HttpGet("{paragliderId}", Name = "GetParagliderAsync")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<ParagliderDto>> GetPilotAsync([FromRoute] int paragliderId)
+        public async Task<ActionResult<ParagliderDto>> GetParagliderAsync([FromRoute] int paragliderId)
         {
             var paraglider = await _paragliderService.GetParagliderAsync(paragliderId);
             if (paraglider == null) return NotFound("Couldn't find any associated Paraglider");
@@ -33,7 +33,7 @@ namespace ParaglidingProject.API.Controllers
         [HttpGet("", Name = "GetAllParaglidersAsync")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<IReadOnlyCollection<ParagliderDto>>> GetAllPilotsAsync()
+        public async Task<ActionResult<IReadOnlyCollection<ParagliderDto>>> GetAllParaglidersAsync()
         {
             var paraglider = await _paragliderService.GetAllParaglidersAsync();
             if (paraglider == null) return NotFound("There is no paraglider ");
