@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using ParaglidingProject.SL.Core.TransfertObjects;
+using ParaglidingProject.SL.Core.Pilot.NS.TransfertObjects;
 
-namespace ParaglidingProject.SL.Core
+namespace ParaglidingProject.SL.Core.Pilot.NS
 {
     public interface IPilotsService
     {
