@@ -20,21 +20,14 @@ namespace ParaglidingProject.SL.Core
 
         public async Task<PilotDto> GetPilotAsync(int id)
         {
-            // Select Loading (inline mapping)
             var pilot = await _paraContext.Pilots
                 .AsNoTracking()
-                .Select(p => new PilotDto
-                {
-                    PilotId = p.ID,
-                    Name = $"{p.FirstName} {p.LastName}",
-                    Address = p.Address,
-                    NumberOfFlights = p.Flights.Count
-                })
-                .FirstOrDefaultAsync(p => p.PilotId == id);
+                .Include(p => p.Flights)
+                .FirstOrDefaultAsync(p => p.ID == id);
 
-            //var pilotDto = pilot.MapPilotDto();
+            var pilotDto = pilot.MapPilotDto();
 
-            return pilot;
+            return pilotDto;
         }
 
         public async Task<IReadOnlyCollection<PilotDto>> GetAllPilotsAsync()
