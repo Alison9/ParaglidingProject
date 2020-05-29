@@ -1,7 +1,5 @@
 ﻿using ParaglidingProject.SL.Core.Paraglider.NS.TransfertObjects;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ParaglidingProject.SL.Core.Paraglider.NS

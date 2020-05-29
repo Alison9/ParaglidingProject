@@ -4,7 +4,6 @@ using ParaglidingProject.SL.Core.Paraglider.NS.TransfertObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ParaglidingProject.SL.Core.Paraglider.NS
@@ -19,7 +18,6 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS
         }
         public async Task<ParagliderDto> GetParagliderAsync(int id)
         {
-            // Select Loading (inline mapping)
             var paraglider = await _paraContext.Paragliders
                 .AsNoTracking()
                 .Select(p => new ParagliderDto
@@ -29,11 +27,9 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS
                     CommissioningDate = p.CommissioningDate,
                     LastRevision = p.LastRevisionDate,
                     ParagliderModelAprrovalNumber = p.ParagliderModel.ApprovalNumber,
-                    NumerOfFlights = p.Flights.Count()
+                    NumerOfFlights = p.Flights.Count
                 })
                 .FirstOrDefaultAsync(p => p.ParagliderId == id);
-
-            //var pilotDto = pilot.MapPilotDto();
 
             return paraglider;
         }

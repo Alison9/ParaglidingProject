@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ParaglidingProject.SL.Core.Paraglider.NS.TransfertObjects
 {
