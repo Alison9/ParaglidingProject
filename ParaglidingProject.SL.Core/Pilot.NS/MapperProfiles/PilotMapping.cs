@@ -1,4 +1,4 @@
-﻿using ParaglidingProject.SL.Core.TransfertObjects;
+﻿using ParaglidingProject.SL.Core.Pilot.NS.TransfertObjects;
 
 namespace ParaglidingProject.SL.Core.Pilot.NS.MapperProfiles
 {

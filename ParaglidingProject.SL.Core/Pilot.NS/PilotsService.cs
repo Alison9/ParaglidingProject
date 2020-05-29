@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ParaglidingProject.Data;
 using ParaglidingProject.SL.Core.Pilot.NS.MapperProfiles;
-using ParaglidingProject.SL.Core.TransfertObjects;
+using ParaglidingProject.SL.Core.Pilot.NS.TransfertObjects;
 
-namespace ParaglidingProject.SL.Core.Pilot.NS.TransfertObjects
+namespace ParaglidingProject.SL.Core.Pilot.NS
 {
     public class PilotsService : IPilotsService
     {
