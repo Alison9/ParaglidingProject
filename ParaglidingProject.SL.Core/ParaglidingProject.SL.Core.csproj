@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <Folder Include="Helpers\" />
+    <Folder Include="Paraglider.NS\MapperProfiles\" />
   </ItemGroup>
 
   <ItemGroup>
