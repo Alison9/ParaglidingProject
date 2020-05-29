@@ -22,12 +22,12 @@ namespace ParaglidingProject.API.Controllers
         }
 
 
-        [HttpGet("{TraineeshipId}", Name = "GetTraineeshipPaymentAsync")]
+        [HttpPost("", Name = "GetTraineeshipPaymentAsync")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<TraineeshipPaymentDto>> GetTraineeshipAsync([FromRoute] int traineeshipId)
+        public async Task<ActionResult<TraineeshipPaymentDto>> GetTraineeshipAsync([FromQuery] int traineeshipId, [FromQuery] int pilotId)
         {
-            var traineeshipPayment = await _traineeshipPaymentService.GetTraineeshipPaymentAsync(traineeshipId);
+            var traineeshipPayment = await _traineeshipPaymentService.GetTraineeshipPaymentAsync(pilotId, traineeshipId);
             if (traineeshipPayment == null) return NotFound("Couldn't find any associated Traineeship payment");
             return Ok(traineeshipPayment);
         }
@@ -38,7 +38,7 @@ namespace ParaglidingProject.API.Controllers
         public async Task<ActionResult<IReadOnlyCollection<TraineeshipPaymentDto>>> GetAllTraineeshipPaymentAsync()
         {
             var traineeshipPayments = await _traineeshipPaymentService.GetAllTraineeshipPaymentAsync();
-            if (traineeshipPayments == null) return NotFound("Nothing found. ");
+            if (traineeshipPayments == null) return NotFound("Nothing found.");
             return Ok(traineeshipPayments);
         }
 

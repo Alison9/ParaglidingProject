@@ -33,7 +33,7 @@ namespace ParaglidingProject.SL.Core.TraineeshipPayement.NS
             return await traineeshipPayments.ToListAsync();
         }
 
-        public async Task<TraineeshipPaymentDto> GetTraineeshipPaymentAsync(int id)
+        public async Task<TraineeshipPaymentDto> GetTraineeshipPaymentAsync(int pilotId, int traineeshipId)
         {
             var traineeshipPayment = await _paraContext.TraineeshipPayments
                     .AsNoTracking()
@@ -45,7 +45,7 @@ namespace ParaglidingProject.SL.Core.TraineeshipPayement.NS
                         PaymentDate = p.PaymentDate,
                         IsPaid = p.IsPaid
                     })
-                    .FirstOrDefaultAsync(p => p.TraineeshipID == id);
+                    .FirstOrDefaultAsync(p => p.PilotId == pilotId && p.TraineeshipID == traineeshipId);
 
             return traineeshipPayment;
         }

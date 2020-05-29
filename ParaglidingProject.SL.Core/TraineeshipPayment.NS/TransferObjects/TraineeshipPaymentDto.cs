@@ -11,5 +11,6 @@ namespace ParaglidingProject.SL.Core.TraineeshipPayement.NS.TransferObjects
         public DateTime PaymentDate { get; set; }
         public bool IsPaid { get; set; }
 
+        //pilot et traineeship
     }
 }
