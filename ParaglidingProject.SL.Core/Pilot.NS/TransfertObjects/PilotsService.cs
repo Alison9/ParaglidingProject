@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ParaglidingProject.Data;
-using ParaglidingProject.SL.Core.MapperProfiles;
+using ParaglidingProject.SL.Core.Pilot.NS.MapperProfiles;
 using ParaglidingProject.SL.Core.TransfertObjects;
 
-namespace ParaglidingProject.SL.Core
+namespace ParaglidingProject.SL.Core.Pilot.NS.TransfertObjects
 {
     public class PilotsService : IPilotsService
     {

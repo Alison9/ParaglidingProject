@@ -8,6 +8,7 @@ using Newtonsoft.Json.Serialization;
 using ParaglidingProject.Data;
 using ParaglidingProject.SL.Core;
 using ParaglidingProject.SL.Core.Paraglider.NS;
+using ParaglidingProject.SL.Core.Pilot.NS.TransfertObjects;
 
 namespace ParaglidingProject.API
 {
