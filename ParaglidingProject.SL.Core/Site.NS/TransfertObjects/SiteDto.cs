@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ParaglidingProject.SL.Core.TransfertObjects
+namespace ParaglidingProject.SL.Core.Site.NS.TransfertObjects
 {
     public class SiteDto
     {

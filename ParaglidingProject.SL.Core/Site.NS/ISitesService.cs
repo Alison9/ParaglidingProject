@@ -1,10 +1,10 @@
-﻿using ParaglidingProject.SL.Core.TransfertObjects;
+﻿using ParaglidingProject.SL.Core.Site.NS.TransfertObjects;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ParaglidingProject.SL.Core
+namespace ParaglidingProject.SL.Core.Site.NS
 {
     public interface ISitesService
     {

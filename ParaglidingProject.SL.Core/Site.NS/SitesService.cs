@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ParaglidingProject.Data;
 using ParaglidingProject.Models;
-using ParaglidingProject.SL.Core.MapperProfiles;
-using ParaglidingProject.SL.Core.TransfertObjects;
+using ParaglidingProject.SL.Core.Site.NS.TransfertObjects;
+using ParaglidingProject.SL.Core.Site.NS.MapperProfiles;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ParaglidingProject.SL.Core
+namespace ParaglidingProject.SL.Core.Site.NS
 {
     public class SitesService : ISitesService
     {

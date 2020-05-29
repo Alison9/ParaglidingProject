@@ -1,15 +1,15 @@
 ﻿using ParaglidingProject.Models;
-using ParaglidingProject.SL.Core.TransfertObjects;
+using ParaglidingProject.SL.Core.Site.NS.TransfertObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ParaglidingProject.SL.Core.MapperProfiles
+namespace ParaglidingProject.SL.Core.Site.NS.MapperProfiles
 {
     public static class  SiteMapping
     {
-        public static IQueryable<SiteDto> MapSiteDto(this IQueryable<Site> Site) 
+        public static IQueryable<SiteDto> MapSiteDto(this IQueryable<Models.Site> Site) 
         {
 
             return Site.Select(s => new SiteDto
