@@ -42,6 +42,7 @@ namespace ParaglidingProject.SL.Core.Site.NS
         {
             var landings = _paraContext.Sites
                 .AsNoTracking()
+                .Where(l => l.SiteType == 2)
                 .MapLandingDto();
 
             return await landings.ToListAsync();
