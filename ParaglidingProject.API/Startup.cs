@@ -7,6 +7,9 @@ using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Serialization;
 using ParaglidingProject.Data;
 using ParaglidingProject.SL.Core;
+using ParaglidingProject.SL.Core.TraineeShip.NS.TransferObjects;
+
+using ParaglidingProject.SL.Core.TraineeShip.NS;
 
 namespace ParaglidingProject.API
 {
@@ -37,6 +40,7 @@ namespace ParaglidingProject.API
 
             // Register our Custom Services
             services.AddTransient<IPilotsService, PilotsService>();
+            services.AddTransient<ITraineeShipService, TraineeShipService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
