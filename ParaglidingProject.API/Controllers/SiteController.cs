@@ -35,5 +35,12 @@ namespace ParaglidingProject.API.Controllers
             if (sites == null) return NotFound("Collection was empty");
             return Ok(sites);
         }
+        [HttpGet("landing")]
+        public async Task<ActionResult<IReadOnlyCollection<LandingDto>>> GetAllLandingAsync()
+        {
+            var landing = await _sitesService.GetAllLandingAsync();
+            if (landing == null) return NotFound("Collection was empty");
+            return Ok(landing);
+        }
     }
 }
