@@ -1,4 +1,4 @@
-﻿namespace ParaglidingProject.SL.Core.TransfertObjects
+﻿namespace ParaglidingProject.SL.Core.Pilot.NS.TransfertObjects
 {
     public class PilotDto
     {

@@ -7,6 +7,13 @@ using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Serialization;
 using ParaglidingProject.Data;
 using ParaglidingProject.SL.Core;
+using ParaglidingProject.SL.Core.Paraglider.NS;
+using ParaglidingProject.SL.Core.Pilot.NS;
+using ParaglidingProject.SL.Core.Pilot.NS.TransfertObjects;
+using ParaglidingProject.SL.Core.TraineeshipPayement.NS;
+using ParaglidingProject.SL.Core.Levels.NS;
+using ParaglidingProject.SL.Core.Site.NS;
+using ParaglidingProject.SL.Core.Flights.NS;
 using ParaglidingProject.SL.Core.TraineeShip.NS.TransferObjects;
 
 using ParaglidingProject.SL.Core.TraineeShip.NS;
@@ -40,6 +47,11 @@ namespace ParaglidingProject.API
 
             // Register our Custom Services
             services.AddTransient<IPilotsService, PilotsService>();
+            services.AddTransient<ITraineeshipPaymentService, TraineeshipPaymentService>();
+            services.AddTransient<IParagliderService, ParagliderService>();
+            services.AddTransient<ILevelsService, LevelsService>();
+            services.AddTransient<ISitesService, SitesService>();
+            services.AddTransient<IFlightsService, FlightsService>();
             services.AddTransient<ITraineeShipService, TraineeShipService>();
         }
 
