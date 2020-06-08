@@ -12,7 +12,6 @@
     <Folder Include="Paraglider.NS\MapperProfiles\" />
     <Folder Include="TraineeshipPayment.NS\MapperProfiles\" />
     <Folder Include="Levels.NS\Helpers\" />
-    <Folder Include="Flights.NS\Helpers\" />
   </ItemGroup>
 
   <ItemGroup>

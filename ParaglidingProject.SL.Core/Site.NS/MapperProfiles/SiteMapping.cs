@@ -1,9 +1,5 @@
-﻿using ParaglidingProject.Models;
-using ParaglidingProject.SL.Core.Site.NS.TransfertObjects;
-using System;
-using System.Collections.Generic;
+﻿using ParaglidingProject.SL.Core.Site.NS.TransfertObjects;
 using System.Linq;
-using System.Text;
 
 namespace ParaglidingProject.SL.Core.Site.NS.MapperProfiles
 {

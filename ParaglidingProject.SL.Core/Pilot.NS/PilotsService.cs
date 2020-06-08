@@ -25,7 +25,7 @@ namespace ParaglidingProject.SL.Core.Pilot.NS
                 .Include(p => p.Flights)
                 .FirstOrDefaultAsync(p => p.ID == id);
 
-            var pilotDto = pilot.MapPilotDto();
+            var pilotDto = pilot?.MapPilotDto();
 
             return pilotDto;
         }
