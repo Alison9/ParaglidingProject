@@ -15,7 +15,7 @@ using ParaglidingProject.SL.Core.Levels.NS;
 using ParaglidingProject.SL.Core.Site.NS;
 using ParaglidingProject.SL.Core.Flights.NS;
 using ParaglidingProject.SL.Core.TraineeShip.NS.TransferObjects;
-
+using ParaglidingProject.SL.Core.Role.NS;
 using ParaglidingProject.SL.Core.TraineeShip.NS;
 using ParaglidingProject.SL.Core.Possession.NS;
 
@@ -55,6 +55,7 @@ namespace ParaglidingProject.API
             services.AddTransient<IFlightsService, FlightsService>();
             services.AddTransient<ITraineeShipService, TraineeShipService>();
             services.AddTransient<IPossessionsService, PossessionsService>();
+            services.AddTransient<IRoleService, RolesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
