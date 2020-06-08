@@ -13,6 +13,10 @@ using ParaglidingProject.SL.Core.Pilot.NS.TransfertObjects;
 using ParaglidingProject.SL.Core.TraineeshipPayement.NS;
 using ParaglidingProject.SL.Core.Levels.NS;
 using ParaglidingProject.SL.Core.Site.NS;
+using ParaglidingProject.SL.Core.Flights.NS;
+using ParaglidingProject.SL.Core.TraineeShip.NS.TransferObjects;
+
+using ParaglidingProject.SL.Core.TraineeShip.NS;
 using ParaglidingProject.SL.Core.Possession.NS;
 
 namespace ParaglidingProject.API
@@ -48,6 +52,8 @@ namespace ParaglidingProject.API
             services.AddTransient<IParagliderService, ParagliderService>();
             services.AddTransient<ILevelsService, LevelsService>();
             services.AddTransient<ISitesService, SitesService>();
+            services.AddTransient<IFlightsService, FlightsService>();
+            services.AddTransient<ITraineeShipService, TraineeShipService>();
             services.AddTransient<IPossessionsService, PossessionsService>();
         }
 
