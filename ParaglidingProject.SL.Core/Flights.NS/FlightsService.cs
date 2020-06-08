@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ParaglidingProject.Data;
+using ParaglidingProject.Models;
+using ParaglidingProject.SL.Core.Flights.NS.MapperProfiles;
 using ParaglidingProject.SL.Core.Flights.NS.TransfertObjects;
 
 namespace ParaglidingProject.SL.Core.Flights.NS
@@ -16,7 +18,6 @@ namespace ParaglidingProject.SL.Core.Flights.NS
         {
             _paraContext = paraContext ?? throw new ArgumentNullException(nameof(paraContext));
         }
-
         public async Task<IReadOnlyCollection<FlightDto>> GetAllFlightsAsync()
         {
             var flights = _paraContext.Flights
@@ -52,8 +53,28 @@ namespace ParaglidingProject.SL.Core.Flights.NS
                 })
                 .FirstOrDefaultAsync(f => f.FlightId == id);
 
-
             return await flight;
+        }
+
+        public async Task<IReadOnlyCollection<FlightDto>> GetAllFlightsForPilotInDateRangeAsync(int pilotId, DateRangeParams dates)
+        {
+            var begin = DateTime.Parse(dates.BeginDate);
+            var end = DateTime.Parse(dates.EndDate);
+
+            var pilot = await _paraContext.Pilots
+                .AsNoTracking()
+                .FirstOrDefaultAsync(p => p.ID == pilotId);
+
+            if (pilot == null) return null;
+
+            var flights = _paraContext.Flights
+                .AsNoTracking()
+                .Where(f => f.PilotID == pilotId &&
+                            f.FlightDate >= begin &&
+                            f.FlightDate <= end)
+                .MapFlightCollection();
+
+            return await flights.ToListAsync();
         }
     }
 }

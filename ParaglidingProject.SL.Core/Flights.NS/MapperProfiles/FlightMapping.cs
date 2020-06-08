@@ -2,6 +2,7 @@
 using ParaglidingProject.SL.Core.Flights.NS.TransfertObjects;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace ParaglidingProject.SL.Core.Flights.NS.MapperProfiles
@@ -21,6 +22,20 @@ namespace ParaglidingProject.SL.Core.Flights.NS.MapperProfiles
                 LandingSiteName = flight.LandingSite.Name
             };
             return flightDto;
+        }
+
+        public static IQueryable<FlightDto> MapFlightCollection(this IQueryable<Flight> flights)
+        {
+            return flights.Select(f => new FlightDto
+            {
+                FlightId = f.ID,
+                FlightDate = f.FlightDate,
+                Duration = f.Duration,
+                PilotName = $"{f.Pilot.FirstName} {f.Pilot.LastName}",
+                ParagliderName = f.Paraglider.Name,
+                TakeOffSiteName = f.TakeOffSite.Name,
+                LandingSiteName = f.LandingSite.Name
+            });
         }
     }
 }
