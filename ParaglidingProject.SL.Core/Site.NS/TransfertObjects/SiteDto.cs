@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static ParaglidingProject.Models.Enumeration;
 
 namespace ParaglidingProject.SL.Core.Site.NS.TransfertObjects
 {
@@ -14,7 +15,7 @@ namespace ParaglidingProject.SL.Core.Site.NS.TransfertObjects
         public string ApproachManeuver { get; set; }
         public string SiteGeoCoordinate { get; set; }
         public int NumberOfUse { get; set; }
-        public int SiteType { get; set; }
+        public Enm_SiteType SiteType { get; set; }
         public Level Level { get; set; }
 
     }
