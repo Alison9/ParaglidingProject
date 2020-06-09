@@ -50,6 +50,9 @@ namespace ParaglidingProject.API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<TraineeShipSortByPilotLicenseDto>> GetAvailableTraineeShipLicenseByPilotAsync([FromRoute] int pilotId)
         {
+            var pilot = await _PilotService.GetPilotAsync(pilotId);
+            if (pilot == null) return NotFound("Couldn't find any associated Pilot");
+
             var traineeShipSortedByLicense = await _TraineeshipService.GetAllTraineeShipSortedByPilotLicense(pilotId);
             if (traineeShipSortedByLicense == null) return NotFound("Pilot not found ! ");
             return Ok(traineeShipSortedByLicense);
