@@ -55,7 +55,7 @@ namespace ParaglidingProject.SL.Core.Site.NS
 
             var takeoff = _paraContext.Sites
                 .AsNoTracking()
-               .Where(s=>s.SiteType== Models.typesite.takeoff)
+               .Where(s=>s.SiteType== Enm_SiteType.TakeOff)
                 .MapTakeoffCollection();
 
             return await takeoff.ToListAsync();

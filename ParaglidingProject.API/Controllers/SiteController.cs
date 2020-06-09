@@ -45,7 +45,7 @@ namespace ParaglidingProject.API.Controllers
         [HttpGet("Takeoff")]
         public async Task<ActionResult<IReadOnlyCollection<TakeoffDto>>> GetAllTakeoffAsync()
         {
-            var takeoff = await _sitesService.GetAllTakeOffsBYSiteAsync();
+            var takeoff = await _sitesService.GetAllTakeOffAsync();
             if (takeoff == null) return NotFound("Collection was empty");
             return Ok(takeoff);
         }
