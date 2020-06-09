@@ -3,11 +3,10 @@ using System.Linq;
 
 namespace ParaglidingProject.SL.Core.Site.NS.MapperProfiles
 {
-    public static class  SiteMapping
+    public static class SiteMapping
     {
-        public static IQueryable<SiteDto> MapSiteDto(this IQueryable<Models.Site> Site) 
+        public static IQueryable<SiteDto> MapSiteDto(this IQueryable<Models.Site> Site)
         {
-
             return Site.Select(s => new SiteDto
             {
                 SiteId = s.ID,
@@ -21,5 +20,6 @@ namespace ParaglidingProject.SL.Core.Site.NS.MapperProfiles
             });
 
         }
+       
     }
 }

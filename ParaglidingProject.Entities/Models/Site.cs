@@ -3,9 +3,17 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using static ParaglidingProject.Models.Enumeration;
 
 namespace ParaglidingProject.Models
 {
+  public  enum typesite
+    {
+        takeoff=1,
+        landing=2
+    }
+
+
     public class Site
     {
         public int ID { get; set; }
@@ -17,8 +25,8 @@ namespace ParaglidingProject.Models
         public int AltitudeTakeOff { get; set; }
         public string ApproachManeuver { get; set; }
         public string SiteGeoCoordinate { get; set; }
-        public int  SiteType { get; set; }// column de descrimimation
-        
+        public Enm_SiteType SiteType { get; set; }// column de descrimimation
+
         [Display(Name = "Niveau requis")]
         public int LevelID { get; set; }
         [Display(Name="Historique des vols")]

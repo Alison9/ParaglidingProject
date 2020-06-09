@@ -11,5 +11,6 @@ namespace ParaglidingProject.SL.Core.Site.NS
         Task<SiteDto> GetSiteAsync(int id);
         Task<IReadOnlyCollection<SiteDto>> GetAllSitesAsync();
         Task<IReadOnlyCollection<LandingDto>> GetAllLandingAsync();
+        Task<IReadOnlyCollection<TakeoffDto>> GetAllTakeOffAsync();
     }
 }
