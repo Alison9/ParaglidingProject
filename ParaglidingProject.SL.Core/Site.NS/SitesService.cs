@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq;
+using static ParaglidingProject.Models.Enumeration;
 
 namespace ParaglidingProject.SL.Core.Site.NS
 {
@@ -28,6 +30,8 @@ namespace ParaglidingProject.SL.Core.Site.NS
             return await sites.ToListAsync();
         }
 
+        
+
         public async Task<SiteDto> GetSiteAsync(int id)
         {
             var site = _paraContext.Sites
@@ -37,5 +41,27 @@ namespace ParaglidingProject.SL.Core.Site.NS
 
             return await site;
         }
+        public async Task<IReadOnlyCollection<LandingDto>> GetAllLandingAsync()
+        {
+            var landings = _paraContext.Sites
+                .AsNoTracking()
+                .Where(l => l.SiteType == Enm_SiteType.Landing)
+                .MapLandingDto();
+
+            return await landings.ToListAsync();
+        }
+        public async Task<IReadOnlyCollection<TakeoffDto>> GetAllTakeOffAsync()
+        {
+
+            var takeoff = _paraContext.Sites
+                .AsNoTracking()
+               .Where(s=>s.SiteType== Enm_SiteType.TakeOff)
+                .MapTakeoffCollection();
+
+            return await takeoff.ToListAsync();
+        }
+
+
+
     }
 }

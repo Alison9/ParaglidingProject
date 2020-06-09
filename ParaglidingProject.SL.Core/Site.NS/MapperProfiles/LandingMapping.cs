@@ -3,23 +3,21 @@ using System.Linq;
 
 namespace ParaglidingProject.SL.Core.Site.NS.MapperProfiles
 {
-    public static class SiteMapping
+    public static class LandingMapping
     {
-        public static IQueryable<SiteDto> MapSiteDto(this IQueryable<Models.Site> Site)
+        public static IQueryable<LandingDto> MapLandingDto(this IQueryable<Models.Site> landing)
         {
-            return Site.Select(s => new SiteDto
+
+            return landing.Select(s => new LandingDto
             {
                 SiteId = s.ID,
                 Name = s.Name,
                 Orientation = s.Orientation,
-                AltitudeTakeOff = s.AltitudeTakeOff,
                 ApproachManeuver = s.ApproachManeuver,
-                NumberOfUse = s.LandingFlights.Count + s.TakeOffFlights.Count,
-                SiteType = s.SiteType,
+                NumberOfUse = s.LandingFlights.Count,
                 Level = s.Level
             });
 
         }
-       
     }
 }

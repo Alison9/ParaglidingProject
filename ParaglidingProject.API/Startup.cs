@@ -6,18 +6,19 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Serialization;
 using ParaglidingProject.Data;
-using ParaglidingProject.SL.Core;
+
 using ParaglidingProject.SL.Core.Paraglider.NS;
 using ParaglidingProject.SL.Core.Pilot.NS;
-using ParaglidingProject.SL.Core.Pilot.NS.TransfertObjects;
+
 using ParaglidingProject.SL.Core.TraineeshipPayement.NS;
 using ParaglidingProject.SL.Core.Levels.NS;
 using ParaglidingProject.SL.Core.Site.NS;
 using ParaglidingProject.SL.Core.Flights.NS;
-using ParaglidingProject.SL.Core.TraineeShip.NS.TransferObjects;
+
 using ParaglidingProject.SL.Core.Role.NS;
 using ParaglidingProject.SL.Core.TraineeShip.NS;
 using ParaglidingProject.SL.Core.Possession.NS;
+using ParaglidingProject.SL.Core.Subscription.NS;
 using ParaglidingProject.SL.Core.ParagliderModel.NS;
 
 namespace ParaglidingProject.API
@@ -57,6 +58,7 @@ namespace ParaglidingProject.API
             services.AddTransient<ITraineeShipService, TraineeShipService>();
             services.AddTransient<IPossessionsService, PossessionsService>();
             services.AddTransient<IRoleService, RolesService>();
+            services.AddTransient<ISubscriptionService, SubscriptionService>();
            services.AddTransient<IParagliderModelService, ParagliderModelService>();
         }
 
