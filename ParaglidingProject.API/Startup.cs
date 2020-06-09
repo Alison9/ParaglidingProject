@@ -1,12 +1,16 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
 using ParaglidingProject.Data;
 using ParaglidingProject.SL.Core;
+using ParaglidingProject.SL.Core.Auth.NS;
 using ParaglidingProject.SL.Core.Paraglider.NS;
 using ParaglidingProject.SL.Core.Pilot.NS;
 using ParaglidingProject.SL.Core.Pilot.NS.TransfertObjects;
@@ -56,6 +60,32 @@ namespace ParaglidingProject.API
             services.AddTransient<ITraineeShipService, TraineeShipService>();
             services.AddTransient<IPossessionsService, PossessionsService>();
             services.AddTransient<IRoleService, RolesService>();
+            services.AddTransient<IAuthService, AuthService>();
+
+            // Safe JWT secret key injection
+            var appSettingsSection = Configuration.GetSection("JwtSign");
+            services.Configure<AppSettings>(appSettingsSection);
+
+            // JWT Authentication Pipeline
+            var appSettings = appSettingsSection.Get<AppSettings>();
+            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+            services.AddAuthentication(ao =>
+                {
+                    ao.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    ao.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(jbo =>
+                {
+                    jbo.RequireHttpsMetadata = true;
+                    jbo.SaveToken = true;
+                    jbo.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,12 +100,10 @@ namespace ParaglidingProject.API
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }

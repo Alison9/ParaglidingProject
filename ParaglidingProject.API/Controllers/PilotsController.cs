@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ParaglidingProject.SL.Core.Pilot.NS;
@@ -8,6 +9,7 @@ using ParaglidingProject.SL.Core.Pilot.NS.TransfertObjects;
 
 namespace ParaglidingProject.API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Produces("application/json")]
     [Route("api/v1/pilots/")]

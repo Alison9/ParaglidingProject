@@ -1,0 +1,71 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using ParaglidingProject.Data;
+using ParaglidingProject.SL.Core.Auth.NS.TransfertObjects;
+
+namespace ParaglidingProject.SL.Core.Auth.NS
+{
+    public class AuthService : IAuthService
+    {
+        private readonly ParaglidingClubContext _context;
+
+        public AuthService(ParaglidingClubContext context)
+        {
+            _context = context ?? throw new ArgumentNullException(nameof(context));
+        }
+        public async Task<bool?> Authenticate(CredentialsParams credentials)
+        {
+            var user = await _context.Pilots
+                .FirstOrDefaultAsync(p => p.FirstName == credentials.FirstName);
+
+            if (user == null) return null;
+
+            return user.PhoneNumber == credentials.PhoneNumber;
+        }
+        public TokenDto GenerateJwt(string name, string secret)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(secret);
+
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, name)
+            };
+
+            // Verifier si le user a un role
+            // Si il a un role -> nouveau Claim avec ce role 
+
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.UtcNow.AddDays(7),
+                SigningCredentials = new SigningCredentials(
+                    new SymmetricSecurityKey(key),
+                    SecurityAlgorithms.HmacSha256Signature)
+            };
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            return new TokenDto
+            {
+                FirstName = name,
+                Token = tokenHandler.WriteToken(token),
+            };
+        }
+        public UserInfoDto ExtractInfo(ClaimsPrincipal user)
+        {
+            var claimsIdentity = user.Identity as ClaimsIdentity;
+            var userName = claimsIdentity?.FindFirst(ClaimTypes.Name);
+            return new UserInfoDto
+            {
+                FirstName = userName?.Value
+            };
+        }
+    }
+}
