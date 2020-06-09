@@ -51,6 +51,23 @@ namespace ParaglidingProject.SL.Core.TraineeShip.NS
             return traineeship;
         }
 
+        public async Task<IReadOnlyCollection<TraineeShipDto>> GetTraineeshipsByPilotAsync(int pilotId)
+        {
+            var traineeships = _paraContext.Traineeships
+                  .AsNoTracking()
+                  .Include(t => t.TraineeshipPayments)  
+                  .Where(t => t.TraineeshipPayments.Any(tp => tp.PilotID == pilotId))
+                  .Select(T => new TraineeShipDto
+                  {
+                      Traineeshipid = T.ID,
+                      TraineeShipStartDate = T.StartDate,
+                      TraineeShipPrice = T.Price,
+                      TraineeShipEndDate = T.EndDate,
+                      traineeshipIsActive = T.IsActive
+                  });
+
+            return await traineeships.ToListAsync();
+        }
     }
     }
 
