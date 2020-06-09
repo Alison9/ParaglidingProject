@@ -26,6 +26,8 @@ namespace ParaglidingProject.SL.Core.ParagliderModel.NS
             {
               ID = p.ID,
               Size = p.Size,
+              MaxWeightPilot = p.MaxWeightPilot,
+              MinWeightPilot = p.MinWeightPilot,
               ApprovalDate = p.ApprovalDate,
               ApprovalNumber = p.ApprovalNumber,
               IsActive = p.IsActive
@@ -43,6 +45,8 @@ namespace ParaglidingProject.SL.Core.ParagliderModel.NS
             {
               ID = p.ID,
               Size = p.Size,
+              MaxWeightPilot = p.MaxWeightPilot,
+              MinWeightPilot = p.MinWeightPilot,
               ApprovalDate = p.ApprovalDate,
               ApprovalNumber = p.ApprovalNumber,
               IsActive = p.IsActive
