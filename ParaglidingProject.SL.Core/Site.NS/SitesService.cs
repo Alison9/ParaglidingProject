@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace ParaglidingProject.SL.Core.Site.NS
 {
@@ -28,6 +29,8 @@ namespace ParaglidingProject.SL.Core.Site.NS
             return await sites.ToListAsync();
         }
 
+        
+
         public async Task<SiteDto> GetSiteAsync(int id)
         {
             var site = _paraContext.Sites
@@ -37,5 +40,18 @@ namespace ParaglidingProject.SL.Core.Site.NS
 
             return await site;
         }
+        public async Task<IReadOnlyCollection<TakeoffDto>> GetAllTakeOffAsync()
+        {
+
+            var takeoff = _paraContext.Sites
+                .AsNoTracking()
+               .Where(s=>s.SiteType== Models.typesite.takeoff)
+                .MapTakeoffCollection();
+
+            return await takeoff.ToListAsync();
+        }
+
+
+
     }
 }

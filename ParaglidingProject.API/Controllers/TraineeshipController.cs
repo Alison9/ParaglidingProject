@@ -41,5 +41,6 @@ namespace ParaglidingProject.API.Controllers
             if (traineeships == null) return NotFound("Collection was empty :( ");
             return Ok(traineeships);
         }
+       
     }
 }
