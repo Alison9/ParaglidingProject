@@ -32,6 +32,8 @@ namespace ParaglidingProject.SL.Core.TraineeShip.NS
             return await traineeships.ToListAsync();
         }
 
+
+
         public async Task<TraineeShipDto> GetTraineeShipAsync(int id)
         {
             var traineeship = await _paraContext.Traineeships
@@ -50,7 +52,21 @@ namespace ParaglidingProject.SL.Core.TraineeShip.NS
 
             return traineeship;
         }
-
+        public async Task<IReadOnlyCollection<TraineeShipSortByPilotLicenseDto>> GetAllTraineeShipSortedByPilotLicense(int pilotId)
+        {
+            int pilotLicenseid = _paraContext.Pilots.AsNoTracking().Where(p => p.ID == pilotId).Select(p => p.Possessions.Select(l => l.LicenseID).Max()).FirstOrDefault();
+            
+            var traneeShipSortedByPilotLicense = _paraContext.Traineeships
+                .AsNoTracking()
+                .Where(tl => tl.LicenseID == (pilotLicenseid + 1) && tl.StartDate > DateTime.Today)
+                .Select(t => new TraineeShipSortByPilotLicenseDto
+                {
+                    LicenseId = t.LicenseID,
+                    LicenseTitle = t.License.Title,
+                    traineeShipId = t.ID
+                });
+            return await traneeShipSortedByPilotLicense.ToListAsync();
+        }
     }
-    }
+}
 

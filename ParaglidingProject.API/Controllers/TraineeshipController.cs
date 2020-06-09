@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ParaglidingProject.SL.Core.Pilot.NS;
 using ParaglidingProject.SL.Core.TraineeShip.NS;
 using ParaglidingProject.SL.Core.TraineeShip.NS.TransferObjects;
 
@@ -40,6 +41,16 @@ namespace ParaglidingProject.API.Controllers
             var traineeships= await _TraineeshipService.GetAllTraineeShipAsync();
             if (traineeships == null) return NotFound("Collection was empty :( ");
             return Ok(traineeships);
+        }
+
+        [HttpPost("{pilotId}", Name = "GetTrainsheepByPilotLicense")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<TraineeShipSortByPilotLicenseDto>> GetAvailableTraineeShipLicenseByPilotAsync([FromRoute] int pilotId)
+        {
+            var traineeShipSortedByLicense = await _TraineeshipService.GetAllTraineeShipSortedByPilotLicense(pilotId);
+            if (traineeShipSortedByLicense == null) return NotFound("Pilot not found ! ");
+            return Ok(traineeShipSortedByLicense);
         }
     }
 }
