@@ -7,6 +7,13 @@ using static ParaglidingProject.Models.Enumeration;
 
 namespace ParaglidingProject.Models
 {
+  public  enum typesite
+    {
+        takeoff=1,
+        landing=2
+    }
+
+
     public class Site
     {
         public int ID { get; set; }

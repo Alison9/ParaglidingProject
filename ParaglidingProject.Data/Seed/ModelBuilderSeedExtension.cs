@@ -521,7 +521,7 @@ namespace ParaglidingProject.Data.Seed
                     AltitudeTakeOff = 30,
                     SiteGeoCoordinate = "51° 08′ 33″ nord, 4° 36′ 67'' est",
                     IsActive = true,
-                    SiteType = 1,
+                    SiteType = Enumeration.Enm_SiteType.TakeOff,
                     LevelID = 1
 
                 },
@@ -533,7 +533,7 @@ namespace ParaglidingProject.Data.Seed
                     ApproachManeuver = "A vue",
                     SiteGeoCoordinate = "50° 26′ 02″ nord, 3° 49′ 39″ est",
                     IsActive = true,
-                    SiteType = 2,
+                    SiteType = Enumeration.Enm_SiteType.Landing,
                     LevelID = 2
                 },
                 new Site
@@ -544,7 +544,7 @@ namespace ParaglidingProject.Data.Seed
                     AltitudeTakeOff = 35,
                     SiteGeoCoordinate = "50° 08′ 25″ nord, 6° 08′ 02″ est",
                     IsActive = true,
-                    SiteType = 1,
+                    SiteType =Enumeration.Enm_SiteType.TakeOff,
                     LevelID = 3
                 },
                  new Site
@@ -555,7 +555,7 @@ namespace ParaglidingProject.Data.Seed
                      ApproachManeuver = "Aux instruments",
                      SiteGeoCoordinate = "50° 55′ 41″ nord, 5° 57′ 87″ est",
                      IsActive = false,
-                     SiteType = 2,
+                     SiteType = Enumeration.Enm_SiteType.Landing,
                      LevelID = 1
                  }
              ) ;

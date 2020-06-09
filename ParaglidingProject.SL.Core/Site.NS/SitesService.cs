@@ -30,6 +30,8 @@ namespace ParaglidingProject.SL.Core.Site.NS
             return await sites.ToListAsync();
         }
 
+        
+
         public async Task<SiteDto> GetSiteAsync(int id)
         {
             var site = _paraContext.Sites
@@ -48,5 +50,18 @@ namespace ParaglidingProject.SL.Core.Site.NS
 
             return await landings.ToListAsync();
         }
+        public async Task<IReadOnlyCollection<TakeoffDto>> GetAllTakeOffAsync()
+        {
+
+            var takeoff = _paraContext.Sites
+                .AsNoTracking()
+               .Where(s=>s.SiteType== Enm_SiteType.TakeOff)
+                .MapTakeoffCollection();
+
+            return await takeoff.ToListAsync();
+        }
+
+
+
     }
 }
