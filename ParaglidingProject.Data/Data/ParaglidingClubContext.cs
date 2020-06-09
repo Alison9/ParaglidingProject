@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using ParagliderProject.Data.ContextConfiguration.ModelsConfiguration;
 using ParaglidingProject.Data.ContextConfiguration.ModelsConfiguration;
 using ParaglidingProject.Data.Seed;

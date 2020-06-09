@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using ParaglidingProject.Data;
 using ParaglidingProject.SL.Core.Paraglider.NS.TransfertObjects;
 using System;
