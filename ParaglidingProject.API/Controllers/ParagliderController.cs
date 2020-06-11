@@ -9,21 +9,38 @@ using ParaglidingProject.SL.Core.Paraglider.NS.TransfertObjects;
 
 namespace ParaglidingProject.API.Controllers
 {
+    /// <summary>
+    /// the controller of paraglider
+    /// </summary>
     [ApiController]
     [ApiExplorerSettings(GroupName = "paragliders")]
     [Produces("application/json")]
     [Route("api/v1/paragliders/")]
+
+
     public class ParagliderController : ControllerBase
     {
         private readonly IParagliderService _paragliderService;
 
+       
         public ParagliderController(IParagliderService paragliderService)
         {
             _paragliderService = paragliderService ?? throw new ArgumentNullException(nameof(paragliderService));
         }
+
+
+        /// <summary>
+        /// get a paraglider by id
+        /// </summary>
+        /// <param name="paragliderId">The unique id of a paraglider</param>
+        /// <returns>
+        /// an actionresult of type 202 who contain a paragliderDto
+        /// an actionresult of type 404 if no paraglider was find
+        /// <seealso cref="ParagliderDto"/>
+        /// </returns>
+        /// <remarks></remarks>
         [HttpGet("{paragliderId}", Name = "GetParagliderAsync")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
         public async Task<ActionResult<ParagliderDto>> GetParagliderAsync([FromRoute] int paragliderId)
         {
             var paraglider = await _paragliderService.GetParagliderAsync(paragliderId);
@@ -31,9 +48,16 @@ namespace ParaglidingProject.API.Controllers
             return Ok(paraglider);
         }
 
+        /// <summary>
+        /// get all paraglider
+        /// </summary>
+        /// <returns>
+        /// an actionresult of type 202 who contain a list of paragliderDto
+        /// an actionresult of type 404 if no paraglider was find
+        /// <seealso cref="ParagliderDto"/>
+        /// </returns>
         [HttpGet("", Name = "GetAllParaglidersAsync")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+     
         public async Task<ActionResult<IReadOnlyCollection<ParagliderDto>>> GetAllParaglidersAsync()
         {
             var paraglider = await _paragliderService.GetAllParaglidersAsync();
