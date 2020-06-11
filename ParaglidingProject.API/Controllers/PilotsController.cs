@@ -9,8 +9,8 @@ using ParaglidingProject.SL.Core.Pilot.NS.TransfertObjects;
 
 namespace ParaglidingProject.API.Controllers
 {
-    [Authorize]
     [ApiController]
+    [ApiExplorerSettings(GroupName = "pilots")]
     [Produces("application/json")]
     [Route("api/v1/pilots/")]
     public class PilotsController : ControllerBase
@@ -22,6 +22,7 @@ namespace ParaglidingProject.API.Controllers
             _pilotsService = pilotsService ?? throw new ArgumentNullException(nameof(pilotsService)) ;
         }
 
+        [Authorize(Roles = "Secretary")]
         [HttpGet("{pilotId}", Name = "GetPilotAsync")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -32,6 +33,7 @@ namespace ParaglidingProject.API.Controllers
             return Ok(pilot);
         }
 
+        [Authorize(Roles = "President")]
         [HttpGet("", Name = "GetAllPilotsAsync")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

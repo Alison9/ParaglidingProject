@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,13 +34,16 @@ namespace ParaglidingProject.SL.Core.Auth.NS
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(secret);
 
+            var role = _context.Roles
+                .Include(r => r.Pilot)
+                .FirstOrDefault(r => r.Pilot.FirstName == name);
+
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, name)
+                new Claim(ClaimTypes.Name, name),
+                role != null ? new Claim(ClaimTypes.Role, role.Name) : new Claim(ClaimTypes.Role, "Guest") // enum
             };
 
-            // Verifier si le user a un role
-            // Si il a un role -> nouveau Claim avec ce role 
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -62,9 +66,11 @@ namespace ParaglidingProject.SL.Core.Auth.NS
         {
             var claimsIdentity = user.Identity as ClaimsIdentity;
             var userName = claimsIdentity?.FindFirst(ClaimTypes.Name);
+            var role = claimsIdentity?.FindFirst(ClaimTypes.Role);
             return new UserInfoDto
             {
-                FirstName = userName?.Value
+                FirstName = userName?.Value,
+                Role = role?.Value
             };
         }
     }

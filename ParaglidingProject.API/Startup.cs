@@ -1,12 +1,19 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 using ParaglidingProject.Data;
 using ParaglidingProject.SL.Core;
@@ -37,7 +44,11 @@ namespace ParaglidingProject.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers()
+            
+            services.AddControllers(setupAction =>
+                {
+                    setupAction.Filters.Add(new ProducesResponseTypeAttribute(StatusCodes.Status404NotFound));
+                })
 
                 // Configure Json Serializer
                 .AddNewtonsoftJson(options =>
@@ -86,6 +97,62 @@ namespace ParaglidingProject.API
                         ValidateAudience = false
                     };
                 });
+
+            services.AddSwaggerGen(setupAction =>
+            {
+                setupAction.AddSecurityDefinition("JWT", new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "JWT Authorization header using the Bearer scheme."
+                });
+
+                setupAction.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "JWT"
+                            }
+                        }, new List<string>()
+                    }
+                });
+
+                setupAction.SwaggerDoc(
+                    "authentication",
+                    new OpenApiInfo()
+                    {
+                        Title = "Authentication",
+                        Version = "v1",
+                    });
+
+                setupAction.SwaggerDoc(
+                    "pilots",
+                    new OpenApiInfo()
+                    {
+                        Title = "Pilots",
+                        Version = "v1"
+                    });
+
+                setupAction.SwaggerDoc(
+                    "flight",
+                    new OpenApiInfo()
+                    {
+                        Title = "Flights",
+                        Version = "v1"
+                    });
+
+
+                var xmlCommentsFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentsFile);
+                setupAction.IncludeXmlComments(xmlCommentsFullPath);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -97,6 +164,22 @@ namespace ParaglidingProject.API
             }
 
             app.UseHttpsRedirection();
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(setupAction =>
+            {
+                setupAction.SwaggerEndpoint(
+                    "/swagger/pilots/swagger.json",
+                    "Pilots");
+                setupAction.SwaggerEndpoint(
+                    "/swagger/authentication/swagger.json",
+                    "Authentication");
+                setupAction.SwaggerEndpoint(
+                    "/swagger/flight/swagger.json",
+                    "Flight");
+                setupAction.RoutePrefix = "";
+            });
 
             app.UseRouting();
 

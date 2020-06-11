@@ -13,7 +13,7 @@ namespace ParaglidingProject.API.Controllers
     [ApiController]
     [ApiExplorerSettings(GroupName = "authentication")]
     [Produces("application/json")]
-    [Route("api/v1/auth")] // besoin d'un slash ? -> non :) 
+    [Route("api/v1/auth")] 
     public class AuthController : ControllerBase
     {
         private readonly AppSettings _appSettings;
@@ -25,10 +25,15 @@ namespace ParaglidingProject.API.Controllers
             _authService = authService ?? throw new ArgumentNullException(nameof(authService));
         }
 
+        /// <summary>
+        /// Authentication + Token Generation
+        /// </summary>
+        /// <param name="credentials">The username and phone number</param>
+        /// <returns>A TokenDto with the username and Bearer token</returns>
         [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Consumes("application/json")]
         [HttpPost("login")]
         public async Task<ActionResult<TokenDto>> GetToken([FromBody] CredentialsParams credentials)
         {
@@ -46,7 +51,6 @@ namespace ParaglidingProject.API.Controllers
 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("me")]
         public ActionResult<UserInfoDto> GetRequesterInfos()
         {
