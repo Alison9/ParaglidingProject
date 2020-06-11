@@ -12,12 +12,15 @@ namespace ParaglidingProject.SL.Core.TraineeshipPayement.NS
     public class TraineeshipPaymentService : ITraineeshipPaymentService
     {
         private readonly ParaglidingClubContext _paraContext;
-
+        
+       
+        
         public TraineeshipPaymentService(ParaglidingClubContext paraContext)
         {
             _paraContext = paraContext ?? throw new ArgumentNullException(nameof(paraContext));
         }
 
+        /// <inheritdoc/>
         public async Task<IReadOnlyCollection<TraineeshipPaymentDto>> GetAllTraineeshipPaymentAsync()
         {
             var traineeshipPayments = _paraContext.TraineeshipPayments
@@ -33,6 +36,7 @@ namespace ParaglidingProject.SL.Core.TraineeshipPayement.NS
             return await traineeshipPayments.ToListAsync();
         }
 
+        /// <inheritdoc/>
         public async Task<TraineeshipPaymentDto> GetTraineeshipPaymentAsync(int pilotId, int traineeshipId)
         {
             var traineeshipPayment = await _paraContext.TraineeshipPayments

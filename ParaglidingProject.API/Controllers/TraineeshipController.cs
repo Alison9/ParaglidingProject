@@ -12,6 +12,7 @@ namespace ParaglidingProject.API.Controllers
 {
 
     [ApiController]
+    [ApiExplorerSettings(GroupName = "traineeships")]
     [Produces("application/json")]
     [Route("api/v1/Traineeships/")]
     public class TraineeshipController : ControllerBase

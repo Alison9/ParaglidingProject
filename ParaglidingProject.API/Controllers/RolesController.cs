@@ -10,8 +10,8 @@ using ParaglidingProject.SL.Core.Role.NS.TransfertObjects;
 namespace ParaglidingProject.API.Controllers
 {
   [Route("api/v1/[controller]")]
-
-  [ApiController]
+    [ApiExplorerSettings(GroupName = "roles")]
+    [ApiController]
   public class RolesController : ControllerBase
 
   {
