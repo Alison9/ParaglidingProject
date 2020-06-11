@@ -16,6 +16,7 @@ namespace ParaglidingProject.SL.Core.Subscription.NS
         {
             this._paraContext = paraContext;
         }
+        /// <inheritdoc />
         public async Task<IReadOnlyCollection<SubscriptionDto>> GetAllSubscriptionAsync()
         {
             var Subscriptions = _paraContext.Subscriptions
@@ -30,7 +31,7 @@ namespace ParaglidingProject.SL.Core.Subscription.NS
 
             return await Subscriptions.ToListAsync();
         }
-
+        /// <inheritdoc />
         public async Task<SubscriptionDto> GetSubscriptionAsync(int id)
         {
             var Subscription = await _paraContext.Subscriptions
@@ -43,8 +44,6 @@ namespace ParaglidingProject.SL.Core.Subscription.NS
                   IsActive = s.IsActive
               })
               .FirstOrDefaultAsync(s => s.Id == id);
-
-           
 
             return Subscription;
         }
