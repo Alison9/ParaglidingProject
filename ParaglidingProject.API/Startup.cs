@@ -241,6 +241,51 @@ namespace ParaglidingProject.API
 
             app.UseHttpsRedirection();
 
+            app.UseSwagger();
+
+            app.UseSwaggerUI(setupAction =>
+            {
+                setupAction.SwaggerEndpoint(
+                    "/swagger/pilots/swagger.json",
+                    "Pilots");
+                setupAction.SwaggerEndpoint(
+                    "/swagger/authentication/swagger.json",
+                    "Authentication");
+                setupAction.SwaggerEndpoint(
+                    "/swagger/flights/swagger.json",
+                    "Flights");
+                setupAction.SwaggerEndpoint(
+                  "/swagger/levels/swagger.json",
+                  "Levels");
+                setupAction.SwaggerEndpoint(
+                  "/swagger/paragliders/swagger.json",
+                  "Paragliders");
+                setupAction.SwaggerEndpoint(
+                  "/swagger/paragliderModels/swagger.json",
+                  "ParagliderModels");
+                setupAction.SwaggerEndpoint(
+                  "/swagger/possessions/swagger.json",
+                  "Possessions");
+                setupAction.SwaggerEndpoint(
+                  "/swagger/roles/swagger.json",
+                  "Roles");
+                setupAction.SwaggerEndpoint(
+                 "/swagger/sites/swagger.json",
+                 "Sites");
+                setupAction.SwaggerEndpoint(
+                 "/swagger/subscriptions/swagger.json",
+                 "Subscriptions");
+                setupAction.SwaggerEndpoint(
+                 "/swagger/traineeships/swagger.json",
+                 "Traineeships");
+                setupAction.SwaggerEndpoint(
+                "/swagger/traineeshipPayements/swagger.json",
+                "TraineeshipPayements");
+                setupAction.RoutePrefix = "";
+            });
+          
+
+
             app.UseRouting();
 
             app.UseAuthentication();
