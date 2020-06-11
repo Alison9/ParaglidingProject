@@ -4,6 +4,33 @@
         <name>ParaglidingProject.API</name>
     </assembly>
     <members>
+        <member name="T:ParaglidingProject.API.Controllers.ParagliderController">
+            <summary>
+            the controller of paraglider
+            </summary>
+        </member>
+        <member name="M:ParaglidingProject.API.Controllers.ParagliderController.GetParagliderAsync(System.Int32)">
+            <summary>
+            get a paraglider by id
+            </summary>
+            <param name="paragliderId">The unique id of a paraglider</param>
+            <returns>
+            an actionresult of type 202 who contain a paragliderDto
+            an actionresult of type 404 if no paraglider was find
+            <seealso cref="T:ParaglidingProject.SL.Core.Paraglider.NS.TransfertObjects.ParagliderDto"/>
+            </returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:ParaglidingProject.API.Controllers.ParagliderController.GetAllParaglidersAsync">
+            <summary>
+            get all paraglider
+            </summary>
+            <returns>
+            an actionresult of type 202 who contain a list of paragliderDto
+            an actionresult of type 404 if no paraglider was find
+            <seealso cref="T:ParaglidingProject.SL.Core.Paraglider.NS.TransfertObjects.ParagliderDto"/>
+            </returns>
+        </member>
         <member name="T:ParaglidingProject.API.Controllers.LevelsController">
             <summary>
             Controller for level.
