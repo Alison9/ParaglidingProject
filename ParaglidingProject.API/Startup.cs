@@ -19,6 +19,8 @@ using ParaglidingProject.SL.Core.Role.NS;
 using ParaglidingProject.SL.Core.TraineeShip.NS;
 using ParaglidingProject.SL.Core.Possession.NS;
 using ParaglidingProject.SL.Core.Subscription.NS;
+using ParaglidingProject.SL.Core.ParagliderModel.NS;
+using ParaglidingProject.SL.Core.Auth.NS;
 
 namespace ParaglidingProject.API
 {
@@ -58,6 +60,11 @@ namespace ParaglidingProject.API
             services.AddTransient<IPossessionsService, PossessionsService>();
             services.AddTransient<IRoleService, RolesService>();
             services.AddTransient<ISubscriptionService, SubscriptionService>();
+            services.AddTransient<IParagliderModelService, ParagliderModelService>();
+            services.AddTransient<IAuthService, AuthService>();
+
+            var appSettingSection = Configuration.GetSection("JwtSign");
+            services.Configure<AppSettings>(appSettingSection);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

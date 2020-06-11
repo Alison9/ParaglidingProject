@@ -9,12 +9,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ParagliderModel.NS\Helpers\" />
+    <Folder Include="ParagliderModel.NS\MapperProfiles\" />
     <Folder Include="Paraglider.NS\MapperProfiles\" />
     <Folder Include="TraineeshipPayment.NS\MapperProfiles\" />
     <Folder Include="Levels.NS\Helpers\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.4" />
   </ItemGroup>
 

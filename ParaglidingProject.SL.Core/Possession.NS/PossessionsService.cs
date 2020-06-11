@@ -51,11 +51,17 @@ namespace ParaglidingProject.SL.Core.Possession.NS
 
             return await possessions.ToListAsync();
         }
-        public async Task<IReadOnlyCollection<PossessionDto>> GetPossessionByPilotAsync(int PilotId)
+        public async Task<IReadOnlyCollection<PossessionDto>> GetPossessionByPilotAsync(int pilotId)
         {
+            var pilot = await _paraContext.Pilots
+               .AsNoTracking()
+               .FirstOrDefaultAsync(p => p.ID == pilotId);
+
+            if (pilot == null) return null;
+
             var possessions = _paraContext.Possessions
                 .AsNoTracking()
-                .Where(po => po.PilotID == PilotId)
+                  .Where(po => po.PilotID == pilotId)
                 .Select(po => new PossessionDto
                 {
 
