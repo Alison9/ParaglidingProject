@@ -4,5 +4,31 @@
         <name>ParaglidingProject.API</name>
     </assembly>
     <members>
+        <member name="T:ParaglidingProject.API.Controllers.LevelsController">
+            <summary>
+            Controller for level.
+            </summary>
+        </member>
+        <member name="M:ParaglidingProject.API.Controllers.LevelsController.GetLevelAsync(System.Int32)">
+            <summary>
+            Get a level by id.
+            </summary>
+            <param name="levelId">A level id as an integer found in route.</param>
+            <returns>
+            An action result of type 202 which contains a level Dto.
+            An action result of type 404 if no level was found.
+            <seealso cref="T:ParaglidingProject.SL.Core.Levels.NS.TransfertObjects.LevelDto"/>
+            </returns>
+        </member>
+        <member name="M:ParaglidingProject.API.Controllers.LevelsController.GetAllLevelsAsync">
+            <summary>
+            Get all levels.
+            </summary>
+            <returns>
+            An action result of type 202 which contains a collection of type level Dto.
+            An action result of type 404 if no levels were found.
+            <seealso cref="T:ParaglidingProject.SL.Core.Levels.NS.TransfertObjects.LevelDto"/>
+            </returns>
+        </member>
     </members>
 </doc>

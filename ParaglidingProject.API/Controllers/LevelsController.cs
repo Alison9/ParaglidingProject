@@ -8,7 +8,11 @@ using ParaglidingProject.SL.Core.Levels.NS;
 using ParaglidingProject.SL.Core.Levels.NS.TransfertObjects;
 
 namespace ParaglidingProject.API.Controllers
-{   [Authorize]
+{   
+    /// <summary>
+    /// Controller for level.
+    /// </summary>
+    [Authorize]
     [ApiController]
     [ApiExplorerSettings(GroupName = "levels")]
     [Produces("application/json")]
@@ -16,15 +20,21 @@ namespace ParaglidingProject.API.Controllers
     public class LevelsController : ControllerBase
     {
         private readonly ILevelsService _levelsService;
-
         public LevelsController(ILevelsService levelsService)
         {
             _levelsService = levelsService ?? throw new ArgumentNullException(nameof(levelsService));
         }
 
+        /// <summary>
+        /// Get a level by id.
+        /// </summary>
+        /// <param name="levelId">A level id as an integer found in route.</param>
+        /// <returns>
+        /// An action result of type 202 which contains a level Dto.
+        /// An action result of type 404 if no level was found.
+        /// <seealso cref="LevelDto"/>
+        /// </returns>
         [HttpGet("{levelId}", Name = "GetLevelAsync")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<LevelDto>> GetLevelAsync([FromRoute] int levelId)
         {
             var level = await _levelsService.GetLevelAsync(levelId);
@@ -32,9 +42,15 @@ namespace ParaglidingProject.API.Controllers
             return Ok(level);
         }
 
+        /// <summary>
+        /// Get all levels.
+        /// </summary>
+        /// <returns>
+        /// An action result of type 202 which contains a collection of type level Dto.
+        /// An action result of type 404 if no levels were found.
+        /// <seealso cref="LevelDto"/>
+        /// </returns>
         [HttpGet("", Name = "GetAllLevelsAsync")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IReadOnlyCollection<LevelDto>>> GetAllLevelsAsync()
         {
             var levels = await _levelsService.GetAllLevelsAsync();
