@@ -31,31 +31,73 @@
             <seealso cref="T:ParaglidingProject.SL.Core.Paraglider.NS.TransfertObjects.ParagliderDto"/>
             </returns>
         </member>
-        <member name="T:ParaglidingProject.API.Controllers.ParagliderModelController">
+        <member name="T:ParaglidingProject.API.Controllers.PossessionsController">
             <summary>
-            the controller of paragliderModels
+            Possesion controller.
             </summary>
         </member>
-        <member name="M:ParaglidingProject.API.Controllers.ParagliderModelController.GetParagliderModelAsync(System.Int32)">
+        <member name="M:ParaglidingProject.API.Controllers.PossessionsController.#ctor(ParaglidingProject.SL.Core.Possession.NS.IPossessionsService,ParaglidingProject.SL.Core.Pilot.NS.IPilotsService)">
             <summary>
-            get a paraglider by id
+            Possesion interface constructor.
             </summary>
-            <param name="paragliderModelId">The unique id of a paraglider</param>
-            <returns>
-            an actionresult of type 202 who contain a paragliderDto
-            an actionresult of type 404 if no paraglider was find
-            <seealso cref="T:ParaglidingProject.SL.Core.ParagliderModel.NS.TransfertObjects.ParagliderModelDto"/>
+        </member>
+        <member name="M:ParaglidingProject.API.Controllers.PossessionsController.GetPossessionAsync(System.Int32,System.Int32)">
+            <summary>
+            Asynchronously getting a Possession by PilotId and LicenseId.
+            </summary>
+            <param name="Pilotid">Id of the pilot</param>
+            <param name="Licenseid">Id of the pilot</param>
+            <returns> 
+            Status 202 containing a PossessionDto.
+            Status 404 if no Possessions was found.
             </returns>
-            <remarks></remarks>
+            <seealso cref="T:ParaglidingProject.SL.Core.Possession.NS.TransferObjects.PossessionDto"/>
         </member>
-        <member name="M:ParaglidingProject.API.Controllers.ParagliderModelController.GetAllModelParaglidersAsync">
+        <member name="M:ParaglidingProject.API.Controllers.PossessionsController.GetAllPossessionsAsync">
             <summary>
-            get all paraglider
+            Asynchronously getting a collection of PossessionDto.
+            </summary>
+            <returns> 
+            Status 202 containing a collection of PossessionDto.
+            Status 404 if no Possessions was found.
+            </returns>
+            <seealso cref="T:ParaglidingProject.SL.Core.Possession.NS.TransferObjects.PossessionDto"/>
+        </member>
+        <member name="M:ParaglidingProject.API.Controllers.PossessionsController.GetPossessionByPilotAsync(System.Int32)">
+            <summary>
+            Asynchronously getting all Possession for a Pilot with his Id.
+            </summary>
+            <param name="pilotId"> Id of the pilot</param>
+            <returns> 
+            Status 202 containing a collection PossessionDto for a specific PilotId.
+            Status 404 if no Possessions was found.
+            </returns>
+            <seealso cref="T:ParaglidingProject.SL.Core.Possession.NS.TransferObjects.PossessionDto"/>
+        </member>
+        <member name="T:ParaglidingProject.API.Controllers.LevelsController">
+            <summary>
+            Controller for level.
+            </summary>
+        </member>
+        <member name="M:ParaglidingProject.API.Controllers.LevelsController.GetLevelAsync(System.Int32)">
+            <summary>
+            Get a level by id.
+            </summary>
+            <param name="levelId">A level id as an integer found in route.</param>
+            <returns>
+            An action result of type 202 which contains a level Dto.
+            An action result of type 404 if no level was found.
+            <seealso cref="T:ParaglidingProject.SL.Core.Levels.NS.TransfertObjects.LevelDto"/>
+            </returns>
+        </member>
+        <member name="M:ParaglidingProject.API.Controllers.LevelsController.GetAllLevelsAsync">
+            <summary>
+            Get all levels.
             </summary>
             <returns>
-            an actionresult of type 202 who contain a list of paragliderModelDto
-            an actionresult of type 404 if no paraglidermodel was find
-            <seealso cref="T:ParaglidingProject.SL.Core.ParagliderModel.NS.TransfertObjects.ParagliderModelDto"/>
+            An action result of type 202 which contains a collection of type level Dto.
+            An action result of type 404 if no levels were found.
+            <seealso cref="T:ParaglidingProject.SL.Core.Levels.NS.TransfertObjects.LevelDto"/>
             </returns>
         </member>
     </members>
