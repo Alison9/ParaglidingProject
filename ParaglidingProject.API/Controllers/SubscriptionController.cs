@@ -11,6 +11,7 @@ namespace ParaglidingProject.API.Controllers
 {
 
     [ApiController]
+    [ApiExplorerSettings(GroupName = "subscriptions")]
     [Produces("application/json")]
     [Route("api/v1/Subscriptions/")]
     public class SubscriptionController : ControllerBase

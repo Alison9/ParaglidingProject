@@ -13,6 +13,7 @@ using ParaglidingProject.SL.Core.Pilot.NS;
 namespace ParaglidingProject.API.Controllers
 {
     [ApiController]
+    [ApiExplorerSettings(GroupName = "flights")]
     [Produces("application/json")]
     [Route("api/v1/flights/")]
     public class FlightsController : ControllerBase

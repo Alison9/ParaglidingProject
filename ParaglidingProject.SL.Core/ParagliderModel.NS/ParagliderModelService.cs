@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace ParaglidingProject.SL.Core.ParagliderModel.NS
 {
+    /// <inheritdoc/>
     public class ParagliderModelService : IParagliderModelService
     {
       private readonly Data.ParaglidingClubContext _paraContext;

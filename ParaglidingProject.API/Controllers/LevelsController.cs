@@ -10,7 +10,7 @@ using ParaglidingProject.SL.Core.Levels.NS.TransfertObjects;
 namespace ParaglidingProject.API.Controllers
 {   [Authorize]
     [ApiController]
-    [ApiExplorerSettings(GroupName = "level")]
+    [ApiExplorerSettings(GroupName = "levels")]
     [Produces("application/json")]
     [Route("api/v1/levels/")]
     public class LevelsController : ControllerBase

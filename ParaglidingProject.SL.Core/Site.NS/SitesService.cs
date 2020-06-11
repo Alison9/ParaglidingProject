@@ -12,6 +12,7 @@ using static ParaglidingProject.Models.Enumeration;
 
 namespace ParaglidingProject.SL.Core.Site.NS
 {
+    /// <inheritdoc />
     public class SitesService : ISitesService
     {
         private readonly ParaglidingClubContext _paraContext;
