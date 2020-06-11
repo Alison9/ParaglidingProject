@@ -13,8 +13,9 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS
         /// Async method for gettig Paraglider By id
         /// </summary>
         /// <param name="id">id is an int </param>
-        /// <returns>returns ParagliderDto that contains name, CommissioningDate, LastRevision, ParagliderModelAprrovalNumber, NumerOfFlights</returns>
-       
+        /// The task result contains null by default if source is empty or if no element passes the test specified by predicate.
+        /// Otherwise, the task result is a ParagliderDto with several properties.
+        /// <seealso cref="ParagliderDto"/>
         Task<ParagliderDto> GetParagliderAsync(int id);
 
 
