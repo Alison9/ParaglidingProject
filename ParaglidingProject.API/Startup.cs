@@ -29,6 +29,8 @@ using System.Reflection;
 using System.IO;
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 
 namespace ParaglidingProject.API
 {
@@ -44,7 +46,12 @@ namespace ParaglidingProject.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers()
+            services.AddControllers(setupAction =>
+            {
+                setupAction.Filters.Add(new ProducesResponseTypeAttribute(StatusCodes.Status404NotFound));
+                setupAction.Filters.Add(new ProducesResponseTypeAttribute(StatusCodes.Status401Unauthorized));
+                setupAction.Filters.Add(new ProducesResponseTypeAttribute(StatusCodes.Status200OK));
+            } )
 
                 // Configure Json Serializer
                 .AddNewtonsoftJson(options =>
