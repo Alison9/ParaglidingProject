@@ -11,20 +11,29 @@ namespace ParaglidingProject.SL.Core.Levels.NS
     /// </summary>
     public interface ILevelsService
     {
-
-
-
         /// <summary>
-        /// find a level with id of the level, name and skills and if it s active
+        /// Asynchronously retrieve a Level for a given Id.
+        /// This method is called without any tracking involved and following the select loading pattern.
         /// </summary>
-        /// <param name="id">unique id as integer of a level</param>
-        /// <returns>find a level </returns>
+        /// <param name="id">The LevelId as an integer</param>
+      
+        /// <returns>
+        /// A task that represents the asynchronous operation.
+        /// The task result contains null by default if source is empty or if no element passes the test specified by predicate.
+        /// Otherwise, the task result is a LevelDto with several properties.
+        /// <seealso cref="LevelDto"/>
+        /// </returns>
         Task<LevelDto> GetLevelAsync(int id);
         /// <summary>
-        /// return the list of levels with id of the level, name and skills and if it s active
+        /// Asynchronously retrieve all the Levels.
+        /// This method is called without any tracking involved and following the select loading pattern. 
         /// </summary>
-
-        /// <returns>list of levels</returns>
+        /// <returns>
+        /// A task that represents the asynchronous operation.
+        /// The task result contains an empty list by default if source is empty.
+        /// Otherwise, the task result is a Collection of type LevelDto.
+        /// <seealso cref="LevelDto"/>
+        /// </returns>
         Task<IReadOnlyCollection<LevelDto>> GetAllLevelsAsync();
     }
 }
