@@ -27,7 +27,7 @@ namespace ParaglidingProject.API.Controllers
     }
 
         /// <summary>
-        /// get a paraglider by id
+        /// get a paraglidermodel by id
         /// </summary>
         /// <param name="paragliderModelId">The unique id of a paraglider</param>
         /// <returns>
@@ -46,7 +46,7 @@ namespace ParaglidingProject.API.Controllers
       return Ok(modelParaglider);
     }
         /// <summary>
-        /// get all paraglider
+        /// get all paraglidermodels
         /// </summary>
         /// <returns>
         /// an actionresult of type 202 who contain a list of paragliderModelDto
