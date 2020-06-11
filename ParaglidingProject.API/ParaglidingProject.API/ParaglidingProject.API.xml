@@ -31,5 +31,32 @@
             <seealso cref="T:ParaglidingProject.SL.Core.Paraglider.NS.TransfertObjects.ParagliderDto"/>
             </returns>
         </member>
+        <member name="T:ParaglidingProject.API.Controllers.RolesController">
+            <summary>
+            Role's controller
+            </summary>
+        </member>
+        <member name="M:ParaglidingProject.API.Controllers.RolesController.GetRoleAsync(System.Int32)">
+            <summary>
+            gets Role by Id
+            </summary>
+            <param name="roleId">Unique id of a role</param>
+            <returns>
+            an actionresult of type 202 that contain a RoleDto
+            an actionresult of type 404 if no Role was find
+            <seealso cref="T:ParaglidingProject.SL.Core.Role.NS.TransfertObjects.RoleDto"/>
+            </returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:ParaglidingProject.API.Controllers.RolesController.GetAllRoleAsync">
+            <summary>
+            get all Roles
+            </summary>
+            <returns>
+            an actionresult of type 202 that contains all RoleDto
+            an actionresult of type 404 if no RoleDto was find
+            <seealso cref="T:ParaglidingProject.SL.Core.Role.NS.TransfertObjects.RoleDto"/>
+            </returns>
+        </member>
     </members>
 </doc>
