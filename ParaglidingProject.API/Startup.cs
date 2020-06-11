@@ -24,6 +24,11 @@ using ParaglidingProject.SL.Core.Auth.NS;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
+using System.IO;
+using System;
+using System.Collections.Generic;
 
 namespace ParaglidingProject.API
 {
@@ -89,6 +94,7 @@ namespace ParaglidingProject.API
                       ValidateAudience = false
                   };
               });
+       
 
         }
 
