@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ParaglidingProject.SL.Core.Levels.NS;
 using ParaglidingProject.SL.Core.Levels.NS.TransfertObjects;
 
 namespace ParaglidingProject.API.Controllers
-{
+{   [Authorize]
     [ApiController]
+    [ApiExplorerSettings(GroupName = "level")]
     [Produces("application/json")]
     [Route("api/v1/levels/")]
     public class LevelsController : ControllerBase
