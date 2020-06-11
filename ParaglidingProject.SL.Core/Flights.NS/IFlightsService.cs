@@ -1,4 +1,4 @@
-﻿using ParaglidingProject.SL.Core.Flights.NS.TransfertObjects;
+using ParaglidingProject.SL.Core.Flights.NS.TransfertObjects;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -22,6 +22,7 @@ namespace ParaglidingProject.SL.Core.Flights.NS
         /// Return all avalaible flights
         /// </summary>
         /// <returns>A ReadOnlycollection of FlightDto containing the flightId,flightDate,Duration,PilotName,ParagliderName,TakeOff and Landing sites </returns>
+		    ///  see also cref = "FlightDto"
         Task<IReadOnlyCollection<FlightDto>> GetAllFlightsAsync();
         /// <summary>
         /// Get all avalaible flights for a pilot in a range of date
