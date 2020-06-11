@@ -12,6 +12,9 @@ using ParaglidingProject.SL.Core.Pilot.NS;
 
 namespace ParaglidingProject.API.Controllers
 {
+    /// <summary>
+    /// Flights Controller
+    /// </summary>
     [ApiController]
     [ApiExplorerSettings(GroupName = "flights")]
     [Produces("application/json")]
@@ -27,6 +30,14 @@ namespace ParaglidingProject.API.Controllers
             _pilotsService = pilotsService ?? throw new ArgumentNullException(nameof(pilotsService));
         }
 
+        /// <summary>
+        /// Get a Flight
+        /// </summary>
+        /// <param name="flightId">flightId as an integer</param>
+        /// <returns>An ActionResult of type 200 response who contains a FlightDto.
+        /// An ActionResult of type 404 if no flight was found.
+        /// <seealso cref="FlightDto"/>
+        /// </returns>
         [HttpGet("{flightId}", Name = "GetFlightAsync")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -37,6 +48,13 @@ namespace ParaglidingProject.API.Controllers
             return Ok(flight);
         }
 
+        /// <summary>
+        /// Get all Flights
+        /// </summary>
+        /// <returns>An ActionResult of type 200 response who contains a IReadOnlyCollection of FlightDto.
+        /// An ActionResult of type 404 if no flight was found.
+        /// <seealso cref="FlightDto"/>
+        /// </returns>
         [HttpGet("", Name ="GetAllFlightsAsync")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -47,6 +65,16 @@ namespace ParaglidingProject.API.Controllers
             return Ok(flights);
         }
 
+        /// <summary>
+        /// Get all Flights for a Pilot in a date range 
+        /// </summary>
+        /// <param name="pilotId">pilotId as an integer</param>
+        /// <param name="dates">dates as DateRangeParams</param>
+        /// <returns>An ActionResult of type 200 response who contains a IReadOnlyCollection of FlightDto.
+        /// An ActionResult of type 404 if no flight was found.
+        /// An ActionResult of type 404 if no flight was found in de range of date.
+        /// <seealso cref="FlightDto"/>
+        /// </returns>
         [HttpGet("pilote/{pilotId}", Name = "GetAllFlightsForPilotInDateRangeAsync")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
