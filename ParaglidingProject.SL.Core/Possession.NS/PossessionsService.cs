@@ -18,7 +18,8 @@ namespace ParaglidingProject.SL.Core.Possession.NS
             _paraContext = paraContext ?? throw new ArgumentOutOfRangeException(nameof(paraContext));
         }
 
-        public async Task<PossessionDto> GetPossessionAsync(int Pilotid,int Licenseid)
+        /// <inheritdoc />
+        public async Task<PossessionDto> GetPossessionAsync(int pilotId,int licenseId)
         {
             var possession = await _paraContext.Possessions
                 .AsNoTracking()
@@ -31,10 +32,12 @@ namespace ParaglidingProject.SL.Core.Possession.NS
                     IsSucceeded = po.IsSucceeded,
                     IsActive = po.IsActive
                 })
-                .FirstOrDefaultAsync(po => po.PilotID == Pilotid && po.LicenseID == Licenseid);
+                .FirstOrDefaultAsync(po => po.PilotID == pilotId && po.LicenseID == licenseId);
             
             return possession;
         }
+
+        /// <inheritdoc />
         public async Task<IReadOnlyCollection<PossessionDto>> GetAllPossessionsAsync()
         {
             var possessions = _paraContext.Possessions
@@ -51,6 +54,8 @@ namespace ParaglidingProject.SL.Core.Possession.NS
 
             return await possessions.ToListAsync();
         }
+
+        /// <inheritdoc />
         public async Task<IReadOnlyCollection<PossessionDto>> GetPossessionByPilotAsync(int pilotId)
         {
             var pilot = await _paraContext.Pilots
@@ -61,7 +66,7 @@ namespace ParaglidingProject.SL.Core.Possession.NS
 
             var possessions = _paraContext.Possessions
                 .AsNoTracking()
-                  .Where(po => po.PilotID == pilotId)
+                .Where(po => po.PilotID == pilotId)
                 .Select(po => new PossessionDto
                 {
 
