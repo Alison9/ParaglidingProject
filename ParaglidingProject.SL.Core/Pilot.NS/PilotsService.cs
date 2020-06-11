@@ -9,6 +9,7 @@ using ParaglidingProject.SL.Core.Pilot.NS.TransfertObjects;
 
 namespace ParaglidingProject.SL.Core.Pilot.NS
 {
+    /// <inheritdoc/>
     public class PilotsService : IPilotsService
     {
         private readonly ParaglidingClubContext _paraContext;
