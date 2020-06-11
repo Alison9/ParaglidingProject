@@ -54,11 +54,15 @@ namespace ParaglidingProject.SL.Core.TraineeShip.NS
         }
         public async Task<IReadOnlyCollection<TraineeShipSortByPilotLicenseDto>> GetAllTraineeShipSortedByPilotLicense(int pilotId)
         {
-            int pilotLicenseid = _paraContext.Pilots.AsNoTracking().Where(p => p.ID == pilotId).Select(p => p.Possessions.Select(l => l.LicenseID).Max()).FirstOrDefault();
+            int pilotLicenseid = _paraContext.Pilots.AsNoTracking()
+                .Where(p => p.ID == pilotId)
+                .Select(p => p.Possessions.Select(l => l.License.Level.DifficultyIndex)
+                .Max())
+                .FirstOrDefault();
             
             var traneeShipSortedByPilotLicense = _paraContext.Traineeships
                 .AsNoTracking()
-                .Where(tl => tl.LicenseID == (pilotLicenseid + 1) && tl.StartDate > DateTime.Today)
+                .Where(tl => tl.License.Level.DifficultyIndex == (pilotLicenseid + 1) && tl.StartDate > DateTime.Today.AddDays(1))
                 .Select(t => new TraineeShipSortByPilotLicenseDto
                 {
                     LicenseId = t.LicenseID,
