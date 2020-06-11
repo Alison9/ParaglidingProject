@@ -21,6 +21,9 @@ using ParaglidingProject.SL.Core.Possession.NS;
 using ParaglidingProject.SL.Core.Subscription.NS;
 using ParaglidingProject.SL.Core.ParagliderModel.NS;
 using ParaglidingProject.SL.Core.Auth.NS;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ParaglidingProject.API
 {
@@ -65,6 +68,28 @@ namespace ParaglidingProject.API
 
             var appSettingSection = Configuration.GetSection("JwtSign");
             services.Configure<AppSettings>(appSettingSection);
+
+            var appSettings = appSettingSection.Get<AppSettings>();
+            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+            
+            services.AddAuthentication(ao =>
+            {
+                ao.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                ao.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(jbo =>
+              {
+                  jbo.RequireHttpsMetadata = true;
+                  jbo.SaveToken = true;
+                  jbo.TokenValidationParameters = new TokenValidationParameters
+                  {
+                      ValidateIssuerSigningKey = true,
+                      IssuerSigningKey = new SymmetricSecurityKey(key),
+                      ValidateIssuer = false,
+                      ValidateAudience = false
+                  };
+              });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -78,6 +103,8 @@ namespace ParaglidingProject.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

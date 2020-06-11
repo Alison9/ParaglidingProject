@@ -9,7 +9,7 @@ using ParaglidingProject.SL.Core.Pilot.NS.TransfertObjects;
 
 namespace ParaglidingProject.API.Controllers
 {
-
+    [Authorize]
     [ApiController]
     [Produces("application/json")]
     [Route("api/v1/pilots/")]
