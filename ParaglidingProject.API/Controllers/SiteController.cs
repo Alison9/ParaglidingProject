@@ -10,6 +10,7 @@ using ParaglidingProject.SL.Core.Site.NS.TransfertObjects;
 namespace ParaglidingProject.API.Controllers
 {
     [ApiController]
+    [ApiExplorerSettings(GroupName = "sites")]
     [Produces("application/json")]
     [Route("api/v1/sites/")]
     public class SiteController : ControllerBase

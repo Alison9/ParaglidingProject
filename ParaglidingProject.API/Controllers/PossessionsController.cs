@@ -11,6 +11,7 @@ using ParaglidingProject.SL.Core.Possession.NS.TransferObjects;
 namespace ParaglidingProject.API.Controllers
 {
     [ApiController]
+    [ApiExplorerSettings(GroupName = "possessions")]
     [Produces("application/json")]
     [Route("api/v1/possessions/")]
     public class PossessionsController : ControllerBase

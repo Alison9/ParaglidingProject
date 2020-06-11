@@ -9,7 +9,8 @@ using ParaglidingProject.SL.Core.ParagliderModel.NS.TransfertObjects;
 
 namespace ParaglidingProject.API.Controllers
 {
-  [Route("api/v1/[controller]")]
+    [ApiExplorerSettings(GroupName = "paragliderModels")]
+    [Route("api/v1/[controller]")]
   [Produces("application/json")]
   [ApiController]
     public class ParagliderModelController : ControllerBase

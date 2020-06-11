@@ -94,7 +94,133 @@ namespace ParaglidingProject.API
                       ValidateAudience = false
                   };
               });
-       
+            services.AddSwaggerGen(setupAction =>
+            {
+                setupAction.AddSecurityDefinition("JWT", new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "JWT Authorization header using the Bearer scheme."
+                });
+
+                setupAction.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "JWT"
+                            }
+                        }, new List<string>()
+                    }
+                });
+
+                setupAction.SwaggerDoc(
+                    "authentication",
+                    new OpenApiInfo()
+                    {
+                        Title = "Authentication",
+                        Version = "v1",
+                    });
+
+                setupAction.SwaggerDoc(
+                    "pilots",
+                    new OpenApiInfo()
+                    {
+                        Title = "Pilots",
+                        Version = "v1"
+                    });
+
+                setupAction.SwaggerDoc(
+                    "flights",
+                    new OpenApiInfo()
+                    {
+                        Title = "Flights",
+                        Version = "v1"
+                    });
+
+                setupAction.SwaggerDoc(
+                    "levels",
+                    new OpenApiInfo()
+                    {
+                        Title = "Levels",
+                        Version = "v1"
+                    });
+
+
+                setupAction.SwaggerDoc(
+                    "paragliders",
+                    new OpenApiInfo()
+                    {
+                        Title = "Paragliders",
+                        Version = "v1"
+                    });
+
+
+                setupAction.SwaggerDoc(
+                    "paragliderModels",
+                    new OpenApiInfo()
+                    {
+                        Title = "ParagliderModels",
+                        Version = "v1"
+                    });
+
+                setupAction.SwaggerDoc(
+                    "possessions",
+                    new OpenApiInfo()
+                    {
+                        Title = "Possessions",
+                        Version = "v1"
+                    });
+
+                setupAction.SwaggerDoc(
+                    "roles",
+                    new OpenApiInfo()
+                    {
+                        Title = "Roles",
+                        Version = "v1"
+                    });
+
+                setupAction.SwaggerDoc(
+                    "sites",
+                    new OpenApiInfo()
+                    {
+                        Title = "Sites",
+                        Version = "v1"
+                    });
+
+                setupAction.SwaggerDoc(
+                    "subscriptions",
+                    new OpenApiInfo()
+                    {
+                        Title = "Subscriptions",
+                        Version = "v1"
+                    });
+
+                setupAction.SwaggerDoc(
+                    "traineeships",
+                    new OpenApiInfo()
+                    {
+                        Title = "Traineeships",
+                        Version = "v1"
+                    });
+
+                setupAction.SwaggerDoc(
+                    "traineeshipPayements",
+                    new OpenApiInfo()
+                    {
+                        Title = "TraineeshipPayements",
+                        Version = "v1"
+                    });
+                var xmlCommentsFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentsFile);
+                setupAction.IncludeXmlComments(xmlCommentsFullPath);
+            });
 
         }
 

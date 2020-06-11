@@ -10,6 +10,7 @@ using ParaglidingProject.SL.Core.TraineeshipPayement.NS.TransferObjects;
 namespace ParaglidingProject.API.Controllers
 {
     [ApiController]
+    [ApiExplorerSettings(GroupName = "traineeshipPayements")]
     [Produces("application/json")]
     [Route("api/v1/traineeshipPayments/")]
     public class TraineeshipPayementController : ControllerBase
