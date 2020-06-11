@@ -232,20 +232,24 @@ namespace ParaglidingProject.Data.Seed
                     ID = 1,
                     Name = "Level 1",
                     Skill = "brevet A",
-                    IsActive = true
+                    IsActive = true,
+                    DifficultyIndex = 1
                 },
                 new Level
-                   { ID = 2,
+                {
+                    ID = 2,
                     Name = "Level 2",
                     Skill = "brevet B",
-                    IsActive = true
+                    IsActive = true,
+                    DifficultyIndex = 2
                 },
                 new Level
                 {
                     ID = 3,
                     Name = "Level 3",
                     Skill = "brevet C",
-                    IsActive = true
+                    IsActive = true,
+                    DifficultyIndex = 3
 
                 },
                 new Level
@@ -253,8 +257,8 @@ namespace ParaglidingProject.Data.Seed
                     ID = 4,
                     Name = "Level 4",
                     Skill = "brevet D",
-                    IsActive = false
-
+                    IsActive = false,
+                    DifficultyIndex = 4
                 }
              );
 

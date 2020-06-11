@@ -11,7 +11,6 @@ namespace ParaglidingProject.Models
         public int ID { get; set; }
         public int PilotID { get; set; }
         public int LicenseID { get; set; }
-
         [DataType(DataType.Date)]
         public DateTime ExamDate { get; set; }
         public bool IsSucceeded { get; set; }

@@ -10,6 +10,7 @@ namespace ParaglidingProject.SL.Core.TraineeShip.NS
     {
         Task<TraineeShipDto> GetTraineeShipAsync(int id);
         Task<IReadOnlyCollection<TraineeShipDto>> GetAllTraineeShipAsync();
+        Task<IReadOnlyCollection<TraineeShipSortByPilotLicenseDto>> GetAllTraineeShipSortedByPilotLicense(int pilotLicenseId);
 
         Task<IReadOnlyCollection<TraineeShipDto>> GetTraineeshipsByPilotAsync(int pilotId);
     }
