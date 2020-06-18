@@ -54,5 +54,13 @@ namespace ParaglidingProject.API.Controllers
 
         }
 
+        [HttpGet("me")]
+        public ActionResult<UserInfoDto> GetRequesterInfos()
+        {
+            var userInfos = _authService.ObtainUserIdentity(User);
+            if (userInfos == null) return NotFound();
+            return userInfos;
+        }
+
     }
 }
