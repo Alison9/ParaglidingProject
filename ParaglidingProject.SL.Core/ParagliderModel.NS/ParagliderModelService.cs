@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ParaglidingProject.Data;
+using ParaglidingProject.SL.Core.ParagliderModel.NS.Helpers;
 using ParaglidingProject.SL.Core.ParagliderModel.NS.TransfertObjects;
 using System;
 using System.Collections.Generic;
@@ -38,11 +39,11 @@ namespace ParaglidingProject.SL.Core.ParagliderModel.NS
 
         return modelparaglider;
       }
-      public async Task<IReadOnlyCollection<ParagliderModelDto>> GetAllParagliderModelsAsync()
+      public async Task<IReadOnlyCollection<ParagliderModelDto>> GetAllParagliderModelsAsync(ParagliderModelsSSFP options)
       {
-        var modelparaglider = _paraContext.ParagliderModels
+        var modelparaglider = _paraContext.ParagliderModels //DEFERED EXECUTION
             .AsNoTracking()
-            .Select(p => new ParagliderModelDto
+            .Select(p => new ParagliderModelDto // Projection
             {
               ID = p.ID,
               Size = p.Size,
@@ -53,7 +54,8 @@ namespace ParaglidingProject.SL.Core.ParagliderModel.NS
               IsActive = p.IsActive
             });
 
-        return await modelparaglider.ToListAsync();
+            options.SetPagingValues(modelparaglider); //Appel de la fonction située dans ParagliderModelsSSFP
+            return await modelparaglider.ToListAsync(); // Flattening
       }
 
   }

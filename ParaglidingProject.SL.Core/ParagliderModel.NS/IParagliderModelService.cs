@@ -1,3 +1,4 @@
+using ParaglidingProject.SL.Core.ParagliderModel.NS.Helpers;
 using ParaglidingProject.SL.Core.ParagliderModel.NS.TransfertObjects;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -28,7 +29,7 @@ namespace ParaglidingProject.SL.Core.ParagliderModel.NS
         /// Otherwise, the task result is a Collection of type ParagliderModelDto.
         /// <seealso cref="ParagliderModelDto"/>
         /// </returns>
-        Task<IReadOnlyCollection<ParagliderModelDto>> GetAllParagliderModelsAsync();
+        Task<IReadOnlyCollection<ParagliderModelDto>> GetAllParagliderModelsAsync(ParagliderModelsSSFP options);
   }
 }
 

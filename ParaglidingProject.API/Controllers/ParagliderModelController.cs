@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ParaglidingProject.SL.Core.ParagliderModel.NS;
+using ParaglidingProject.SL.Core.ParagliderModel.NS.Helpers;
 using ParaglidingProject.SL.Core.ParagliderModel.NS.TransfertObjects;
 
 namespace ParaglidingProject.API.Controllers
@@ -56,9 +57,9 @@ namespace ParaglidingProject.API.Controllers
 
         [HttpGet("", Name = "GetAllModelParaglidersAsync")]
 
-        public async Task<ActionResult<IReadOnlyCollection<ParagliderModelDto>>> GetAllModelParaglidersAsync()
+        public async Task<ActionResult<IReadOnlyCollection<ParagliderModelDto>>> GetAllModelParaglidersAsync([FromQuery] ParagliderModelsSSFP options)
         {
-            var listModelParaglider = await _ModelParagliderService.GetAllParagliderModelsAsync();
+            var listModelParaglider = await _ModelParagliderService.GetAllParagliderModelsAsync(options);
             if (listModelParaglider == null) return NotFound("There is no model of paraglider ");
             return Ok(listModelParaglider);
         }

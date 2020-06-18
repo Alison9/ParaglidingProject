@@ -9,7 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ParagliderModel.NS\Helpers\" />
     <Folder Include="ParagliderModel.NS\MapperProfiles\" />
     <Folder Include="Paraglider.NS\MapperProfiles\" />
     <Folder Include="TraineeshipPayment.NS\MapperProfiles\" />
