@@ -4,12 +4,5 @@
         <name>ParaglidingProject.API</name>
     </assembly>
     <members>
-        <member name="M:ParaglidingProject.API.Controllers.AuthController.GetToken(ParaglidingProject.SL.Core.Auth.NS.TransfertObjects.CredentialsParams)">
-            <summary>
-            Authentication + Token Generation
-            </summary>
-            <param name="credentials">The username and phone number</param>
-            <returns>A TokenDto with the username and Bearer token</returns>
-        </member>
     </members>
 </doc>

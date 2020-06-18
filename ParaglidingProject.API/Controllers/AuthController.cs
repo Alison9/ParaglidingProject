@@ -25,11 +25,6 @@ namespace ParaglidingProject.API.Controllers
             _authService = authService ?? throw new ArgumentNullException(nameof(authService));
         }
 
-        /// <summary>
-        /// Authentication + Token Generation
-        /// </summary>
-        /// <param name="credentials">The username and phone number</param>
-        /// <returns>A TokenDto with the username and Bearer token</returns>
         [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -58,6 +53,5 @@ namespace ParaglidingProject.API.Controllers
             if (userInfos == null) return NotFound();
             return userInfos;
         }
-
     }
 }
