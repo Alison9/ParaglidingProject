@@ -16,23 +16,23 @@ namespace ParaglidingProject.SL.Core.TraineeshipPayment.NS.TransferObjects
             get => _pageSize;
             set => _pageSize = (value > MaxPageSize) ? MaxPageSize : value;
         }
-        public int TotalePages { get; private set; }
+        public int TotalPages { get; private set; }
         public int TotalCount { get; private set; }
         public void SetPagingValue<T>(IQueryable<T> query)
         {
             TotalCount = query.Count();
-            TotalPage = TotalCount / PageSize;
+            TotalPages = TotalCount / PageSize;
 
             if ((double)TotalCount / PageSize != 0)
             {
-                TotalPage++;
+                TotalPages++;
             }
 
             if (PageNumber < 1)
                 PageNumber = 1;
 
-            if (PageNumber > TotalPage)
-                PageNumber = TotalPage;
+            if (PageNumber > TotalPages)
+                PageNumber = TotalPages;
 
             if (PageNumber < 0)
                 PageNumber = 1;
