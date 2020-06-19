@@ -11,16 +11,21 @@ namespace ParaglidingProject.SL.Core.ParagliderModel.NS.Helpers
         private const int DefaultPageSize = 1;
         private int _pageSize = DefaultPageSize;
         private const int MaxPageSize = 10;
+       
 
         public int PageSize
         {
             get => _pageSize;
             set => _pageSize = (value > MaxPageSize) ? MaxPageSize : value;
         }
-
+        public bool HasPrevious => (PageNumber > 1);
+        public bool HasNext => (PageNumber < TotalPages);
+        public int Pilotweight { get; set; }
+       
         public int PageNumber { get; set; } = 1;
         public int TotalPages { get; private set; }
         public int TotalCount { get; private set; }
+        public PargliderModelFilters FilterBy { get; set; }
 
         public void SetPagingValues<T>(IQueryable<T> query)
         {
