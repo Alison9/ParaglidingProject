@@ -148,6 +148,13 @@
             <seealso cref="T:ParaglidingProject.SL.Core.ParagliderModel.NS.TransfertObjects.ParagliderModelDto"/>
             </returns>
         </member>
+        <member name="M:ParaglidingProject.API.Controllers.ParagliderModelController.CreateUriParagliderModel(ParaglidingProject.SL.Core.ParagliderModel.NS.Helpers.ParagliderModelsSSFP,ParaglidingProject.API.Controllers.ParagliderModelController.RessourceUriType)">
+            <summary>
+            </summary>
+            <param name="options"> the user custom options for search, sort ,filter page</param>
+            <param name="type"> one element of the enumeration  to distinguish multiple type of url to create</param>
+            <returns></returns>
+        </member>
         <member name="T:ParaglidingProject.API.Controllers.PossessionsController">
             <summary>
             Possesion controller.
@@ -217,6 +224,34 @@
             an actionresult of type 202 that contains all RoleDto
             an actionresult of type 404 if no RoleDto was find
             <seealso cref="T:ParaglidingProject.SL.Core.Role.NS.TransfertObjects.RoleDto"/>
+            </returns>
+        </member>
+        <member name="T:ParaglidingProject.API.Controllers.SubscriptionController">
+            <summary>
+            the controller of Subscription
+            </summary>
+        </member>
+        <member name="M:ParaglidingProject.API.Controllers.SubscriptionController.GetSubscriptionAsync(System.Int32)">
+            <summary>
+            gets Subscription by Id
+            </summary>
+            <param name="Id">Unique id of a Subscription</param>
+            <returns>
+            an actionresult of type 202 that contain a RoleDto
+            an actionresult of type 404 if no Role was find
+            <seealso cref="T:ParaglidingProject.SL.Core.Subscription.NS.transferObjects.SubscriptionDto"/>
+            </returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:ParaglidingProject.API.Controllers.SubscriptionController.GetAllSubscriptionAsync(ParaglidingProject.SL.Core.Subscription.NS.Helpers.SubscriptionSSPF)">
+            <summary>
+            get all subscriptions
+            </summary>
+            <param name="options">User options to search, sort, filter and paginate a list of subscriptions obtained from a query strings.</param>
+            <returns>
+            an actionresult of type 202 who contain a list of paragliderDto
+            an actionresult of type 404 if no paraglider was find
+            <seealso cref="T:ParaglidingProject.SL.Core.Subscription.NS.transferObjects.SubscriptionDto"/>
             </returns>
         </member>
         <member name="M:ParaglidingProject.API.Controllers.TraineeshipController.GetAllTraineeShipAsync(ParaglidingProject.SL.Core.TraineeShip.NS.NewFolder1.TraineeshipSSFP)">

@@ -29,6 +29,7 @@ namespace ParaglidingProject.API.Controllers
             if (site == null) return NotFound("Couldn't find any associated Site");
             return Ok(site);
         }
+      
         [HttpGet]
         public async Task<ActionResult<IReadOnlyCollection<SiteDto>>> GetAllSiteAsync()
         {
