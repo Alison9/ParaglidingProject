@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -64,6 +65,22 @@ namespace ParaglidingProject.API.Controllers
         {
             var flights = await _flightsService.GetAllFlightsAsync(options);
             if (flights == null) return NotFound("No flights found");
+
+            var previousPageLink = options.HasPrevious ? CreateResourceUri(options, ResourceUriType.PreviousPage) : null;
+            var nextPageLink = options.HasNext ? CreateResourceUri(options, ResourceUriType.NextPage) : null;
+
+            var paginationMetadata = new
+            {
+                options.TotalCount,
+                options.PageSize,
+                options.PageNumber,
+                options.TotalPages,
+                previousPageLink,
+                nextPageLink
+            };
+
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
+
             return Ok(flights);
         }
 
@@ -93,6 +110,43 @@ namespace ParaglidingProject.API.Controllers
             if (flights == null || flights.Count == 0) return NotFound("Oops, empty collection");
 
             return Ok(flights);
+        }
+
+        private string CreateResourceUri(FlightsSSFP options, ResourceUriType type)
+        {
+            switch (type)
+            {
+                case ResourceUriType.PreviousPage:
+                    return Url.Link("GetAllFlightssAsync",
+                        new
+                        {
+                            PageNumber = options.PageNumber = 1,
+                            options.PageSize,
+                            options.FilterBy
+                        });
+                case ResourceUriType.NextPage:
+                    return Url.Link("GetAllFlightsAsync",
+                        new
+                        {
+                            PageNumber = options.PageNumber + 1,
+                            options.PageSize,
+                            options.FilterBy
+                        });
+                default:
+                    return Url.Link("GetAllFlightsAsync",
+                        new
+                        {
+                            options.PageNumber,
+                            options.PageSize,
+                            options.FilterBy
+                        });
+            }
+        }
+
+        public enum ResourceUriType
+        {
+            PreviousPage = 0,
+            NextPage = 1
         }
     }
 }

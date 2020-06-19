@@ -27,7 +27,7 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS.Helpers
             TotalCount = query.Count();
             TotalPages = (int)Math.Ceiling((double)TotalCount / PageSize);
 
-            NormalizePageNumber();
+            PageNumber = NormalizePageNumber();
         }
 
         /// <summary>
