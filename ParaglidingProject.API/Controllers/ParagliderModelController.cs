@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -64,7 +65,67 @@ namespace ParaglidingProject.API.Controllers
         {
             var listModelParaglider = await _ModelParagliderService.GetAllParagliderModelsAsync(options);
             if (listModelParaglider == null) return NotFound("There is no model of paraglider ");
+            var previousPageLink = options.HasPrevious ? CreateUriParagliderModel(options, RessourceUriType.PreviousPage) : null;
+            var nextPageLink = options.HasNext ? CreateUriParagliderModel(options, RessourceUriType.NextPage) : null;
+            var paginationMetadata = new
+            {
+                options.TotalCount,
+                options.PageSize,
+                options.PageNumber,
+                options.TotalPages,
+                previousPageLink,
+                nextPageLink
+            };
+
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
             return Ok(listModelParaglider);
+        }
+        /// <summary>
+        /// </summary>
+        /// <param name="options"> the user custom options for search, sort ,filter page</param>
+        /// <param name="type"> one element of the enumeration  to distinguish multiple type of url to create</param>
+        /// <returns></returns>
+
+        private string CreateUriParagliderModel(ParagliderModelsSSFP options, RessourceUriType type)
+        {
+            switch (type)
+            {
+                case RessourceUriType.PreviousPage:
+                    return Url.Link("GetAllModelParaglidersAsync",
+                        new
+                        {
+                            PageNumber = options.PageNumber - 1,
+                            options.PageSize,
+                            options.FilterBy,
+                            options.Pilotweight
+                        });
+
+                case RessourceUriType.NextPage:
+                    return Url.Link("GetAllModelParaglidersAsync",
+                        new
+                        {
+                            PageNumber = options.PageNumber + 1,
+                            options.PageSize,
+                            options.FilterBy,
+                            options.Pilotweight
+                        });
+
+                default:
+                    return Url.Link("GetAllModelParaglidersAsync",
+                        new
+                        {
+                            options.PageNumber,
+                            options.PageSize,
+                            options.FilterBy,
+                            options.Pilotweight
+
+                        });
+            }
+        }
+       public enum RessourceUriType
+        {
+            PreviousPage = 0,
+            NextPage = 1
         }
     }
 }
