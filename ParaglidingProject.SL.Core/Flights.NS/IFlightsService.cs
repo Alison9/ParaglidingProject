@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using ParaglidingProject.Models;
+using ParaglidingProject.SL.Core.Flights.NS.Helpers;
 
 namespace ParaglidingProject.SL.Core.Flights.NS
 {
@@ -21,9 +22,10 @@ namespace ParaglidingProject.SL.Core.Flights.NS
         /// <summary>
         /// Return all avalaible flights
         /// </summary>
+        /// <param name="options">It contains all the paramameters used to filter, page , search and sort the query </param>
         /// <returns>A ReadOnlycollection of FlightDto containing the flightId,flightDate,Duration,PilotName,ParagliderName,TakeOff and Landing sites </returns>
 		    ///  see also cref = "FlightDto"
-        Task<IReadOnlyCollection<FlightDto>> GetAllFlightsAsync();
+        Task<IReadOnlyCollection<FlightDto>> GetAllFlightsAsync(FlightsSSFP options);
         /// <summary>
         /// Get all avalaible flights for a pilot in a range of date
         /// </summary>
