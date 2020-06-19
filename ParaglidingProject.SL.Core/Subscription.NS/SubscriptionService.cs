@@ -1,5 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+
 using ParaglidingProject.Data;
+using ParaglidingProject.SL.Core.Helpers;
+using ParaglidingProject.SL.Core.Subscription.NS.Helpers;
 using ParaglidingProject.SL.Core.Subscription.NS.transferObjects;
 using System;
 using System.Collections.Generic;
@@ -17,7 +20,7 @@ namespace ParaglidingProject.SL.Core.Subscription.NS
             this._paraContext = paraContext;
         }
         /// <inheritdoc />
-        public async Task<IReadOnlyCollection<SubscriptionDto>> GetAllSubscriptionAsync()
+        public async Task<IReadOnlyCollection<SubscriptionDto>> GetAllSubscriptionAsync(SubscriptionSSPF options)
         {
             var Subscriptions = _paraContext.Subscriptions
                  .AsNoTracking()
@@ -28,8 +31,9 @@ namespace ParaglidingProject.SL.Core.Subscription.NS
                      NumberOfPayments = s.SubscriptionPayments.Count,
                     IsActive = s.IsActive
                  });
-
-            return await Subscriptions.ToListAsync();
+            options.SetPagingValues(Subscriptions);
+            var pagedQuery = Subscriptions.Page(options.PageNumber - 1, options.PageSize);
+            return await pagedQuery.ToListAsync();
         }
         /// <inheritdoc />
         public async Task<SubscriptionDto> GetSubscriptionAsync(int id)
