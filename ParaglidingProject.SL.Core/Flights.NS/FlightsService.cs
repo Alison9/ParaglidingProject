@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ParaglidingProject.Data;
 using ParaglidingProject.Models;
+using ParaglidingProject.SL.Core.Flights.NS.Helpers;
 using ParaglidingProject.SL.Core.Flights.NS.MapperProfiles;
 using ParaglidingProject.SL.Core.Flights.NS.TransfertObjects;
+using ParaglidingProject.SL.Core.Helpers;
 
 namespace ParaglidingProject.SL.Core.Flights.NS
 {
+    /// <inheritdoc/>
     public class FlightsService : IFlightsService
     {
         private readonly ParaglidingClubContext _paraContext;
@@ -18,7 +21,7 @@ namespace ParaglidingProject.SL.Core.Flights.NS
         {
             _paraContext = paraContext ?? throw new ArgumentNullException(nameof(paraContext));
         }
-        public async Task<IReadOnlyCollection<FlightDto>> GetAllFlightsAsync()
+        public async Task<IReadOnlyCollection<FlightDto>> GetAllFlightsAsync(FlightsSSFP options)
         {
             var flights = _paraContext.Flights
                  .AsNoTracking()
@@ -32,6 +35,10 @@ namespace ParaglidingProject.SL.Core.Flights.NS
                      TakeOffSiteName = f.TakeOffSite.Name,
                      LandingSiteName = f.LandingSite.Name
                  });
+
+            options.SetPagingValues(flights);
+
+            var pageQuery = flights.Page(options.PageNumber - 1, options.PageSize);
 
             return await flights.ToListAsync();
 

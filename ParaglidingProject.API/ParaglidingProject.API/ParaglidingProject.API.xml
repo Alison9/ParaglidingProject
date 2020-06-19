@@ -163,7 +163,7 @@
             </returns>
             <seealso cref="T:ParaglidingProject.SL.Core.Possession.NS.TransferObjects.PossessionDto"/>
         </member>
-        <member name="M:ParaglidingProject.API.Controllers.PossessionsController.GetAllPossessionsAsync">
+        <member name="M:ParaglidingProject.API.Controllers.PossessionsController.GetAllPossessionsAsync(ParaglidingProject.SL.Core.Possession.NS.Helpers.PossessionSSFP)">
             <summary>
             Asynchronously getting a collection of PossessionDto.
             </summary>
@@ -173,6 +173,7 @@
             </returns>
             <seealso cref="T:ParaglidingProject.SL.Core.Possession.NS.TransferObjects.PossessionDto"/>
         </member>
+        <!-- Badly formed XML comment ignored for member "M:ParaglidingProject.API.Controllers.PossessionsController.CreateResourceUri(ParaglidingProject.SL.Core.Possession.NS.Helpers.PossessionSSFP,ParaglidingProject.API.Controllers.PossessionsController.RessourceUriType)" -->
         <member name="M:ParaglidingProject.API.Controllers.PossessionsController.GetPossessionByPilotAsync(System.Int32)">
             <summary>
             Asynchronously getting all Possession for a Pilot with his Id.

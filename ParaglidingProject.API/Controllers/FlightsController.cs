@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 using ParaglidingProject.SL.Core.Flights.NS;
 using ParaglidingProject.SL.Core.Flights.NS.Helpers;
 using ParaglidingProject.SL.Core.Flights.NS.TransfertObjects;
@@ -51,6 +52,7 @@ namespace ParaglidingProject.API.Controllers
         /// <summary>
         /// Get all Flights
         /// </summary>
+        /// <param name="options">It contains all the paramameters used to filter, page , search and sort the list of flights</param>
         /// <returns>An ActionResult of type 200 response who contains a IReadOnlyCollection of FlightDto.
         /// An ActionResult of type 404 if no flight was found.
         /// <seealso cref="FlightDto"/>
@@ -58,9 +60,9 @@ namespace ParaglidingProject.API.Controllers
         [HttpGet("", Name ="GetAllFlightsAsync")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<IReadOnlyCollection <FlightDto>>> GetAllFlightsAsync()
+        public async Task<ActionResult<IReadOnlyCollection <FlightDto>>> GetAllFlightsAsync([FromQuery] FlightsSSFP options)
         {
-            var flights = await _flightsService.GetAllFlightsAsync();
+            var flights = await _flightsService.GetAllFlightsAsync(options);
             if (flights == null) return NotFound("No flights found");
             return Ok(flights);
         }

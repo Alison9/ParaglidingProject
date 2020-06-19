@@ -5,7 +5,10 @@ using System.Text;
 
 namespace ParaglidingProject.SL.Core.Flights.NS.Helpers
 {
-    class FlightsSSFP
+    /// <summary>
+    /// Search, Sort,Filter,Page
+    /// </summary>
+    public class FlightsSSFP
     {
         private const int DefaultPageSize = 1;
         private const int MaxPageSize = 10;
