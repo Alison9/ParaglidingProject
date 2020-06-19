@@ -211,5 +211,19 @@
             <seealso cref="T:ParaglidingProject.SL.Core.Role.NS.TransfertObjects.RoleDto"/>
             </returns>
         </member>
+        <member name="M:ParaglidingProject.API.Controllers.TraineeshipController.GetAllTraineeShipAsync(ParaglidingProject.SL.Core.TraineeShip.NS.NewFolder1.TraineeshipSSFP)">
+            <summary>
+            /
+            </summary>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ParaglidingProject.API.Controllers.TraineeshipController.CreateUriTraineeship(ParaglidingProject.SL.Core.TraineeShip.NS.NewFolder1.TraineeshipSSFP,ParaglidingProject.API.Controllers.TraineeshipController.RessourceUriType)">
+            <summary>
+            </summary>
+            <param name="options"> the user custom options for search, sort ,filter page</param>
+            <param name="type"> one element of the enumeration  to distinguish multiple type of url to create</param>
+            <returns></returns>
+        </member>
     </members>
 </doc>
