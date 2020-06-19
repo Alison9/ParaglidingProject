@@ -1,4 +1,5 @@
-﻿using ParaglidingProject.SL.Core.Paraglider.NS.TransfertObjects;
+﻿using ParaglidingProject.SL.Core.Paraglider.NS.Helpers;
+using ParaglidingProject.SL.Core.Paraglider.NS.TransfertObjects;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -22,7 +23,8 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS
         /// <summary>
         /// Async method for gettig Paraglider Collection
         /// </summary>
+        /// <param name="options">User options to search, sort, filter and paginate a list of paragliders</param>
         /// <returns>returns ReadOnlyCollection of Paragliders  </returns>
-        Task<IReadOnlyCollection<ParagliderDto>> GetAllParaglidersAsync();
+        Task<IReadOnlyCollection<ParagliderDto>> GetAllParaglidersAsync(ParaglidersSSFP options);
     }
 }

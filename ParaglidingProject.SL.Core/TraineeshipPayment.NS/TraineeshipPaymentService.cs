@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ParaglidingProject.Data;
+using ParaglidingProject.SL.Core.Helpers;
 using ParaglidingProject.SL.Core.TraineeshipPayement.NS.TransferObjects;
+using ParaglidingProject.SL.Core.TraineeshipPayment.NS.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +23,7 @@ namespace ParaglidingProject.SL.Core.TraineeshipPayement.NS
         }
 
         /// <inheritdoc/>
-        public async Task<IReadOnlyCollection<TraineeshipPaymentDto>> GetAllTraineeshipPaymentAsync()
+        public async Task<IReadOnlyCollection<TraineeshipPaymentDto>> GetAllTraineeshipPaymentAsync(TraineeshipPaymentSSFP options)
         {
             var traineeshipPayments = _paraContext.TraineeshipPayments
                 .AsNoTracking()
@@ -33,7 +35,13 @@ namespace ParaglidingProject.SL.Core.TraineeshipPayement.NS
                    IsPaid = p.IsPaid
                 });
 
-            return await traineeshipPayments.ToListAsync();
+            options.SetPagingValues(traineeshipPayments);
+
+            var pagedQuery = traineeshipPayments.Page(options.PageNumber - 1, options.PageSize);
+
+
+
+            return await pagedQuery.ToListAsync();
         }
 
         /// <inheritdoc/>

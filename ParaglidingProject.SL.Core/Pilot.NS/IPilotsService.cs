@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using ParaglidingProject.SL.Core.Pilot.NS.Helpers;
 using ParaglidingProject.SL.Core.Pilot.NS.TransfertObjects;
 
 namespace ParaglidingProject.SL.Core.Pilot.NS
@@ -30,6 +31,6 @@ namespace ParaglidingProject.SL.Core.Pilot.NS
         /// Otherwise, the task result is a Collection of type PossessionDto.
         /// <seealso cref="PilotDto">
         /// </returns>
-        Task<IReadOnlyCollection<PilotDto>> GetAllPilotsAsync();
+        Task<IReadOnlyCollection<PilotDto>> GetAllPilotsAsync(SSFP options);
     }
 }

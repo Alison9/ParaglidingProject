@@ -1,4 +1,5 @@
-﻿using ParaglidingProject.SL.Core.TraineeShip.NS.TransferObjects;
+﻿using ParaglidingProject.SL.Core.TraineeShip.NS.NewFolder1;
+using ParaglidingProject.SL.Core.TraineeShip.NS.TransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -34,9 +35,10 @@ namespace ParaglidingProject.SL.Core.TraineeShip.NS
         /// The task result contains null by default if source Pilot is empty.
         /// The task result contains an empty list by default if source collection is empty.
         /// Otherwise, the task result is a Collection of type TraineeShipDto.
+        ///  <param name="options">options is the type of traineeshipsSSFP (sort, search, filter, paging)</param>
         /// <seealso cref="TraineeShipDto"/>
         /// </returns>
-        Task<IReadOnlyCollection<TraineeShipDto>> GetAllTraineeShipAsync();
+        Task<IReadOnlyCollection<TraineeShipDto>> GetAllTraineeShipAsync(TraineeshipSSFP options);
         /// <summary>
         /// Asynchronously retrieve all the traineeships for a given pilotLicense.
         /// This method is called without any tracking involved and following the select loading pattern. 
