@@ -5,6 +5,9 @@ using System.Text;
 
 namespace ParaglidingProject.SL.Core.TraineeshipPayment.NS.Helpers
 {
+    /// <summary>
+    /// Search, Sort, Filter, Page
+    /// </summary>
     public class TraineeshipPaymentSSFP
     {
         private const int DefaultPageSize = 2;
