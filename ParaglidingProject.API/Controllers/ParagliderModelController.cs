@@ -21,7 +21,9 @@ namespace ParaglidingProject.API.Controllers
     public class ParagliderModelController : ControllerBase
     {
         private readonly IParagliderModelService _ModelParagliderService;
-
+        /// <summary>
+        /// ParagliderModel interface constructor.
+        /// </summary>
         public ParagliderModelController(IParagliderModelService modelparagliderService)
         {
             _ModelParagliderService = modelparagliderService ?? throw new ArgumentNullException(nameof(modelparagliderService));
@@ -49,6 +51,7 @@ namespace ParaglidingProject.API.Controllers
         /// <summary>
         /// get all paraglidermodels
         /// </summary>
+        /// <param name="options"> User options to sort, search, filter pagination </param>
         /// <returns>
         /// an actionresult of type 202 who contain a list of paragliderModelDto
         /// an actionresult of type 404 if no paraglidermodel was find

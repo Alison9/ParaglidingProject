@@ -24,6 +24,7 @@ namespace ParaglidingProject.SL.Core.ParagliderModel.NS
         /// <summary>
         /// An Asynchronous method that returns a IReadoOnlyCollection of ParagliderModelDto
         /// </summary>
+        /// <param name="options">User options to sort, search, filter pagination</param>
         /// <returns>
         ///  The task result contains an empty list by default if source is empty.
         /// Otherwise, the task result is a Collection of type ParagliderModelDto.
