@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 
@@ -10,7 +12,15 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS.Helpers
     {
         private const int DefaultPageSize = 5;
         private const int MaxPageSize = 10;
+        private ParaglidersFilters _filterBy;
 
+        public string CommissionDate { get; set; }
+        public string LastRevisionDate { get; set; }
+        public ParaglidersFilters FilterBy 
+        { 
+            get => _filterBy;
+            set => _filterBy = ValidateFilterByParameters(value)? value: 0; 
+        }
         private int _pageSize = DefaultPageSize;
         public int PageNumber { get; set; } = 1;
         public int PageSize
@@ -27,7 +37,7 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS.Helpers
             TotalCount = query.Count();
             TotalPages = (int)Math.Ceiling((double)TotalCount / PageSize);
 
-            NormalizePageNumber();
+            PageNumber = NormalizePageNumber();
         }
 
         /// <summary>
@@ -49,6 +59,31 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS.Helpers
                 normalizedPageNumber = 1;
             }
             return normalizedPageNumber;
+        }
+        public bool ValidateFilterByParameters(ParaglidersFilters paraglidersFilters)
+        {
+            DateTime parsedDate;
+            switch (paraglidersFilters)
+            {
+                case ParaglidersFilters.NoFilter:
+                    return true;
+                case ParaglidersFilters.NotActive:
+                    return true;
+                case ParaglidersFilters.CommissionDate:
+                    if (!string.IsNullOrWhiteSpace(CommissionDate) && DateTime.TryParse(CommissionDate, out parsedDate))
+                    {
+                        return true;
+                    }
+                    return false;
+                case ParaglidersFilters.RevisionDate:
+                    if (!string.IsNullOrWhiteSpace(LastRevisionDate) && DateTime.TryParse(LastRevisionDate, out parsedDate))
+                    {
+                        return true;
+                    }
+                    return false;
+                default:
+                    return false;
+            }
         }
     }
 }

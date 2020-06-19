@@ -64,6 +64,7 @@ namespace ParaglidingProject.API.Controllers
      
         public async Task<ActionResult<IReadOnlyCollection<ParagliderDto>>> GetAllParaglidersAsync([FromQuery] ParaglidersSSFP options)
         {
+
             var paraglider = await _paragliderService.GetAllParaglidersAsync(options);
             if (paraglider == null) return NotFound("There is no paraglider ");
 

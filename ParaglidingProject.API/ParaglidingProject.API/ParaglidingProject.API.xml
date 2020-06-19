@@ -29,10 +29,11 @@
             <seealso cref="T:ParaglidingProject.SL.Core.Flights.NS.TransfertObjects.FlightDto"/>
             </returns>
         </member>
-        <member name="M:ParaglidingProject.API.Controllers.FlightsController.GetAllFlightsAsync">
+        <member name="M:ParaglidingProject.API.Controllers.FlightsController.GetAllFlightsAsync(ParaglidingProject.SL.Core.Flights.NS.Helpers.FlightsSSFP)">
             <summary>
             Get all Flights
             </summary>
+            <param name="options">It contains all the paramameters used to filter, page , search and sort the list of flights</param>
             <returns>An ActionResult of type 200 response who contains a IReadOnlyCollection of FlightDto.
             An ActionResult of type 404 if no flight was found.
             <seealso cref="T:ParaglidingProject.SL.Core.Flights.NS.TransfertObjects.FlightDto"/>
@@ -119,6 +120,11 @@
             the controller of paragliderModels
             </summary>
         </member>
+        <member name="M:ParaglidingProject.API.Controllers.ParagliderModelController.#ctor(ParaglidingProject.SL.Core.ParagliderModel.NS.IParagliderModelService)">
+            <summary>
+            ParagliderModel interface constructor.
+            </summary>
+        </member>
         <member name="M:ParaglidingProject.API.Controllers.ParagliderModelController.GetParagliderModelAsync(System.Int32)">
             <summary>
             get a paraglidermodel by id
@@ -131,10 +137,11 @@
             </returns>
             <remarks></remarks>
         </member>
-        <member name="M:ParaglidingProject.API.Controllers.ParagliderModelController.GetAllModelParaglidersAsync">
+        <member name="M:ParaglidingProject.API.Controllers.ParagliderModelController.GetAllModelParaglidersAsync(ParaglidingProject.SL.Core.ParagliderModel.NS.Helpers.ParagliderModelsSSFP)">
             <summary>
             get all paraglidermodels
             </summary>
+            <param name="options"> User options to sort, search, filter pagination </param>
             <returns>
             an actionresult of type 202 who contain a list of paragliderModelDto
             an actionresult of type 404 if no paraglidermodel was find
@@ -225,6 +232,40 @@
             <param name="options"> the user custom options for search, sort ,filter page</param>
             <param name="type"> one element of the enumeration  to distinguish multiple type of url to create</param>
             <returns></returns>
+        </member>
+        <member name="T:ParaglidingProject.API.Controllers.TraineeshipPayementController">
+            <summary>
+            TraineeshipPayment's Controller
+            </summary>
+        </member>
+        <member name="M:ParaglidingProject.API.Controllers.TraineeshipPayementController.GetTraineeshipAsync(System.Int32,System.Int32)">
+            <summary>
+            Get a Traineeship
+            </summary>
+            <param name="traineeshipId">traineeshipId as an integer</param>
+            <param name="pilotId">pilotId as an integer</param>
+            <returns>An ActionResult of type 200 response who contains a TraineeshipPaymentDto.
+            An ActionResult of type 404 response if no TraineeshipPayment was found.
+            <seealso cref="T:ParaglidingProject.SL.Core.TraineeshipPayement.NS.TransferObjects.TraineeshipPaymentDto"/>
+            </returns>
+        </member>
+        <member name="M:ParaglidingProject.API.Controllers.TraineeshipPayementController.GetAllTraineeshipPaymentAsync(ParaglidingProject.SL.Core.TraineeshipPayment.NS.Helpers.TraineeshipPaymentSSFP)">
+            <summary>
+            Get all TraineeshipPayments
+            </summary>
+            <param name="options">options as TraineeshipPaymentSSFP</param>
+            <returns>An ActionResult of type 200 response who contains a IReadOnlyCollection of TraineeshipPaymentDto.
+            An ActionResult of type 404 response if no TraineeshipPayment was found.
+            <seealso cref="T:ParaglidingProject.SL.Core.TraineeshipPayement.NS.TransferObjects.TraineeshipPaymentDto"/>
+            </returns>
+        </member>
+        <member name="M:ParaglidingProject.API.Controllers.TraineeshipPayementController.CreateTraineeshipPaymentsRessourceUri(ParaglidingProject.SL.Core.TraineeshipPayment.NS.Helpers.TraineeshipPaymentSSFP,ParaglidingProject.API.Controllers.TraineeshipPayementController.RessourceUriType)">
+            <summary>
+            Creation of a TraineeshipPayment ressource Uri
+            </summary>
+            <param name="options">options as TraineeshipPaymentSSFP</param>
+            <param name="type">type as RessourceUriType</param>
+            <returns>An url of type IUrlHelper</returns>
         </member>
     </members>
 </doc>
