@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ParaglidingProject.Data;
+using ParaglidingProject.SL.Core.Helpers;
+using ParaglidingProject.SL.Core.Paraglider.NS.Helpers;
 using ParaglidingProject.SL.Core.Paraglider.NS.TransfertObjects;
 using System;
 using System.Collections.Generic;
@@ -8,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace ParaglidingProject.SL.Core.Paraglider.NS
 {
+    /// <inheritdoc/>
     public class ParagliderService : IParagliderService
     {
         private readonly ParaglidingClubContext _paraContext;
@@ -33,9 +36,9 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS
 
             return paraglider;
         }
-        public async Task<IReadOnlyCollection<ParagliderDto>> GetAllParaglidersAsync()
+        public async Task<IReadOnlyCollection<ParagliderDto>> GetAllParaglidersAsync(ParaglidersSSFP options)
         {
-            var paraglider = _paraContext.Paragliders
+            var paragliders = _paraContext.Paragliders
                 .AsNoTracking()
                 .Select(p => new ParagliderDto
                 {
@@ -47,7 +50,11 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS
                     NumerOfFlights = p.Flights.Count()
                 });
 
-            return await paraglider.ToListAsync();
+            options.SetPagingValues(paragliders);
+
+            var pagedQuery = paragliders.Page(options.PageNumber - 1, options.PageSize);
+
+            return await pagedQuery.ToListAsync();
         }
     }
 }

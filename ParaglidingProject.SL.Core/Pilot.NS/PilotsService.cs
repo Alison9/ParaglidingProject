@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ParaglidingProject.Data;
+using ParaglidingProject.SL.Core.Helpers;
+using ParaglidingProject.SL.Core.Pilot.NS.Helpers;
 using ParaglidingProject.SL.Core.Pilot.NS.MapperProfiles;
 using ParaglidingProject.SL.Core.Pilot.NS.TransfertObjects;
 
@@ -31,11 +33,12 @@ namespace ParaglidingProject.SL.Core.Pilot.NS
             return pilotDto;
         }
 
-        public async Task<IReadOnlyCollection<PilotDto>> GetAllPilotsAsync()
+        public async Task<IReadOnlyCollection<PilotDto>> GetAllPilotsAsync(SSFP options)
         {
-            var pilots = _paraContext.Pilots
+            var pilotsQuery = _paraContext.Pilots // DEFERRED EXECUTION
                 .AsNoTracking()
-                .Select(p => new PilotDto
+                .FilterPilotBy(options.FilterBy) // RESTRICTION = WHERE
+                .Select(p => new PilotDto // PROJECTION = SELECT
                 {
                     PilotId = p.ID,
                     Name = $"{p.FirstName} {p.LastName}",
@@ -43,7 +46,11 @@ namespace ParaglidingProject.SL.Core.Pilot.NS
                     NumberOfFlights = p.Flights.Count
                 });
 
-            return await pilots.ToListAsync();
+            options.SetPagingValues(pilotsQuery);
+
+            var pagedQuery = pilotsQuery.Page(options.PageNumber - 1, options.PageSize); // PAGINATION
+
+            return await pagedQuery.ToListAsync(); // FLATTENING = ITERATION 
         }
     }
 }

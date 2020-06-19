@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ParaglidingProject.SL.Core.Pilot.NS;
 using ParaglidingProject.SL.Core.TraineeShip.NS;
+using ParaglidingProject.SL.Core.TraineeShip.NS.NewFolder1;
 using ParaglidingProject.SL.Core.TraineeShip.NS.TransferObjects;
 
 namespace ParaglidingProject.API.Controllers
@@ -35,16 +37,79 @@ namespace ParaglidingProject.API.Controllers
             if (traineeship == null) return NotFound("Couldn't find any associated Traineeship");
             return Ok(traineeship);
         }
-
+        /// <summary>
+        /// /
+        /// </summary>
+        /// <param name="options"></param>
+        /// <returns></returns>
         [HttpGet("", Name = "GetAllTraineeShipAsync")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<IReadOnlyCollection<TraineeShipDto>>> GetAllTraineeShipAsync()
+        public async Task<ActionResult<IReadOnlyCollection<TraineeShipDto>>> GetAllTraineeShipAsync([FromQuery] TraineeshipSSFP options)
         {
-            var traineeships= await _TraineeshipService.GetAllTraineeShipAsync();
-            if (traineeships == null) return NotFound("Collection was empty :( ");
+            var traineeships= await _TraineeshipService.GetAllTraineeShipAsync(options);
+            if (traineeships == null) return NotFound("Collection was empty :)");
+            var previousPageLink = options.HasPrevious ? CreateUriTraineeship(options, RessourceUriType.PreviousPage) : null;
+            var nextPageLink = options.HasNext ? CreateUriTraineeship(options, RessourceUriType.NextPage) : null;
+
+            var paginationMetadata = new
+            {
+                options.TotalCount,
+                options.PageSize,
+                options.PageNumber,
+                options.TotalPages,
+                previousPageLink,
+                nextPageLink
+            };
+
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
+
             return Ok(traineeships);
         }
+        /// <summary>
+        /// </summary>
+        /// <param name="options"> the user custom options for search, sort ,filter page</param>
+        /// <param name="type"> one element of the enumeration  to distinguish multiple type of url to create</param>
+        /// <returns></returns>
+
+        private string CreateUriTraineeship(TraineeshipSSFP options, RessourceUriType type)
+        {
+            switch (type)
+            {
+                case RessourceUriType.PreviousPage:
+                    return Url.Link("GetAllPilotsAsync",
+                        new
+                        {
+                            PageNumber = options.PageNumber - 1,
+                            options.PageSize                           
+                        });
+
+                case RessourceUriType.NextPage:
+                    return Url.Link("GetAllPilotsAsync",
+                        new
+                        {
+                            PageNumber = options.PageNumber + 1,
+                            options.PageSize                           
+                        });
+
+                default:
+                    return Url.Link("GetAllPilotsAsync",
+                        new
+                        {
+                            options.PageNumber,
+                            options.PageSize
+                            
+                        });
+            }
+        }
+         enum RessourceUriType
+        {
+            PreviousPage = 0,
+            NextPage = 1
+        }
+
+
+
 
         [HttpPost("{pilotId}", Name = "GetTrainsheepByPilotLicense")]
         [ProducesResponseType(StatusCodes.Status200OK)]

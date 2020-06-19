@@ -93,14 +93,25 @@
             </returns>
             <remarks></remarks>
         </member>
-        <member name="M:ParaglidingProject.API.Controllers.ParagliderController.GetAllParaglidersAsync">
+        <member name="M:ParaglidingProject.API.Controllers.ParagliderController.GetAllParaglidersAsync(ParaglidingProject.SL.Core.Paraglider.NS.Helpers.ParaglidersSSFP)">
             <summary>
             get all paraglider
             </summary>
+            <param name="options">User options to search, sort, filter and paginate a list of paragliders obtained from a query strings.</param>
             <returns>
             an actionresult of type 202 who contain a list of paragliderDto
             an actionresult of type 404 if no paraglider was find
             <seealso cref="T:ParaglidingProject.SL.Core.Paraglider.NS.TransfertObjects.ParagliderDto"/>
+            </returns>
+        </member>
+        <member name="M:ParaglidingProject.API.Controllers.ParagliderController.CreateResourceUri(ParaglidingProject.SL.Core.Paraglider.NS.Helpers.ParaglidersSSFP,ParaglidingProject.API.Controllers.ParagliderController.ResourceUriType)">
+            <summary>
+            Refactoring method that, given user parameters, creates a custom URL link to the previous and next page.
+            </summary>
+            <param name="options">The user custom options or default options for the search, sort, filter and pagination features.</param>
+            <param name="type">One element of the enumeration to distinguish the multiple types of URLs to create.</param>
+            <returns>
+            A string that contains an URL link to the previous, the next page, or the current page by default.
             </returns>
         </member>
         <member name="T:ParaglidingProject.API.Controllers.ParagliderModelController">
@@ -152,7 +163,7 @@
             </returns>
             <seealso cref="T:ParaglidingProject.SL.Core.Possession.NS.TransferObjects.PossessionDto"/>
         </member>
-        <member name="M:ParaglidingProject.API.Controllers.PossessionsController.GetAllPossessionsAsync">
+        <member name="M:ParaglidingProject.API.Controllers.PossessionsController.GetAllPossessionsAsync(ParaglidingProject.SL.Core.Possession.NS.Helpers.PossessionSSFP)">
             <summary>
             Asynchronously getting a collection of PossessionDto.
             </summary>
@@ -162,6 +173,7 @@
             </returns>
             <seealso cref="T:ParaglidingProject.SL.Core.Possession.NS.TransferObjects.PossessionDto"/>
         </member>
+        <!-- Badly formed XML comment ignored for member "M:ParaglidingProject.API.Controllers.PossessionsController.CreateResourceUri(ParaglidingProject.SL.Core.Possession.NS.Helpers.PossessionSSFP,ParaglidingProject.API.Controllers.PossessionsController.RessourceUriType)" -->
         <member name="M:ParaglidingProject.API.Controllers.PossessionsController.GetPossessionByPilotAsync(System.Int32)">
             <summary>
             Asynchronously getting all Possession for a Pilot with his Id.
@@ -199,6 +211,20 @@
             an actionresult of type 404 if no RoleDto was find
             <seealso cref="T:ParaglidingProject.SL.Core.Role.NS.TransfertObjects.RoleDto"/>
             </returns>
+        </member>
+        <member name="M:ParaglidingProject.API.Controllers.TraineeshipController.GetAllTraineeShipAsync(ParaglidingProject.SL.Core.TraineeShip.NS.NewFolder1.TraineeshipSSFP)">
+            <summary>
+            /
+            </summary>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ParaglidingProject.API.Controllers.TraineeshipController.CreateUriTraineeship(ParaglidingProject.SL.Core.TraineeShip.NS.NewFolder1.TraineeshipSSFP,ParaglidingProject.API.Controllers.TraineeshipController.RessourceUriType)">
+            <summary>
+            </summary>
+            <param name="options"> the user custom options for search, sort ,filter page</param>
+            <param name="type"> one element of the enumeration  to distinguish multiple type of url to create</param>
+            <returns></returns>
         </member>
     </members>
 </doc>

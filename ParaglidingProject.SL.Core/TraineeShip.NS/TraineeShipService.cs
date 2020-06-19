@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ParaglidingProject.Data;
+using ParaglidingProject.SL.Core.Helpers;
+using ParaglidingProject.SL.Core.TraineeShip.NS.NewFolder1;
 using ParaglidingProject.SL.Core.TraineeShip.NS.TransferObjects;
 using System;
 using System.Collections.Generic;
@@ -16,7 +18,13 @@ namespace ParaglidingProject.SL.Core.TraineeShip.NS
         {
             this._paraContext = paraContext;
         }
-        public async Task<IReadOnlyCollection<TraineeShipDto>> GetAllTraineeShipAsync()
+
+        /// <summary>
+        /// Get all(collection of traineeships)
+        /// </summary>
+        /// <param name="options"> options as traineeshipSSFP </param>
+        /// <returns></returns>
+        public async Task<IReadOnlyCollection<TraineeShipDto>> GetAllTraineeShipAsync(TraineeshipSSFP options)
         {
             var traineeships = _paraContext.Traineeships
                  .AsNoTracking()
@@ -28,8 +36,11 @@ namespace ParaglidingProject.SL.Core.TraineeShip.NS
                      TraineeShipEndDate=T.EndDate,
                      traineeshipIsActive=T.IsActive
                  });
+            options.SetPagingValues(traineeships);
 
-            return await traineeships.ToListAsync();
+            var pagedQuery = traineeships.Page(options.PageNumber -1, options.PageSize);
+
+            return await pagedQuery.ToListAsync();
         }
 
 

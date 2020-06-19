@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using ParaglidingProject.Data;
+using ParaglidingProject.SL.Core.Helpers;
+using ParaglidingProject.SL.Core.Possession.NS.Helpers;
 using ParaglidingProject.SL.Core.Possession.NS.TransferObjects;
 using System;
 using System.Collections.Generic;
@@ -38,7 +40,7 @@ namespace ParaglidingProject.SL.Core.Possession.NS
         }
 
         /// <inheritdoc />
-        public async Task<IReadOnlyCollection<PossessionDto>> GetAllPossessionsAsync()
+        public async Task<IReadOnlyCollection<PossessionDto>> GetAllPossessionsAsync(PossessionSSFP options)
         {
             var possessions = _paraContext.Possessions
                 .AsNoTracking()
@@ -52,8 +54,14 @@ namespace ParaglidingProject.SL.Core.Possession.NS
                     IsActive = po.IsActive
                 });
 
-            return await possessions.ToListAsync();
-        }
+            
+
+         options.SetPagingValues(possessions);
+
+         var pagedQuery = possessions.Page(options.PageNumber - 1, options.PageSize); // PAGINATION
+
+         return await pagedQuery.ToListAsync();
+    }
 
         /// <inheritdoc />
         public async Task<IReadOnlyCollection<PossessionDto>> GetPossessionByPilotAsync(int pilotId)
@@ -78,7 +86,9 @@ namespace ParaglidingProject.SL.Core.Possession.NS
                 });
 
             return await possessions.ToListAsync();
-        }
+
+      
+    }
     }
 }
 
