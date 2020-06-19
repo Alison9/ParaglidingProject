@@ -1,4 +1,5 @@
-﻿using ParaglidingProject.SL.Core.Subscription.NS.transferObjects;
+﻿using ParaglidingProject.SL.Core.Subscription.NS.Helpers;
+using ParaglidingProject.SL.Core.Subscription.NS.transferObjects;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -25,11 +26,12 @@ namespace ParaglidingProject.SL.Core.Subscription.NS
         /// Asynchronously retrieve all the Subscriptions.
         /// This method is called without any tracking involved and following the select loading pattern. 
         /// </summary>
+        /// <param name="Options">paramater of type subscriptionSSPF</param>
         /// <returns>
         /// A task that represents the asynchronous operation.
-        /// The task result is a Collection offini type SubscriptionDto.
+        /// The task result is a Collection of type SubscriptionDto 
         /// <seealso cref="SubscriptionDto"/>
         /// </returns>
-        Task<IReadOnlyCollection<SubscriptionDto>> GetAllSubscriptionAsync();
+        Task<IReadOnlyCollection<SubscriptionDto>> GetAllSubscriptionAsync(SubscriptionSSPF Options);
     }
 }
