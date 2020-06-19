@@ -1,4 +1,5 @@
 ﻿using ParaglidingProject.SL.Core.TraineeshipPayement.NS.TransferObjects;
+using ParaglidingProject.SL.Core.TraineeshipPayment.NS.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -24,10 +25,11 @@ namespace ParaglidingProject.SL.Core.TraineeshipPayement.NS
         /// <summary>
         /// Get All (Collection of TrainshipPayments)
         /// </summary>
+        /// <param name="options">options as TraineeshipPaymentSSFP</param>
         /// <returns> return  collection TraineeShip PaymentsDto
         /// <seealso cref="TraineeshipPaymentDto"/>
         /// </returns>
       
-        Task<IReadOnlyCollection<TraineeshipPaymentDto>> GetAllTraineeshipPaymentAsync();
+        Task<IReadOnlyCollection<TraineeshipPaymentDto>> GetAllTraineeshipPaymentAsync(TraineeshipPaymentSSFP options);
     }
 }
