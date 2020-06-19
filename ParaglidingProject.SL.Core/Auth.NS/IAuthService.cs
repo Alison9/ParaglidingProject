@@ -13,6 +13,6 @@ namespace ParaglidingProject.SL.Core.Auth.NS
 
         TokenDto GenerateJwt(string firstname, string lastname, string secret);
 
-        public UserInfoDto ObtainUserIdentity(ClaimsPrincipal user);
+        UserInfoDto ObtainUserIdentity(ClaimsPrincipal user);
     }
 }
