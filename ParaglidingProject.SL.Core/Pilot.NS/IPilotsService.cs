@@ -32,5 +32,20 @@ namespace ParaglidingProject.SL.Core.Pilot.NS
         /// <seealso cref="PilotDto">
         /// </returns>
         Task<IReadOnlyCollection<PilotDto>> GetAllPilotsAsync(SSFP options);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pilotId"></param>
+        /// <param name="patchDto"></param>
+        /// <returns></returns>
+        Task<bool?> UpdatePilotAsync(int pilotId, PilotPatchDto patchDto);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pilotId"></param>
+        /// <returns></returns>
+        Task<PilotPatchDto> GetPilotToPatchAsync(int pilotId);
     }
 }

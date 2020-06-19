@@ -16,31 +16,18 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 using ParaglidingProject.Data;
-
 using ParaglidingProject.SL.Core.Paraglider.NS;
 using ParaglidingProject.SL.Core.Pilot.NS;
-
 using ParaglidingProject.SL.Core.TraineeshipPayement.NS;
 using ParaglidingProject.SL.Core.Levels.NS;
 using ParaglidingProject.SL.Core.Site.NS;
 using ParaglidingProject.SL.Core.Flights.NS;
-
 using ParaglidingProject.SL.Core.Role.NS;
 using ParaglidingProject.SL.Core.TraineeShip.NS;
 using ParaglidingProject.SL.Core.Possession.NS;
 using ParaglidingProject.SL.Core.Subscription.NS;
 using ParaglidingProject.SL.Core.ParagliderModel.NS;
 using ParaglidingProject.SL.Core.Auth.NS;
-using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
-using System.Reflection;
-using System.IO;
-using System;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
 
 namespace ParaglidingProject.API
 {

@@ -52,5 +52,30 @@ namespace ParaglidingProject.SL.Core.Pilot.NS
 
             return await pagedQuery.ToListAsync(); // FLATTENING = ITERATION 
         }
+
+        public async Task<bool?> UpdatePilotAsync(int pilotId, PilotPatchDto patchDto)
+        {
+            var pilotToUpdate = await _paraContext.Pilots
+                .FirstOrDefaultAsync(p => p.ID == pilotId);
+
+            if (pilotToUpdate == null) return null;
+
+            pilotToUpdate.PhoneNumber = patchDto.PhoneNumber;
+            pilotToUpdate.Weight = patchDto.Weight;
+
+            return await _paraContext.SaveChangesAsync() > 0;
+        }
+
+        public async Task<PilotPatchDto> GetPilotToPatchAsync(int pilotId)
+        {
+            return await _paraContext.Pilots
+                .Where(p => p.ID == pilotId)
+                .Select(p => new PilotPatchDto
+                {
+                    PhoneNumber = p.PhoneNumber,
+                    Weight = p.Weight
+                })
+                .FirstOrDefaultAsync();
+        }
     }
 }

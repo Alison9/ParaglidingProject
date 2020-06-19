@@ -4,6 +4,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using ParaglidingProject.SL.Core.Pilot.NS;
 using ParaglidingProject.SL.Core.Pilot.NS.Helpers;
@@ -23,6 +24,25 @@ namespace ParaglidingProject.API.Controllers
         public PilotsController(IPilotsService pilotsService)
         {
             _pilotsService = pilotsService ?? throw new ArgumentNullException(nameof(pilotsService)) ;
+        }
+
+        [AllowAnonymous]
+        [HttpPatch("{pilotId}", Name = "PatchPilotAsync")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status503ServiceUnavailable)]
+        public async Task<ActionResult> PatchPilotAsync([FromRoute] int pilotId, [FromBody] JsonPatchDocument<PilotPatchDto> patchDocument)
+        {
+            var pilotToPatch = await _pilotsService.GetPilotToPatchAsync(pilotId);
+            if (pilotToPatch == null) return NotFound("Pilot does not exists");
+
+            patchDocument.ApplyTo(pilotToPatch, ModelState);
+            if (!TryValidateModel(pilotToPatch)) return ValidationProblem(ModelState);
+
+            var valuesMakeSense = pilotToPatch.ValidateBusinessLogic();
+            if (valuesMakeSense == false) return ValidationProblem("One or more values are forbidden");
+
+            var patchSuccess = await _pilotsService.UpdatePilotAsync(pilotId, pilotToPatch);
+            return patchSuccess == true ? NoContent() : StatusCode(StatusCodes.Status503ServiceUnavailable);
         }
 
         //[Authorize(Roles = "Secretary")]
