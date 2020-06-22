@@ -22,5 +22,5 @@ namespace ParaglidingProject.Models
         public ICollection<SubscriptionPayment> SubscriptionPayments { get; set; }
 
         public bool IsActive { get; set; }
-    }
+	}
 }
