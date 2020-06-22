@@ -64,6 +64,7 @@ namespace ParaglidingProject.API.Controllers
      
         public async Task<ActionResult<IReadOnlyCollection<ParagliderDto>>> GetAllParaglidersAsync([FromQuery] ParaglidersSSFP options)
         {
+
             var paraglider = await _paragliderService.GetAllParaglidersAsync(options);
             if (paraglider == null) return NotFound("There is no paraglider ");
 
@@ -73,6 +74,7 @@ namespace ParaglidingProject.API.Controllers
             var paginationMetadata = new
             {
                 options.TotalCount,
+                
                 options.PageSize,
                 options.PageNumber,
                 options.TotalPages,
@@ -102,7 +104,10 @@ namespace ParaglidingProject.API.Controllers
                         new
                         {
                             PageNumber = options.PageNumber = 1,
-                            options.PageSize
+                            options.PageSize,
+                            
+                            
+                            
                         });
                 case ResourceUriType.NextPage:
                     return Url.Link("GetAllParaglidersAsync",
@@ -121,7 +126,7 @@ namespace ParaglidingProject.API.Controllers
             }
         }
 
-        public enum ResourceUriType
+         enum ResourceUriType
         {
             PreviousPage = 0,
             NextPage = 1
