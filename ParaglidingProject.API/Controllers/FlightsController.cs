@@ -75,6 +75,7 @@ namespace ParaglidingProject.API.Controllers
                 options.PageSize,
                 options.PageNumber,
                 options.TotalPages,
+                options.SortBy,
                 previousPageLink,
                 nextPageLink
             };
@@ -122,7 +123,8 @@ namespace ParaglidingProject.API.Controllers
                         {
                             PageNumber = options.PageNumber = 1,
                             options.PageSize,
-                            options.FilterBy
+                            options.FilterBy,
+                            options.SortBy
                         });
                 case ResourceUriType.NextPage:
                     return Url.Link("GetAllFlightsAsync",
@@ -130,7 +132,8 @@ namespace ParaglidingProject.API.Controllers
                         {
                             PageNumber = options.PageNumber + 1,
                             options.PageSize,
-                            options.FilterBy
+                            options.FilterBy,
+                            options.SortBy
                         });
                 default:
                     return Url.Link("GetAllFlightsAsync",
@@ -138,8 +141,9 @@ namespace ParaglidingProject.API.Controllers
                         {
                             options.PageNumber,
                             options.PageSize,
-                            options.FilterBy
-                        });
+                            options.FilterBy,
+                            options.SortBy
+                        }) ;
             }
         }
 
