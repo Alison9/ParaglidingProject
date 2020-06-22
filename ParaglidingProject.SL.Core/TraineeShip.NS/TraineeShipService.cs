@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ParaglidingProject.Data;
 using ParaglidingProject.SL.Core.Helpers;
+using ParaglidingProject.SL.Core.TraineeShip.NS.Helpers;
 using ParaglidingProject.SL.Core.TraineeShip.NS.NewFolder1;
 using ParaglidingProject.SL.Core.TraineeShip.NS.TransferObjects;
 using System;
@@ -28,6 +29,7 @@ namespace ParaglidingProject.SL.Core.TraineeShip.NS
         {
             var traineeships = _paraContext.Traineeships
                  .AsNoTracking()
+                 .SortTraineeshipBy(options.SortBy)
                  .Select(T => new TraineeShipDto
                  {
                      Traineeshipid = T.ID,

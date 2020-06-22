@@ -9,6 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
 using static ParaglidingProject.Models.Enumeration;
+using ParaglidingProject.SL.Core.Site.NS.Helpers;
+using ParaglidingProject.SL.Core.Helpers;
+using System.Collections.Immutable;
 
 namespace ParaglidingProject.SL.Core.Site.NS
 {
@@ -22,13 +25,19 @@ namespace ParaglidingProject.SL.Core.Site.NS
             _paraContext = paracontext;
         }
 
-        public async Task<IReadOnlyCollection<SiteDto>> GetAllSitesAsync()
+        public async Task<IReadOnlyCollection<SiteDto>> GetAllSitesAsync(SiteSSFP options)
         {
             var sites = _paraContext.Sites
                 .AsNoTracking()
+                .SortSitesBy(options.SortBy)
+                .FilterSitesBy(options.FilterBy, options.Orientation, options.AltitudeTakeOff)
                 .MapSiteDto();
 
-            return await sites.ToListAsync();
+            options.SetPagingValues(sites);
+
+            var pagedQuery = sites.Page(options.PageNumber - 1, options.PageSize);
+
+            return await pagedQuery.ToListAsync();
         }
 
         
