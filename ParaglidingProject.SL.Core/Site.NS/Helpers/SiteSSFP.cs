@@ -13,6 +13,8 @@ namespace ParaglidingProject.SL.Core.Site.NS.Helpers
         private const int DefaultPageSize = 5;
         private const int MaxPageSize = 10;
         private SitesFilters _filterBy;
+
+        public SitesSorts SortBy { get; set; }
         public SitesFilters FilterBy
         {
             get => _filterBy;

@@ -11,6 +11,7 @@ using System.Linq;
 using static ParaglidingProject.Models.Enumeration;
 using ParaglidingProject.SL.Core.Site.NS.Helpers;
 using ParaglidingProject.SL.Core.Helpers;
+using System.Collections.Immutable;
 
 namespace ParaglidingProject.SL.Core.Site.NS
 {
@@ -28,6 +29,7 @@ namespace ParaglidingProject.SL.Core.Site.NS
         {
             var sites = _paraContext.Sites
                 .AsNoTracking()
+                .SortSitesBy(options.SortBy)
                 .FilterSitesBy(options.FilterBy, options.Orientation, options.AltitudeTakeOff)
                 .MapSiteDto();
 

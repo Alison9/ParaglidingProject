@@ -13,7 +13,6 @@ namespace ParaglidingProject.Models
         landing=2
     }
 
-
     public class Site
     {
         public int ID { get; set; }
