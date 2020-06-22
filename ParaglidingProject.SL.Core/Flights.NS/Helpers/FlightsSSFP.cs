@@ -39,6 +39,9 @@ namespace ParaglidingProject.SL.Core.Flights.NS.Helpers
         public int TakeOffSiteId { get; set; }
         public int LandingSiteId { get; set; }
 
+        //Sort properties
+        public FlightsSorts SortBy { get; set; }
+
         /// <summary>
         /// Refactoring method that sets the correct page number for the user that navigates a collection of paragliders.
         /// If the user tries to go below the first page or over the last page, it is redirected to the first page or the last page, respectively. 
