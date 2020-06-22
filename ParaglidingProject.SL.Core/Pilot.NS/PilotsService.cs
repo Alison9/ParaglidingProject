@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using ParaglidingProject.Data;
 using ParaglidingProject.SL.Core.Helpers;
@@ -15,10 +17,12 @@ namespace ParaglidingProject.SL.Core.Pilot.NS
     public class PilotsService : IPilotsService
     {
         private readonly ParaglidingClubContext _paraContext;
+        private readonly IMapper _mapperProfile;
 
-        public PilotsService(ParaglidingClubContext paraContext)
+        public PilotsService(ParaglidingClubContext paraContext, IMapper mapperProfile)
         {
             _paraContext = paraContext ?? throw new ArgumentNullException(nameof(paraContext));
+            _mapperProfile = mapperProfile;
         }
 
         public async Task<PilotDto> GetPilotAsync(int id)
@@ -38,13 +42,14 @@ namespace ParaglidingProject.SL.Core.Pilot.NS
             var pilotsQuery = _paraContext.Pilots // DEFERRED EXECUTION
                 .AsNoTracking()
                 .FilterPilotBy(options.FilterBy) // RESTRICTION = WHERE
-                .Select(p => new PilotDto // PROJECTION = SELECT
-                {
-                    PilotId = p.ID,
-                    Name = $"{p.FirstName} {p.LastName}",
-                    Address = p.Address,
-                    NumberOfFlights = p.Flights.Count
-                });
+                .ProjectTo<PilotDto>(_mapperProfile.ConfigurationProvider);
+                //.Select(p => new PilotDto // PROJECTION = SELECT
+                //{
+                //    PilotId = p.ID,
+                //    Name = $"{p.FirstName} {p.LastName}",
+                //    Address = p.Address,
+                //    NumberOfFlights = p.Flights.Count
+                //});
 
             options.SetPagingValues(pilotsQuery);
 

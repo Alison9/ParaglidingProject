@@ -8,7 +8,7 @@ namespace ParaglidingProject.SL.Core.Pilot.NS.Helpers
     /// </summary>
     public class SSFP
     {
-        private const int DefaultPageSize = 1; 
+        private const int DefaultPageSize = 10; 
         private const int MaxPageSize = 10;
 
         private int _pageSize = DefaultPageSize;

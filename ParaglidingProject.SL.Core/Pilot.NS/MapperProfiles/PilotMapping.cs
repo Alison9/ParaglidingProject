@@ -8,8 +8,6 @@ namespace ParaglidingProject.SL.Core.Pilot.NS.MapperProfiles
         {
             var pilotDto = new PilotDto
             {
-                PilotId = pilot.ID,
-                Name = $"{pilot.FirstName} {pilot.LastName}",
                 Address = pilot.Address,
                 NumberOfFlights = pilot.Flights.Count
             };

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -74,6 +75,9 @@ namespace ParaglidingProject.API
             services.AddTransient<ISubscriptionService, SubscriptionService>();
             services.AddTransient<IParagliderModelService, ParagliderModelService>();
             services.AddTransient<IAuthService, AuthService>();
+
+            // Scan all assemblies in the domain looking for Profiles
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             var appSettingSection = Configuration.GetSection("JwtSign");
             services.Configure<AppSettings>(appSettingSection);

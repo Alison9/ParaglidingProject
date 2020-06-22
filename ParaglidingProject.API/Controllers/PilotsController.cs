@@ -38,8 +38,8 @@ namespace ParaglidingProject.API.Controllers
             patchDocument.ApplyTo(pilotToPatch, ModelState);
             if (!TryValidateModel(pilotToPatch)) return ValidationProblem(ModelState);
 
-            var valuesMakeSense = pilotToPatch.ValidateBusinessLogic();
-            if (valuesMakeSense == false) return ValidationProblem("One or more values are forbidden");
+            //var valuesMakeSense = pilotToPatch.ValidateBusinessLogic();
+            //if (valuesMakeSense == false) return ValidationProblem("One or more values are forbidden");
 
             var patchSuccess = await _pilotsService.UpdatePilotAsync(pilotId, pilotToPatch);
             return patchSuccess == true ? NoContent() : StatusCode(StatusCodes.Status503ServiceUnavailable);
@@ -57,6 +57,7 @@ namespace ParaglidingProject.API.Controllers
         }
 
         //[Authorize(Roles = "President")]
+        [AllowAnonymous]
         [HttpGet("", Name = "GetAllPilotsAsync")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
