@@ -33,17 +33,18 @@ namespace ParaglidingProject.SL.Core.Pilot.NS
             return pilotDto;
         }
 
-        public async Task<IReadOnlyCollection<PilotDto>> GetAllPilotsAsync(SSFP options)
+        public async Task<IReadOnlyCollection<PilotDto>> GetAllPilotsAsync(PilotSSFP options)
         {
             var pilotsQuery = _paraContext.Pilots // DEFERRED EXECUTION
                 .AsNoTracking()
-                .FilterPilotBy(options.FilterBy) // RESTRICTION = WHERE
+                .FilterPilotBy(options.FilterBy, options.LicenseID) // RESTRICTION = WHERE
                 .Select(p => new PilotDto // PROJECTION = SELECT
                 {
                     PilotId = p.ID,
                     Name = $"{p.FirstName} {p.LastName}",
                     Address = p.Address,
                     NumberOfFlights = p.Flights.Count
+
                 });
 
             options.SetPagingValues(pilotsQuery);

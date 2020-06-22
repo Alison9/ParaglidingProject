@@ -31,6 +31,6 @@ namespace ParaglidingProject.SL.Core.Pilot.NS
         /// Otherwise, the task result is a Collection of type PossessionDto.
         /// <seealso cref="PilotDto">
         /// </returns>
-        Task<IReadOnlyCollection<PilotDto>> GetAllPilotsAsync(SSFP options);
+        Task<IReadOnlyCollection<PilotDto>> GetAllPilotsAsync(PilotSSFP options);
     }
 }
