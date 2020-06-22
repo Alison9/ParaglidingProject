@@ -10,8 +10,10 @@ namespace ParaglidingProject.SL.Core.Possession.NS.Helpers
     private const int DefaultPageSize = 4;
     private const int MaxPageSize = 10;
 
-    private int _pageSize = DefaultPageSize;
-    //public PossessionsFilters FilterBy { get; set; }
+    private int _pageSize = DefaultPageSize;       
+    public PossessionsFilters FilterBy { get; set; }
+    public int PossessionYear { get; set; }
+    public int LevelOfPilot { get; set; }
     public int PageNumber { get; set; } = 1;
     public int PageSize
     {
