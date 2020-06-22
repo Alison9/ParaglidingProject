@@ -25,6 +25,7 @@ namespace ParaglidingProject.SL.Core.Flights.NS
         {
             var flights = _paraContext.Flights
                  .AsNoTracking()
+                 .FilterFlightBy(options.FilterBy, options.TakeOffSiteId, options.LandingSiteId)
                  .Select(f => new FlightDto
                  {
                      FlightId = f.ID,
@@ -40,7 +41,7 @@ namespace ParaglidingProject.SL.Core.Flights.NS
 
             var pageQuery = flights.Page(options.PageNumber - 1, options.PageSize);
 
-            return await flights.ToListAsync();
+            return await pageQuery.ToListAsync();
 
         }
 

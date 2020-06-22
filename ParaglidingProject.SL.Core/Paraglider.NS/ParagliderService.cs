@@ -1,4 +1,6 @@
+using Microsoft.CodeAnalysis.Options;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using ParaglidingProject.Data;
 using ParaglidingProject.SL.Core.Helpers;
 using ParaglidingProject.SL.Core.Paraglider.NS.Helpers;
@@ -40,6 +42,7 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS
         {
             var paragliders = _paraContext.Paragliders
                 .AsNoTracking()
+                .FilterParaglidersBy(options.FilterBy, options.CommissionDate,options.LastRevisionDate)
                 .Select(p => new ParagliderDto
                 {
                     ParagliderId = p.ID,
