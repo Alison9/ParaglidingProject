@@ -9,11 +9,12 @@ namespace ParaglidingProject.SL.Core.Subscription.NS.transferObjects
     {
         public int Id { get; set; }
   
-
         public decimal Amount { get; set; }
 
         public int NumberOfPayments { get; set; }
 
         public bool IsActive { get; set; }
+
+        public decimal TotalAmount { get; set; }
     }
 }

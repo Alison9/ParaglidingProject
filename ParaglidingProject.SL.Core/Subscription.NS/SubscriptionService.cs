@@ -22,34 +22,39 @@ namespace ParaglidingProject.SL.Core.Subscription.NS
         /// <inheritdoc />
         public async Task<IReadOnlyCollection<SubscriptionDto>> GetAllSubscriptionAsync(SubscriptionSSPF options)
         {
-            var Subscriptions = _paraContext.Subscriptions
+            var subscriptionsQuery = _paraContext.Subscriptions
                  .AsNoTracking()
+                 .FilterSubscriptionBy(options.filterBy, options.AmountTrigger)
                  .Select(s => new SubscriptionDto
                  {
                       Id= s.Year,
                      Amount = s.SubscriptionAmount,
                      NumberOfPayments = s.SubscriptionPayments.Count,
-                    IsActive = s.IsActive
+                     IsActive = s.IsActive,
+                     TotalAmount = s.SubscriptionPayments.Count* s.SubscriptionAmount
+
                  });
-            options.SetPagingValues(Subscriptions);
-            var pagedQuery = Subscriptions.Page(options.PageNumber - 1, options.PageSize);
+            
+            options.SetPagingValues(subscriptionsQuery);
+            var pagedQuery = subscriptionsQuery.Page(options.PageNumber - 1, options.PageSize);
             return await pagedQuery.ToListAsync();
         }
         /// <inheritdoc />
         public async Task<SubscriptionDto> GetSubscriptionAsync(int id)
         {
-            var Subscription = await _paraContext.Subscriptions
+            var subscription = await _paraContext.Subscriptions
               .AsNoTracking()
               .Select(s => new SubscriptionDto
               {
                   Id = s.Year,
                   Amount = s.SubscriptionAmount,
                   NumberOfPayments = s.SubscriptionPayments.Count,
-                  IsActive = s.IsActive
+                  IsActive = s.IsActive,
+                  TotalAmount = s.SubscriptionPayments.Count * s.SubscriptionAmount
               })
               .FirstOrDefaultAsync(s => s.Id == id);
 
-            return Subscription;
+            return subscription;
         }
     }
 }

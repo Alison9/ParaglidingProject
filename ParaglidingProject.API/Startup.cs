@@ -41,6 +41,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using ParaglidingProject.SL.Core.Licenses.NS;
 
 namespace ParaglidingProject.API
 {
@@ -87,6 +88,7 @@ namespace ParaglidingProject.API
             services.AddTransient<ISubscriptionService, SubscriptionService>();
             services.AddTransient<IParagliderModelService, ParagliderModelService>();
             services.AddTransient<IAuthService, AuthService>();
+            services.AddTransient<ILicensesService, LicensesService>();
 
             var appSettingSection = Configuration.GetSection("JwtSign");
             services.Configure<AppSettings>(appSettingSection);

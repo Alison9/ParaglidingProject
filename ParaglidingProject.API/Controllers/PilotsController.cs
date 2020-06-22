@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ParaglidingProject.SL.Core.Licenses.NS;
 using ParaglidingProject.SL.Core.Pilot.NS;
 using ParaglidingProject.SL.Core.Pilot.NS.Helpers;
 using ParaglidingProject.SL.Core.Pilot.NS.TransfertObjects;
@@ -19,10 +21,13 @@ namespace ParaglidingProject.API.Controllers
     public class PilotsController : ControllerBase
     {
         private readonly IPilotsService _pilotsService;
+        private readonly ILicensesService _licensesService;
+      
 
-        public PilotsController(IPilotsService pilotsService)
+        public PilotsController(IPilotsService pilotsService, ILicensesService licensesService)
         {
-            _pilotsService = pilotsService ?? throw new ArgumentNullException(nameof(pilotsService)) ;
+            _pilotsService = pilotsService ?? throw new ArgumentNullException(nameof(pilotsService));
+            _licensesService = licensesService ?? throw new ArgumentNullException(nameof(licensesService));
         }
 
         //[Authorize(Roles = "Secretary")]
@@ -40,13 +45,19 @@ namespace ParaglidingProject.API.Controllers
         [HttpGet("", Name = "GetAllPilotsAsync")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<IReadOnlyCollection<PilotDto>>> GetAllPilotsAsync([FromQuery] SSFP options)
+        public async Task<ActionResult<IReadOnlyCollection<PilotDto>>> GetAllPilotsAsync([FromQuery] PilotSSFP options)
         {
             var pilots = await _pilotsService.GetAllPilotsAsync(options);
             if (pilots == null) return NotFound("Collection was empty :( ");
 
-            var previousPageLink = options.HasPrevious ? CreateOrdersResourceUri(options, RessourceUriType.PreviousPage) : null;
-            var nextPageLink = options.HasNext ? CreateOrdersResourceUri(options, RessourceUriType.NextPage) : null;
+            if((int)options.FilterBy == 3)
+            {
+                var license = await _licensesService.GetLicenseAsync(options.LicenseID);
+                if (license == null) return NotFound("License not valid");
+            };
+
+            var previousPageLink = options.HasPrevious ? CreateResourceUri(options, RessourceUriType.PreviousPage) : null;
+            var nextPageLink = options.HasNext ? CreateResourceUri(options, RessourceUriType.NextPage) : null;
 
             var paginationMetadata = new
             {
@@ -54,6 +65,8 @@ namespace ParaglidingProject.API.Controllers
                 options.PageSize,
                 options.PageNumber,
                 options.TotalPages,
+                options.FilterBy,
+                options.LicenseID,
                 previousPageLink,
                 nextPageLink
             };
@@ -63,7 +76,7 @@ namespace ParaglidingProject.API.Controllers
             return Ok(pilots);
         }
 
-        private string CreateOrdersResourceUri(SSFP options, RessourceUriType type)
+        private string CreateResourceUri(PilotSSFP options, RessourceUriType type)
         {
             switch (type)
             {
@@ -73,7 +86,8 @@ namespace ParaglidingProject.API.Controllers
                         {
                             PageNumber = options.PageNumber - 1,
                             options.PageSize,
-                            options.FilterBy
+                            options.FilterBy,
+                            options.LicenseID
                         });
 
                 case RessourceUriType.NextPage:
@@ -82,7 +96,8 @@ namespace ParaglidingProject.API.Controllers
                         {
                             PageNumber = options.PageNumber + 1,
                             options.PageSize,
-                            options.FilterBy
+                            options.FilterBy,
+                            options.LicenseID
                         });
 
                 default:
@@ -91,7 +106,8 @@ namespace ParaglidingProject.API.Controllers
                         {
                             options.PageNumber,
                             options.PageSize,
-                            options.FilterBy
+                            options.FilterBy,
+                            options.LicenseID
                         });
             }
         }

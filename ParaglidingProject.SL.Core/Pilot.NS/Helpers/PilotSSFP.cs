@@ -6,13 +6,14 @@ namespace ParaglidingProject.SL.Core.Pilot.NS.Helpers
     /// <summary>
     /// Search, Sort, Filter, Page
     /// </summary>
-    public class SSFP
+    public class PilotSSFP
     {
         private const int DefaultPageSize = 1; 
         private const int MaxPageSize = 10;
 
         private int _pageSize = DefaultPageSize;
         public PilotsFilters FilterBy { get; set; }
+        public int LicenseID { get; set; }
         public int PageNumber { get; set; } = 1;
         public int PageSize
         {

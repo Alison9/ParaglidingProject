@@ -57,7 +57,7 @@ namespace ParaglidingProject.API.Controllers
         [HttpGet("", Name = "GetAllSubscriptionAsync")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<IReadOnlyCollection<SubscriptionDto>>> GetAllSubscriptionAsync(SubscriptionSSPF options)
+        public async Task<ActionResult<IReadOnlyCollection<SubscriptionDto>>> GetAllSubscriptionAsync([FromQuery]SubscriptionSSPF options)
         {
             var Subscriptions = await _SubscriptionService.GetAllSubscriptionAsync(options);
             if (Subscriptions == null) return NotFound("Collection was empty :( ");
