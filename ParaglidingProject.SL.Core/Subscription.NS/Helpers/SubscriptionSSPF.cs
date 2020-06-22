@@ -18,6 +18,7 @@ namespace ParaglidingProject.SL.Core.Subscription.NS.Helpers
             set => _pageSize = (value > MaxPageSize) ? MaxPageSize : value; 
         }
         public int TotalPages { get; private set; }
+        public int TotalAmountSubscriptions { get; set; }
         public int TotalCount { get; private set; }
         public bool HasPrevious => (PageNumber > 1);
         public bool HasNext => (PageNumber < TotalPages);
@@ -45,6 +46,7 @@ namespace ParaglidingProject.SL.Core.Subscription.NS.Helpers
             }
         }
         public decimal AmountTrigger { get; set; }
+        public SubscriptionSorts orderBy { get; set; }
 
     }
 }

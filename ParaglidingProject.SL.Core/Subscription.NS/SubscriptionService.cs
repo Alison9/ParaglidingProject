@@ -25,6 +25,7 @@ namespace ParaglidingProject.SL.Core.Subscription.NS
             var subscriptionsQuery = _paraContext.Subscriptions
                  .AsNoTracking()
                  .FilterSubscriptionBy(options.filterBy, options.AmountTrigger)
+                 .SubscriptionSortBy(options.orderBy)
                  .Select(s => new SubscriptionDto
                  {
                       Id= s.Year,
