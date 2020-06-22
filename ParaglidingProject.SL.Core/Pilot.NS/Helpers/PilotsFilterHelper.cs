@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 
 namespace ParaglidingProject.SL.Core.Pilot.NS.Helpers
@@ -7,12 +8,13 @@ namespace ParaglidingProject.SL.Core.Pilot.NS.Helpers
     {
         NoFilter = 0,
         NoFlights = 1,
-        AtLeastOneFlight = 2
+        AtLeastOneFlight = 2,
+        License = 3
     }
 
     public static class PilotsFilterHelper
     {
-        public static IQueryable<Models.Pilot> FilterPilotBy(this IQueryable<Models.Pilot> pilots, PilotsFilters filterBy)
+        public static IQueryable<Models.Pilot> FilterPilotBy(this IQueryable<Models.Pilot> pilots, PilotsFilters filterBy, int licenseID = 0)
         {
             switch (filterBy)
             {
@@ -27,6 +29,10 @@ namespace ParaglidingProject.SL.Core.Pilot.NS.Helpers
                     return pilots
                         .Where(p => p.Flights.Count > 0);
 
+                case PilotsFilters.License:
+                    return pilots
+                        .Where(p => p.Possessions.Any(po => po.LicenseID == licenseID));
+                       
                 default:
                     throw new ArgumentOutOfRangeException
                         (nameof(filterBy), filterBy, null);
