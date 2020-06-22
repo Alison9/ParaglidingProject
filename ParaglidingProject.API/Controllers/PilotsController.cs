@@ -42,6 +42,7 @@ namespace ParaglidingProject.API.Controllers
         }
 
         //[Authorize(Roles = "President")]
+        [AllowAnonymous]
         [HttpGet("", Name = "GetAllPilotsAsync")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -65,6 +66,7 @@ namespace ParaglidingProject.API.Controllers
                 options.PageSize,
                 options.PageNumber,
                 options.TotalPages,
+                options.SortBy,
                 options.FilterBy,
                 options.LicenseID,
                 previousPageLink,
@@ -86,6 +88,7 @@ namespace ParaglidingProject.API.Controllers
                         {
                             PageNumber = options.PageNumber - 1,
                             options.PageSize,
+                            options.SortBy,
                             options.FilterBy,
                             options.LicenseID
                         });
@@ -96,6 +99,7 @@ namespace ParaglidingProject.API.Controllers
                         {
                             PageNumber = options.PageNumber + 1,
                             options.PageSize,
+                            options.SortBy,
                             options.FilterBy,
                             options.LicenseID
                         });
@@ -106,6 +110,7 @@ namespace ParaglidingProject.API.Controllers
                         {
                             options.PageNumber,
                             options.PageSize,
+                            options.SortBy,
                             options.FilterBy,
                             options.LicenseID
                         });

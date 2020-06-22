@@ -1,4 +1,5 @@
-﻿using ParaglidingProject.SL.Core.Site.NS.TransfertObjects;
+﻿using ParaglidingProject.SL.Core.Site.NS.Helpers;
+using ParaglidingProject.SL.Core.Site.NS.TransfertObjects;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -32,7 +33,7 @@ namespace ParaglidingProject.SL.Core.Site.NS
         /// The task result is a Collection of type SiteDto.
         /// <seealso cref="SiteDto"/>
         /// </returns>
-        Task<IReadOnlyCollection<SiteDto>> GetAllSitesAsync();
+        Task<IReadOnlyCollection<SiteDto>> GetAllSitesAsync(SiteSSFP options);
 
         /// <summary>
         /// Asynchronously retrieve all the Landing Sites.
