@@ -77,28 +77,31 @@ namespace ParaglidingProject.API.Controllers
             switch (type)
             {
                 case RessourceUriType.PreviousPage:
-                    return Url.Link("GetAllPilotsAsync",
+                    return Url.Link("GetAllTraineeShipAsync",
                         new
                         {
                             PageNumber = options.PageNumber - 1,
-                            options.PageSize                           
+                            options.PageSize,
+                             options.SortBy
                         });
 
                 case RessourceUriType.NextPage:
-                    return Url.Link("GetAllPilotsAsync",
+                    return Url.Link("GetAllTraineeShipAsync",
                         new
                         {
                             PageNumber = options.PageNumber + 1,
-                            options.PageSize                           
+                            options.PageSize,
+                            options.SortBy
                         });
 
                 default:
-                    return Url.Link("GetAllPilotsAsync",
+                    return Url.Link("GetAllTraineeShipAsync",
                         new
                         {
                             options.PageNumber,
-                            options.PageSize
-                            
+                            options.PageSize,
+                            options.SortBy
+
                         });
             }
         }
