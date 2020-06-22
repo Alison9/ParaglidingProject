@@ -44,6 +44,7 @@ namespace ParaglidingProject.SL.Core.Possession.NS
         {
             var possessions = _paraContext.Possessions
                 .AsNoTracking()
+                .FilterPossessionBy(options)
                 .Select(po => new PossessionDto
                 {
                    
@@ -67,7 +68,7 @@ namespace ParaglidingProject.SL.Core.Possession.NS
         public async Task<IReadOnlyCollection<PossessionDto>> GetPossessionByPilotAsync(int pilotId)
         {
             var pilot = await _paraContext.Pilots
-               .AsNoTracking()
+               .AsNoTracking()              
                .FirstOrDefaultAsync(p => p.ID == pilotId);
 
             if (pilot == null) return null;
