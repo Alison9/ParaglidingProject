@@ -8,15 +8,19 @@ using System.Text;
 
 namespace ParaglidingProject.SL.Core.TraineeShip.NS.NewFolder1
 {
-   public class TraineeshipSSFP
+    public class TraineeshipSSFP
     {
         private const int DefaultPageSize = 5;
         private const int MaxPageSize = 10;
 
         private int _pageSize = DefaultPageSize;
-      
+
         public int PageNumber { get; set; } = 1;
         public TraineeShipSorts SortBy { get; set; }
+        
+        public TraineeShipSearch SearchBy {get; set;}
+        
+          
         public int PageSize
         {
             get => _pageSize;
