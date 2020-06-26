@@ -43,7 +43,7 @@ namespace ParaglidingProject.SL.Core.ParagliderModel.NS
       {
         var modelparaglider = _paraContext.ParagliderModels //DEFERED EXECUTION
             .AsNoTracking()
-            //.ParagliderModelSearchBy()
+            .ParagliderModelSearchBy(options.SearchBy)
             .FilterParagliderModelBy(options.FilterBy,options.Pilotweight)
             .Select(p => new ParagliderModelDto // Projection
             {

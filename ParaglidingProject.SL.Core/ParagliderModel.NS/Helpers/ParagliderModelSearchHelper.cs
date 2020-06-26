@@ -1,37 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace ParaglidingProject.SL.Core.ParagliderModel.NS.Helpers
 {
-	public enum ParagliderModelSearchs
+    public static class ParagliderModelSearchHelper
 	{
-		NoSearch = 0,
-		SearchNumber = 1,
-		SearchDate = 2
-	}
-	public static class ParagliderModelSearchHelper
-	{
-		public static IQueryable<Models.ParagliderModel> ParagliderModelSearchBy(this IQueryable<Models.ParagliderModel> paragliderModelSearch, ParagliderModelSearchs searchBy, string numberSearch, string dateSearch)
+		public static IQueryable<Models.ParagliderModel> ParagliderModelSearchBy(this IQueryable<Models.ParagliderModel> paragliderModels, string searchBy)
 		{
-			DateTime dateParsed = new DateTime();
-			var isDateOk = DateTime.TryParse(dateSearch, out dateParsed);
-			if (!isDateOk)throw new ArgumentOutOfRangeException(nameof(searchBy), searchBy, null);
+            if (string.IsNullOrWhiteSpace(searchBy))
+            {
+                return paragliderModels;
+            }
 
-			switch (searchBy)
-			{
-				case ParagliderModelSearchs.NoSearch:
-					return paragliderModelSearch;
-				case ParagliderModelSearchs.SearchNumber:
-					return paragliderModelSearch.Where(pm => pm.ApprovalNumber.Contains(numberSearch));
-				case ParagliderModelSearchs.SearchDate:
-					return paragliderModelSearch.Where(pm => pm.ApprovalDate == dateParsed);
-				default:
-					throw new ArgumentOutOfRangeException(nameof(searchBy), searchBy, null);
-			}
-			  
-		}
+            if (searchBy.Contains("m²"))
+            {
+                var sanitizedSearchBy = searchBy.Substring(0, 2);
+                var sizeParsed = int.TryParse(sanitizedSearchBy, out var searchBySize);
 
-	}
+                if (sizeParsed)
+                    return paragliderModels.Where(pm => pm.Size.Contains(searchBySize.ToString()));
+            }
+
+            var dateParsed = DateTime.TryParse(searchBy, out var searchByDate);
+
+            if (dateParsed)
+                return paragliderModels.Where(pm => pm.ApprovalDate == searchByDate);
+
+            if (searchBy.Length == 8 && searchBy.Contains("/"))
+                return paragliderModels.Where(pm => pm.ApprovalNumber == searchBy);
+
+            throw new AmbiguousActionException("Search does not make any sense");
+        }
+    }
 }

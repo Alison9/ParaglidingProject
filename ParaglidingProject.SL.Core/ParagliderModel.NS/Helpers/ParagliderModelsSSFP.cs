@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
 
 namespace ParaglidingProject.SL.Core.ParagliderModel.NS.Helpers
 {
@@ -11,8 +8,6 @@ namespace ParaglidingProject.SL.Core.ParagliderModel.NS.Helpers
         private const int DefaultPageSize = 1;
         private int _pageSize = DefaultPageSize;
         private const int MaxPageSize = 10;
-       
-
         public int PageSize
         {
             get => _pageSize;
@@ -21,14 +16,11 @@ namespace ParaglidingProject.SL.Core.ParagliderModel.NS.Helpers
         public bool HasPrevious => (PageNumber > 1);
         public bool HasNext => (PageNumber < TotalPages);
         public int Pilotweight { get; set; }
-       
         public int PageNumber { get; set; } = 1;
         public int TotalPages { get; private set; }
         public int TotalCount { get; private set; }
         public PargliderModelFilters FilterBy { get; set; }
-
-        public ParagliderModelSearchs SearchBy { get; set; }
-        public string ApprovalDate { get; set; }
+        public string SearchBy { get; set; }
         public void SetPagingValues<T>(IQueryable<T> query)
         {
             TotalCount = query.Count();

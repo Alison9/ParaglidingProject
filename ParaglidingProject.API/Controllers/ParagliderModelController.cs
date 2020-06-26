@@ -22,6 +22,7 @@ namespace ParaglidingProject.API.Controllers
     public class ParagliderModelController : ControllerBase
     {
         private readonly IParagliderModelService _ModelParagliderService;
+
         /// <summary>
         /// ParagliderModel interface constructor.
         /// </summary>
@@ -40,15 +41,14 @@ namespace ParaglidingProject.API.Controllers
         /// <seealso cref="ParagliderModelDto"/>
         /// </returns>
         /// <remarks></remarks>
-
         [HttpGet("{paragliderModelId}", Name = "GetParagliderModelAsync")]
-
         public async Task<ActionResult<ParagliderModelDto>> GetParagliderModelAsync([FromRoute] int modelParagliderId)
         {
             var modelParaglider = await _ModelParagliderService.GetParagliderModelAsync(modelParagliderId);
             if (modelParaglider == null) return NotFound("Couldn't find any model of paraglider");
             return Ok(modelParaglider);
         }
+
         /// <summary>
         /// get all paraglidermodels
         /// </summary>
@@ -58,9 +58,7 @@ namespace ParaglidingProject.API.Controllers
         /// an actionresult of type 404 if no paraglidermodel was find
         /// <seealso cref="ParagliderModelDto"/>
         /// </returns>
-
         [HttpGet("", Name = "GetAllModelParaglidersAsync")]
-
         public async Task<ActionResult<IReadOnlyCollection<ParagliderModelDto>>> GetAllModelParaglidersAsync([FromQuery] ParagliderModelsSSFP options)
         {
             var listModelParaglider = await _ModelParagliderService.GetAllParagliderModelsAsync(options);
@@ -80,11 +78,7 @@ namespace ParaglidingProject.API.Controllers
             Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
             return Ok(listModelParaglider);
         }
-        /// <summary>
-        /// </summary>
-        /// <param name="options"> the user custom options for search, sort ,filter page</param>
-        /// <param name="type"> one element of the enumeration  to distinguish multiple type of url to create</param>
-        /// <returns></returns>
+        
 
         private string CreateUriParagliderModel(ParagliderModelsSSFP options, RessourceUriType type)
         {
@@ -125,6 +119,7 @@ namespace ParaglidingProject.API.Controllers
                         });
             }
         }
+
        public enum RessourceUriType
         {
             PreviousPage = 0,
