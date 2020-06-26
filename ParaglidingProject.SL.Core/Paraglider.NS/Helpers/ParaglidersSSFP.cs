@@ -40,6 +40,11 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS.Helpers
             PageNumber = NormalizePageNumber();
         }
 
+        //Search propreties
+        public ParaglidersSearch SearchBy { get; set; }
+        public string Name { get; set; }
+        public DateTime DateLastRevision { get; set; }
+
         /// <summary>
         /// Refactoring method that sets the correct page number for the user that navigates a collection of paragliders.
         /// If the user tries to go below the first page or over the last page, it is redirected to the first page or the last page, respectively. 
