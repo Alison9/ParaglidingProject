@@ -32,6 +32,9 @@ namespace ParaglidingProject.SL.Core.TraineeshipPayment.NS.Helpers
             } 
         }
 
+        public TraineeshipPaymentsFilters FilterBy { get; set; }
+        public int TraineeshipId { get; set; }
+        public int PilotId { get; set; }
         public int TotalPages { get; private set; }
         public int TotalCount { get; private set; }
         public bool HasPrevious => (PageNumber > 1);
