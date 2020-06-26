@@ -71,6 +71,7 @@ namespace ParaglidingProject.API.Controllers
                 options.PageSize,
                 options.PageNumber,
                 options.TotalPages,
+                options.SortBy,
                 previousPageLink,
                 nextPageLink
             };
@@ -95,7 +96,9 @@ namespace ParaglidingProject.API.Controllers
                         new
                         {
                             PageNumber = options.PageNumber - 1,
-                            options.PageSize
+                            options.PageSize,
+                            options.SortBy
+                            
                         }) ;
 
                 case RessourceUriType.NextPage:
@@ -103,7 +106,8 @@ namespace ParaglidingProject.API.Controllers
                         new
                         {
                             PageNumber = options.PageNumber + 1,
-                            options.PageSize
+                            options.PageSize,
+                             options.SortBy
                         });
 
                default:
@@ -111,7 +115,8 @@ namespace ParaglidingProject.API.Controllers
                         new
                         {
                             options.PageNumber,
-                            options.PageSize
+                            options.PageSize,
+                            options.SortBy
                         });
             }
         }

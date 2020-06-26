@@ -10,11 +10,12 @@ namespace ParaglidingProject.SL.Core.TraineeshipPayment.NS.Helpers
     /// </summary>
     public class TraineeshipPaymentSSFP
     {
-        private const int DefaultPageSize = 2;
+        private const int DefaultPageSize = 5;
         private const int MaxPageSize = 10;
 
         private int _pageSize = DefaultPageSize;
         public int PageNumber { get; set; } = 1;
+       public TraineeShipPaymentSorts SortBy { get; set; }
         public int PageSize
         {
             get => _pageSize;
