@@ -29,6 +29,7 @@ namespace ParaglidingProject.SL.Core.Site.NS
         {
             var sites = _paraContext.Sites
                 .AsNoTracking()
+                .SearchSitesBy(options.SearchBy,options.SiteApproach,options.SiteName)
                 .SortSitesBy(options.SortBy)
                 .FilterSitesBy(options.FilterBy, options.Orientation, options.AltitudeTakeOff)
                 .MapSiteDto();
