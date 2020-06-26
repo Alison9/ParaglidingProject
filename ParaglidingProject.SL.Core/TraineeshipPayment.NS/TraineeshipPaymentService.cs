@@ -26,7 +26,10 @@ namespace ParaglidingProject.SL.Core.TraineeshipPayement.NS
         public async Task<IReadOnlyCollection<TraineeshipPaymentDto>> GetAllTraineeshipPaymentAsync(TraineeshipPaymentSSFP options)
         {
             var traineeshipPayments = _paraContext.TraineeshipPayments
+                .SearchTraineeshipPaymentBy(options)
                 .AsNoTracking()
+                .SortTraineeshipPaymentBy(options.SortBy)
+                .FilterTraineeshipPaymentBy(options.FilterBy, options)
                 .Select(p => new TraineeshipPaymentDto
                 {
                    PilotId = p.PilotID,

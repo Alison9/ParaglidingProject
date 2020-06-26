@@ -14,6 +14,8 @@ namespace ParaglidingProject.SL.Core.Pilot.NS.Helpers
         private int _pageSize = DefaultPageSize;
         public PilotsFilters FilterBy { get; set; }
         public PilotsSorts SortBy { get; set; }
+        public PilotsSearches SearchBy { get; set; }
+        public string UserInput { get; set; }
         public int LicenseID { get; set; }
         public int PageNumber { get; set; } = 1;
         public int PageSize

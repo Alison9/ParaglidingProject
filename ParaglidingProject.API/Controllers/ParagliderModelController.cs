@@ -97,6 +97,7 @@ namespace ParaglidingProject.API.Controllers
                             PageNumber = options.PageNumber - 1,
                             options.PageSize,
                             options.FilterBy,
+                            options.SearchBy,
                             options.Pilotweight
                         });
 
@@ -107,6 +108,7 @@ namespace ParaglidingProject.API.Controllers
                             PageNumber = options.PageNumber + 1,
                             options.PageSize,
                             options.FilterBy,
+                            options.SearchBy,
                             options.Pilotweight
                         });
 
@@ -117,6 +119,7 @@ namespace ParaglidingProject.API.Controllers
                             options.PageNumber,
                             options.PageSize,
                             options.FilterBy,
+                            options.SearchBy,
                             options.Pilotweight
 
                         });

@@ -37,6 +37,7 @@ namespace ParaglidingProject.SL.Core.Pilot.NS
         {
             var pilotsQuery = _paraContext.Pilots // DEFERRED EXECUTION
                 .AsNoTracking()
+                .SearchPilotBy(options)
                 .SortPilotsBy(options.SortBy)
                 .FilterPilotBy(options.FilterBy, options.LicenseID) // RESTRICTION = WHERE
                 .Select(p => new PilotDto // PROJECTION = SELECT

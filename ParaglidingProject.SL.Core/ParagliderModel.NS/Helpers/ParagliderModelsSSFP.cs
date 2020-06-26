@@ -27,6 +27,8 @@ namespace ParaglidingProject.SL.Core.ParagliderModel.NS.Helpers
         public int TotalCount { get; private set; }
         public PargliderModelFilters FilterBy { get; set; }
 
+        public ParagliderModelSearchs SearchBy { get; set; }
+        public string ApprovalDate { get; set; }
         public void SetPagingValues<T>(IQueryable<T> query)
         {
             TotalCount = query.Count();
@@ -41,5 +43,6 @@ namespace ParaglidingProject.SL.Core.ParagliderModel.NS.Helpers
             else
                 PageNumber = 1;
         }
+        
     }
 }
