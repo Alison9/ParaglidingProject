@@ -31,7 +31,7 @@ namespace ParaglidingProject.SL.Core.TraineeshipPayment.NS.Helpers
             
             } 
         }
-
+        public string UserInput { get; set; }
         public int TotalPages { get; private set; }
         public int TotalCount { get; private set; }
         public bool HasPrevious => (PageNumber > 1);

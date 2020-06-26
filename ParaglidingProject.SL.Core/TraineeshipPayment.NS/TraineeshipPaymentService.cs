@@ -26,6 +26,7 @@ namespace ParaglidingProject.SL.Core.TraineeshipPayement.NS
         public async Task<IReadOnlyCollection<TraineeshipPaymentDto>> GetAllTraineeshipPaymentAsync(TraineeshipPaymentSSFP options)
         {
             var traineeshipPayments = _paraContext.TraineeshipPayments
+                .SearchTraineeshipPaymentBy(options)
                 .AsNoTracking()
                 .Select(p => new TraineeshipPaymentDto
                 {

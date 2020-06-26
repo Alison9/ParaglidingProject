@@ -71,6 +71,7 @@ namespace ParaglidingProject.API.Controllers
                 options.PageSize,
                 options.PageNumber,
                 options.TotalPages,
+                options.UserInput,
                 previousPageLink,
                 nextPageLink
             };
