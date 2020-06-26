@@ -68,6 +68,7 @@ namespace ParaglidingProject.API.Controllers
                 options.TotalPages,
                 options.SortBy,
                 options.FilterBy,
+                options.SearchBy,
                 options.LicenseID,
                 previousPageLink,
                 nextPageLink
@@ -90,6 +91,7 @@ namespace ParaglidingProject.API.Controllers
                             options.PageSize,
                             options.SortBy,
                             options.FilterBy,
+                            options.SearchBy,
                             options.LicenseID
                         });
 
@@ -101,6 +103,7 @@ namespace ParaglidingProject.API.Controllers
                             options.PageSize,
                             options.SortBy,
                             options.FilterBy,
+                            options.SearchBy,
                             options.LicenseID
                         });
 
@@ -112,6 +115,7 @@ namespace ParaglidingProject.API.Controllers
                             options.PageSize,
                             options.SortBy,
                             options.FilterBy,
+                            options.SearchBy,
                             options.LicenseID
                         });
             }

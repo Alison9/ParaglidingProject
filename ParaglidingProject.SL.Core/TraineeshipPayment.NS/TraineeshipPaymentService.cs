@@ -28,6 +28,7 @@ namespace ParaglidingProject.SL.Core.TraineeshipPayement.NS
             var traineeshipPayments = _paraContext.TraineeshipPayments
                 .AsNoTracking()
                 .SortTraineeshipPaymentBy(options.SortBy)
+                .FilterTraineeshipPaymentBy(options.FilterBy, options)
                 .Select(p => new TraineeshipPaymentDto
                 {
                    PilotId = p.PilotID,
