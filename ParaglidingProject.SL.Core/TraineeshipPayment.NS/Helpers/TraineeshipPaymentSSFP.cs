@@ -10,11 +10,12 @@ namespace ParaglidingProject.SL.Core.TraineeshipPayment.NS.Helpers
     /// </summary>
     public class TraineeshipPaymentSSFP
     {
-        private const int DefaultPageSize = 2;
+        private const int DefaultPageSize = 5;
         private const int MaxPageSize = 10;
 
         private int _pageSize = DefaultPageSize;
         public int PageNumber { get; set; } = 1;
+       public TraineeShipPaymentSorts SortBy { get; set; }
         public int PageSize
         {
             get => _pageSize;
@@ -32,6 +33,11 @@ namespace ParaglidingProject.SL.Core.TraineeshipPayment.NS.Helpers
             } 
         }
         public string UserInput { get; set; }
+        
+
+        public TraineeshipPaymentsFilters FilterBy { get; set; }
+        public int TraineeshipId { get; set; }
+        public int PilotId { get; set; }
         public int TotalPages { get; private set; }
         public int TotalCount { get; private set; }
         public bool HasPrevious => (PageNumber > 1);
@@ -42,39 +48,13 @@ namespace ParaglidingProject.SL.Core.TraineeshipPayment.NS.Helpers
 
             TotalPages = (int)Math.Ceiling((double)TotalCount / PageSize);
 
-            //if (Math.Min(Math.Max(1, PageNumber), TotalPages) > 0)
-            //{
-            //    PageNumber = Math.Min(Math.Max(1, PageNumber), TotalPages);
-            //}
-            //else
-            //{
-            //    PageNumber = 1;
-            //}
-
-          PageNumber = NormalizePageNumber();
+            PageNumber = NormalizePageNumber();
 
         }
 
         private int NormalizePageNumber()
         {
             int normalizedPageNumber;
-
-            // Premier essai de if
-
-            //if (PageNumber <= 0)
-            //{
-            //    normalizedPageNumber = 1;
-            //}
-            //else if (PageNumber > TotalPages)
-            //{
-            //    normalizedPageNumber = TotalPages;
-            //}
-            //else
-            //{
-            //    normalizedPageNumber = PageNumber;
-            //}
-
-            //Deuxième essai de if
 
             if(PageNumber >0)
             {

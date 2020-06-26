@@ -30,6 +30,7 @@ namespace ParaglidingProject.SL.Core.TraineeShip.NS
             var traineeships = _paraContext.Traineeships
                  .AsNoTracking()
                  .SortTraineeshipBy(options.SortBy)
+                 .SearchTraineeshipBy(options.SearchBy)
                  .Select(T => new TraineeShipDto
                  {
                      Traineeshipid = T.ID,

@@ -78,6 +78,9 @@ namespace ParaglidingProject.API.Controllers
                 options.PageSize,
                 options.PageNumber,
                 options.TotalPages,
+                options.SearchBy,
+                options.DateLastRevision,
+                options.Name,
                 previousPageLink,
                 nextPageLink
             };
@@ -103,9 +106,11 @@ namespace ParaglidingProject.API.Controllers
                     return Url.Link("GetAllParaglidersAsync",
                         new
                         {
-                            PageNumber = options.PageNumber = 1,
+                            PageNumber = options.PageNumber = -1,
                             options.PageSize,
-                            
+                            options.SearchBy,
+                            options.LastRevisionDate,
+                            options.Name
                             
                             
                         });
@@ -114,14 +119,20 @@ namespace ParaglidingProject.API.Controllers
                         new
                         {
                             PageNumber = options.PageNumber + 1,
-                            options.PageSize
+                            options.PageSize,
+                            options.SearchBy,
+                            options.LastRevisionDate,
+                            options.Name
                         });
                 default:
                     return Url.Link("GetAllParaglidersAsync",
                         new
                         {
                             options.PageNumber,
-                            options.PageSize
+                            options.PageSize,
+                            options.SearchBy,
+                            options.LastRevisionDate,
+                            options.Name
                         });
             }
         }
