@@ -6,6 +6,7 @@ namespace ParaglidingProject.SL.Core.Pilot.NS.MapperProfiles
     {
         public static PilotDto MapPilotDto(this Models.Pilot pilot)
         {
+            // BLACK BOX
             var pilotDto = new PilotDto
             {
                 PilotId = pilot.ID,

@@ -14,33 +14,21 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
 using ParaglidingProject.Data;
-
 using ParaglidingProject.SL.Core.Paraglider.NS;
 using ParaglidingProject.SL.Core.Pilot.NS;
-
 using ParaglidingProject.SL.Core.TraineeshipPayement.NS;
 using ParaglidingProject.SL.Core.Levels.NS;
 using ParaglidingProject.SL.Core.Site.NS;
 using ParaglidingProject.SL.Core.Flights.NS;
-
 using ParaglidingProject.SL.Core.Role.NS;
 using ParaglidingProject.SL.Core.TraineeShip.NS;
 using ParaglidingProject.SL.Core.Possession.NS;
 using ParaglidingProject.SL.Core.Subscription.NS;
 using ParaglidingProject.SL.Core.ParagliderModel.NS;
 using ParaglidingProject.SL.Core.Auth.NS;
-using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
-using System.Reflection;
-using System.IO;
-using System;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
 using ParaglidingProject.SL.Core.Licenses.NS;
 
 namespace ParaglidingProject.API
@@ -53,6 +41,8 @@ namespace ParaglidingProject.API
         }
 
         public IConfiguration Configuration { get; }
+
+        public static readonly ILoggerFactory MyLoggerFactory = LoggerFactory.Create(builder => { builder.AddConsole(); });
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -73,7 +63,7 @@ namespace ParaglidingProject.API
 
             // Register DbContext
             var localhostCs = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<ParaglidingClubContext>(options => options.UseSqlServer(localhostCs));
+            services.AddDbContext<ParaglidingClubContext>(options => options.UseSqlServer(localhostCs).UseLoggerFactory(MyLoggerFactory));
 
             // Register our Custom Services
             services.AddTransient<IPilotsService, PilotsService>();

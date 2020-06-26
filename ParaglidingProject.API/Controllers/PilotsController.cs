@@ -31,6 +31,7 @@ namespace ParaglidingProject.API.Controllers
         }
 
         //[Authorize(Roles = "Secretary")]
+        [AllowAnonymous]
         [HttpGet("{pilotId}", Name = "GetPilotAsync")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

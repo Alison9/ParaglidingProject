@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using ParaglidingProject.Data;
 using ParaglidingProject.SL.Core.Helpers;
 using ParaglidingProject.SL.Core.Pilot.NS.Helpers;
-using ParaglidingProject.SL.Core.Pilot.NS.MapperProfiles;
 using ParaglidingProject.SL.Core.Pilot.NS.TransfertObjects;
 
 namespace ParaglidingProject.SL.Core.Pilot.NS
@@ -15,22 +15,33 @@ namespace ParaglidingProject.SL.Core.Pilot.NS
     public class PilotsService : IPilotsService
     {
         private readonly ParaglidingClubContext _paraContext;
+        private readonly ILogger<PilotsService> _logger;
 
-        public PilotsService(ParaglidingClubContext paraContext)
+        public PilotsService(ParaglidingClubContext paraContext, ILogger<PilotsService> logger)
         {
             _paraContext = paraContext ?? throw new ArgumentNullException(nameof(paraContext));
+            _logger = logger;
         }
 
         public async Task<PilotDto> GetPilotAsync(int id)
         {
             var pilot = await _paraContext.Pilots
                 .AsNoTracking()
-                .Include(p => p.Flights)
-                .FirstOrDefaultAsync(p => p.ID == id);
+                //.Include(p => p.Flights)
+                .Select(p => new PilotDto
+                {
+                    PilotId = p.ID,
+                    Name = p.LastName,
+                    Address = p.Address,
+                    NumberOfFlights = p.Flights.Count,
+                })
+                .FirstOrDefaultAsync(p => p.PilotId == id);
 
-            var pilotDto = pilot?.MapPilotDto();
+            _logger.LogInformation("TEST TEST TEST TEST TEST TEST TEST");
 
-            return pilotDto;
+            //var pilotDto = pilot?.MapPilotDto();
+
+            return pilot;
         }
 
         public async Task<IReadOnlyCollection<PilotDto>> GetAllPilotsAsync(PilotSSFP options)
