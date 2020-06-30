@@ -1,47 +1,47 @@
-﻿@model ParaglidingProject.Models.ParagliderModel
+﻿@model ParaglidingProject.SL.Core.ParagliderModel.NS.TransfertObjects.ParagliderModelAndParagliders
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Details du modèle numéro @Model.ID</h1>
+<h1>Details du modèle numéro @Model.ParagliderModelDto.ID</h1>
 
 <div>
 
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Size)
+            @Html.DisplayNameFor(model => model.ParagliderModelDto.Size)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Size)
+            @Html.DisplayFor(model => model.ParagliderModelDto.Size)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.MaxWeightPilot)
+            @Html.DisplayNameFor(model => model.ParagliderModelDto.MaxWeightPilot)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MaxWeightPilot)
+            @Html.DisplayFor(model => model.ParagliderModelDto.MaxWeightPilot)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.MinWeightPilot)
+            @Html.DisplayNameFor(model => model.ParagliderModelDto.MinWeightPilot)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MinWeightPilot)
+            @Html.DisplayFor(model => model.ParagliderModelDto.MinWeightPilot)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ApprovalNumber)
+            @Html.DisplayNameFor(model => model.ParagliderModelDto.ApprovalNumber)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ApprovalNumber)
+            @Html.DisplayFor(model => model.ParagliderModelDto.ApprovalNumber)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ApprovalDate)
+            @Html.DisplayNameFor(model => model.ParagliderModelDto.ApprovalDate)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ApprovalDate)
+            @Html.DisplayFor(model => model.ParagliderModelDto.ApprovalDate)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Paragliders)
+            @Html.DisplayNameFor(model => model.ParagliderDto)
         </dt>
         <dd class="col-sm-10">
             <table class="table">
@@ -49,24 +49,24 @@
                     <th>Numéro du parapente</th>
                     <th>Date de mise en service</th>
                     <th>Date de dernière révision</th>
-                    <a class="btn btn-primary" asp-route-id="@Model.ID" asp-action="CreateParagliding">Ajouter un parapente</a>
+                    <a class="btn btn-primary" asp-route-id="@Model.ParagliderModelDto.ID" asp-action="CreateParagliding">Ajouter un parapente</a>
                 </tr>
-                @foreach (var item in Model.Paragliders)
+                @foreach (var item in Model.ParagliderDto)
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItems => item.ID) 
+                            @Html.DisplayFor(modelItems => item.ParagliderId) 
                         </td>
                         <td>
                             @Html.DisplayFor(modelItems => item.CommissioningDate)
                         </td>
                         <td>
-                            @Html.DisplayFor(modeItems => item.LastRevisionDate)
+                            @Html.DisplayFor(modeItems => item.LastRevision)
                         </td>
                         <td>
-                            <a class="btn btn-primary" asp-route-id="@item.ID" asp-action="DetailsParagliding">Détails</a> |
-                            <a class="btn btn-primary" asp-route-id="@item.ID" asp-action="EditParagliding">Editer</a> |
-                            <a class="btn btn-primary" asp-route-id="@item.ID" asp-action="DeleteParagliding">Supprimer</a>
+                            <a class="btn btn-primary" asp-route-id="@item.ParagliderId" asp-action="DetailsParagliding">Détails</a> |
+                            <a class="btn btn-primary" asp-route-id="@item.ParagliderId" asp-action="EditParagliding">Editer</a> |
+                            <a class="btn btn-primary" asp-route-id="@item.ParagliderId" asp-action="DeleteParagliding">Supprimer</a>
                         </td>
                     </tr>
                 }
@@ -75,6 +75,6 @@
     </dl>
 </div>
 <div>
-    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.ID">Publier</a> |
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.ParagliderModelDto.ID">Publier</a> |
     <a class="btn btn-primary" asp-action="Index">Retour à la liste</a>
 </div>

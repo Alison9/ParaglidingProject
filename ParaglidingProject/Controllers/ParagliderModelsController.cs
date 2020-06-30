@@ -1,12 +1,18 @@
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
+using System.Threading.Tasks.Dataflow;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using ParaglidingProject.Data;
 using ParaglidingProject.Models;
+using ParaglidingProject.SL.Core.Paraglider.NS.TransfertObjects;
+using ParaglidingProject.SL.Core.ParagliderModel.NS.TransfertObjects;
 
 namespace ParaglidingProject.Controllers
 {
@@ -22,7 +28,16 @@ namespace ParaglidingProject.Controllers
         // GET: ModelParaglidings
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ParagliderModels.ToListAsync());
+            IEnumerable<ParagliderModelDto> listParaModels = null;
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync("http://localhost:50106/api/v1/paragliderModels"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    listParaModels = JsonConvert.DeserializeObject<List<ParagliderModelDto>>(apiResponse);
+                }
+            }
+            return View(listParaModels);
         }
 
         // GET: ModelParaglidings/Details/5
@@ -32,16 +47,32 @@ namespace ParaglidingProject.Controllers
             {
                 return NotFound();
             }
+            ParagliderModelAndParagliders ViewParagliderModel = new ParagliderModelAndParagliders();
 
-            var modelParagliding = await _context.ParagliderModels
-                .Include(p => p.Paragliders)
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (modelParagliding == null)
+            ICollection<ParagliderDto> paragliderDto = null;
+            ParagliderModelDto paragliderModel = null;
+            
+            using (var httpClient = new HttpClient())
             {
-                return NotFound();
+                using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/paragliderModels/{id}"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    paragliderModel = JsonConvert.DeserializeObject<ParagliderModelDto>(apiResponse);
+                }
+            }
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync("http://localhost:50106/api/v1/paragliders?FilterBy=4&ParagliderModelId="+paragliderModel.ID))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    paragliderDto = JsonConvert.DeserializeObject<ICollection<ParagliderDto>>(apiResponse);
+                }
             }
 
-            return View(modelParagliding);
+            ViewParagliderModel.ParagliderModelDto = paragliderModel;
+            ViewParagliderModel.ParagliderDto = paragliderDto;
+
+            return View(ViewParagliderModel);
         }
 
         // GET: ModelParaglidings/Create

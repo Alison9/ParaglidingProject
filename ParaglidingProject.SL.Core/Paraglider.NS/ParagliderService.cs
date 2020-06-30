@@ -42,7 +42,7 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS
         {
             var paragliders = _paraContext.Paragliders
                 .AsNoTracking()
-                .FilterParaglidersBy(options.FilterBy, options.CommissionDate,options.LastRevisionDate)
+                .FilterParaglidersBy(options.FilterBy, options.CommissionDate,options.LastRevisionDate, options.ParagliderModelId)
                 .SearchParaglidersBy(options)
                 .Select(p => new ParagliderDto
                 {

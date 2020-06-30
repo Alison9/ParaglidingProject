@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.VisualBasic.CompilerServices;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -16,6 +17,7 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS.Helpers
 
         public string CommissionDate { get; set; }
         public string LastRevisionDate { get; set; }
+        public int ParagliderModelId { get; set; }
         public ParaglidersFilters FilterBy 
         { 
             get => _filterBy;
@@ -86,6 +88,8 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS.Helpers
                         return true;
                     }
                     return false;
+                case ParaglidersFilters.ModelParaglider:
+                    return true;
                 default:
                     return false;
             }
