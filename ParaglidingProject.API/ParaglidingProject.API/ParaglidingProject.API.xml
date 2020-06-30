@@ -148,13 +148,6 @@
             <seealso cref="T:ParaglidingProject.SL.Core.ParagliderModel.NS.TransfertObjects.ParagliderModelDto"/>
             </returns>
         </member>
-        <member name="M:ParaglidingProject.API.Controllers.ParagliderModelController.CreateUriParagliderModel(ParaglidingProject.SL.Core.ParagliderModel.NS.Helpers.ParagliderModelsSSFP,ParaglidingProject.API.Controllers.ParagliderModelController.RessourceUriType)">
-            <summary>
-            </summary>
-            <param name="options"> the user custom options for search, sort ,filter page</param>
-            <param name="type"> one element of the enumeration  to distinguish multiple type of url to create</param>
-            <returns></returns>
-        </member>
         <member name="T:ParaglidingProject.API.Controllers.PossessionsController">
             <summary>
             Possesion controller.
