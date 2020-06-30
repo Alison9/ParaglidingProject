@@ -22,6 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ParaglidingProject.Data\ParaglidingProject.Data.csproj" />
     <ProjectReference Include="..\ParaglidingProject.Entities\ParaglidingProject.Entities.csproj" />
+    <ProjectReference Include="..\ParaglidingProject.SL.Core\ParaglidingProject.SL.Core.csproj" />
   </ItemGroup>
 
 </Project>
