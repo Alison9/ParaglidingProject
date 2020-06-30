@@ -11,11 +11,12 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS.Helpers
         NoFilter = 0,
         NotActive = 1,
         CommissionDate = 2,
-        RevisionDate = 3
+        RevisionDate = 3,
+        ModelParaglider = 4
     }
     public static class ParaglidersFilterHelper
     {
-        public static IQueryable<Models.Paraglider> FilterParaglidersBy(this IQueryable<Models.Paraglider> paragliders,ParaglidersFilters filterBy,string pCommissionDate = null,string pLatRevisionDate = null)
+        public static IQueryable<Models.Paraglider> FilterParaglidersBy(this IQueryable<Models.Paraglider> paragliders,ParaglidersFilters filterBy,string pCommissionDate = null,string pLatRevisionDate = null, int pParagliderModelId = 0)
         {
             switch(filterBy)
             {
@@ -30,6 +31,10 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS.Helpers
                 case ParaglidersFilters.RevisionDate:
                 {
                     return paragliders = paragliders.Where(plr => plr.LastRevisionDate > DateTime.Parse(pLatRevisionDate));
+                }
+                case ParaglidersFilters.ModelParaglider:
+                {
+                    return paragliders = paragliders.Where(pm => pm.ParagliderModel.ID == pParagliderModelId);
                 }
                 default:
                     throw new ArgumentOutOfRangeException();

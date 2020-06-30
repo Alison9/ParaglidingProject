@@ -42,9 +42,9 @@ namespace ParaglidingProject.API.Controllers
         /// </returns>
         /// <remarks></remarks>
         [HttpGet("{paragliderModelId}", Name = "GetParagliderModelAsync")]
-        public async Task<ActionResult<ParagliderModelDto>> GetParagliderModelAsync([FromRoute] int modelParagliderId)
+        public async Task<ActionResult<ParagliderModelDto>> GetParagliderModelAsync([FromRoute] int paragliderModelId)
         {
-            var modelParaglider = await _ModelParagliderService.GetParagliderModelAsync(modelParagliderId);
+            var modelParaglider = await _ModelParagliderService.GetParagliderModelAsync(paragliderModelId);
             if (modelParaglider == null) return NotFound("Couldn't find any model of paraglider");
             return Ok(modelParaglider);
         }

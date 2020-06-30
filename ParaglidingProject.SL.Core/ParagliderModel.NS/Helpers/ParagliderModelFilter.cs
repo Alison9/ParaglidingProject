@@ -9,7 +9,7 @@ namespace ParaglidingProject.SL.Core.ParagliderModel.NS.Helpers
     public enum PargliderModelFilters
     {
         NoFilter = 0,
-      heavyweight = 2,
+        heavyweight = 2,
         thinweight = 1,
         pilotweight=3
     }
