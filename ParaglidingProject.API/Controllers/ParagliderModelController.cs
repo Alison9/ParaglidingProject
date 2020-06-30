@@ -16,7 +16,7 @@ namespace ParaglidingProject.API.Controllers
     /// the controller of paragliderModels
     /// </summary>
     [ApiExplorerSettings(GroupName = "paragliderModels")]
-    [Route("api/v1/[controller]")]
+    [Route("api/v1/paragliderModels")]
     [Produces("application/json")]
     [ApiController]
     public class ParagliderModelController : ControllerBase

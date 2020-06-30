@@ -1,12 +1,16 @@
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using ParaglidingProject.Data;
 using ParaglidingProject.Models;
+using ParaglidingProject.SL.Core.ParagliderModel.NS.TransfertObjects;
 
 namespace ParaglidingProject.Controllers
 {
@@ -22,7 +26,16 @@ namespace ParaglidingProject.Controllers
         // GET: ModelParaglidings
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ParagliderModels.ToListAsync());
+            IEnumerable<ParagliderModelDto> listParaModels = null;
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync("http://localhost:50106/api/v1/paragliderModels"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    listParaModels = JsonConvert.DeserializeObject<List<ParagliderModelDto>>(apiResponse);
+                }
+            }
+            return View(listParaModels);
         }
 
         // GET: ModelParaglidings/Details/5
