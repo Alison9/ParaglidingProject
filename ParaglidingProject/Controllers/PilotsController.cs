@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -85,22 +86,34 @@ namespace ParaglidingProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FirstName,LastName,Adress,PhoneNumber,Weight,Position,IsActif")] Pilot pilot)
+        public async Task<IActionResult> Create([Bind("FirstName,LastName,Adress,PhoneNumber,Weight,Position,IsActif")] PilotDto pilotDto)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _context.Add(pilot);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    PilotDto receivedPilotDto = new PilotDto();
+                    using (var httpClient = new HttpClient())
+                    {
+                        StringContent content = new StringContent(JsonConvert.SerializeObject(pilotDto), Encoding.UTF8, "application/json");
+                        using (var response = await httpClient.PostAsync(apiAddress, content))
+                        {
+                            string apiResponse = await response.Content.ReadAsStringAsync();
+                            receivedPilotDto = JsonConvert.DeserializeObject<PilotDto>(apiResponse);
+                        }
+                    }
+                    return View(receivedPilotDto);
+                }
+                else {
+                    return View();
                 }
             }
             catch(DbUpdateException)
             {
                 ModelState.AddModelError("", "Pas bien !");
+                return View(ModelState);
             }
-            return View(pilot);
+            
         }
 
         // GET: Pilots/Edit/5
