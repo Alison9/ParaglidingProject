@@ -26,21 +26,18 @@ namespace ParaglidingProject.SL.Core.Pilot.NS.Helpers
                 case PilotsSearches.FirstName:
                     return pilots
                         .Where(p => p.FirstName.Contains(options.UserInput));
-                       // .Where(p => pilots.Any(pilot => p.FirstName.Contains(options.UserInput)));
 
                 case PilotsSearches.LastName:
                     return pilots
                         .Where(p => p.LastName.Contains(options.UserInput));
-                       // .Where(p => pilots.Any(pilot=> p.LastName.Contains(options.UserInput)));
 
                 case PilotsSearches.Address:
                     return pilots
                         .Where(p => p.Address.Contains(options.UserInput));
-                       //.Where(p => pilots.Any(pilot=> p.Address.Contains(options.UserInput)));
 
-               // case PilotsSearches.PhoneNumber:
-                 //  return pilots
-                       // .Where(p => pilots.Any(pilot=> p.PhoneNumber.Contains(options.UserInput)));
+                case PilotsSearches.PhoneNumber:
+                    return pilots
+                        .Where(p => p.PhoneNumber.Contains(options.UserInput));
 
                 default:
                     throw new ArgumentOutOfRangeException
