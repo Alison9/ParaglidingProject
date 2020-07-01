@@ -89,7 +89,7 @@ namespace ParaglidingProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(ParagliderModel modelParagliding)
+        public async Task<IActionResult> Create(ParagliderModelDto modelParagliding)
         {
             using (var httpClient = new HttpClient())
             {
@@ -100,19 +100,18 @@ namespace ParaglidingProject.Controllers
         }
 
         // GET: ModelParaglidings/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(ParagliderModelDto paragliderModelDto)
         {
-            if (id == null)
+            ParagliderModelDto paragliderModel;
+            using (var httpClient = new HttpClient())
             {
-                return NotFound();
+                using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/paragliderModels/{paragliderModelDto.ID}"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    paragliderModel = JsonConvert.DeserializeObject<ParagliderModelDto>(apiResponse);
+                }
             }
-
-            var modelParagliding = await _context.ParagliderModels.FindAsync(id);
-            if (modelParagliding == null)
-            {
-                return NotFound();
-            }
-            return View(modelParagliding);
+            return View(paragliderModel);
         }
 
         // POST: ModelParaglidings/Edit/5
@@ -120,74 +119,24 @@ namespace ParaglidingProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditPost(int? id)
+        public async Task<IActionResult> EditPost(ParagliderModelDto pParaModelToModify)
         {
-            if (id == null)
+            using (var httpClient = new HttpClient())
             {
-                return NotFound();
+                var content = new StringContent(JsonConvert.SerializeObject(pParaModelToModify), Encoding.UTF8, "application/json");
+                var response = await httpClient.PutAsync("http://localhost:50106/api/v1/paragliderModels/", content);
             }
-            var modelParaglidingToUpdate = await _context.ParagliderModels.FirstOrDefaultAsync(p => p.ID == id);
-            if (await TryUpdateModelAsync<ParagliderModel>(
-                modelParaglidingToUpdate, "", p => p.Size, p => p.ApprovalDate, p => p.ApprovalNumber, p => p.MaxWeightPilot, p => p.MinWeightPilot))
-            {
-                try
-                {
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
-                }
-                catch (DbUpdateException)
-                {
-                    ModelState.AddModelError("", "Unable to save changes. " +
-                "Try again, and if the problem persists, " +
-                "see your system administrator.");
-                }
-            }
-            return View(modelParaglidingToUpdate);
-
-            //if (id != modelParagliding.ID)
-            //{
-            //    return NotFound();
-            //}
-
-            //if (ModelState.IsValid)
-            //{
-            //    try
-            //    {
-            //        _context.Update(modelParagliding);
-            //        await _context.SaveChangesAsync();
-            //    }
-            //    catch (DbUpdateConcurrencyException)
-            //    {
-            //        if (!ModelParaglidingExists(modelParagliding.ID))
-            //        {
-            //            return NotFound();
-            //        }
-            //        else
-            //        {
-            //            throw;
-            //        }
-            //    }
-            //    return RedirectToAction(nameof(Index));
-            //}
-            //return View(modelParagliding);
+            return RedirectToAction("Index");
         }
 
         // GET: ModelParaglidings/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
+            using (var httpClient = new HttpClient())
             {
-                return NotFound();
+                var response = await httpClient.DeleteAsync($"http://localhost:50106/api/v1/paragliderModels/{id}");
             }
-
-            var modelParagliding = await _context.ParagliderModels
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (modelParagliding == null)
-            {
-                return NotFound();
-            }
-
-            return View(modelParagliding);
+            return RedirectToAction("Index");
         }
 
         // POST: ModelParaglidings/Delete/5

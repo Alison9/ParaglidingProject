@@ -34,7 +34,20 @@ namespace ParaglidingProject.API.Controllers
         [HttpPost]
         public async Task<ActionResult<ParagliderModelDto>> CreateParagliderModel([FromBody] ParagliderModelDto pParagliderModelDto)
         {
-            _ModelParagliderService.CreateParagliderModelAsync(pParagliderModelDto);
+            _ModelParagliderService.CreateParagliderModel(pParagliderModelDto);
+            return Ok();
+        }
+        [HttpPut]
+        public async Task<ActionResult<ParagliderModelDto>> EditParagliderModel([FromBody] ParagliderModelDto pParagliderModelDto)
+        {
+            _ModelParagliderService.EditParagliderModel(pParagliderModelDto);
+            return Ok();
+        }
+
+        [HttpDelete("{pModelId}")]
+        public async Task<ActionResult<ParagliderModelDto>> DeleteParagliderModel([FromRoute] int pModelId)
+        {
+            _ModelParagliderService.DeleteParagliderModel(pModelId);
             return Ok();
         }
 
