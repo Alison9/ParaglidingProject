@@ -8,7 +8,7 @@ namespace ParaglidingProject.SL.Core.Subscription.NS.transferObjects
     public class SubscriptionDto
     {
         public int Id { get; set; }
-  
+
         public decimal Amount { get; set; }
 
         public int NumberOfPayments { get; set; }
