@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ParaglidingProject.Models.Paraglider>
+﻿@model IEnumerable<ParaglidingProject.SL.Core.Paraglider.NS.TransfertObjects.ParagliderDto>
 
 @{
     ViewData["Title"] = "Index";
@@ -16,13 +16,16 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.CommissioningDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LastRevisionDate)
+                @Html.DisplayNameFor(model => model.LastRevision)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ParagliderModel.ApprovalNumber)
+                @Html.DisplayNameFor(model => model.ParagliderId)
             </th>
             <th></th>
         </tr>
@@ -31,18 +34,21 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.CommissioningDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LastRevisionDate)
+                @Html.DisplayFor(modelItem => item.LastRevision)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ParagliderModel.ApprovalNumber)
+                @Html.DisplayFor(modelItem => item.ParagliderId)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Publier</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Supprimer</a>
+                <a asp-action="Edit" asp-route-id="@item.ParagliderId">Editer</a> |
+                <a asp-action="Details" asp-route-id="@item.ParagliderId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ParagliderId">Supprimer</a>
             </td>
         </tr>
 }

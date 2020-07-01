@@ -100,12 +100,12 @@ namespace ParaglidingProject.Controllers
         }
 
         // GET: ModelParaglidings/Edit/5
-        public async Task<IActionResult> Edit(ParagliderModelDto paragliderModelDto)
+        public async Task<IActionResult> Edit(int id)
         {
             ParagliderModelDto paragliderModel;
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/paragliderModels/{paragliderModelDto.ID}"))
+                using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/paragliderModels/{id}"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     paragliderModel = JsonConvert.DeserializeObject<ParagliderModelDto>(apiResponse);

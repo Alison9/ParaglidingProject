@@ -31,7 +31,7 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS
                     Name = p.Name,
                     CommissioningDate = p.CommissioningDate,
                     LastRevision = p.LastRevisionDate,
-                    ParagliderModelAprrovalNumber = p.ParagliderModel.ApprovalNumber,
+                    ParagliderModelId = p.ParagliderModel.ID,
                     NumerOfFlights = p.Flights.Count
                 })
                 .FirstOrDefaultAsync(p => p.ParagliderId == id);
@@ -50,7 +50,7 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS
                     Name = p.Name,
                     CommissioningDate = p.CommissioningDate,
                     LastRevision = p.LastRevisionDate,
-                    ParagliderModelAprrovalNumber = p.ParagliderModel.ApprovalNumber,
+                    ParagliderModelId = p.ParagliderModel.ID,
                     NumerOfFlights = p.Flights.Count()
                 });
 
@@ -59,6 +59,19 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS
             var pagedQuery = paragliders.Page(options.PageNumber - 1, options.PageSize);
 
             return await pagedQuery.ToListAsync();
+        }
+
+        public void CreateParaglider(ParagliderDto pParagliderDto)
+        {
+            _paraContext.Paragliders.Add(new Models.Paraglider
+            {
+                Name = pParagliderDto.Name,
+                CommissioningDate = pParagliderDto.CommissioningDate,
+                LastRevisionDate = pParagliderDto.LastRevision,
+                IsActive = true,
+                ParagliderModelID = pParagliderDto.ParagliderModelId
+            });
+            _paraContext.SaveChanges();
         }
     }
 }
