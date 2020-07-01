@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ParaglidingProject.Models.Site>
+﻿@model IEnumerable<ParaglidingProject.SL.Core.Site.NS.TransfertObjects.SiteDto>
 
 @{
     ViewData["Title"] = "Index";
@@ -19,12 +19,8 @@
                 @Html.DisplayNameFor(model => model.Orientation)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AltitudeTakeOff)
+                @Html.DisplayNameFor(model => model.SiteType)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ApproachManeuver)
-            </th>
-
             <th>
                 @Html.DisplayNameFor(model => model.SiteGeoCoordinate)
             </th>
@@ -45,12 +41,8 @@
                 @Html.DisplayFor(modelItem => item.Orientation)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AltitudeTakeOff)
+                @Html.DisplayFor(modelItem => item.SiteType)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ApproachManeuver)
-            </td>
-
             <td>
                 @Html.DisplayFor(modelItem => item.SiteGeoCoordinate)
             </td>
@@ -58,15 +50,15 @@
                 @Html.DisplayFor(modelItem => item.Level.ID)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ID" class="styleLink">Editer</a> |
-                <a asp-action="Details" asp-route-id="@item.ID" class="styleLink">Détails</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID" class="styleLink">Supprimer</a>
+                <a asp-action="Edit" asp-route-id="@item.SiteId" class="styleLink">Editer</a> |
+                <a asp-action="Details" asp-route-id="@item.SiteId" class="styleLink">Détails</a> |
+                <a asp-action="Delete" asp-route-id="@item.SiteId" class="styleLink">Supprimer</a>
             </td>
         </tr>
         }
     </tbody>
 </table>
-<dl class="row">
+@*<dl class="row">
     <dt class="col-sm-2">
        Sites les plus fréquentés:
     </dt>
@@ -85,6 +77,6 @@
             @item;
         }
     </dd>
-</dl>
+</dl>*@
 
 

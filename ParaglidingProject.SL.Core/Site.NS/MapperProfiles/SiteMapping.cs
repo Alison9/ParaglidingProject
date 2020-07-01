@@ -16,7 +16,8 @@ namespace ParaglidingProject.SL.Core.Site.NS.MapperProfiles
                 ApproachManeuver = s.ApproachManeuver,
                 NumberOfUse = s.LandingFlights.Count + s.TakeOffFlights.Count,
                 SiteType = s.SiteType,
-                Level = s.Level
+                Level = s.Level,
+                SiteGeoCoordinate = s.SiteGeoCoordinate
             });
 
         }
