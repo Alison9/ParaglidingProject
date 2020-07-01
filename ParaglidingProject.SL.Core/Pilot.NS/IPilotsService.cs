@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using ParaglidingProject.SL.Core.Pilot.NS.Helpers;
 using ParaglidingProject.SL.Core.Pilot.NS.TransfertObjects;
 
@@ -32,5 +33,14 @@ namespace ParaglidingProject.SL.Core.Pilot.NS
         /// <seealso cref="PilotDto">
         /// </returns>
         Task<IReadOnlyCollection<PilotDto>> GetAllPilotsAsync(PilotSSFP options);
+
+        /// <summary>
+        /// Asynchronously add a pilot.
+        /// </summary>
+        /// <param name="pilot"> An object of type Pilot</param>
+        /// <returns>
+        /// A task result that represents the asynchronous operation. 
+        /// </returns>
+        Task PostPilotAsync(Models.Pilot pilot);
     }
 }
