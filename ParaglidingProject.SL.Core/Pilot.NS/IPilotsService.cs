@@ -42,5 +42,14 @@ namespace ParaglidingProject.SL.Core.Pilot.NS
         /// A task result that represents the asynchronous operation. 
         /// </returns>
         Task PostPilotAsync(Models.Pilot pilot);
+
+        /// <summary>
+        /// Asynchronously update a pilot.
+        /// </summary>
+        /// <param name="id">The id of the pilot to update</param>
+        /// <returns>
+        /// The new informations of the pilot to replace the old ones.
+        /// </returns>
+        Task UpdatePilotAsync(Models.Pilot pilot);
     }
 }

@@ -17,7 +17,8 @@ namespace ParaglidingProject.Controllers
 {
     public class PilotsController : Controller
     {
-        const string apiAddress = "http://localhost:50106/api/v1/pilots";
+        const string apiAddressPilot = "http://localhost:50106/api/v1/pilots";
+        const string apiAddressRole = "http://localhost:50106/api/v1/roles";
         private readonly ParaglidingClubContext _context;
 
         public PilotsController(ParaglidingClubContext context)
@@ -31,7 +32,7 @@ namespace ParaglidingProject.Controllers
             List<PilotDto> pilotsDto;
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync(apiAddress))
+                using (var response = await httpClient.GetAsync(apiAddressPilot))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     pilotsDto = JsonConvert.DeserializeObject<List<PilotDto>>(apiResponse);
@@ -45,9 +46,9 @@ namespace ParaglidingProject.Controllers
 
             //Join sur forme de query
             List<Pilot> joinedPilots2 = (from p in pilots
-                                        join pdo in pilotsDto
-                                        on p.ID equals pdo.PilotId
-                                        select p).ToList();
+                                         join pdo in pilotsDto
+                                         on p.ID equals pdo.PilotId
+                                         select p).ToList();
 
             //return View(await _context.Pilots.ToListAsync());
             return View(joinedPilots2);
@@ -64,7 +65,7 @@ namespace ParaglidingProject.Controllers
             PilotDto pilotDto;
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync(apiAddress + $"/{id}"))
+                using (var response = await httpClient.GetAsync(apiAddressPilot + $"/{id}"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     pilotDto = JsonConvert.DeserializeObject<PilotDto>(apiResponse);
@@ -96,7 +97,7 @@ namespace ParaglidingProject.Controllers
                     using (var httpClient = new HttpClient())
                     {
                         StringContent content = new StringContent(JsonConvert.SerializeObject(pilot), Encoding.UTF8, "application/json");
-                        using (var response = await httpClient.PostAsync(apiAddress, content))
+                        using (var response = await httpClient.PostAsync(apiAddressPilot, content))
                         {
                             string apiResponse = await response.Content.ReadAsStringAsync();
                             receivedPilot = JsonConvert.DeserializeObject<Pilot>(apiResponse);
@@ -125,8 +126,28 @@ namespace ParaglidingProject.Controllers
                 return NotFound();
             }
 
-            var pilot = await _context.Pilots.FindAsync(id);
-           ViewData["PositionID"] = new SelectList(_context.Roles, "ID", "Name", pilot.Role?.ID);
+            Pilot pilot;
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync(apiAddressPilot + $"/{id}"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    pilot = JsonConvert.DeserializeObject<Pilot>(apiResponse);
+                }
+            }
+
+            //Afficher la liste des roles dans le dropdown menu
+            //List<Models.Role> roles;
+            //using (var httpClient = new HttpClient())
+            //{
+            //    using (var response2 = await httpClient.GetAsync(apiAddressRole))
+            //    {
+            //        string apiResponse2 = await response2.Content.ReadAsStringAsync();
+            //        roles = JsonConvert.DeserializeObject<List<Models.Role>>(apiResponse2);
+            //    }
+            //}
+
+            //ViewData["PositionID"] = new SelectList(roles, "ID", "Name", pilot.Role?.ID);
             if (pilot == null)
             {
                 return NotFound();
@@ -146,17 +167,40 @@ namespace ParaglidingProject.Controllers
                 return NotFound();
             }
 
-            var pilotToUpdate = await _context.Pilots.FindAsync(id);
+            Pilot pilotToUpdate;
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync(apiAddressPilot + $"/{id}"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    pilotToUpdate = JsonConvert.DeserializeObject<Pilot>(apiResponse);
+                }
+            }
+
+            if (pilotToUpdate == null)
+            {
+                return BadRequest();
+            }
+            
             if (await TryUpdateModelAsync<Pilot>(pilotToUpdate, "", s => s.FirstName, s => s.LastName, s => s.Address,
-               s => s.PhoneNumber, s => s.Weight, s => s.Role, s => s.IsActive))
+               s => s.PhoneNumber, s => s.Weight))
             {
                 if (ModelState.IsValid)
 
                 {
                     try
                     {
-                        await _context.SaveChangesAsync();
-                        return RedirectToAction(nameof(Index));
+                        Pilot receivedPilot;
+                        using (var httpClient = new HttpClient())
+                        {
+                            StringContent content = new StringContent(JsonConvert.SerializeObject(pilotToUpdate), Encoding.UTF8, "application/json");
+                            using (var response = await httpClient.PutAsync(apiAddressPilot + $"/{id}", content))
+                            {
+                                string apiResponse = await response.Content.ReadAsStringAsync();
+                                receivedPilot = JsonConvert.DeserializeObject<Pilot>(apiResponse);
+                            } 
+                        }
+                        return RedirectToAction(nameof(Index), receivedPilot);
                     }
                     catch (DbUpdateException /* ex */)
                     {

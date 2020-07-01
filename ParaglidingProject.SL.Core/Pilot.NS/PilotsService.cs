@@ -97,5 +97,11 @@ namespace ParaglidingProject.SL.Core.Pilot.NS
             _paraContext.Pilots.Add(pilot);
             await _paraContext.SaveChangesAsync();
         }
+
+        public async Task UpdatePilotAsync(Models.Pilot pilot)
+        {
+            _paraContext.Entry(pilot).State = EntityState.Modified;
+            await _paraContext.SaveChangesAsync();
+        }
     }
 }

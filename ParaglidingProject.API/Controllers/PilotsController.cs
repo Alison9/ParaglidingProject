@@ -82,11 +82,28 @@ namespace ParaglidingProject.API.Controllers
             return Ok(pilots);
         }
 
+        //[Authorize(Roles = "President")]
         [AllowAnonymous]
         [HttpPost("", Name ="PostPilotAsync")]
         public async Task<ActionResult<Pilot>> PostPilotAsync([FromBody] Pilot pilot)
         {
             await _pilotsService.PostPilotAsync(pilot);
+            return Ok(pilot);
+        }
+
+        //[Authorize(Roles = "President")]
+        [AllowAnonymous]
+        [HttpPut("{id}", Name = "UpdatePilotAsync")]
+        public async Task<ActionResult<Pilot>> UpdatePilotAsync([FromRoute] int id, [FromBody] Pilot pilot)
+        {
+            if (pilot == null)
+            {
+                return BadRequest();
+            }
+
+            pilot.ID = id;
+            await _pilotsService.UpdatePilotAsync(pilot);
+
             return Ok(pilot);
         }
 
