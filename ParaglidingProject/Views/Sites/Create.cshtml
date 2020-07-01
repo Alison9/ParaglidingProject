@@ -1,4 +1,4 @@
-﻿@model ParaglidingProject.Models.Site
+﻿@model ParaglidingProject.SL.Core.Site.NS.TransfertObjects.SiteDto
 
 @{
     ViewData["Title"] = "Create";
@@ -21,17 +21,22 @@
                 <input asp-for="Orientation" class="form-control" /><br />
                 <span asp-validation-for="Orientation" class="text-danger validator"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="AltitudeTakeOff" class="control-label"></label><br />
-                <input asp-for="AltitudeTakeOff" class="form-control" /><br />
-                <span asp-validation-for="AltitudeTakeOff" class="text-danger validator"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ApproachManeuver" class="control-label"></label><br />
-                <input asp-for="ApproachManeuver" class="form-control" /><br />
-                <span asp-validation-for="ApproachManeuver" class="text-danger validator"></span>
-            </div>
-
+            @if (ViewBag.SiteType == 2)
+            {
+                <div class="form-group">
+                    <label asp-for="AltitudeTakeOff" class="control-label"></label><br />
+                    <input asp-for="AltitudeTakeOff" class="form-control" /><br />
+                    <span asp-validation-for="AltitudeTakeOff" class="text-danger validator"></span>
+                </div>
+            }
+            @if(ViewBag.SiteType == 1)
+            {
+                <div class="form-group">
+                    <label asp-for="ApproachManeuver" class="control-label"></label><br />
+                    <input asp-for="ApproachManeuver" class="form-control" /><br />
+                    <span asp-validation-for="ApproachManeuver" class="text-danger validator"></span>
+                </div>
+            }
             <div class="form-group">
                 <label asp-for="SiteGeoCoordinate" class="control-label"></label><br />
                 <input asp-for="SiteGeoCoordinate" class="form-control" /><br />
@@ -39,8 +44,8 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="LevelID" class="control-label"></label><br />
-                <select asp-for="LevelID" class="form-control" asp-items="ViewBag.LevelID"></select>
+                <label asp-for="Level.ID" class="control-label"></label><br />
+                <select asp-for="Level.ID" class="form-control" asp-items="ViewBag.LevelID"></select>
             </div><br />
             <div class="form-group">
                 <input type="submit" value="Ajouter" class="btn btn-primary add" />
