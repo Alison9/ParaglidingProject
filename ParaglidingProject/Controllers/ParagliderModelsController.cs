@@ -2,12 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
 using ParaglidingProject.Data;
 using ParaglidingProject.Models;
@@ -51,7 +54,6 @@ namespace ParaglidingProject.Controllers
 
             ICollection<ParagliderDto> paragliderDto = null;
             ParagliderModelDto paragliderModel = null;
-            
             using (var httpClient = new HttpClient())
             {
                 using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/paragliderModels/{id}"))
@@ -62,10 +64,11 @@ namespace ParaglidingProject.Controllers
             }
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync("http://localhost:50106/api/v1/paragliders?FilterBy=4&ParagliderModelId="+paragliderModel.ID))
+                using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/paragliders?FilterBy=4&ParagliderModelId={paragliderModel.ID}"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
-                    paragliderDto = JsonConvert.DeserializeObject<ICollection<ParagliderDto>>(apiResponse);
+                    if(response.StatusCode == HttpStatusCode.OK)
+                        paragliderDto = JsonConvert.DeserializeObject<ICollection<ParagliderDto>>(apiResponse);
                 }
             }
 
@@ -86,15 +89,14 @@ namespace ParaglidingProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,HeightParagliding,MaxWeightPilot,MinWeightPilot,AprovalNumber,AprovalDate")] ParagliderModel modelParagliding)
+        public async Task<IActionResult> Create(ParagliderModel modelParagliding)
         {
-            if (ModelState.IsValid)
+            using (var httpClient = new HttpClient())
             {
-                _context.Add(modelParagliding);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var content = new StringContent(JsonConvert.SerializeObject(modelParagliding),Encoding.UTF8, "application/json");
+                var response = await httpClient.PostAsync("http://localhost:50106/api/v1/paragliderModels/", content);
             }
-            return View(modelParagliding);
+            return RedirectToAction("Index");
         }
 
         // GET: ModelParaglidings/Edit/5

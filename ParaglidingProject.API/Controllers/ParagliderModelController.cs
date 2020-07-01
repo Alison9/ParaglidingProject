@@ -31,6 +31,13 @@ namespace ParaglidingProject.API.Controllers
             _ModelParagliderService = modelparagliderService ?? throw new ArgumentNullException(nameof(modelparagliderService));
         }
 
+        [HttpPost]
+        public async Task<ActionResult<ParagliderModelDto>> CreateParagliderModel([FromBody] ParagliderModelDto pParagliderModelDto)
+        {
+            _ModelParagliderService.CreateParagliderModelAsync(pParagliderModelDto);
+            return Ok();
+        }
+
         /// <summary>
         /// get a paraglidermodel by id
         /// </summary>

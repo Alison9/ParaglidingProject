@@ -1,10 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using ParaglidingProject.Data;
+using ParaglidingProject.Models;
 using ParaglidingProject.SL.Core.ParagliderModel.NS.Helpers;
 using ParaglidingProject.SL.Core.ParagliderModel.NS.TransfertObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -60,5 +62,18 @@ namespace ParaglidingProject.SL.Core.ParagliderModel.NS
             return await modelparaglider.ToListAsync(); // Flattening
       }
 
-  }
+        public void CreateParagliderModelAsync(ParagliderModelDto paragliderModelDto)
+        {
+            var temp = _paraContext.ParagliderModels.Add(new Models.ParagliderModel
+            {
+                Size = paragliderModelDto.Size,
+                MaxWeightPilot = (int)paragliderModelDto.MaxWeightPilot,
+                MinWeightPilot = (int)paragliderModelDto.MinWeightPilot,
+                ApprovalNumber = paragliderModelDto.ApprovalNumber,
+                ApprovalDate = paragliderModelDto.ApprovalDate,
+                IsActive = true
+            });
+            _paraContext.SaveChanges();
+        }
+    }
 }

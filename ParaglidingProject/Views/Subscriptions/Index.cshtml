@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ParaglidingProject.Models.Subscription>
+﻿@model IEnumerable<ParaglidingProject.SL.Core.Subscription.NS.transferObjects.SubscriptionDto>
 
 @{
     ViewData["Title"] = "Cotisations";
@@ -17,10 +17,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Year)
+                @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SubscriptionAmount)
+                @Html.DisplayNameFor(model => model.Amount)
             </th>
             <th>
             </th>
@@ -30,15 +30,15 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Year)
+                @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SubscriptionAmount)
+                @Html.DisplayFor(modelItem => item.Amount)
             </td>
             <td>
-                <a class="btn btn-primary styleLink" asp-action="Edit" asp-route-id="@item.Year">Editer</a> |
-                <a  class="btn btn-primary styleLink" asp-action="Details" asp-route-id="@item.Year">Détails</a> |
-                <a class="btn btn-primary styleLink" asp-action="Delete" asp-route-id="@item.Year">Supprimer</a>
+                <a class="btn btn-primary styleLink" asp-action="Edit" asp-route-id="@item.Id">Editer</a> |
+                <a  class="btn btn-primary styleLink" asp-action="Details" asp-route-id="@item.Id">Détails</a> |
+                <a class="btn btn-primary styleLink" asp-action="Delete" asp-route-id="@item.Id">Supprimer</a>
             </td>
         </tr>
 }
