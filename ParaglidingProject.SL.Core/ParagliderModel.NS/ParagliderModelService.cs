@@ -89,5 +89,14 @@ namespace ParaglidingProject.SL.Core.ParagliderModel.NS
             _paraContext.ParagliderModels.Update(toModifyAsParaglider);
             _paraContext.SaveChanges();
         }
+        public void DeleteParagliderModel(int id)
+        {
+            var toDelete = _paraContext.ParagliderModels.Select(pm => pm).Where(pmId => pmId.ID == id).FirstOrDefault();
+
+            toDelete.IsActive = false;
+
+            _paraContext.ParagliderModels.Update(toDelete);
+            _paraContext.SaveChanges();
+        }
     }
 }

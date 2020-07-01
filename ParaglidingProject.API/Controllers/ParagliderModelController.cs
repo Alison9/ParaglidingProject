@@ -44,6 +44,13 @@ namespace ParaglidingProject.API.Controllers
             return Ok();
         }
 
+        [HttpDelete("{pModelId}")]
+        public async Task<ActionResult<ParagliderModelDto>> DeleteParagliderModel([FromRoute] int pModelId)
+        {
+            _ModelParagliderService.DeleteParagliderModel(pModelId);
+            return Ok();
+        }
+
         /// <summary>
         /// get a paraglidermodel by id
         /// </summary>
