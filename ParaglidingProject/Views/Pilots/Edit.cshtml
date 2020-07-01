@@ -39,15 +39,15 @@
                 <span asp-validation-for="Weight" class="text-danger validator"></span>
             </div>
             @*<div class="form-group">
-                <label asp-for="RoleID" class="control-label">Fonction dans le comité</label><br />
-                <select asp-for="RoleID" class="form-control" asp-items="ViewBag.PositionID"></select><br />
-                <span asp-validation-for="RoleID" class="text-danger validator"></span>
-            </div>*@
-            <div class="form-group form-check">
-                <label asp-for="IsActive" class="form-check-label">Est actif</label><br />
-                <input class="form-check-input" asp-for="IsActive" /><br />
-                <span asp-validation-for="IsActive" class="text-danger validator"></span>
-            </div><br />
+            <label asp-for="Role.ID" class="control-label">Fonction dans le comité</label><br />
+            <select asp-for="Role.ID" class="form-control" asp-items="ViewBag.PositionID"></select><br />
+            <span asp-validation-for="Role.ID" class="text-danger validator"></span>
+        </div>
+        <div class="form-group form-check">
+            <label asp-for="IsActive" class="form-check-label">Est actif</label><br />
+            <input class="form-check-input" asp-for="IsActive" /><br />
+            <span asp-validation-for="IsActive" class="text-danger validator"></span>
+        </div>*@<br />
             <div class="form-group">
                 <input type="submit" value="Enregistrer" class="btn btn-primary add" />
             </div>
