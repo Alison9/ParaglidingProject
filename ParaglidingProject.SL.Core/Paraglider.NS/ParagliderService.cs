@@ -73,5 +73,17 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS
             });
             _paraContext.SaveChanges();
         }
+        public void EditParaglider(ParagliderDto pParagliderDto)
+        {
+            var toModifyAsParaglider = _paraContext.Paragliders.Select(p => p).Where(pId => pId.ID == pParagliderDto.ParagliderId).FirstOrDefault();
+
+            toModifyAsParaglider.Name = pParagliderDto.Name;
+            toModifyAsParaglider.CommissioningDate = pParagliderDto.CommissioningDate;
+            toModifyAsParaglider.LastRevisionDate = pParagliderDto.LastRevision;
+            toModifyAsParaglider.ParagliderModelID = pParagliderDto.ParagliderModelId;
+
+            _paraContext.Paragliders.Update(toModifyAsParaglider);
+            _paraContext.SaveChanges();
+        }
     }
 }
