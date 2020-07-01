@@ -1,0 +1,66 @@
+﻿@model IEnumerable<ParaglidingProject.SL.Core.Flights.NS.TransfertObjects.FlightDto>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Vols</h1>
+
+<p>
+    <a asp-action="Create" class="create">Liste des vols</a>
+</p>
+<table class="table" cellspacing="0">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FlightDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Duration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PilotName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ParagliderName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TakeOffSiteName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LandingSiteName)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FlightDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Duration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PilotName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParagliderName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TakeOffSiteName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LandingSiteName)
+            </td>
+
+            <td>
+                <a class="styleLink" asp-action="Edit" asp-route-id="@item.FlightId">Editer</a>
+                <a class="styleLink" asp-action="Details" asp-route-id="@item.FlightId">Details</a>
+                <a class="styleLink" asp-action="Delete" asp-route-id="@item.FlightId">Supprimer</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
