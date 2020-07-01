@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper.Configuration.Conventions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -100,6 +101,27 @@ namespace ParaglidingProject.SL.Core.Pilot.NS
 
         public async Task UpdatePilotAsync(Models.Pilot pilot)
         {
+            _paraContext.Entry(pilot).State = EntityState.Modified;
+            await _paraContext.SaveChangesAsync();
+        }
+
+        public async Task DeletePilotAsync(int? id)
+        {
+            if (id == null )
+            {
+                throw new ArgumentNullException("Id not found.");
+            }
+
+            var pilot = _paraContext.Pilots
+                .Where(p => p.ID == id)
+                .FirstOrDefault();
+
+            if (pilot == null)
+            {
+                throw new ArgumentNullException("Pilot not found.");
+            }
+
+            pilot.IsActive = false;
             _paraContext.Entry(pilot).State = EntityState.Modified;
             await _paraContext.SaveChangesAsync();
         }

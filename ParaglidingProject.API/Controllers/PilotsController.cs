@@ -107,6 +107,21 @@ namespace ParaglidingProject.API.Controllers
             return Ok(pilot);
         }
 
+        //[Authorize(Roles = "President")]
+        [AllowAnonymous]
+        [HttpDelete("{id}", Name = "DeletePilotAsync")]
+        public async Task<ActionResult<Pilot>> DeletePilotAsync([FromRoute] int? id)
+        {
+            if (id == null)
+            {
+                return BadRequest();
+            }
+
+            await _pilotsService.DeletePilotAsync(id);
+            return Ok("Delete succeeded.");
+        }
+
+
         private string CreateResourceUri(PilotSSFP options, RessourceUriType type)
         {
             switch (type)

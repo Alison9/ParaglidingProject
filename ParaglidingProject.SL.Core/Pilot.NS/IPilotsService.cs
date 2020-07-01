@@ -46,10 +46,19 @@ namespace ParaglidingProject.SL.Core.Pilot.NS
         /// <summary>
         /// Asynchronously update a pilot.
         /// </summary>
-        /// <param name="id">The id of the pilot to update</param>
+        /// <param name="pilot">The pilot to update</param>
         /// <returns>
         /// The new informations of the pilot to replace the old ones.
         /// </returns>
         Task UpdatePilotAsync(Models.Pilot pilot);
+
+        /// <summary>
+        /// Asynchronously delete a pilot.
+        /// </summary>
+        /// <param name="id">The id of the pilot to delete</param>
+        /// <returns>
+        /// A task to delete a pilot.
+        /// </returns>
+        Task DeletePilotAsync(int? id);
     }
 }

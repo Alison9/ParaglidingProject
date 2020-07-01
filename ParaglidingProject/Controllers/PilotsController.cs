@@ -198,7 +198,7 @@ namespace ParaglidingProject.Controllers
                             {
                                 string apiResponse = await response.Content.ReadAsStringAsync();
                                 receivedPilot = JsonConvert.DeserializeObject<Pilot>(apiResponse);
-                            } 
+                            }
                         }
                         return RedirectToAction(nameof(Index), receivedPilot);
                     }
@@ -221,49 +221,33 @@ namespace ParaglidingProject.Controllers
                 return NotFound();
             }
 
-            var pilot = await _context.Pilots
-                .Include(p => p.Role)
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if(pilot.Role  == null)
+            Pilot pilot;
+            using (var httpClient = new HttpClient())
             {
-                ViewData["Position"] = "Pas dans le comité";
+                using (var response = await httpClient.GetAsync(apiAddressPilot + $"/{id}"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    pilot = JsonConvert.DeserializeObject<Pilot>(apiResponse);
+                }
             }
-            else
-            {
-                ViewData["Position"] = pilot.Role.Name;
-            }
-            
-            if (pilot == null)
-            {
-                return NotFound();
-            }
-
             return View(pilot);
         }
 
         // POST: Pilots/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int? id)
         {
-            var pilot = await _context.Pilots.FindAsync(id);
-
-            if(pilot == null)
+            if (id == null)
             {
-                return RedirectToAction(nameof(Index));
-            }
-            try 
-            {
-                _context.Pilots.Remove(pilot);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            catch (DbUpdateException )
-            {
-                
-                return RedirectToAction(nameof(Delete), new { id, saveChangesError = true });
+                return NotFound();
             }
 
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.DeleteAsync(apiAddressPilot + $"/{id}");
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         /*Get CreateFligth*/ 
