@@ -160,11 +160,17 @@ namespace ParaglidingProject.Controllers
         // GET: Paraglidings/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            var paragliderDto = new ParagliderDto();
+
             using (var httpClient = new HttpClient())
             {
-                var response = await httpClient.DeleteAsync($"http://localhost:50106/api/v1/paragliders/{id}");
+                using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/paragliders/{id}"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    paragliderDto = JsonConvert.DeserializeObject<ParagliderDto>(apiResponse);
+                }
             }
-            return RedirectToAction("Index");
+            return View(paragliderDto);
         }
 
         // POST: Paraglidings/Delete/5
@@ -172,10 +178,11 @@ namespace ParaglidingProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var paragliding = await _context.Paragliders.FindAsync(id);
-            _context.Paragliders.Remove(paragliding);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.DeleteAsync($"http://localhost:50106/api/v1/paragliders/{id}");
+            }
+            return RedirectToAction("Index");
         }
 
         private bool ParaglidingExists(int id)

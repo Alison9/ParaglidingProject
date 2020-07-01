@@ -1,4 +1,4 @@
-﻿@model ParaglidingProject.Models.Paraglider
+﻿@model ParaglidingProject.SL.Core.Paraglider.NS.TransfertObjects.ParagliderDto
 
 @{
     ViewData["Title"] = "Delete";
@@ -11,28 +11,34 @@
     <h4>Paraglider</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.CommissioningDate)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.CommissioningDate)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LastRevisionDate)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LastRevision)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LastRevisionDate)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LastRevision)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ParagliderModelID)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ParagliderModelId)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ParagliderModelID)
-        </dd class>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ParagliderModelId)
+        </dd>
     </dl>
     
     <form asp-action="Delete">
-        <input type="hidden" asp-for="ID" />
+        <input type="hidden" asp-for="ParagliderId" />
         <input type="submit" value="Supprimer" class="btn btn-danger" /> |
         <a class="btn btn-primary" asp-action="Index">Retour à la liste</a>
     </form>
