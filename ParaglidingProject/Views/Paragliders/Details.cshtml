@@ -1,36 +1,77 @@
-﻿@model ParaglidingProject.Models.Paraglider
+﻿@model ParaglidingProject.SL.Core.Paraglider.NS.TransfertObjects.ParagliderAndFlightsDto
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Details du parapente N°@Model.ID</h1>
+<h1>Details de parapente @Model.ParagliderDto.Name</h1>
 
 <div>
     <h4>Parapente</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CommissioningDate)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ParagliderDto.Name)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CommissioningDate)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ParagliderDto.Name)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LastRevisionDate)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ParagliderDto.CommissioningDate)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LastRevisionDate)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ParagliderDto.CommissioningDate)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ParagliderModelID)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ParagliderDto.LastRevision)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ParagliderModelID)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ParagliderDto.LastRevision)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ParagliderDto.ParagliderModelId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ParagliderDto.ParagliderModelId)
+        </dd>
+        @if (Model.FlightsDto != null)
+        {
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.FlightsDto)
+    </dt>
+                    <dd class="col-sm-10">
+                        <table class="table">
+                            <tr>
+                                <th>Id du vol</th>
+                                <th>Nom du pilot</th>
+                                <th>Durée du vol</th>
+                                <a class="btn btn-primary" asp-route-id="@Model.ParagliderDto.ParagliderId" asp-action="CreateParagliding">Ajouter un parapente</a>
+                            </tr>
+                            @foreach (var item in Model.FlightsDto)
+                            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItems => item.FlightId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItems => item.PilotName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modeItems => item.Duration)
+                </td>
+                <td>
+                    <a class="btn btn-primary" asp-route-id="@item.FlightId" asp-action="DetailsParagliding">Détails</a> |
+                    <a class="btn btn-primary" asp-route-id="@item.FlightId" asp-action="EditParagliding">Editer</a> |
+                    <a class="btn btn-primary" asp-route-id="@item.FlightId" asp-action="DeleteParagliding">Supprimer</a>
+                </td>
+            </tr>
+}
+                        </table>
+                    </dd>
+}
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.ID">Publier</a> |
+    <a asp-action="Edit" asp-route-id="@Model.ParagliderDto.ParagliderId">Publier</a> |
     <a asp-action="Index">Retour à la liste</a>
 </div>

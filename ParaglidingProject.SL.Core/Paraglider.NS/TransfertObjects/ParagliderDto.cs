@@ -8,7 +8,7 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS.TransfertObjects
         public string Name { get; set; }
         public DateTime CommissioningDate { get; set; }
         public DateTime LastRevision { get; set; }
-        public string ParagliderModelAprrovalNumber { get; set; }
+        public int ParagliderModelId { get; set; }
         public int NumerOfFlights { get; set; }
     }
 }

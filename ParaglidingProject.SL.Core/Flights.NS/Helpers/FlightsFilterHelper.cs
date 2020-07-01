@@ -17,7 +17,7 @@ namespace ParaglidingProject.SL.Core.Flights.NS.Helpers
         /// A custom-filtered query respecting the user's requests if the filters exist.
         /// An exception if a filter does not exist.
         /// </returns>
-        public static IQueryable<Flight> FilterFlightBy(this IQueryable<Flight> flights, FlightsFilters filterBy, int? takeOffSiteId = null, int? landingSiteId = null)
+        public static IQueryable<Flight> FilterFlightBy(this IQueryable<Flight> flights, FlightsFilters filterBy, int? takeOffSiteId = null, int? landingSiteId = null,int pParagliderId = 0)
         {
             switch (filterBy)
             {
@@ -31,7 +31,8 @@ namespace ParaglidingProject.SL.Core.Flights.NS.Helpers
                 case FlightsFilters.LandingSite:
                     return flights
                         .Where(f => f.LandingSiteID == landingSiteId);
-                
+                case FlightsFilters.ParagliderId:
+                    return flights.Where(f => f.ParagliderID == pParagliderId);
                 default:
                     throw new ArgumentOutOfRangeException
                         (nameof(filterBy), filterBy, null);
@@ -42,6 +43,7 @@ namespace ParaglidingProject.SL.Core.Flights.NS.Helpers
     {
         NoFilter = 0,
         TakeOffSite = 1,
-        LandingSite = 2        
+        LandingSite = 2    ,
+        ParagliderId = 3
     }
 }

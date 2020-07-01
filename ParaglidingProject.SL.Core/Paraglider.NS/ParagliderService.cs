@@ -31,7 +31,7 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS
                     Name = p.Name,
                     CommissioningDate = p.CommissioningDate,
                     LastRevision = p.LastRevisionDate,
-                    ParagliderModelAprrovalNumber = p.ParagliderModel.ApprovalNumber,
+                    ParagliderModelId = p.ParagliderModel.ID,
                     NumerOfFlights = p.Flights.Count
                 })
                 .FirstOrDefaultAsync(p => p.ParagliderId == id);
@@ -50,7 +50,7 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS
                     Name = p.Name,
                     CommissioningDate = p.CommissioningDate,
                     LastRevision = p.LastRevisionDate,
-                    ParagliderModelAprrovalNumber = p.ParagliderModel.ApprovalNumber,
+                    ParagliderModelId = p.ParagliderModel.ID,
                     NumerOfFlights = p.Flights.Count()
                 });
 

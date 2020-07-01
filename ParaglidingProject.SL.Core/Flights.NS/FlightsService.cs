@@ -25,7 +25,7 @@ namespace ParaglidingProject.SL.Core.Flights.NS
         {
             var flights = _paraContext.Flights
                  .AsNoTracking()
-                 .FilterFlightBy(options.FilterBy, options.TakeOffSiteId, options.LandingSiteId)
+                 .FilterFlightBy(options.FilterBy, options.TakeOffSiteId, options.LandingSiteId,options.ParagliderId)
                  .SortFlightBy(options.SortBy)
                  .Select(f => new FlightDto
                  {

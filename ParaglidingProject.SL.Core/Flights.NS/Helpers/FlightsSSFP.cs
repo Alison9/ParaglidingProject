@@ -14,7 +14,9 @@ namespace ParaglidingProject.SL.Core.Flights.NS.Helpers
         private const int DefaultPageSize = 10;
         private const int MaxPageSize = 10;
         public int PageNumber { get; set; } = 1;
-        private int _pageSize = DefaultPageSize;      
+        private int _pageSize = DefaultPageSize;
+
+        public int ParagliderId { get; set; }
 
         public int PageSize
         {
