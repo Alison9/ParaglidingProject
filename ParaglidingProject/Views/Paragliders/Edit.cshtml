@@ -1,4 +1,4 @@
-﻿@model ParaglidingProject.Models.Paraglider
+﻿@model ParaglidingProject.SL.Core.Paraglider.NS.TransfertObjects.ParagliderDto
 @{
     ViewData["Title"] = "Edit";
 }
@@ -11,21 +11,26 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="ID" />
+            <input type="hidden" asp-for="ParagliderId" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="CommissioningDate" class="control-label"></label>
                 <input asp-for="CommissioningDate" class="form-control" />
                 <span asp-validation-for="CommissioningDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="LastRevisionDate" class="control-label"></label>
-                <input asp-for="LastRevisionDate" class="form-control" />
-                <span asp-validation-for="LastRevisionDate" class="text-danger"></span>
+                <label asp-for="LastRevision" class="control-label"></label>
+                <input asp-for="LastRevision" class="form-control" />
+                <span asp-validation-for="LastRevision" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ParagliderModelID" class="control-label"></label>
-                <select asp-for="ParagliderModelID" class="form-control" asp-items="ViewBag.ModelParaglidingID"></select>
-                <span asp-validation-for="ParagliderModelID" class="text-danger"></span>
+                <label asp-for="ParagliderModelId" class="control-label"></label>
+                <select asp-for="ParagliderModelId" class="form-control" asp-items="ViewBag.ParaglidersModels"></select>
+                <span asp-validation-for="ParagliderModelId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Enregistrer" class="btn btn-primary" />

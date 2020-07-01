@@ -28,5 +28,6 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS
         Task<IReadOnlyCollection<ParagliderDto>> GetAllParaglidersAsync(ParaglidersSSFP options);
 
         void CreateParaglider(ParagliderDto paragliderDto);
+        void EditParaglider(ParagliderDto paragliderDto);
     }
 }

@@ -102,15 +102,11 @@ namespace ParaglidingProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ParagliderDto pParagliderDto)
         {
-            ParagliderModelDto paragliderModelDto = null;
-
             using (var httpClient = new HttpClient())
             {
                 var content = new StringContent(JsonConvert.SerializeObject(pParagliderDto), Encoding.UTF8, "application/json");
                 var response = await httpClient.PostAsync("http://localhost:50106/api/v1/paragliders/", content);
             }
-
-           // ViewData["ModelParaglidingID"] = new SelectList(paragliderModelDto, "ID", "ID", paragliding.ParagliderModelID);
 
             return RedirectToAction("Index");
 
@@ -119,18 +115,30 @@ namespace ParaglidingProject.Controllers
         // GET: Paraglidings/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
+            ICollection<ParagliderModelDto> paragliderModelsDto = null;
+            ParagliderDto paragliderDto = null;
+
+            using (var httpClient = new HttpClient())
             {
-                return NotFound();
+                using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/paragliders/{id}"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    paragliderDto = JsonConvert.DeserializeObject<ParagliderDto>(apiResponse);
+                }
+            }
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/paragliderModels/"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    if (response.StatusCode == HttpStatusCode.OK)
+                        paragliderModelsDto = JsonConvert.DeserializeObject<ICollection<ParagliderModelDto>>(apiResponse);
+                }
             }
 
-            var paragliding = await _context.Paragliders.FindAsync(id);
-            if (paragliding == null)
-            {
-                return NotFound();
-            }
-            ViewData["ModelParaglidingID"] = new SelectList(_context.ParagliderModels, "ID", "ID", paragliding.ParagliderModelID);
-            return View(paragliding);
+            ViewData["ParaglidersModels"] = new SelectList(paragliderModelsDto, "ID", "ID");
+
+            return View(paragliderDto);
         }
 
         // POST: Paraglidings/Edit/5
@@ -138,35 +146,15 @@ namespace ParaglidingProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,DateOfCommissioning,DateOfLastRevision,ModelParaglidingID")] Paraglider paragliding)
+        public async Task<IActionResult> Edit(ParagliderDto pParagliderDto)
         {
-            if (id != paragliding.ID)
+            using (var httpClient = new HttpClient())
             {
-                return NotFound();
+                var content = new StringContent(JsonConvert.SerializeObject(pParagliderDto), Encoding.UTF8, "application/json");
+                var response = await httpClient.PutAsync("http://localhost:50106/api/v1/paragliders/", content);
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(paragliding);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ParaglidingExists(paragliding.ID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["ModelParaglidingID"] = new SelectList(_context.ParagliderModels, "ID", "ID", paragliding.ParagliderModelID);
-            return View(paragliding);
+            return RedirectToAction("Index");
         }
 
         // GET: Paraglidings/Delete/5
