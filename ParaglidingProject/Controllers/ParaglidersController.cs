@@ -160,20 +160,11 @@ namespace ParaglidingProject.Controllers
         // GET: Paraglidings/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
+            using (var httpClient = new HttpClient())
             {
-                return NotFound();
+                var response = await httpClient.DeleteAsync($"http://localhost:50106/api/v1/paragliders/{id}");
             }
-
-            var paragliding = await _context.Paragliders
-                .Include(p => p.ParagliderModel)
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (paragliding == null)
-            {
-                return NotFound();
-            }
-
-            return View(paragliding);
+            return RedirectToAction("Index");
         }
 
         // POST: Paraglidings/Delete/5

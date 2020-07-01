@@ -29,5 +29,6 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS
 
         void CreateParaglider(ParagliderDto paragliderDto);
         void EditParaglider(ParagliderDto paragliderDto);
+        void DeleteParaglider(int paragliderDtoId);
     }
 }

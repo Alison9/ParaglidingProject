@@ -102,6 +102,13 @@ namespace ParaglidingProject.API.Controllers
             _paragliderService.EditParaglider(pParagliderDto);
             return Ok();
         }
+        [HttpDelete("{pParagliderDtoId}")]
+        public async Task<ActionResult<ParagliderDto>> DeleteParaglider([FromRoute] int pParagliderDtoId)
+        {
+            _paragliderService.DeleteParaglider(pParagliderDtoId);
+            return Ok();
+        }
+
 
         /// <summary>
         /// Refactoring method that, given user parameters, creates a custom URL link to the previous and next page.
