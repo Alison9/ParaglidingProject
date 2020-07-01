@@ -27,13 +27,29 @@ namespace ParaglidingProject.SL.Core.Pilot.NS
         {
             var pilot = await _paraContext.Pilots
                 .AsNoTracking()
-                //.Include(p => p.Flights)
+                .Include(p => p.Flights)
+                .Include(p => p.Possessions)
+                .ThenInclude(po => po.License)
+                .Include(p => p.TraineeshipPayments)
+                .ThenInclude(tp => tp.Traineeship)
+                .Include(p => p.PilotTraineeships)
+                .ThenInclude(pt => pt.Traineeship)
                 .Select(p => new PilotDto
                 {
                     PilotId = p.ID,
-                    Name = p.LastName,
+                    FirstName = p.FirstName,
+                    LastName = p.LastName,
                     Address = p.Address,
+                    PhoneNumber = p.PhoneNumber,
+                    Weight = p.Weight,
+                    IsActive = p.IsActive,
+                    Role = p.Role,
                     NumberOfFlights = p.Flights.Count,
+                    TotalFlightHours = p.Flights.Sum(f => f.Duration),
+                    Flights = p.Flights,
+                    Possessions = p.Possessions,
+                    TraineeshipPayments = p.TraineeshipPayments,
+                    PilotTraineeships = p.PilotTraineeships
                 })
                 .FirstOrDefaultAsync(p => p.PilotId == id);
 
@@ -54,10 +70,13 @@ namespace ParaglidingProject.SL.Core.Pilot.NS
                 .Select(p => new PilotDto // PROJECTION = SELECT
                 {
                     PilotId = p.ID,
-                    Name = $"{p.FirstName} {p.LastName}",
+                    FirstName = p.FirstName,
+                    LastName = p.LastName,
                     Address = p.Address,
+                    PhoneNumber = p.PhoneNumber,
+                    Weight = p.Weight,
+                    IsActive = p.IsActive,
                     NumberOfFlights = p.Flights.Count
-
                 });
 
             options.SetPagingValues(pilotsQuery);
