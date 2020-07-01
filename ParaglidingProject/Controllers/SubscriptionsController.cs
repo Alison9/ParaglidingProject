@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using ParaglidingProject.Data;
 using ParaglidingProject.Data.Repositories;
 using ParaglidingProject.Models;
+using ParaglidingProject.SL.Core.Subscription.NS.transferObjects;
 
 namespace ParaglidingProject.Controllers
 {
@@ -27,11 +30,18 @@ namespace ParaglidingProject.Controllers
         //}
 
         // GET: Subscriptions
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
 
-            //return View(await _context.Subscriptions.OrderByDescending(s => s.YearID).ToListAsync());
-            IEnumerable<Subscription> listSubscriptions =  SubscriptionsRepository.GetAll();
+            IEnumerable<SubscriptionDto> listSubscriptions = null;
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync("http://localhost:50106/api/v1/subscriptions"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    listSubscriptions = JsonConvert.DeserializeObject<List<SubscriptionDto>>(apiResponse);
+                }
+            }
             return View(listSubscriptions);
         }
 

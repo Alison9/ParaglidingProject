@@ -1,4 +1,4 @@
-﻿@model ParaglidingProject.Models.Pilot
+﻿@model ParaglidingProject.SL.Core.Pilot.NS.TransfertObjects.PilotDto
 
 @{
     ViewData["Title"] = "Details";
@@ -44,28 +44,22 @@
             @Html.DisplayFor(model => model.Weight)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.IsActive)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.IsActive)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Role)
+            @Html.DisplayNameFor(model => model.Role.Name)
         </dt>
         <dd class=" col-sm-10">
-            @ViewData["Role"]
-        </dd>
-        <dt class="col-sm-2">
-            Nombre total d'heures de vol
-        </dt>
-        <dd class="col-sm-10">
-            @ViewData["flightTimeTotal"]
-        </dd>
+            @Html.DisplayFor(model => model.Role.Name)
+        </dd>        
         <dt class="col-sm-2">
             Nombre de vols
         </dt>
         <dd class="col-sm-10">
-            @ViewData["collectionflight"]
+            @Html.DisplayFor(model => model.NumberOfFlights)
+        </dd>
+        <dt class="col-sm-2">
+            Total d'heures de vols
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TotalFlightHours)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Flights)
@@ -75,7 +69,7 @@
                 <tr>
                     <th>Date du vol</th>        
                     <th>Durée du vol</th>
-                    <a class="btn btn-primary styleLink" asp-route-id="@Model.ID" asp-action="CreateFlight">Ajouter un vol</a>
+                    <a class="btn btn-primary styleLink" asp-route-id="@Model.PilotId" asp-action="CreateFlight">Ajouter un vol</a>
                 </tr>
                 @foreach (var item in Model.Flights)
                 {
@@ -84,10 +78,7 @@
                             @Html.DisplayFor(modelItem => item.FlightDate)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItems => item.Duration)                      
-                        </td>
-                        <td>
-                            @ViewData["flightDuration"]
+                            @Html.DisplayFor(modelItem => item.Duration)                      
                         </td>
                         <td>
                             <a class="btn btn-primary styleLink" asp-route-id="@item.ID" asp-action="EditFlight">Editer</a> |
@@ -106,7 +97,7 @@
                     <th>Nom du brevet</th>
                     <th>Niveau</th>
                     <th>Date d'obtention</th>
-                    <a class="btn btn-primary styleLink" asp-route-id="@Model.ID" asp-action="CreateLicense">Ajouter un brevet</a>
+                    <a class="btn btn-primary styleLink" asp-route-id="@Model.PilotId" asp-action="CreateLicense">Ajouter un brevet</a>
                 </tr>
                 @foreach (var item in Model.Possessions)
                 {
@@ -115,7 +106,7 @@
                             @Html.DisplayFor(modelItem => item.License.Title)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItems => item.License.Level.Name)
+                            @Html.DisplayFor(modelItems => item.License.LevelID)
                         </td>
                         <td>
                             @Html.DisplayFor(modeItems => item.ExamDate)
@@ -136,7 +127,7 @@
                 <tr>
                     <th>Date de début</th>
                     <th>Date de fin</th>
-                    <a class="btn btn-primary styleLink" asp-route-id="@Model.ID" asp-action="CreateParticipations">Ajouter un cours</a>
+                    <a class="btn btn-primary styleLink" asp-route-id="@Model.PilotId" asp-action="CreateParticipations">Ajouter un cours</a>
                 </tr>
                 @foreach (var item in Model.TraineeshipPayments)
                 {
@@ -163,7 +154,7 @@
                 <tr>
                     <th>Date de début</th>
                     <th>Date de fin</th>
-                    <a class="btn btn-primary styleLink" asp-route-id="@Model.ID" asp-action="CreateTeachings">Ajouter un cours</a>
+                    <a class="btn btn-primary styleLink" asp-route-id="@Model.PilotId" asp-action="CreateTeachings">Ajouter un cours</a>
                 </tr>
                 @foreach (var item in Model.PilotTraineeships)
                 {

@@ -1,18 +1,23 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using ParaglidingProject.Data;
 using ParaglidingProject.Models;
+using ParaglidingProject.SL.Core.Pilot.NS.TransfertObjects;
 
 namespace ParaglidingProject.Controllers
 {
     public class PilotsController : Controller
     {
+        const string apiAddress = "http://localhost:50106/api/v1/pilots";
         private readonly ParaglidingClubContext _context;
 
         public PilotsController(ParaglidingClubContext context)
@@ -23,9 +28,29 @@ namespace ParaglidingProject.Controllers
         // GET: Pilots
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Pilots.ToListAsync());
+            List<PilotDto> pilotsDto;
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync(apiAddress))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    pilotsDto = JsonConvert.DeserializeObject<List<PilotDto>>(apiResponse);
+                }
+            }
 
+            List<Pilot> pilots = await _context.Pilots.ToListAsync();
 
+            //Join sur forme de méthode
+            //List<Pilot> joinedPilots = pilots.Join<Pilot, PilotDto, int, Pilot>(pilotsDto, p => p.ID, pdto => pdto.PilotId, (p, pdto) => p).ToList();
+
+            //Join sur forme de query
+            List<Pilot> joinedPilots2 = (from p in pilots
+                                        join pdo in pilotsDto
+                                        on p.ID equals pdo.PilotId
+                                        select p).ToList();
+
+            //return View(await _context.Pilots.ToListAsync());
+            return View(joinedPilots2);
         }
 
         // POST: Pilots/Details/5
@@ -36,42 +61,17 @@ namespace ParaglidingProject.Controllers
                 return NotFound();
             }
 
-            var pilot = await _context.Pilots
-                .Include(f => f.Flights)
-                .Include(o => o.Possessions)
-                    .ThenInclude(li => li.License)
-                       .ThenInclude(le =>le.Level)
-                .Include(pa => pa.TraineeshipPayments)
-                   .ThenInclude(c => c.Traineeship)
-                .Include(p => p.Role)
-                .Include(t => t.PilotTraineeships)
-                    .ThenInclude(c => c.Traineeship)
-                    
-                .FirstOrDefaultAsync(m => m.ID == id);
-
-            var flight = _context.Flights.Where(f => f.PilotID == id);
-            var collectionflight = flight.Count();
-            ViewData["collectionflight"] = collectionflight;
-            //TimeSpan flightTime = new TimeSpan();
-
-            if (pilot == null)
+            PilotDto pilotDto;
+            using (var httpClient = new HttpClient())
             {
-                return NotFound();
+                using (var response = await httpClient.GetAsync(apiAddress + $"/{id}"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    pilotDto = JsonConvert.DeserializeObject<PilotDto>(apiResponse);
+                }
             }
 
-            //foreach (var item in flight)
-            //{
-            //    TimeSpan FlightDuration = (item.FlightEnd) - (item.FlightStart);
-            //            ViewData["flightDuration"] = FlightDuration;
-            //            flightTime += FlightDuration;
-            //            ViewData["flightTimeTotal"] = flightTime;
-                
-            //}
-
-            //ViewData["Position"] = pilot.Position.Name;
-            return View(pilot);
-            
-            
+            return View(pilotDto);
         }
 
         // GET: Pilots/Create
@@ -86,22 +86,34 @@ namespace ParaglidingProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FirstName,LastName,Adress,PhoneNumber,Weight,Position,IsActif")] Pilot pilot)
+        public async Task<IActionResult> Create([Bind("FirstName,LastName,Adress,PhoneNumber,Weight,Position,IsActif")] PilotDto pilotDto)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _context.Add(pilot);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    PilotDto receivedPilotDto = new PilotDto();
+                    using (var httpClient = new HttpClient())
+                    {
+                        StringContent content = new StringContent(JsonConvert.SerializeObject(pilotDto), Encoding.UTF8, "application/json");
+                        using (var response = await httpClient.PostAsync(apiAddress, content))
+                        {
+                            string apiResponse = await response.Content.ReadAsStringAsync();
+                            receivedPilotDto = JsonConvert.DeserializeObject<PilotDto>(apiResponse);
+                        }
+                    }
+                    return View(receivedPilotDto);
+                }
+                else {
+                    return View();
                 }
             }
             catch(DbUpdateException)
             {
                 ModelState.AddModelError("", "Pas bien !");
+                return View(ModelState);
             }
-            return View(pilot);
+            
         }
 
         // GET: Pilots/Edit/5
