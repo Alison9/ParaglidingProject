@@ -108,5 +108,11 @@ namespace ParaglidingProject.API.Controllers
             if (takeoff == null) return NotFound("Collection was empty");
             return Ok(takeoff);
         }
+        [HttpPost]
+        public async Task<ActionResult<SiteDto>> CreateSite(SiteDto pSiteDto)
+        {
+            _sitesService.CreateSite(pSiteDto);
+            return Ok();
+        }
     }
 }

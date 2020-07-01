@@ -54,5 +54,6 @@ namespace ParaglidingProject.SL.Core.Site.NS
         /// <seealso cref="TakeoffDto"/>
         /// </returns>
         Task<IReadOnlyCollection<TakeoffDto>> GetAllTakeOffAsync();
+        void CreateSite(SiteDto siteDto);
     }
 }
