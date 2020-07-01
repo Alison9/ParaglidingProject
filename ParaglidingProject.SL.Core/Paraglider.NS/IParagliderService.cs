@@ -26,5 +26,7 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS
         /// <param name="options">User options to search, sort, filter and paginate a list of paragliders</param>
         /// <returns>returns ReadOnlyCollection of Paragliders  </returns>
         Task<IReadOnlyCollection<ParagliderDto>> GetAllParaglidersAsync(ParaglidersSSFP options);
+
+        void CreateParaglider(ParagliderDto paragliderDto);
     }
 }

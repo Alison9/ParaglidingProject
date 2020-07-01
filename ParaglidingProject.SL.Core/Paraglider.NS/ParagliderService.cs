@@ -60,5 +60,18 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS
 
             return await pagedQuery.ToListAsync();
         }
+
+        public void CreateParaglider(ParagliderDto pParagliderDto)
+        {
+            _paraContext.Paragliders.Add(new Models.Paraglider
+            {
+                Name = pParagliderDto.Name,
+                CommissioningDate = pParagliderDto.CommissioningDate,
+                LastRevisionDate = pParagliderDto.LastRevision,
+                IsActive = true,
+                ParagliderModelID = pParagliderDto.ParagliderModelId
+            });
+            _paraContext.SaveChanges();
+        }
     }
 }

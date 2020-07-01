@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,6 +13,7 @@ using ParaglidingProject.Data;
 using ParaglidingProject.Models;
 using ParaglidingProject.SL.Core.Flights.NS.TransfertObjects;
 using ParaglidingProject.SL.Core.Paraglider.NS.TransfertObjects;
+using ParaglidingProject.SL.Core.ParagliderModel.NS.TransfertObjects;
 
 namespace ParaglidingProject.Controllers
 {
@@ -76,9 +78,20 @@ namespace ParaglidingProject.Controllers
         }
 
         // GET: Paraglidings/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["ModelParaglidingID"] = new SelectList(_context.ParagliderModels, "ID", "ID");
+            ICollection<ParagliderModelDto> paragliderModelsDto = null;
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/paragliderModels/"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    if (response.StatusCode == HttpStatusCode.OK)
+                        paragliderModelsDto = JsonConvert.DeserializeObject<ICollection<ParagliderModelDto>>(apiResponse);
+                }
+            }
+            
+            ViewData["ParaglidersModels"] = new SelectList(paragliderModelsDto, "ID", "ID");
             return View();
         }
 
@@ -87,16 +100,20 @@ namespace ParaglidingProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,DateOfCommissioning,DateOfLastRevision,ModelParaglidingID")] Paraglider paragliding)
+        public async Task<IActionResult> Create(ParagliderDto pParagliderDto)
         {
-            if (ModelState.IsValid)
+            ParagliderModelDto paragliderModelDto = null;
+
+            using (var httpClient = new HttpClient())
             {
-                _context.Add(paragliding);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var content = new StringContent(JsonConvert.SerializeObject(pParagliderDto), Encoding.UTF8, "application/json");
+                var response = await httpClient.PostAsync("http://localhost:50106/api/v1/paragliders/", content);
             }
-            ViewData["ModelParaglidingID"] = new SelectList(_context.ParagliderModels, "ID", "ID", paragliding.ParagliderModelID);
-            return View(paragliding);
+
+           // ViewData["ModelParaglidingID"] = new SelectList(paragliderModelDto, "ID", "ID", paragliding.ParagliderModelID);
+
+            return RedirectToAction("Index");
+
         }
 
         // GET: Paraglidings/Edit/5

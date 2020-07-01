@@ -90,6 +90,13 @@ namespace ParaglidingProject.API.Controllers
             return Ok(paraglider);
         }
 
+        [HttpPost]
+        public async Task<ActionResult<ParagliderDto>> CreateParaglider([FromBody] ParagliderDto pParagliderDto)
+        {
+            _paragliderService.CreateParaglider(pParagliderDto);
+            return Ok();
+        }
+
         /// <summary>
         /// Refactoring method that, given user parameters, creates a custom URL link to the previous and next page.
         /// </summary>
