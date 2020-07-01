@@ -4,9 +4,8 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Publier</h1>
+<h1>Editer le modèle N°@Model.ID</h1>
 
-<h4>Modèle de parapente</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -14,39 +13,39 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ID" />
             <div class="form-group">
-                <label asp-for="Size" class="control-label"></label>
-                <input asp-for="Size" class="form-control" />
+                <label asp-for="Size" class="control-label"></label><br />
+                <input asp-for="Size" class="form-control" /><br />
                 <span asp-validation-for="Size" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="MaxWeightPilot" class="control-label"></label>
-                <input asp-for="MaxWeightPilot" class="form-control" />
+                <label asp-for="MaxWeightPilot" class="control-label"></label><br />
+                <input asp-for="MaxWeightPilot" class="form-control" /><br />
                 <span asp-validation-for="MaxWeightPilot" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="MinWeightPilot" class="control-label"></label>
-                <input asp-for="MinWeightPilot" class="form-control" />
+                <label asp-for="MinWeightPilot" class="control-label"></label><br />
+                <input asp-for="MinWeightPilot" class="form-control" /><br />
                 <span asp-validation-for="MinWeightPilot" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ApprovalNumber" class="control-label"></label>
-                <input asp-for="ApprovalNumber" class="form-control" />
+                <label asp-for="ApprovalNumber" class="control-label"></label><br />
+                <input asp-for="ApprovalNumber" class="form-control" /><br />
                 <span asp-validation-for="ApprovalNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ApprovalDate" class="control-label"></label>
-                <input asp-for="ApprovalDate" class="form-control" />
+                <label asp-for="ApprovalDate" class="control-label"></label><br />
+                <input asp-for="ApprovalDate" class="form-control" /><br />
                 <span asp-validation-for="ApprovalDate" class="text-danger"></span>
-            </div>
+            </div><br />
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Enregister" class="btn btn-primary add" />
             </div>
         </form>
     </div>
 </div>
-
+<br />
 <div>
-    <a class="btn btn-primary" asp-action="Index">Retour à la liste</a>
+    <a class="styleLink" asp-action="Index">Retour à la liste</a>
 </div>
 
 @section Scripts {

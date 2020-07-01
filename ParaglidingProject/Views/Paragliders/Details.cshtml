@@ -7,7 +7,6 @@
 <h1>Details de parapente @Model.ParagliderDto.Name</h1>
 
 <div>
-    <h4>Parapente</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -46,7 +45,7 @@
         @Html.DisplayNameFor(model => model.FlightsDto)
     </dt>
                     <dd class="col-sm-10">
-                        <table class="table">
+                        <table class="table"  cellspacing="0">
                             <tr>
                                 <th>Id du vol</th>
                                 <th>Nom du pilot</th>
@@ -66,9 +65,9 @@
                     @Html.DisplayFor(modeItems => item.Duration)
                 </td>
                 <td>
-                    <a class="btn btn-primary" asp-route-id="@item.FlightId" asp-action="DetailsParagliding">Détails</a> |
-                    <a class="btn btn-primary" asp-route-id="@item.FlightId" asp-action="EditParagliding">Editer</a> |
-                    <a class="btn btn-primary" asp-route-id="@item.FlightId" asp-action="DeleteParagliding">Supprimer</a>
+                    <a class="btn btn-primary styleLink" asp-route-id="@item.FlightId" asp-action="DetailsParagliding">Détails</a> |
+                    <a class="btn btn-primary styleLink" asp-route-id="@item.FlightId" asp-action="EditParagliding">Editer</a> |
+                    <a class="btn btn-primary styleLink" asp-route-id="@item.FlightId" asp-action="DeleteParagliding">Supprimer</a>
                 </td>
             </tr>
 }
@@ -78,6 +77,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.ParagliderDto.ParagliderId">Publier</a> |
-    <a asp-action="Index">Retour à la liste</a>
+    <a class="styleLink" asp-action="Edit" asp-route-id="@Model.ParagliderDto.ParagliderId">Editer</a> |
+    <a class="styleLink" asp-action="Index">Retour à la liste</a>
 </div>

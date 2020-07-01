@@ -7,7 +7,6 @@
 <h1>Details du modèle numéro @Model.ParagliderModelDto.ID</h1>
 
 <div>
-
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -47,7 +46,7 @@
             </dt>
 
             <dd class="col-sm-10">
-                <table class="table">
+                <table class="table" cellspacing="0">
                     <tr>
                         <th>Numéro du parapente</th>
                         <th>Date de mise en service</th>
@@ -79,6 +78,6 @@
     </dl>
 </div>
 <div>
-    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.ParagliderModelDto.ID">Publier</a> |
-    <a class="btn btn-primary" asp-action="Index">Retour à la liste</a>
+    <a class="styleLink" asp-action="Edit" asp-route-id="@Model.ParagliderModelDto.ID">Editer</a> |
+    <a class="styleLink" asp-action="Index">Retour à la liste</a>
 </div>
