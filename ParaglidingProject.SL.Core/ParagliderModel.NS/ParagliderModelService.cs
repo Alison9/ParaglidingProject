@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using ParaglidingProject.Data;
 using ParaglidingProject.Models;
 using ParaglidingProject.SL.Core.ParagliderModel.NS.Helpers;
@@ -62,7 +63,7 @@ namespace ParaglidingProject.SL.Core.ParagliderModel.NS
             return await modelparaglider.ToListAsync(); // Flattening
       }
 
-        public void CreateParagliderModelAsync(ParagliderModelDto paragliderModelDto)
+        public void CreateParagliderModel(ParagliderModelDto paragliderModelDto)
         {
             var temp = _paraContext.ParagliderModels.Add(new Models.ParagliderModel
             {
@@ -73,6 +74,19 @@ namespace ParaglidingProject.SL.Core.ParagliderModel.NS
                 ApprovalDate = paragliderModelDto.ApprovalDate,
                 IsActive = true
             });
+            _paraContext.SaveChanges();
+        }
+        public void EditParagliderModel(ParagliderModelDto pParagliderModelDto)
+        {
+           var toModifyAsParaglider = _paraContext.ParagliderModels.Select(p => p).Where(pId => pId.ID == pParagliderModelDto.ID).FirstOrDefault();
+
+            toModifyAsParaglider.MaxWeightPilot = (int)pParagliderModelDto.MaxWeightPilot;
+            toModifyAsParaglider.MinWeightPilot = (int)pParagliderModelDto.MinWeightPilot;
+            toModifyAsParaglider.ApprovalDate = pParagliderModelDto.ApprovalDate;
+            toModifyAsParaglider.ApprovalNumber = pParagliderModelDto.ApprovalNumber;
+            toModifyAsParaglider.Size = pParagliderModelDto.Size;
+
+            _paraContext.ParagliderModels.Update(toModifyAsParaglider);
             _paraContext.SaveChanges();
         }
     }
