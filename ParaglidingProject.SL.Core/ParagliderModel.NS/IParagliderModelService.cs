@@ -31,6 +31,8 @@ namespace ParaglidingProject.SL.Core.ParagliderModel.NS
         /// <seealso cref="ParagliderModelDto"/>
         /// </returns>
         Task<IReadOnlyCollection<ParagliderModelDto>> GetAllParagliderModelsAsync(ParagliderModelsSSFP options);
+
+        void CreateParagliderModelAsync(ParagliderModelDto paragliderModelDto);
   }
 }
 
