@@ -120,7 +120,11 @@ namespace ParaglidingProject.Controllers
         // GET: Pilots/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            return await FillFormByPilotId(id);
+        }
 
+        private async Task<IActionResult> FillFormByPilotId(int? id)
+        {
             if (id == null)
             {
                 return NotFound();
@@ -136,18 +140,6 @@ namespace ParaglidingProject.Controllers
                 }
             }
 
-            //Afficher la liste des roles dans le dropdown menu
-            //List<Models.Role> roles;
-            //using (var httpClient = new HttpClient())
-            //{
-            //    using (var response2 = await httpClient.GetAsync(apiAddressRole))
-            //    {
-            //        string apiResponse2 = await response2.Content.ReadAsStringAsync();
-            //        roles = JsonConvert.DeserializeObject<List<Models.Role>>(apiResponse2);
-            //    }
-            //}
-
-            //ViewData["PositionID"] = new SelectList(roles, "ID", "Name", pilot.Role?.ID);
             if (pilot == null)
             {
                 return NotFound();
@@ -216,21 +208,7 @@ namespace ParaglidingProject.Controllers
         // GET: Pilots/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            Pilot pilot;
-            using (var httpClient = new HttpClient())
-            {
-                using (var response = await httpClient.GetAsync(apiAddressPilot + $"/{id}"))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    pilot = JsonConvert.DeserializeObject<Pilot>(apiResponse);
-                }
-            }
-            return View(pilot);
+            return await FillFormByPilotId(id);
         }
 
         // POST: Pilots/Delete/5
@@ -286,11 +264,6 @@ namespace ParaglidingProject.Controllers
 
 
             return View("CreateFlight");
-        }
-
-        private bool PilotExists(int id)
-        {
-            return _context.Pilots.Any(e => e.ID == id);
         }
     }
 }
