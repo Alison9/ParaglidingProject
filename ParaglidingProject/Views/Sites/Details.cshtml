@@ -1,67 +1,66 @@
-﻿@model ParaglidingProject.Models.Site
+﻿@model ParaglidingProject.SL.Core.Site.NS.TransfertObjects.SiteAndFlightsDto
 
 @{
     ViewData["Title"] = "Details du site";
 }
 
-<h1>Details du site de @Model.Name</h1>
+    <h1>Details du site de @Model.SiteDto.Name</h1>
 
 <div>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ID)
+            @Html.DisplayNameFor(model => model.SiteDto.SiteId)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ID)
+            @Html.DisplayFor(model => model.SiteDto.SiteId)
+        </dd>
+        
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SiteDto.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SiteDto.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SiteDto.Orientation)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SiteDto.Orientation)
+        </dd>
+        @if (Model.SiteDto.SiteType == Enumeration.Enm_SiteType.TakeOff)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.SiteDto.AltitudeTakeOff)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.SiteDto.AltitudeTakeOff)
+            </dd>
+        }
+        @if (Model.SiteDto.SiteType == Enumeration.Enm_SiteType.Landing)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.SiteDto.ApproachManeuver)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.SiteDto.ApproachManeuver)
+        </dd>
+        }
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SiteDto.SiteGeoCoordinate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SiteDto.SiteGeoCoordinate)
         </dd>
 
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.SiteDto.Level)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Name)
+            @Html.DisplayFor(model => model.SiteDto.Level.ID)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Orientation)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Orientation)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.AltitudeTakeOff)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.AltitudeTakeOff)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ApproachManeuver)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ApproachManeuver)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.SiteGeoCoordinate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.SiteGeoCoordinate)
-        </dd>
-
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.IsActive)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.IsActive)
-        </dd>
-
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Level)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Level.ID)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.TakeOffFlights)
+            @Html.DisplayNameFor(model => model.FlightsDto)
         </dt>
         <dd class="col-sm-10">
             <table class="table" cellspacing="0">
@@ -70,7 +69,7 @@
                     <th>Duration</th>
                     <th>Pilote</th>
                 </tr>
-                @foreach (var item in Model.TakeOffFlights)
+                @foreach (var item in Model.FlightsDto)
                 {
                     <tr>
                         <td>
@@ -80,10 +79,10 @@
                             @Html.DisplayFor(modelItems => item.Duration)
                         </td>
                         <td>
-                            @Html.DisplayFor(modeItems => item.Pilot.FirstName) @Html.DisplayFor(modeItems => item.Pilot.LastName)
+                            @Html.DisplayFor(modeItems => item.PilotName)
                         </td>
                         <td>
-                            <a class="btn btn-primary styleLink" asp-route-id="@item.ID" asp-action="DetailsFlight">Détails</a>
+                            <a class="btn btn-primary styleLink" asp-route-id="@item.FlightId" asp-action="DetailsFlight">Détails</a>
                         </td>
                     </tr>
                 }
@@ -92,6 +91,6 @@
     </dl>
 </div>
 <div>
-    <a class="styleLink" asp-action="Edit" asp-route-id="@Model.ID">Editer</a> |
+    <a class="styleLink" asp-action="Edit" asp-route-id="@Model.SiteDto.SiteId">Editer</a> |
     <a class="styleLink" asp-action="Index">Retour</a>
 </div>

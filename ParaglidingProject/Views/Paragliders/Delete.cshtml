@@ -8,7 +8,6 @@
 
 <h3>Etes-vous sûr de vouloir supprimer ce parapente ?</h3>
 <div>
-    <h4>Paraglider</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -39,7 +38,7 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="ParagliderId" />
-        <input type="submit" value="Supprimer" class="btn btn-danger" /> |
-        <a class="btn btn-primary" asp-action="Index">Retour à la liste</a>
+        <input type="submit" value="Supprimer" class="btn btn-danger add" /> |
+        <a class="styleLink" asp-action="Index">Retour à la liste</a>
     </form>
 </div>

@@ -15,34 +15,35 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <label asp-for="Name" class="control-label"></label><br />
+                <input asp-for="Name" class="form-control" /><br />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="CommissioningDate" class="control-label"></label>
-                <input asp-for="CommissioningDate" class="form-control" />
+                <label asp-for="CommissioningDate" class="control-label"></label><br />
+                <input asp-for="CommissioningDate" class="form-control" /><br />
                 <span asp-validation-for="CommissioningDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="LastRevision" class="control-label"></label>
-                <input asp-for="LastRevision" class="form-control" />
+                <label asp-for="LastRevision" class="control-label"></label><br />
+                <input asp-for="LastRevision" class="form-control" /><br />
                 <span asp-validation-for="LastRevision" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ParagliderModelId" class="control-label"></label>
-                <select asp-for="ParagliderModelId" class="form-control" asp-items="ViewBag.ParaglidersModels"></select>
-            </div>
+                <label asp-for="ParagliderModelId" class="control-label"></label><br />
+                <select asp-for="ParagliderModelId" class="form-control" asp-items="ViewBag.ParaglidersModels"></select><br />
+                <span asp-validation-for="ParagliderModelId" class="text-danger"></span>
+            </div><br />
             <div class="form-group">
-                <input type="submit" value="Créer" class="btn btn-primary" />
+                <input type="submit" value="Créer" class="btn btn-primary add" />
             </div>
         </form>
     </div>
 </div>
-
+<br />
 <div>
-    <a class="btn btn-primary" asp-action="Index">Retour à la liste</a>
+    <a  class="styleLink" asp-action="Index">Retour à la liste</a>
 </div>
 
 @section Scripts {

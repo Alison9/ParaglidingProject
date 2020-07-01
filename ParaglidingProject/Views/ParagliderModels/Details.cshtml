@@ -7,7 +7,6 @@
 <h1>Details du modèle numéro @Model.ParagliderModelDto.ID</h1>
 
 <div>
-
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -47,12 +46,12 @@
             </dt>
 
             <dd class="col-sm-10">
-                <table class="table">
+                <table class="table" cellspacing="0">
                     <tr>
                         <th>Numéro du parapente</th>
                         <th>Date de mise en service</th>
                         <th>Date de dernière révision</th>
-                        <a class="btn btn-primary" asp-route-id="@Model.ParagliderModelDto.ID" asp-action="CreateParagliding">Ajouter un parapente</a>
+                        <a class="styleLink" asp-route-id="@Model.ParagliderModelDto.ID" asp-action="CreateParagliding">Ajouter un parapente</a>
                     </tr>
                     @foreach (var item in Model.ParagliderDto)
                     {
@@ -67,9 +66,9 @@
                                 @Html.DisplayFor(modeItems => item.LastRevision)
                             </td>
                             <td>
-                                <a class="btn btn-primary" asp-route-id="@item.ParagliderId" asp-action="DetailsParagliding">Détails</a> |
-                                <a class="btn btn-primary" asp-route-id="@item.ParagliderId" asp-action="EditParagliding">Editer</a> |
-                                <a class="btn btn-primary" asp-route-id="@item.ParagliderId" asp-action="DeleteParagliding">Supprimer</a>
+                                <a class="styleLink" asp-route-id="@item.ParagliderId" asp-action="DetailsParagliding">Détails</a> |
+                                <a class="styleLink" asp-route-id="@item.ParagliderId" asp-action="EditParagliding">Editer</a> |
+                                <a class="styleLink" asp-route-id="@item.ParagliderId" asp-action="DeleteParagliding">Supprimer</a>
                             </td>
                         </tr>
                     }
@@ -79,6 +78,6 @@
     </dl>
 </div>
 <div>
-    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.ParagliderModelDto.ID">Publier</a> |
-    <a class="btn btn-primary" asp-action="Index">Retour à la liste</a>
+    <a class="styleLink" asp-action="Edit" asp-route-id="@Model.ParagliderModelDto.ID">Editer</a> |
+    <a class="styleLink" asp-action="Index">Retour à la liste</a>
 </div>

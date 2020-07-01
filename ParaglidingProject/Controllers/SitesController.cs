@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using ParaglidingProject.Data;
 using ParaglidingProject.Models;
+using ParaglidingProject.SL.Core.Flights.NS.TransfertObjects;
+using ParaglidingProject.SL.Core.Site.NS.TransfertObjects;
 
 namespace ParaglidingProject.Web.Controllers
 {
@@ -22,59 +27,16 @@ namespace ParaglidingProject.Web.Controllers
         // GET: Sites
         public async Task<IActionResult> Index()
         {
-            var paraglidingClubContext = _context.Sites
-                .Include(s => s.Level)
-                .Include(f => f.LandingFlights)
-                .Include(f => f.TakeOffFlights);
-
-            int biggerFlightsNumber = 0;
-            int tinyFlightsNumber = 0;
-            List<string> namesSitesBigger = new List<string>();
-            List<string> namesSitesTiny = new List<string>();
-          
-           foreach(var item in paraglidingClubContext)
-           {
-                var flights = _context.Flights.Where(f => f.LandingSiteID == item.ID);
-                var totalFlights = flights.Count();
-                
-                if(totalFlights >= biggerFlightsNumber)
+            IEnumerable<SiteDto> listSites = null;
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync("http://localhost:50106/api/v1/sites"))
                 {
-                    if(totalFlights == biggerFlightsNumber)
-                    {
-                        namesSitesBigger.Add(item.Name);
-                    }
-                    else
-                    {
-                        namesSitesBigger.Clear();
-                        namesSitesBigger.Add(item.Name);
-                    }
-                    biggerFlightsNumber = totalFlights;
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    listSites = JsonConvert.DeserializeObject<List<SiteDto>>(apiResponse);
                 }
-                else
-                {
-                    
-                    if(tinyFlightsNumber == 0)
-                    {
-                       tinyFlightsNumber = totalFlights;  
-                    }
-                    if (totalFlights == tinyFlightsNumber)
-                    {
-                        namesSitesTiny.Add(item.Name);
-                    }
-
-                   if (totalFlights < tinyFlightsNumber)
-                   {
-                            namesSitesTiny.Clear();
-                            namesSitesTiny.Add(item.Name);
-                    }
-                    
-                    tinyFlightsNumber = totalFlights;
-                }
-           }
-
-            ViewData["BiggerFlightsData"] = namesSitesBigger;
-            ViewData["TinyFlightsData"] = namesSitesTiny;
-            return View(await paraglidingClubContext.ToListAsync());
+            }
+            return View(listSites);
         }
 
         // GET: Sites/Details/5
@@ -85,19 +47,40 @@ namespace ParaglidingProject.Web.Controllers
                 return NotFound();
             }
 
-            var site = await _context.Sites
-                .Include(s => s.Level)
-                .Include(f => f.TakeOffFlights)
-                .ThenInclude(p => p.Pilot)
-                .Include(f => f.LandingFlights)
-                .ThenInclude(p => p.Pilot)
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (site == null)
+            SiteAndFlightsDto viewSite = new SiteAndFlightsDto();
+            SiteDto siteDto = null;
+            ICollection<FlightDto> flightsDto = null;
+
+            using (var httpClient = new HttpClient())
             {
-                return NotFound();
+                using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/sites/{id}"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    siteDto = JsonConvert.DeserializeObject<SiteDto>(apiResponse);
+                }
+            }
+            int filterType = 1;
+            string filterTypeName = "TakeOffSiteId";
+            if (siteDto.SiteType == Enumeration.Enm_SiteType.Landing)
+            {
+                filterType = 2;
+                filterTypeName = "LandingSiteId";
             }
 
-            return View(site);
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/flights?FilterBy={filterType}&{filterTypeName}={id}"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    if (response.StatusCode == HttpStatusCode.OK)
+                        flightsDto = JsonConvert.DeserializeObject<ICollection<FlightDto>>(apiResponse);
+                }
+            }
+            viewSite.SiteDto = siteDto;
+            viewSite.FlightsDto = flightsDto;
+
+            return View(viewSite);
+
         }
 
         // GET: Sites/Create

@@ -43,7 +43,7 @@ namespace ParaglidingProject.SL.Core.Flights.NS.Helpers
     {
         NoFilter = 0,
         TakeOffSite = 1,
-        LandingSite = 2    ,
+        LandingSite = 2,
         ParagliderId = 3
     }
 }

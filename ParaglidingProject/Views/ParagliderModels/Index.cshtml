@@ -59,9 +59,9 @@
                 @Html.DisplayFor(modelItem => item.ApprovalDate)
             </td>
             <td class="last">
-                <a class="btn btn-primary styleLink" asp-action="Edit" asp-route-id="@item.ID">Publier</a> |
-                <a class="btn btn-primary styleLink" asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a class="btn btn-primary styleLink" asp-action="Delete" asp-route-id="@item.ID">Supprimer</a>
+                <a class="styleLink" asp-action="Edit" asp-route-id="@item.ID">Editer</a> |
+                <a class="styleLink" asp-action="Details" asp-route-id="@item.ID">Détails</a> |
+                <a class="styleLink" asp-action="Delete" asp-route-id="@item.ID">Supprimer</a>
             </td>
         </tr>
 }

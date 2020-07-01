@@ -10,9 +10,9 @@
 <h1>Liste des parapentes</h1>
 
 <p>
-    <a asp-action="Create">Créer un nouveau parapente</a>
+    <a asp-action="Create" class="create">Créer un nouveau parapente</a>
 </p>
-<table class="table">
+<table class="table" cellspacing="0">
     <thead>
         <tr>
             <th>
@@ -46,9 +46,9 @@
                 @Html.DisplayFor(modelItem => item.ParagliderId)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ParagliderId">Editer</a> |
-                <a asp-action="Details" asp-route-id="@item.ParagliderId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ParagliderId">Supprimer</a>
+                <a class="styleLink" asp-action="Edit" asp-route-id="@item.ParagliderId">Editer</a> |
+                <a class="styleLink" asp-action="Details" asp-route-id="@item.ParagliderId">Details</a> |
+                <a class="styleLink" asp-action="Delete" asp-route-id="@item.ParagliderId">Supprimer</a>
             </td>
         </tr>
 }
