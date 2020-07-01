@@ -51,7 +51,7 @@
                         <th>Numéro du parapente</th>
                         <th>Date de mise en service</th>
                         <th>Date de dernière révision</th>
-                        <a class="btn btn-primary" asp-route-id="@Model.ParagliderModelDto.ID" asp-action="CreateParagliding">Ajouter un parapente</a>
+                        <a class="styleLink" asp-route-id="@Model.ParagliderModelDto.ID" asp-action="CreateParagliding">Ajouter un parapente</a>
                     </tr>
                     @foreach (var item in Model.ParagliderDto)
                     {
@@ -66,9 +66,9 @@
                                 @Html.DisplayFor(modeItems => item.LastRevision)
                             </td>
                             <td>
-                                <a class="btn btn-primary" asp-route-id="@item.ParagliderId" asp-action="DetailsParagliding">Détails</a> |
-                                <a class="btn btn-primary" asp-route-id="@item.ParagliderId" asp-action="EditParagliding">Editer</a> |
-                                <a class="btn btn-primary" asp-route-id="@item.ParagliderId" asp-action="DeleteParagliding">Supprimer</a>
+                                <a class="styleLink" asp-route-id="@item.ParagliderId" asp-action="DetailsParagliding">Détails</a> |
+                                <a class="styleLink" asp-route-id="@item.ParagliderId" asp-action="EditParagliding">Editer</a> |
+                                <a class="styleLink" asp-route-id="@item.ParagliderId" asp-action="DeleteParagliding">Supprimer</a>
                             </td>
                         </tr>
                     }

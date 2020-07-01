@@ -50,7 +50,7 @@
                                 <th>Id du vol</th>
                                 <th>Nom du pilot</th>
                                 <th>Durée du vol</th>
-                                <a class="btn btn-primary" asp-route-id="@Model.ParagliderDto.ParagliderId" asp-action="CreateParagliding">Ajouter un parapente</a>
+                                <a class="styleLink" asp-route-id="@Model.ParagliderDto.ParagliderId" asp-action="CreateParagliding">Ajouter un parapente</a>
                             </tr>
                             @foreach (var item in Model.FlightsDto)
                             {
@@ -65,9 +65,9 @@
                     @Html.DisplayFor(modeItems => item.Duration)
                 </td>
                 <td>
-                    <a class="btn btn-primary styleLink" asp-route-id="@item.FlightId" asp-action="DetailsParagliding">Détails</a> |
-                    <a class="btn btn-primary styleLink" asp-route-id="@item.FlightId" asp-action="EditParagliding">Editer</a> |
-                    <a class="btn btn-primary styleLink" asp-route-id="@item.FlightId" asp-action="DeleteParagliding">Supprimer</a>
+                    <a class="styleLink" asp-route-id="@item.FlightId" asp-action="DetailsParagliding">Détails</a> |
+                    <a class="styleLink" asp-route-id="@item.FlightId" asp-action="EditParagliding">Editer</a> |
+                    <a class="styleLink" asp-route-id="@item.FlightId" asp-action="DeleteParagliding">Supprimer</a>
                 </td>
             </tr>
 }
