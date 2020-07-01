@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Query.Internal;
+using ParaglidingProject.Models;
 using ParaglidingProject.SL.Core.Licenses.NS;
 using ParaglidingProject.SL.Core.Pilot.NS;
 using ParaglidingProject.SL.Core.Pilot.NS.Helpers;
@@ -78,6 +80,14 @@ namespace ParaglidingProject.API.Controllers
             Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
 
             return Ok(pilots);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("", Name ="PostPilotAsync")]
+        public async Task<ActionResult<Pilot>> PostPilotAsync([FromBody] Pilot pilot)
+        {
+            await _pilotsService.PostPilotAsync(pilot);
+            return Ok(pilot);
         }
 
         private string CreateResourceUri(PilotSSFP options, RessourceUriType type)

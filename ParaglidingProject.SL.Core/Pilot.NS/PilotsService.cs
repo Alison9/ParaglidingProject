@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using ParaglidingProject.Data;
@@ -81,9 +82,20 @@ namespace ParaglidingProject.SL.Core.Pilot.NS
 
             options.SetPagingValues(pilotsQuery);
 
-            var pagedQuery = pilotsQuery.Page(options.PageNumber - 1, options.PageSize); // PAGINATION
+            var pagedQuery = pilotsQuery.Page<PilotDto>(options.PageNumber - 1, options.PageSize); // PAGINATION
 
             return await pagedQuery.ToListAsync(); // FLATTENING = ITERATION 
+        }
+
+        public async Task PostPilotAsync(Models.Pilot pilot)
+        {
+            if (pilot == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            _paraContext.Pilots.Add(pilot);
+            await _paraContext.SaveChangesAsync();
         }
     }
 }

@@ -86,23 +86,23 @@ namespace ParaglidingProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FirstName,LastName,Adress,PhoneNumber,Weight,Position,IsActif")] PilotDto pilotDto)
+        public async Task<IActionResult> Create(Pilot pilot)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    PilotDto receivedPilotDto = new PilotDto();
+                    Pilot receivedPilot = new Pilot();
                     using (var httpClient = new HttpClient())
                     {
-                        StringContent content = new StringContent(JsonConvert.SerializeObject(pilotDto), Encoding.UTF8, "application/json");
+                        StringContent content = new StringContent(JsonConvert.SerializeObject(pilot), Encoding.UTF8, "application/json");
                         using (var response = await httpClient.PostAsync(apiAddress, content))
                         {
                             string apiResponse = await response.Content.ReadAsStringAsync();
-                            receivedPilotDto = JsonConvert.DeserializeObject<PilotDto>(apiResponse);
+                            receivedPilot = JsonConvert.DeserializeObject<Pilot>(apiResponse);
                         }
                     }
-                    return View(receivedPilotDto);
+                    return RedirectToAction("Index", receivedPilot);
                 }
                 else {
                     return View();
