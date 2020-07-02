@@ -28,7 +28,7 @@ namespace ParaglidingProject.Web.Controllers
             List<FlightDto> flightsDto;
             using (var httpClient = new HttpClient())
             {
-                StringBuilder Sb = new StringBuilder(apiAddressFlight);
+
                 using (var response = await httpClient.GetAsync(apiAddressFlight))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
