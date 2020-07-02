@@ -148,9 +148,17 @@ namespace ParaglidingProject.Web.Controllers
                 return NotFound();
             }
 
-            
+            SiteAndFlightsDto viewSite = new SiteAndFlightsDto();
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/sites/{id}"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    viewSite = JsonConvert.DeserializeObject<SiteAndFlightsDto>(apiResponse);
+                }
+            }
 
-            return View();
+            return View(viewSite.SiteDto);
         }
 
         // POST: Sites/Delete/5
@@ -158,18 +166,11 @@ namespace ParaglidingProject.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            
-            return RedirectToAction(nameof(Index));
-        }
-
-        public async Task<IActionResult> DetailsFlight(int? id)
-        {
-            if (id == null)
+            using (var httpClient = new HttpClient())
             {
-                return NotFound();
+                var response = await httpClient.DeleteAsync($"http://localhost:50106/api/v1/sites/{id}");
             }
-
-            return View();
+            return RedirectToAction("Index");
         }
     }
 }

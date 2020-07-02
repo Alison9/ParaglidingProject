@@ -102,6 +102,14 @@ namespace ParaglidingProject.SL.Core.Site.NS
             _paraContext.Sites.Update(toModifyAsSite);
             _paraContext.SaveChanges();
         }
+        public void DeleteSite(int id)
+        {
+            var toDelete = _paraContext.Sites.Select(s => s).Where(s => s.ID == id).FirstOrDefault();
+
+            toDelete.IsActive = false;
+            _paraContext.Sites.Update(toDelete);
+            _paraContext.SaveChanges();
+        }
 
     }
 }

@@ -131,5 +131,11 @@ namespace ParaglidingProject.API.Controllers
             _sitesService.EditSite(pSiteDto);
             return Ok();
         }
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<SiteDto>> Deletesite(int id)
+        {
+            _sitesService.DeleteSite(id);
+            return Ok();
+        }
     }
 }

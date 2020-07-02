@@ -1,4 +1,4 @@
-﻿@model ParaglidingProject.Models.Site
+﻿@model ParaglidingProject.SL.Core.Site.NS.TransfertObjects.SiteDto
 
 @{
     ViewData["Title"] = "Supprimer";
@@ -50,7 +50,7 @@
     </dl>
     
     <form asp-action="Delete">
-        <input type="hidden" asp-for="ID" />
+        <input type="hidden" asp-for="SiteId" />
         <input type="submit" value="Supprimer" class="btn btn-danger add" /> |
         <a class="styleLink" asp-action="Index">Retour</a>
     </form>
