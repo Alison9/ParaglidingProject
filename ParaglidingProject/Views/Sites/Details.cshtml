@@ -28,7 +28,7 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.SiteDto.Orientation)
         </dd>
-        @if (Model.SiteDto.SiteType == Enumeration.Enm_SiteType.TakeOff)
+        @if (Model.SiteDto.SiteType == ParaglidingProject.SL.Core.Site.NS.TransfertObjects.TypeSite.Takeoff)
         {
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.SiteDto.AltitudeTakeOff)
@@ -37,7 +37,7 @@
                 @Html.DisplayFor(model => model.SiteDto.AltitudeTakeOff)
             </dd>
         }
-        @if (Model.SiteDto.SiteType == Enumeration.Enm_SiteType.Landing)
+        @if (Model.SiteDto.SiteType == ParaglidingProject.SL.Core.Site.NS.TransfertObjects.TypeSite.Landing)
         {
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.SiteDto.ApproachManeuver)
@@ -59,6 +59,8 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.SiteDto.Level.ID)
         </dd>
+        @if (Model.FlightsDto.Count > 0)
+        {
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.FlightsDto)
         </dt>
@@ -81,13 +83,11 @@
                         <td>
                             @Html.DisplayFor(modeItems => item.PilotName)
                         </td>
-                        <td>
-                            <a class="btn btn-primary styleLink" asp-route-id="@item.FlightId" asp-action="DetailsFlight">Détails</a>
-                        </td>
                     </tr>
                 }
             </table>
         </dd>
+        }
     </dl>
 </div>
 <div>

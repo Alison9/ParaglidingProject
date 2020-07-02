@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using ParaglidingProject.SL.Core.Flights.NS;
 using ParaglidingProject.SL.Core.Site.NS;
 using ParaglidingProject.SL.Core.Site.NS.Helpers;
 using ParaglidingProject.SL.Core.Site.NS.TransfertObjects;
@@ -19,18 +20,28 @@ namespace ParaglidingProject.API.Controllers
     public class SiteController : ControllerBase
     {
         private readonly ISitesService _sitesService;
+        private readonly IFlightsService _flightService;
 
-        public SiteController(ISitesService sitesService)
+        public SiteController(ISitesService sitesService,IFlightsService flightsService)
         {
             _sitesService = sitesService ?? throw new ArgumentNullException(nameof(sitesService));
+            _flightService = flightsService ?? throw new ArgumentNullException(nameof(flightsService));
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<SiteDto>> GetSiteAsync([FromRoute] int id)
+        public async Task<ActionResult<SiteAndFlightsDto>> GetSiteAsync([FromRoute] int id)
         {
+            SiteAndFlightsDto siteAndFlightsDto = new SiteAndFlightsDto();
+
             var site = await _sitesService.GetSiteAsync(id);
             if (site == null) return NotFound("Couldn't find any associated Site");
-            return Ok(site);
+            var flights = await _flightService.GetFlightsBySite(id);
+            if (flights == null) return NotFound("Couldn't find any associated flight");
+
+            siteAndFlightsDto.SiteDto = site;
+            siteAndFlightsDto.FlightsDto = flights;
+
+            return Ok(siteAndFlightsDto);
         }
       
         [HttpGet("",Name = "GetAllSitesAsync")]
@@ -112,6 +123,12 @@ namespace ParaglidingProject.API.Controllers
         public async Task<ActionResult<SiteDto>> CreateSite(SiteDto pSiteDto)
         {
             _sitesService.CreateSite(pSiteDto);
+            return Ok();
+        }
+        [HttpPut]
+        public async Task<ActionResult<SiteDto>> EditSite(SiteDto pSiteDto)
+        {
+            _sitesService.EditSite(pSiteDto);
             return Ok();
         }
     }

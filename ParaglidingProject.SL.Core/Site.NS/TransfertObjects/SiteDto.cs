@@ -6,10 +6,10 @@ using static ParaglidingProject.Models.Enumeration;
 
 namespace ParaglidingProject.SL.Core.Site.NS.TransfertObjects
 {
-    public enum typesite
+    public enum TypeSite
     {
-        Takeoff,
-        Landing
+        Takeoff = 1,
+        Landing = 2
     }
     public class SiteDto
     {
@@ -20,7 +20,7 @@ namespace ParaglidingProject.SL.Core.Site.NS.TransfertObjects
         public string ApproachManeuver { get; set; }
         public string SiteGeoCoordinate { get; set; }
         public int NumberOfUse { get; set; }
-        public Enm_SiteType SiteType { get; set; }
+        public TypeSite SiteType { get; set; }
         public Level Level { get; set; }
         
 

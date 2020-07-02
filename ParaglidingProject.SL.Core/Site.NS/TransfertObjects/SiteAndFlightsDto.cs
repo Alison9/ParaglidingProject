@@ -8,6 +8,6 @@ namespace ParaglidingProject.SL.Core.Site.NS.TransfertObjects
     public class SiteAndFlightsDto
     {
         public SiteDto SiteDto { get; set; }
-        public ICollection<FlightDto> FlightsDto { get; set; }
+        public IReadOnlyCollection<FlightDto> FlightsDto { get; set; }
     }
 }

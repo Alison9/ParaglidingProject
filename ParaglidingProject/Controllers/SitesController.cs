@@ -39,43 +39,22 @@ namespace ParaglidingProject.Web.Controllers
             }
 
             SiteAndFlightsDto viewSite = new SiteAndFlightsDto();
-            SiteDto siteDto = null;
-            ICollection<FlightDto> flightsDto = null;
 
             using (var httpClient = new HttpClient())
             {
                 using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/sites/{id}"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
-                    siteDto = JsonConvert.DeserializeObject<SiteDto>(apiResponse);
+                    viewSite = JsonConvert.DeserializeObject<SiteAndFlightsDto>(apiResponse);
                 }
             }
-            int filterType = 1;
-            string filterTypeName = "TakeOffSiteId";
-            if (siteDto.SiteType == Enumeration.Enm_SiteType.Landing)
-            {
-                filterType = 2;
-                filterTypeName = "LandingSiteId";
-            }
-
-            using (var httpClient = new HttpClient())
-            {
-                using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/flights?FilterBy={filterType}&{filterTypeName}={id}"))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    if (response.StatusCode == HttpStatusCode.OK)
-                        flightsDto = JsonConvert.DeserializeObject<ICollection<FlightDto>>(apiResponse);
-                }
-            }
-            viewSite.SiteDto = siteDto;
-            viewSite.FlightsDto = flightsDto;
 
             return View(viewSite);
 
         }
 
         // GET: Sites/Create
-        public async Task<IActionResult> Create(int pSiteType)
+        public async Task<IActionResult> Create(TypeSite pSiteType)
         {
             ICollection<LevelDto> levelsDto = null;
 
@@ -112,13 +91,32 @@ namespace ParaglidingProject.Web.Controllers
         // GET: Sites/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            ICollection<LevelDto> levelsDto = null;
             if (id == null)
             {
                 return NotFound();
             }
+            SiteAndFlightsDto viewSite = new SiteAndFlightsDto();
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/sites/{id}"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    viewSite = JsonConvert.DeserializeObject<SiteAndFlightsDto>(apiResponse);
+                }
+            }
 
-            
-            return View();
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync("http://localhost:50106/api/v1/levels/"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    if (response.StatusCode == HttpStatusCode.OK)
+                        levelsDto = JsonConvert.DeserializeObject<ICollection<LevelDto>>(apiResponse);
+                }
+            }
+            ViewData["LevelID"] = new SelectList(levelsDto, "LevelID", "Name");
+            return View(viewSite);
         }
 
         // POST: Sites/Edit/5
@@ -126,15 +124,20 @@ namespace ParaglidingProject.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,OrientationLanding,OrientationTakeOff,AltitudeTakeOff,FlightType,LevelID")] Site site)
+        public async Task<IActionResult> Edit(SiteDto siteDto)
         {
-            if (id != site.ID)
+            if (siteDto == null)
             {
                 return NotFound();
             }
 
-            
-            return View(site);
+            using (var httpClient = new HttpClient())
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(siteDto), Encoding.UTF8, "application/json");
+                var response = await httpClient.PutAsync("http://localhost:50106/api/v1/sites/", content);
+            }
+
+            return RedirectToAction("Index");
         }
 
         // GET: Sites/Delete/5
