@@ -1,16 +1,11 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using ParaglidingProject.Data;
-using ParaglidingProject.Models;
 using ParaglidingProject.SL.Core.Flights.NS.TransfertObjects;
 using ParaglidingProject.SL.Core.Paraglider.NS.TransfertObjects;
 using ParaglidingProject.SL.Core.ParagliderModel.NS.TransfertObjects;
@@ -19,13 +14,6 @@ namespace ParaglidingProject.Controllers
 {
     public class ParaglidersController : Controller
     {
-        private readonly ParaglidingClubContext _context;
-
-        public ParaglidersController(ParaglidingClubContext context)
-        {
-            _context = context;
-        }
-
         // GET: Paraglidings
         public async Task<IActionResult> Index()
         {
@@ -50,30 +38,14 @@ namespace ParaglidingProject.Controllers
             }
             ParagliderAndFlightsDto ViewParaglider = new ParagliderAndFlightsDto();
 
-            ICollection<FlightDto> flightsDto = null;
-            ParagliderDto paragliderDto = null;
-
             using (var httpClient = new HttpClient())
             {
                 using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/paragliders/{id}"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
-                    paragliderDto = JsonConvert.DeserializeObject<ParagliderDto>(apiResponse);
+                    ViewParaglider = JsonConvert.DeserializeObject<ParagliderAndFlightsDto>(apiResponse);
                 }
             }
-            using (var httpClient = new HttpClient())
-            {
-                using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/flights?FilterBy=3&ParagliderId={paragliderDto.ParagliderId}"))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    if (response.StatusCode == HttpStatusCode.OK)
-                        flightsDto = JsonConvert.DeserializeObject<ICollection<FlightDto>>(apiResponse);
-                }
-            }
-
-            ViewParaglider.ParagliderDto = paragliderDto;
-            ViewParaglider.FlightsDto = flightsDto;
-
             return View(ViewParaglider);
         }
 
@@ -183,11 +155,6 @@ namespace ParaglidingProject.Controllers
                 var response = await httpClient.DeleteAsync($"http://localhost:50106/api/v1/paragliders/{id}");
             }
             return RedirectToAction("Index");
-        }
-
-        private bool ParaglidingExists(int id)
-        {
-            return _context.Paragliders.Any(e => e.ID == id);
         }
     }
 }

@@ -29,11 +29,6 @@ namespace ParaglidingProject.Web.Controllers
             using (var httpClient = new HttpClient())
             {
                 StringBuilder Sb = new StringBuilder(apiAddressFlight);
-
-                if ()
-                {
-
-                }
                 using (var response = await httpClient.GetAsync(apiAddressFlight))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();

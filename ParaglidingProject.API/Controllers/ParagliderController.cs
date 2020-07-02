@@ -44,11 +44,18 @@ namespace ParaglidingProject.API.Controllers
         /// <remarks></remarks>
         [HttpGet("{paragliderId}", Name = "GetParagliderAsync")]
 
-        public async Task<ActionResult<ParagliderDto>> GetParagliderAsync([FromRoute] int paragliderId)
+        public async Task<ActionResult<ParagliderAndFlightsDto>> GetParagliderAsync([FromRoute] int paragliderId)
         {
+            ParagliderAndFlightsDto paragliderAndFlightsDto = new ParagliderAndFlightsDto();
+
             var paraglider = await _paragliderService.GetParagliderAsync(paragliderId);
             if (paraglider == null) return NotFound("Couldn't find any associated Paraglider");
-            return Ok(paraglider);
+            var flights = await _paragliderService.GetFlightsByParaglider(paragliderId);
+            if (flights == null) return NotFound("there is no flights for this paraglider");
+
+            paragliderAndFlightsDto.ParagliderDto = paraglider;
+            paragliderAndFlightsDto.FlightsDto = flights;
+            return Ok(paragliderAndFlightsDto);
         }
 
         /// <summary>

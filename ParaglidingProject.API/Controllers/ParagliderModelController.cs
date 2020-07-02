@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using ParaglidingProject.SL.Core.ParagliderModel.NS;
 using ParaglidingProject.SL.Core.ParagliderModel.NS.Helpers;
 using ParaglidingProject.SL.Core.ParagliderModel.NS.TransfertObjects;
@@ -62,11 +63,17 @@ namespace ParaglidingProject.API.Controllers
         /// </returns>
         /// <remarks></remarks>
         [HttpGet("{paragliderModelId}", Name = "GetParagliderModelAsync")]
-        public async Task<ActionResult<ParagliderModelDto>> GetParagliderModelAsync([FromRoute] int paragliderModelId)
+        public async Task<ActionResult<ParagliderModelAndParagliders>> GetParagliderModelAsync([FromRoute] int paragliderModelId)
         {
+            ParagliderModelAndParagliders paragliderModelAndParagliders = new ParagliderModelAndParagliders();
             var modelParaglider = await _ModelParagliderService.GetParagliderModelAsync(paragliderModelId);
             if (modelParaglider == null) return NotFound("Couldn't find any model of paraglider");
-            return Ok(modelParaglider);
+            var paragliders = await _ModelParagliderService.GetParaglidersByModelParaglider(paragliderModelId);
+            if (paragliders == null) return NotFound("There is no paragliders on for this model");
+            paragliderModelAndParagliders.ParagliderModelDto = modelParaglider;
+            paragliderModelAndParagliders.ParagliderDto = paragliders;
+
+            return Ok(paragliderModelAndParagliders);
         }
 
         /// <summary>

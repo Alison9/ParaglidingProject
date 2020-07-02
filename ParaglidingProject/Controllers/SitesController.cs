@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using ParaglidingProject.Data;
 using ParaglidingProject.Models;
 using ParaglidingProject.SL.Core.Flights.NS.TransfertObjects;
 using ParaglidingProject.SL.Core.Levels.NS.TransfertObjects;
@@ -19,13 +15,6 @@ namespace ParaglidingProject.Web.Controllers
 {
     public class SitesController : Controller
     {
-        private readonly ParaglidingClubContext _context;
-
-        public SitesController(ParaglidingClubContext context)
-        {
-            _context = context;
-        }
-
         // GET: Sites
         public async Task<IActionResult> Index()
         {
@@ -128,13 +117,8 @@ namespace ParaglidingProject.Web.Controllers
                 return NotFound();
             }
 
-            var site = await _context.Sites.FindAsync(id);
-            if (site == null)
-            {
-                return NotFound();
-            }
-            ViewData["LevelID"] = new SelectList(_context.Levels, "ID", "ID", site.LevelID);
-            return View(site);
+            
+            return View();
         }
 
         // POST: Sites/Edit/5
@@ -149,27 +133,7 @@ namespace ParaglidingProject.Web.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(site);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!SiteExists(site.ID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["LevelID"] = new SelectList(_context.Levels, "ID", "ID", site.LevelID);
+            
             return View(site);
         }
 
@@ -181,15 +145,9 @@ namespace ParaglidingProject.Web.Controllers
                 return NotFound();
             }
 
-            var site = await _context.Sites
-                .Include(s => s.Level)
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (site == null)
-            {
-                return NotFound();
-            }
+            
 
-            return View(site);
+            return View();
         }
 
         // POST: Sites/Delete/5
@@ -197,15 +155,8 @@ namespace ParaglidingProject.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var site = await _context.Sites.FindAsync(id);
-            _context.Sites.Remove(site);
-            await _context.SaveChangesAsync();
+            
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool SiteExists(int id)
-        {
-            return _context.Sites.Any(e => e.ID == id);
         }
 
         public async Task<IActionResult> DetailsFlight(int? id)
@@ -215,18 +166,7 @@ namespace ParaglidingProject.Web.Controllers
                 return NotFound();
             }
 
-            var site = await _context.Flights
-                .Include(p => p.Paraglider)
-                .Include(p => p.Pilot)
-                .Include(s => s.LandingSite)
-                 //.Include(s => s.TakeOffSite)
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (site == null)
-            {
-                return NotFound();
-            }
-
-            return View(site);
+            return View();
         }
     }
 }

@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using ParaglidingProject.Data;
 using ParaglidingProject.Models;
+using ParaglidingProject.SL.Core.Paraglider.NS.TransfertObjects;
 using ParaglidingProject.SL.Core.ParagliderModel.NS.Helpers;
 using ParaglidingProject.SL.Core.ParagliderModel.NS.TransfertObjects;
 using System;
@@ -41,6 +42,20 @@ namespace ParaglidingProject.SL.Core.ParagliderModel.NS
             .FirstOrDefaultAsync(p => p.ID == id);
 
         return modelparaglider;
+      }
+      public async Task<IReadOnlyCollection<ParagliderDto>> GetParaglidersByModelParaglider(int id)
+      {
+            var paragliders = _paraContext.Paragliders.Select(p => new ParagliderDto
+            {
+                ParagliderId = p.ID,
+                LastRevision = p.LastRevisionDate,
+                CommissioningDate = p.CommissioningDate,
+                Name = p.Name,
+                NumerOfFlights = p.Flights.Count(),
+                ParagliderModelId = p.ParagliderModelID
+            }).Where(p => p.ParagliderModelId == id);
+
+            return await paragliders.ToListAsync();
       }
       public async Task<IReadOnlyCollection<ParagliderModelDto>> GetAllParagliderModelsAsync(ParagliderModelsSSFP options)
       {
