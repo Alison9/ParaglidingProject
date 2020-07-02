@@ -2,6 +2,8 @@ using Microsoft.CodeAnalysis.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using ParaglidingProject.Data;
+using ParaglidingProject.SL.Core.Flights.NS;
+using ParaglidingProject.SL.Core.Flights.NS.TransfertObjects;
 using ParaglidingProject.SL.Core.Helpers;
 using ParaglidingProject.SL.Core.Paraglider.NS.Helpers;
 using ParaglidingProject.SL.Core.Paraglider.NS.TransfertObjects;
@@ -92,6 +94,21 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS
             toDelete.IsActive = false;
             _paraContext.Paragliders.Update(toDelete);
             _paraContext.SaveChanges();
+        }
+
+        public async Task<IReadOnlyCollection<ParagliderDto>> GetParaglidersByModelParaglider(int id)
+        {
+            var paragliders = _paraContext.Paragliders.Select(p => new ParagliderDto
+            {
+                ParagliderId = p.ID,
+                LastRevision = p.LastRevisionDate,
+                CommissioningDate = p.CommissioningDate,
+                Name = p.Name,
+                NumerOfFlights = p.Flights.Count(),
+                ParagliderModelId = p.ParagliderModelID
+            }).Where(p => p.ParagliderModelId == id);
+
+            return await paragliders.ToListAsync();
         }
     }
 }

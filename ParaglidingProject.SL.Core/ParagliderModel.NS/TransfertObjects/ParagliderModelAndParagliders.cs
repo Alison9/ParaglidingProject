@@ -8,6 +8,6 @@ namespace ParaglidingProject.SL.Core.ParagliderModel.NS.TransfertObjects
     public class ParagliderModelAndParagliders
     {
         public ParagliderModelDto ParagliderModelDto { get; set; }
-        public ICollection<ParagliderDto> ParagliderDto { get; set; }
+        public IReadOnlyCollection<ParagliderDto> ParagliderDto { get; set; }
     }
 }

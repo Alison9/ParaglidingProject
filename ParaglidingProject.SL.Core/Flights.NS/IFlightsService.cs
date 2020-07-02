@@ -33,5 +33,7 @@ namespace ParaglidingProject.SL.Core.Flights.NS
         /// <param name="dates">The date range as a DateRangeParams(BeginDate and EndDate)</param>
         /// <returns>A ReadOnlyCollection of FlightDto containing the flightId,flightDate,Duration,PilotName,ParagliderName,TakeOff and Landing sites </returns>
         Task<IReadOnlyCollection<FlightDto>> GetAllFlightsForPilotInDateRangeAsync(int pilotId, DateRangeParams dates);
+
+        Task<IReadOnlyCollection<FlightDto>> GetFlightsByParaglider(int id);
     }
 }

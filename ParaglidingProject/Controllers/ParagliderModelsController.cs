@@ -1,19 +1,10 @@
-using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using System.Threading.Tasks.Dataflow;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
-using ParaglidingProject.Data;
-using ParaglidingProject.Models;
 using ParaglidingProject.SL.Core.Paraglider.NS.TransfertObjects;
 using ParaglidingProject.SL.Core.ParagliderModel.NS.TransfertObjects;
 
@@ -21,13 +12,6 @@ namespace ParaglidingProject.Controllers
 {
     public class ParagliderModelsController : Controller
     {
-        private readonly ParaglidingClubContext _context;
-
-        public ParagliderModelsController(ParaglidingClubContext context)
-        {
-            _context = context;
-        }
-
         // GET: ModelParaglidings
         public async Task<IActionResult> Index()
         {
@@ -50,31 +34,17 @@ namespace ParaglidingProject.Controllers
             {
                 return NotFound();
             }
+
             ParagliderModelAndParagliders ViewParagliderModel = new ParagliderModelAndParagliders();
 
-            ICollection<ParagliderDto> paragliderDto = null;
-            ParagliderModelDto paragliderModel = null;
             using (var httpClient = new HttpClient())
             {
                 using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/paragliderModels/{id}"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
-                    paragliderModel = JsonConvert.DeserializeObject<ParagliderModelDto>(apiResponse);
+                    ViewParagliderModel = JsonConvert.DeserializeObject<ParagliderModelAndParagliders>(apiResponse);
                 }
             }
-            using (var httpClient = new HttpClient())
-            {
-                using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/paragliders?FilterBy=4&ParagliderModelId={paragliderModel.ID}"))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    if(response.StatusCode == HttpStatusCode.OK)
-                        paragliderDto = JsonConvert.DeserializeObject<ICollection<ParagliderDto>>(apiResponse);
-                }
-            }
-
-            ViewParagliderModel.ParagliderModelDto = paragliderModel;
-            ViewParagliderModel.ParagliderDto = paragliderDto;
-
             return View(ViewParagliderModel);
         }
 
@@ -133,6 +103,7 @@ namespace ParaglidingProject.Controllers
         public async Task<IActionResult> Delete(int? id)
         {
             var paragliderModel = new ParagliderModelDto();
+
             using (var httpClient = new HttpClient())
             {
                 using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/paragliderModels/{id}"))
@@ -156,138 +127,10 @@ namespace ParaglidingProject.Controllers
             return RedirectToAction("Index");
         }
 
-        private bool ModelParaglidingExists(int id)
-        {
-            return _context.ParagliderModels.Any(e => e.ID == id);
-        }
-
         public IActionResult CreateParagliding(int? id)
         {
             ViewData["ModelParagliding"] = id;
             return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateParagliding([Bind("DateOfCommissioning, DateOfLastRevision, ModelParaglidingID")] Paraglider paragliding)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(paragliding);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(paragliding);
-        }
-
-        public async Task<IActionResult> DeleteParagliding(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            ViewData["ModelParagliding"] = id;
-
-            var paragliding = await _context.Paragliders
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (paragliding == null)
-            {
-                return NotFound();
-            }
-
-            return View(paragliding);
-        }
-
-        [HttpPost, ActionName("DeleteParagliding")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteParaglidingConfirmed(int id)
-        {
-            var paragliding = await _context.Paragliders.FindAsync(id);
-            _context.Paragliders.Remove(paragliding);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        public async Task<IActionResult> EditParagliding(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var paragliding = await _context.Paragliders
-                .FirstOrDefaultAsync(i => i.ID == id);
-            //.FindAsync(id);
-            if (paragliding == null)
-            {
-                return NotFound();
-            }
-            ViewData["ModelParaglidingID"] = new SelectList(_context.ParagliderModels, "ID", "ID");
-            return View(paragliding);
-        }
-
-        [HttpPost, ActionName("EditParagliding")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditParaglidingPost(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            var paraglidingToUpdate = await _context.Paragliders.FirstOrDefaultAsync(p => p.ID == id);
-            
-            if (await TryUpdateModelAsync<Paraglider>(
-                paraglidingToUpdate, "", p => p.CommissioningDate, p => p.LastRevisionDate, p => p.ParagliderModelID))
-            {
-                try
-                {
-                   
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
-                }
-                catch (DbUpdateException)
-                {
-                    ModelState.AddModelError("", "Unable to save changes. " +
-                "Try again, and if the problem persists, " +
-                "see your system administrator.");
-                }
-            }
-
-            return View(paraglidingToUpdate);
-        }
-
-        public async Task<IActionResult> DetailsParagliding(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var paragliding = await _context.Paragliders
-                .Include(p => p.ParagliderModelID)
-                .Include(f => f.Flights)
-                .ThenInclude(p => p.Pilot)
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (paragliding == null)
-            {
-                return NotFound();
-            }
-
-            //var flights = _context.Flights.Where(f => f.ParagliderID == id);
-            //ViewData["flightCount"] = flights.Count();
-            //TimeSpan flightTime = new TimeSpan();
-            //foreach (var item in flights)
-            //{
-            //    var flightDuration = item.FlightEnd - item.FlightStart;
-            //    flightTime  +=  flightDuration;
-                
-
-            //}
-
-            //ViewData["flightTime"] = flightTime;
-
-            return View(paragliding);
         }
 
         public async Task<IActionResult> DetailsFlight(int? id)
@@ -296,18 +139,7 @@ namespace ParaglidingProject.Controllers
             {
                 return NotFound();
             }
-
-            var flight = await _context.Flights
-                .Include(p => p.LandingSite)
-               // .Include(p => p.TakeOffSite)
-                .Include(f => f.Pilot)
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (flight == null)
-            {
-                return NotFound();
-            }
-
-            return View(flight);
+            return View();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using ParaglidingProject.SL.Core.Paraglider.NS.Helpers;
+﻿using ParaglidingProject.SL.Core.Flights.NS.TransfertObjects;
+using ParaglidingProject.SL.Core.Paraglider.NS.Helpers;
 using ParaglidingProject.SL.Core.Paraglider.NS.TransfertObjects;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -30,5 +31,7 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS
         void CreateParaglider(ParagliderDto paragliderDto);
         void EditParaglider(ParagliderDto paragliderDto);
         void DeleteParaglider(int paragliderDtoId);
+
+        Task<IReadOnlyCollection<ParagliderDto>> GetParaglidersByModelParaglider(int id);
     }
 }

@@ -14,7 +14,7 @@ namespace ParaglidingProject.SL.Core.Flights.NS.TransfertObjects
         public string ParagliderName { get; set; }
         public string TakeOffSiteName { get; set; }
         public string LandingSiteName { get; set; }
-     
+        public int ParagliderId { get; set; }
 
     }
 }
