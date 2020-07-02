@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -13,7 +14,7 @@ namespace ParaglidingProject.SL.Core.Flights.NS.TransfertObjects
         public string ParagliderName { get; set; }
         public string TakeOffSiteName { get; set; }
         public string LandingSiteName { get; set; }
-
+     
 
     }
 }
