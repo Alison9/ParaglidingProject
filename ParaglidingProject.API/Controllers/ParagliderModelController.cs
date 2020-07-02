@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using ParaglidingProject.SL.Core.Paraglider.NS;
 using ParaglidingProject.SL.Core.ParagliderModel.NS;
 using ParaglidingProject.SL.Core.ParagliderModel.NS.Helpers;
 using ParaglidingProject.SL.Core.ParagliderModel.NS.TransfertObjects;
@@ -23,13 +24,15 @@ namespace ParaglidingProject.API.Controllers
     public class ParagliderModelController : ControllerBase
     {
         private readonly IParagliderModelService _ModelParagliderService;
+        private readonly IParagliderService _ParagliderService;
 
         /// <summary>
         /// ParagliderModel interface constructor.
         /// </summary>
-        public ParagliderModelController(IParagliderModelService modelparagliderService)
+        public ParagliderModelController(IParagliderModelService modelparagliderService, IParagliderService paragliderService)
         {
             _ModelParagliderService = modelparagliderService ?? throw new ArgumentNullException(nameof(modelparagliderService));
+            _ParagliderService = paragliderService ?? throw new ArgumentNullException(nameof(paragliderService));
         }
 
         [HttpPost]
@@ -66,10 +69,12 @@ namespace ParaglidingProject.API.Controllers
         public async Task<ActionResult<ParagliderModelAndParagliders>> GetParagliderModelAsync([FromRoute] int paragliderModelId)
         {
             ParagliderModelAndParagliders paragliderModelAndParagliders = new ParagliderModelAndParagliders();
+
             var modelParaglider = await _ModelParagliderService.GetParagliderModelAsync(paragliderModelId);
             if (modelParaglider == null) return NotFound("Couldn't find any model of paraglider");
-            var paragliders = await _ModelParagliderService.GetParaglidersByModelParaglider(paragliderModelId);
+            var paragliders = await _ParagliderService.GetParaglidersByModelParaglider(paragliderModelId);
             if (paragliders == null) return NotFound("There is no paragliders on for this model");
+
             paragliderModelAndParagliders.ParagliderModelDto = modelParaglider;
             paragliderModelAndParagliders.ParagliderDto = paragliders;
 

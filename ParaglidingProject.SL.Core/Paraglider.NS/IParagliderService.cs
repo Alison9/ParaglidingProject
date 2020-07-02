@@ -31,6 +31,7 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS
         void CreateParaglider(ParagliderDto paragliderDto);
         void EditParaglider(ParagliderDto paragliderDto);
         void DeleteParaglider(int paragliderDtoId);
-        Task<IReadOnlyCollection<FlightDto>> GetFlightsByParaglider(int id);
+
+        Task<IReadOnlyCollection<ParagliderDto>> GetParaglidersByModelParaglider(int id);
     }
 }

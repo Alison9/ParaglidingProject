@@ -9,6 +9,7 @@ using System.Text.Json;
 using ParaglidingProject.SL.Core.Paraglider.NS;
 using ParaglidingProject.SL.Core.Paraglider.NS.Helpers;
 using ParaglidingProject.SL.Core.Paraglider.NS.TransfertObjects;
+using ParaglidingProject.SL.Core.Flights.NS;
 
 namespace ParaglidingProject.API.Controllers
 {
@@ -24,11 +25,13 @@ namespace ParaglidingProject.API.Controllers
     public class ParagliderController : ControllerBase
     {
         private readonly IParagliderService _paragliderService;
+        private readonly IFlightsService _flightsService;
 
        
-        public ParagliderController(IParagliderService paragliderService)
+        public ParagliderController(IParagliderService paragliderService, IFlightsService flightsService)
         {
             _paragliderService = paragliderService ?? throw new ArgumentNullException(nameof(paragliderService));
+            _flightsService = flightsService ?? throw new ArgumentNullException(nameof(flightsService));
         }
 
 
@@ -50,7 +53,7 @@ namespace ParaglidingProject.API.Controllers
 
             var paraglider = await _paragliderService.GetParagliderAsync(paragliderId);
             if (paraglider == null) return NotFound("Couldn't find any associated Paraglider");
-            var flights = await _paragliderService.GetFlightsByParaglider(paragliderId);
+            var flights = await _flightsService.GetFlightsByParaglider(paragliderId);
             if (flights == null) return NotFound("there is no flights for this paraglider");
 
             paragliderAndFlightsDto.ParagliderDto = paraglider;

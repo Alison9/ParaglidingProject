@@ -120,7 +120,7 @@
             the controller of paragliderModels
             </summary>
         </member>
-        <member name="M:ParaglidingProject.API.Controllers.ParagliderModelController.#ctor(ParaglidingProject.SL.Core.ParagliderModel.NS.IParagliderModelService)">
+        <member name="M:ParaglidingProject.API.Controllers.ParagliderModelController.#ctor(ParaglidingProject.SL.Core.ParagliderModel.NS.IParagliderModelService,ParaglidingProject.SL.Core.Paraglider.NS.IParagliderService)">
             <summary>
             ParagliderModel interface constructor.
             </summary>

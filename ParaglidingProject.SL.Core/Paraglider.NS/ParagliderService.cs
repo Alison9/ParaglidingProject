@@ -95,20 +95,20 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS
             _paraContext.Paragliders.Update(toDelete);
             _paraContext.SaveChanges();
         }
-        public async Task<IReadOnlyCollection<FlightDto>> GetFlightsByParaglider(int id)
-        {
-            var flights = _paraContext.Flights.Select(f => new FlightDto{
-                FlightId = f.ID,
-                Duration = f.Duration,
-                FlightDate = f.FlightDate,
-                LandingSiteName = f.LandingSite.Name,
-                TakeOffSiteName = f.TakeOffSite.Name,
-                PilotName = f.Pilot.FirstName + " " + f.Pilot.LastName,
-                ParagliderName = f.Paraglider.Name,
-                ParagliderId = f.ParagliderID
-            }).Where(p => p.ParagliderId == id);
 
-            return await flights.ToListAsync();
+        public async Task<IReadOnlyCollection<ParagliderDto>> GetParaglidersByModelParaglider(int id)
+        {
+            var paragliders = _paraContext.Paragliders.Select(p => new ParagliderDto
+            {
+                ParagliderId = p.ID,
+                LastRevision = p.LastRevisionDate,
+                CommissioningDate = p.CommissioningDate,
+                Name = p.Name,
+                NumerOfFlights = p.Flights.Count(),
+                ParagliderModelId = p.ParagliderModelID
+            }).Where(p => p.ParagliderModelId == id);
+
+            return await paragliders.ToListAsync();
         }
     }
 }
