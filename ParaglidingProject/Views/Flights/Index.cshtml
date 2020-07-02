@@ -8,6 +8,18 @@
 <p>
     <a asp-action="Create" class="create">Liste des vols</a>
 </p>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <form>
+                <select asp-items='ViewData["items"] as IEnumerable<SelectListItem>'></select>
+                <button class="styleLink" type="submit">filter</button>
+            </form>
+
+        </div>
+    </div>
+</div>
 <table class="table" cellspacing="0">
     <thead>
         <tr>

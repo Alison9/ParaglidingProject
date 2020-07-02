@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using ParaglidingProject.Data;
@@ -15,6 +16,17 @@ namespace ParaglidingProject.Web.Controllers
 {
     public class FlightsController : Controller
     {
+        public enum FlightSort
+        {
+            NoSort = 0,
+            DateAscending = 1,
+            DateDescending = 2,
+            PilotLastNameAscending = 3,
+            PilotFirstNameAscending = 4,
+            DateAscendingThenPilotFirstNameAscending = 5
+        }
+
+
         const string apiAddressFlight = "http://localhost:50106/api/v1/flights";
         private readonly ParaglidingClubContext _context;
         public FlightsController(ParaglidingClubContext context)
@@ -36,6 +48,16 @@ namespace ParaglidingProject.Web.Controllers
                 }
             }
 
+            List<SelectListItem> items = Enum.GetValues(typeof(FlightSort))
+                                                .Cast<FlightSort>()
+                                                .Select(v => new SelectListItem
+                                                {
+                                                    Text = v.ToString(),
+                                                    Value = ((int)v).ToString()
+
+                                                }).ToList();
+
+            ViewData["items"] = items;
             
             return View(flightsDto);
         }
