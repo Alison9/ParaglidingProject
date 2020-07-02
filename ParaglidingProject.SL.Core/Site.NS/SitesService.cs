@@ -72,7 +72,21 @@ namespace ParaglidingProject.SL.Core.Site.NS
             return await takeoff.ToListAsync();
         }
 
-
+        public void CreateSite(SiteDto pSiteDto)
+        {
+            _paraContext.Sites.Add(new Models.Site
+            {
+                Name = pSiteDto.Name,
+                Orientation = pSiteDto.Orientation,
+                AltitudeTakeOff = pSiteDto.AltitudeTakeOff,
+                SiteType = pSiteDto.SiteType,
+                SiteGeoCoordinate = pSiteDto.SiteGeoCoordinate,
+                ApproachManeuver = pSiteDto.ApproachManeuver,
+                LevelID = pSiteDto.Level.ID,
+                IsActive = true
+            }) ;
+            _paraContext.SaveChanges();
+        }
 
     }
 }

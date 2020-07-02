@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,6 +12,7 @@ using Newtonsoft.Json;
 using ParaglidingProject.Data;
 using ParaglidingProject.Models;
 using ParaglidingProject.SL.Core.Flights.NS.TransfertObjects;
+using ParaglidingProject.SL.Core.Levels.NS.TransfertObjects;
 using ParaglidingProject.SL.Core.Site.NS.TransfertObjects;
 
 namespace ParaglidingProject.Web.Controllers
@@ -84,9 +86,21 @@ namespace ParaglidingProject.Web.Controllers
         }
 
         // GET: Sites/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create(int pSiteType)
         {
-            ViewData["LevelID"] = new SelectList(_context.Levels, "ID", "ID");
+            ICollection<LevelDto> levelsDto = null;
+
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync("http://localhost:50106/api/v1/levels/"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    if (response.StatusCode == HttpStatusCode.OK)
+                        levelsDto = JsonConvert.DeserializeObject<ICollection<LevelDto>>(apiResponse);
+                }
+            }
+            ViewData["SiteType"] = pSiteType;
+            ViewData["LevelID"] = new SelectList(levelsDto, "LevelID", "Name");
             return View();
         }
 
@@ -95,16 +109,15 @@ namespace ParaglidingProject.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name,OrientationLanding,OrientationTakeOff,AltitudeTakeOff,FlightType,LevelID")] Site site)
+        public async Task<IActionResult> Create(SiteDto pSiteDto)
         {
-            if (ModelState.IsValid)
+            using (var httpClient = new HttpClient())
             {
-                _context.Add(site);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var content = new StringContent(JsonConvert.SerializeObject(pSiteDto), Encoding.UTF8, "application/json");
+                var response = await httpClient.PostAsync("http://localhost:50106/api/v1/sites/", content);
             }
-            ViewData["LevelID"] = new SelectList(_context.Levels, "ID", "ID", site.LevelID);
-            return View(site);
+
+            return RedirectToAction("Index");
         }
 
         // GET: Sites/Edit/5

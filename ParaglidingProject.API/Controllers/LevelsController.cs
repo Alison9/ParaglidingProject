@@ -12,7 +12,6 @@ namespace ParaglidingProject.API.Controllers
     /// <summary>
     /// Controller for level.
     /// </summary>
-    [Authorize]
     [ApiController]
     [ApiExplorerSettings(GroupName = "levels")]
     [Produces("application/json")]
