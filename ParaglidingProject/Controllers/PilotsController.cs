@@ -44,7 +44,7 @@ namespace ParaglidingProject.Controllers
             //Join sur forme de méthode
             //List<Pilot> joinedPilots = pilots.Join<Pilot, PilotDto, int, Pilot>(pilotsDto, p => p.ID, pdto => pdto.PilotId, (p, pdto) => p).ToList();
 
-            //Join sur forme de query
+            //Join sur forme de query (EXEMPLE PÉDAGOGIQUE)
             List<Pilot> joinedPilots2 = (from p in pilots
                                          join pdo in pilotsDto
                                          on p.ID equals pdo.PilotId
@@ -65,7 +65,7 @@ namespace ParaglidingProject.Controllers
             PilotDto pilotDto;
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync(apiAddressPilot + $"/{id}"))
+                using (var response = await httpClient.GetAsync($"{apiAddressPilot}/{id}"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     pilotDto = JsonConvert.DeserializeObject<PilotDto>(apiResponse);
@@ -73,13 +73,6 @@ namespace ParaglidingProject.Controllers
             }
 
             return View(pilotDto);
-        }
-
-        // GET: Pilots/Create
-        public IActionResult Create()
-        {
-            ViewData["PositionID"] = new SelectList(_context.Roles, "ID", "Name");
-            return View();
         }
 
         // POST: Pilots/Create
@@ -133,7 +126,7 @@ namespace ParaglidingProject.Controllers
             Pilot pilot;
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync(apiAddressPilot + $"/{id}"))
+                using (var response = await httpClient.GetAsync($"{apiAddressPilot}/{id}"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     pilot = JsonConvert.DeserializeObject<Pilot>(apiResponse);
@@ -162,7 +155,7 @@ namespace ParaglidingProject.Controllers
             Pilot pilotToUpdate;
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync(apiAddressPilot + $"/{id}"))
+                using (var response = await httpClient.GetAsync($"{apiAddressPilot}/{id}"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     pilotToUpdate = JsonConvert.DeserializeObject<Pilot>(apiResponse);
@@ -186,7 +179,7 @@ namespace ParaglidingProject.Controllers
                         using (var httpClient = new HttpClient())
                         {
                             StringContent content = new StringContent(JsonConvert.SerializeObject(pilotToUpdate), Encoding.UTF8, "application/json");
-                            using (var response = await httpClient.PutAsync(apiAddressPilot + $"/{id}", content))
+                            using (var response = await httpClient.PutAsync($"{apiAddressPilot}/{id}", content))
                             {
                                 string apiResponse = await response.Content.ReadAsStringAsync();
                                 receivedPilot = JsonConvert.DeserializeObject<Pilot>(apiResponse);
@@ -223,47 +216,9 @@ namespace ParaglidingProject.Controllers
 
             using (var httpClient = new HttpClient())
             {
-                var response = await httpClient.DeleteAsync(apiAddressPilot + $"/{id}");
+                var response = await httpClient.DeleteAsync($"{apiAddressPilot}/{id}");
             }
             return RedirectToAction(nameof(Index));
-        }
-
-        /*Get CreateFligth*/ 
-        public IActionResult CreateFlight(int? id)
-        {
-            var pilot = _context.Pilots
-                .Where(p => p.ID == id).FirstOrDefault();
-
-            ViewData["FirstName"] = pilot.FirstName;
-            ViewData["LastName"] = pilot.LastName;
-            ViewData["PilotID"] = pilot.ID;
-            ViewData["ParaglidingID"] = new SelectList(_context.Paragliders, "ID", "ID");
-            ViewData["SiteID"] = new SelectList(_context.Sites, "ID", "Name");
-
-            return View("CreateFlight");
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateFlight([Bind("PilotID, FlightDate, FlightStart, FlightEnd, ParaglidingID, SiteID, Pilot")] Flight flight)
-        {
-            var pilot = _context.Pilots.Where(p => p.ID  == flight.PilotID).FirstOrDefault();
-            var paragliding = _context.Paragliders.Where(pa => pa.ID == flight.ParagliderID).FirstOrDefault();
-            var modelparagliding = _context.ParagliderModels.Where(m => m.ID == paragliding.ParagliderModelID).FirstOrDefault();
-            if(pilot.Weight > modelparagliding.MaxWeightPilot || pilot.Weight < modelparagliding.MinWeightPilot)
-            {
-                ModelState.AddModelError("", "Parapente pas adapté au pilote");
-            }
-
-            if (ModelState.IsValid)
-            {
-                _context.Add(flight);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-
-
-            return View("CreateFlight");
-        }
+        }        
     }
 }
