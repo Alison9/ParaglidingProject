@@ -35,5 +35,6 @@ namespace ParaglidingProject.SL.Core.Flights.NS
         Task<IReadOnlyCollection<FlightDto>> GetAllFlightsForPilotInDateRangeAsync(int pilotId, DateRangeParams dates);
 
         Task<IReadOnlyCollection<FlightDto>> GetFlightsByParaglider(int id);
+        Task<IReadOnlyCollection<FlightDto>> GetFlightsBySite(int id);
     }
 }

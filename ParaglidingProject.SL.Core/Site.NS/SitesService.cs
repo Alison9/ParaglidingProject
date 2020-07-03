@@ -79,12 +79,35 @@ namespace ParaglidingProject.SL.Core.Site.NS
                 Name = pSiteDto.Name,
                 Orientation = pSiteDto.Orientation,
                 AltitudeTakeOff = pSiteDto.AltitudeTakeOff,
-                SiteType = pSiteDto.SiteType,
+                SiteType = (Enm_SiteType)(int)pSiteDto.SiteType,
                 SiteGeoCoordinate = pSiteDto.SiteGeoCoordinate,
                 ApproachManeuver = pSiteDto.ApproachManeuver,
                 LevelID = pSiteDto.Level.ID,
                 IsActive = true
             }) ;
+            _paraContext.SaveChanges();
+        }
+        public void EditSite(SiteDto pSiteDto)
+        {
+            var toModifyAsSite = _paraContext.Sites.Select(s => s).Where(s => s.ID == pSiteDto.SiteId).FirstOrDefault();
+
+            toModifyAsSite.Name = pSiteDto.Name;
+            toModifyAsSite.Orientation = pSiteDto.Orientation;
+            toModifyAsSite.AltitudeTakeOff = pSiteDto.AltitudeTakeOff;
+            toModifyAsSite.SiteType = (Enm_SiteType)(int)pSiteDto.SiteType;
+            toModifyAsSite.ApproachManeuver = pSiteDto.ApproachManeuver;
+            toModifyAsSite.LevelID = pSiteDto.Level.ID;
+            toModifyAsSite.SiteGeoCoordinate = pSiteDto.SiteGeoCoordinate;
+
+            _paraContext.Sites.Update(toModifyAsSite);
+            _paraContext.SaveChanges();
+        }
+        public void DeleteSite(int id)
+        {
+            var toDelete = _paraContext.Sites.Select(s => s).Where(s => s.ID == id).FirstOrDefault();
+
+            toDelete.IsActive = false;
+            _paraContext.Sites.Update(toDelete);
             _paraContext.SaveChanges();
         }
 

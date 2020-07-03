@@ -1,47 +1,55 @@
-﻿@model ParaglidingProject.Models.Site
+﻿@model ParaglidingProject.SL.Core.Site.NS.TransfertObjects.SiteAndFlightsDto
 
 @{
     ViewData["Title"] = "Editer";
 }
 
-<h1>Editer le site de @Model.Name</h1>
+<h1>Editer le site de @Model.SiteDto.Name</h1>
 
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
+            
             <div asp-validation-summary="ModelOnly" class="text-danger validator"></div>
-            <input type="hidden" asp-for="ID" />
+            <input type="hidden" asp-for="SiteDto.SiteId" />
+            <input type="hidden" asp-for="SiteDto.SiteType" />
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label><br />
-                <input asp-for="Name" class="form-control" /><br />
-                <span asp-validation-for="Name" class="text-danger validator"></span>
+                <label asp-for="SiteDto.Name" class="control-label"></label><br />
+                <input asp-for="SiteDto.Name" class="form-control" /><br />
+                <span asp-validation-for="SiteDto.Name" class="text-danger validator"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Orientation" class="control-label"></label><br />
-                <input asp-for="Orientation" class="form-control" /><br />
-                <span asp-validation-for="Orientation" class="text-danger validator"></span>
+                <label asp-for="SiteDto.Orientation" class="control-label"></label><br />
+                <input asp-for="SiteDto.Orientation" class="form-control" /><br />
+                <span asp-validation-for="SiteDto.Orientation" class="text-danger validator"></span>
             </div>
+            @if (Model.SiteDto.SiteType == ParaglidingProject.SL.Core.Site.NS.TransfertObjects.TypeSite.Takeoff)
+            {
             <div class="form-group">
-                <label asp-for="AltitudeTakeOff" class="control-label"></label><br />
-                <input asp-for="AltitudeTakeOff" class="form-control" /><br />
-                <span asp-validation-for="AltitudeTakeOff" class="text-danger validator"></span>
+                <label asp-for="SiteDto.AltitudeTakeOff" class="control-label"></label><br />
+                <input asp-for="SiteDto.AltitudeTakeOff" class="form-control" /><br />
+                <span asp-validation-for="SiteDto.AltitudeTakeOff" class="text-danger validator"></span>
             </div>
+            }
+            @if (Model.SiteDto.SiteType == ParaglidingProject.SL.Core.Site.NS.TransfertObjects.TypeSite.Landing)
+            {
             <div class="form-group">
-                <label asp-for="ApproachManeuver" class="control-label"></label><br />
-                <input asp-for="ApproachManeuver" class="form-control" /><br />
-                <span asp-validation-for="ApproachManeuver" class="text-danger validator"></span>
+                <label asp-for="SiteDto.ApproachManeuver" class="control-label"></label><br />
+                <input asp-for="SiteDto.ApproachManeuver" class="form-control" /><br />
+                <span asp-validation-for="SiteDto.ApproachManeuver" class="text-danger validator"></span>
             </div>
+            }
             <div class="form-group">
-                <label asp-for="SiteGeoCoordinate" class="control-label"></label><br />
-                <input asp-for="SiteGeoCoordinate" class="form-control" /><br />
-                <span asp-validation-for="SiteGeoCoordinate" class="text-danger validator"></span>
+                <label asp-for="SiteDto.SiteGeoCoordinate" class="control-label"></label><br />
+                <input asp-for="SiteDto.SiteGeoCoordinate" class="form-control" /><br />
+                <span asp-validation-for="SiteDto.SiteGeoCoordinate" class="text-danger validator"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="LevelID" class="control-label"></label><br />
-                <select asp-for="LevelID" class="form-control" asp-items="ViewBag.LevelID"></select><br />
-                <span asp-validation-for="LevelID" class="text-danger validator"></span>
+                <label asp-for="SiteDto.Level.ID" class="control-label"></label><br />
+                <select asp-for="SiteDto.Level.ID" class="form-control" asp-items="ViewBag.LevelID"></select><br />
+                <span asp-validation-for="SiteDto.Level.ID" class="text-danger validator"></span>
             </div><br />
             <div class="form-group">
                 <input type="submit" value="Sauver" class="btn btn-primary add" />
