@@ -60,6 +60,8 @@ namespace ParaglidingProject.SL.Core.Pilot.NS
         /// A task to delete a pilot.
         /// </returns>
         Task DeletePilotAsync(int? id);
+
+        Task<IReadOnlyCollection<PilotDto>> GetPilotsByTraineeship(int id);
         Task<IReadOnlyCollection<PilotDto>> GetPilotsBySubscription(int id);
     }
 }

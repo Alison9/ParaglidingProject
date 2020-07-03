@@ -28,14 +28,22 @@ namespace ParaglidingProject.API.Controllers
             this._PilotService = PilotService ?? throw new ArgumentNullException(nameof(PilotsService));
         }
 
-        [HttpGet("{Traineeshipid}", Name = "GetTraineeShipAsync")]
+        [HttpGet("{traineeshipid}", Name = "GetTraineeShipAsync")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<TraineeShipDto>>GetTraineeShipAsync([FromRoute] int Traineeshipid)
+        public async Task<ActionResult<TraineeshipAndPilotsDto>>GetTraineeShipAsync([FromRoute] int traineeshipid)
         {
-            var traineeship = await _TraineeshipService.GetTraineeShipAsync(Traineeshipid);
+            TraineeshipAndPilotsDto traineeshipAndPilotsDto = new TraineeshipAndPilotsDto();
+
+            var traineeship = await _TraineeshipService.GetTraineeShipAsync(traineeshipid);
             if (traineeship == null) return NotFound("Couldn't find any associated Traineeship");
-            return Ok(traineeship);
+            var pilots = await _PilotService.GetPilotsByTraineeship(traineeshipid);
+            if (pilots == null) return NotFound("Couldn't find any associated pilots");
+
+            traineeshipAndPilotsDto.TraineeshipDto = traineeship;
+            traineeshipAndPilotsDto.PilotsDto = pilots;
+
+            return Ok(traineeshipAndPilotsDto);
         }
         /// <summary>
         /// /
@@ -144,6 +152,13 @@ namespace ParaglidingProject.API.Controllers
             var traineeships = await _TraineeshipService.GetTraineeshipsByPilotAsync(pilotId);
             if (traineeships == null || traineeships.Count == 0) return NotFound("The pilot hasn't follow any traneeships yet");
             return Ok(traineeships);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<TraineeShipDto>> CreateTraineeship(TraineeShipDto pTraineeshipDto)
+        {
+            _TraineeshipService.CreateTraineeship(pTraineeshipDto);
+            return Ok();
         }
     }
 }

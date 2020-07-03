@@ -35,7 +35,10 @@ namespace ParaglidingProject.SL.Core.Flights.NS
                      PilotName = $"{f.Pilot.FirstName} {f.Pilot.LastName}",
                      ParagliderName = f.Paraglider.Name,
                      TakeOffSiteName = f.TakeOffSite.Name,
-                     LandingSiteName = f.LandingSite.Name
+                     LandingSiteName = f.LandingSite.Name,
+                     ParagliderId = f.ParagliderID,
+                     LandingSiteId = f.LandingSiteID,
+                     TakeOffSiteId = f.TakeOffSiteID
                  });
 
             options.SetPagingValues(flights);

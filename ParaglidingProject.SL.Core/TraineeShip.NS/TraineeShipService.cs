@@ -37,7 +37,8 @@ namespace ParaglidingProject.SL.Core.TraineeShip.NS
                      TraineeShipStartDate=T.StartDate,
                      TraineeShipPrice=T.Price,
                      TraineeShipEndDate=T.EndDate,
-                     traineeshipIsActive=T.IsActive
+                     TraineeshipIsActive=T.IsActive,
+                     LicenseId = T.LicenseID
                  });
             options.SetPagingValues(traineeships);
 
@@ -58,7 +59,8 @@ namespace ParaglidingProject.SL.Core.TraineeShip.NS
                   TraineeShipStartDate=t.StartDate,
                   TraineeShipPrice=t.Price,
                   TraineeShipEndDate=t.EndDate,
-                  traineeshipIsActive=t.IsActive
+                  TraineeshipIsActive=t.IsActive,
+                  LicenseId = t.LicenseID
               })
               .FirstOrDefaultAsync(p => p.Traineeshipid == id);
 
@@ -98,10 +100,24 @@ namespace ParaglidingProject.SL.Core.TraineeShip.NS
                       TraineeShipStartDate = T.StartDate,
                       TraineeShipPrice = T.Price,
                       TraineeShipEndDate = T.EndDate,
-                      traineeshipIsActive = T.IsActive
+                      TraineeshipIsActive = T.IsActive,
+                      LicenseId = T.LicenseID
                   });
 
             return await traineeships.ToListAsync();
+        }
+
+        public void CreateTraineeship(TraineeShipDto pTraineeshipDto)
+        {
+            _paraContext.Traineeships.Add(new Models.Traineeship
+            {
+                StartDate = pTraineeshipDto.TraineeShipStartDate,
+                EndDate = pTraineeshipDto.TraineeShipEndDate,
+                LicenseID = pTraineeshipDto.LicenseId,
+                Price = pTraineeshipDto.TraineeShipPrice,
+                IsActive = true
+            });
+            _paraContext.SaveChanges();
         }
     }
 }
