@@ -26,6 +26,13 @@ namespace ParaglidingProject.Web.Controllers
             PilotFirstNameAscending = 4,
             DateAscendingThenPilotFirstNameAscending = 5
         }
+        public enum FlightFilter
+        {
+            NoFilter = 0,
+            TakeOffSite = 1,
+            LandingSite = 2,
+            ParagliderId = 3
+        }
 
 
         const string apiAddressFlight = "http://localhost:50106/api/v1/flights";
@@ -33,17 +40,12 @@ namespace ParaglidingProject.Web.Controllers
         // GET: Flights
         [HttpGet]
         public async Task<IActionResult> Index()
-        {            
-            List<SelectListItem> items = Enum.GetValues(typeof(FlightSort))
-                                                .Cast<FlightSort>()
-                                                .Select(v => new SelectListItem
-                                                {
-                                                    Text = v.ToString(),
-                                                    Value = ((int)v).ToString()
+        {
+            List<SelectListItem> sortItems = LoadSortOptions();
+            List<SelectListItem> filterItems = LoadFilterOptions();
 
-                                                }).ToList();
-
-            ViewData["items"] = new SelectList(items, "Value", "Text");
+            ViewData["sortItems"] = new SelectList(sortItems, "Value", "Text");
+            ViewData["filterItems"] = new SelectList(filterItems, "Value", "Text");
 
             List<FlightDto> flightsDto;
             using (var httpClient = new HttpClient())
@@ -60,21 +62,18 @@ namespace ParaglidingProject.Web.Controllers
             return View(flightsDto);
         }
 
+        
+
         [HttpPost]
-        public async Task<IActionResult> Index(string sortList)
+        public async Task<IActionResult> Index(string sortList, string filterList, string filterListId)
         {
-            List<SelectListItem> items = Enum.GetValues(typeof(FlightSort))
-                                                .Cast<FlightSort>()
-                                                .Select(v => new SelectListItem
-                                                {
-                                                    Text = v.ToString(),
-                                                    Value = ((int)v).ToString()
+            List<SelectListItem> sortItems = LoadSortOptions();
+            List<SelectListItem> filterItems = LoadFilterOptions();
 
-                                                }).ToList();
+            ViewData["sortItems"] = new SelectList(sortItems, "Value", "Text");
+            ViewData["filterItems"] = new SelectList(filterItems, "Value", "Text");
 
-            ViewData["items"] = new SelectList(items, "Value", "Text");
-
-            List<FlightDto> flightsDto = await LoadSortedList(sortList);
+            List<FlightDto> flightsDto = await LoadList(sortList, filterList, filterListId);
 
             return View(flightsDto);
         }        
@@ -98,12 +97,30 @@ namespace ParaglidingProject.Web.Controllers
 
             return View(flightDto);
         }
-        private static async Task<List<FlightDto>> LoadSortedList(string userInput)
+        private static async Task<List<FlightDto>> LoadList(string userSort, string userFilter, string filterListId)
         {
+            string test = "";
+            switch (userFilter)
+            {
+                case "0":
+                   break;
+                case "1":
+                    test = "TakeOffSiteId";
+                    break;
+                case "2":
+                    test = "LandingSiteId";
+                    break;
+                case "3":
+                    test = "ParagliderId";
+                    break;
+                default:
+                    break;
+            }
+
             List<FlightDto> pFlightsDto;
             using (var httpClient = new HttpClient())
             {
-                string fullApiAddress = $"{apiAddressFlight }?SortBy={userInput}";
+                string fullApiAddress = $"{apiAddressFlight }?SortBy={userSort}&FilterBy={userFilter}&{test}={filterListId}";
 
                 using (var response = await httpClient.GetAsync(fullApiAddress))
                 {
@@ -112,6 +129,30 @@ namespace ParaglidingProject.Web.Controllers
                 }
             }
             return pFlightsDto;
+        }
+        private static List<SelectListItem> LoadFilterOptions()
+        {
+            List<SelectListItem> list = Enum.GetValues(typeof(FlightFilter))
+                                                            .Cast<FlightFilter>()
+                                                            .Select(v => new SelectListItem
+                                                            {
+                                                                Text = v.ToString(),
+                                                                Value = ((int)v).ToString()
+
+                                                            }).ToList();
+            return list;
+        }
+        private static List<SelectListItem> LoadSortOptions()
+        {
+            List<SelectListItem> list = Enum.GetValues(typeof(FlightSort))
+                                                            .Cast<FlightSort>()
+                                                            .Select(v => new SelectListItem
+                                                            {
+                                                                Text = v.ToString(),
+                                                                Value = ((int)v).ToString()
+
+                                                            }).ToList();
+            return list;
         }
     }
 }

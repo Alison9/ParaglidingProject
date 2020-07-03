@@ -13,7 +13,9 @@
     <div class="row">
         <div class="col-12">
             <form method="POST">
-                <select name="sortList" asp-items='ViewData["items"] as IEnumerable<SelectListItem> '></select>
+                <select name="sortList" asp-items='ViewData["sortItems"] as IEnumerable<SelectListItem>'></select>
+                <select name="filterList" asp-items='ViewData["filterItems"] as IEnumerable<SelectListItem>'></select>
+                <input name="filterListId"/>
                 <button class="styleLink" value="SortList.Value" type="submit">filter</button>
             </form>
 
