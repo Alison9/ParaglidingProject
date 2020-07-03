@@ -7,19 +7,19 @@
 <h1>Sites</h1>
 
 <p>
-    <a class="create" asp-action="Create" asp-route-pSiteType="ParaglidingProject.SL.Core.Site.NS.TransfertObjects.TypeSite.Landing">Créer un nouveau site d'atterrissage</a>
+    <a class="create" asp-action="Create" asp-route-pSiteType="@ParaglidingProject.SL.Core.Site.NS.TransfertObjects.TypeSite.Landing">Créer un nouveau site d'atterrissage</a>
     <br />
-    <a class="create" asp-action="Create" asp-route-pSiteType="ParaglidingProject.SL.Core.Site.NS.TransfertObjects.TypeSite.TakeOff">Créer un nouveau site de décollage</a>
+    <a class="create" asp-action="Create" asp-route-pSiteType="@ParaglidingProject.SL.Core.Site.NS.TransfertObjects.TypeSite.Takeoff">Créer un nouveau site de décollage</a>
 </p>
 <table class="table" cellspacing="0">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                <a  asp-action="Index" asp-route-pSiteSort="@ParaglidingProject.SL.Core.Site.NS.Helpers.SitesSorts.Name">@Html.DisplayNameFor(model => model.Name)</a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Orientation)
-            </th>
+</th>
             <th>
                 @Html.DisplayNameFor(model => model.SiteType)
             </th>
@@ -27,8 +27,8 @@
                 @Html.DisplayNameFor(model => model.SiteGeoCoordinate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Level)
-            </th>
+                <a asp-action="Index" asp-route-pSiteSort="@ParaglidingProject.SL.Core.Site.NS.Helpers.SitesSorts.LevelRequired">@Html.DisplayNameFor(model => model.Level)</a>
+</th>
             <th></th>
         </tr>
     </thead>

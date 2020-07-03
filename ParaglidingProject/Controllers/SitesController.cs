@@ -9,19 +9,21 @@ using Newtonsoft.Json;
 using ParaglidingProject.Models;
 using ParaglidingProject.SL.Core.Flights.NS.TransfertObjects;
 using ParaglidingProject.SL.Core.Levels.NS.TransfertObjects;
+using ParaglidingProject.SL.Core.Site.NS.Helpers;
 using ParaglidingProject.SL.Core.Site.NS.TransfertObjects;
 
 namespace ParaglidingProject.Web.Controllers
 {
     public class SitesController : Controller
     {
+
         // GET: Sites
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(SitesSorts pSiteSort)
         {
             IEnumerable<SiteDto> listSites = null;
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync("http://localhost:50106/api/v1/sites"))
+                using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/sites?SortBy={pSiteSort}"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     listSites = JsonConvert.DeserializeObject<List<SiteDto>>(apiResponse);
