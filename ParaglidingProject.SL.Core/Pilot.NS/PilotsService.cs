@@ -126,10 +126,10 @@ namespace ParaglidingProject.SL.Core.Pilot.NS
             await _paraContext.SaveChangesAsync();
         }
 
-        public async Task<IReadOnlyCollection<PilotDto>> GetPilotsByTraineeship(int id)
+        public async Task<IReadOnlyCollection<PilotDto>> GetPilotsByTraineeship(int pTraineeshipId)
         {
             var pilots = _paraContext.Pilots
-            .Where(p => p.TraineeshipPayments.Any(tp => tp.TraineeshipID == id))
+            .Where(p => p.TraineeshipPayments.Any(tp => tp.TraineeshipID == pTraineeshipId))
             .Select(p => new PilotDto
              {
                  PilotId = p.ID,

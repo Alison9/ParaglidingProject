@@ -153,5 +153,12 @@ namespace ParaglidingProject.API.Controllers
             if (traineeships == null || traineeships.Count == 0) return NotFound("The pilot hasn't follow any traneeships yet");
             return Ok(traineeships);
         }
+
+        [HttpPost]
+        public async Task<ActionResult<TraineeShipDto>> CreateTraineeship(TraineeShipDto pTraineeshipDto)
+        {
+            _TraineeshipService.CreateTraineeship(pTraineeshipDto);
+            return Ok();
+        }
     }
 }

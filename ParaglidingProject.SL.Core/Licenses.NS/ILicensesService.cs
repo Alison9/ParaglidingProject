@@ -19,5 +19,7 @@ namespace ParaglidingProject.SL.Core.Licenses.NS
         /// <seealso cref="LicenseDto"/>
         /// </returns>
         Task<LicenseDto> GetLicenseAsync(int id);
+
+        Task<IReadOnlyCollection<LicenseDto>> GetAllLicensesAsync();
     }
 }
