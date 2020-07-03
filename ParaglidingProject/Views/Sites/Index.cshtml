@@ -2,7 +2,6 @@
 
 @{
     ViewData["Title"] = "Index";
-    string filterText = null;
 }
 
 <h1>Sites</h1>
@@ -12,18 +11,26 @@
     <br />
     <a class="create" asp-action="Create" asp-route-pSiteType="@ParaglidingProject.SL.Core.Site.NS.TransfertObjects.TypeSite.Takeoff">Créer un nouveau site de décollage</a>
 </p>
-<div class="row">
+<div class="nimportequoi">
     <div class="col-md-4">
         <form asp-action="Index">
-            <select name="filter">
-                <option value="@ParaglidingProject.SL.Core.Site.NS.Helpers.SitesFilters.NotActive">Not actives</option>
-                <option value="@ParaglidingProject.SL.Core.Site.NS.Helpers.SitesFilters.Altitude">Altitude</option>
-                <option value="@ParaglidingProject.SL.Core.Site.NS.Helpers.SitesFilters.Orientation">Orientation</option>
+            <select name="filter" asp-items="@ViewData["siteFilterItems"] as IEnumerable<SelectListItem>">
             </select>
             <input type="text" name="filterInfo" />
 
             <div class="form-group">
                 <input type="submit" value="Filtrer" class="btn btn-primary add" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-4">
+        <form asp-action="Index">
+            <select name="search" asp-items="@ViewData["siteSearchItems"] as IEnumerable<SelectListItem>">
+            </select>
+            <input type="text" name="searchInfo" />
+
+            <div class="form-group">
+                <input type="submit" value="Search" class="btn btn-primary add" />
             </div>
         </form>
     </div>
@@ -45,6 +52,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.AltitudeTakeOff)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ApproachManeuver)
             </th>
             <th>
                 <a asp-action="Index" asp-route-pSiteSort="@ParaglidingProject.SL.Core.Site.NS.Helpers.SitesSorts.LevelRequired">@Html.DisplayNameFor(model => model.Level)</a>
@@ -72,8 +82,12 @@
                 @Html.DisplayFor(model => item.AltitudeTakeOff)
             </td>
             <td>
+                @Html.DisplayFor(model => item.ApproachManeuver)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Level.ID)
             </td>
+
             <td>
                 <a asp-action="Edit" asp-route-id="@item.SiteId" class="styleLink">Editer</a> |
                 <a asp-action="Details" asp-route-id="@item.SiteId" class="styleLink">Détails</a> |

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -17,10 +19,11 @@ namespace ParaglidingProject.Web.Controllers
     public class SitesController : Controller
     {
         // GET: Sites
-        public async Task<IActionResult> Index(SitesSorts pSiteSort,SitesFilters filter,string filterInfo)
+        public async Task<IActionResult> Index(SitesSorts pSiteSort,SitesFilters filter,string filterInfo,SitesSearchingBy search,string searchInfo)
         {
             IEnumerable<SiteDto> listSites = null;
             string textToSort = "";
+            string textToSearch = "";
             if(filter == SitesFilters.Orientation)
             {
                 textToSort = "Orientation";
@@ -29,14 +32,49 @@ namespace ParaglidingProject.Web.Controllers
             {
                 textToSort = "AltitudeTakeOff";
             }
+
+            if(search == SitesSearchingBy.Name)
+            {
+                textToSearch = "SiteName";
+            }
+            if(search == SitesSearchingBy.ApproachManeuver)
+            {
+                textToSearch = "SiteApproach";
+            }
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/sites?SortBy={pSiteSort}&FilterBy={filter}&{textToSort}={filterInfo}"))
+                using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/sites?SortBy={pSiteSort}&FilterBy={filter}&{textToSort}={filterInfo}&SearchBy={search}&{textToSearch}={searchInfo}"))
                 {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    listSites = JsonConvert.DeserializeObject<List<SiteDto>>(apiResponse);
+                    if(response.StatusCode == HttpStatusCode.OK)
+                    {
+                        string apiResponse = await response.Content.ReadAsStringAsync();
+                        listSites = JsonConvert.DeserializeObject<List<SiteDto>>(apiResponse);
+                    }
+                    else
+                    {
+                        listSites = Enumerable.Empty<SiteDto>();
+                    }
                 }
             }
+
+            var siteFilters = Enum.GetValues(typeof(SitesFilters))
+                .Cast<SitesFilters>()
+                .Select(d => new SelectListItem
+                {
+                    Text = d.ToString(),
+                    Value = ((int)d).ToString()
+                }).ToList();
+            ViewData["siteFilterItems"] = new SelectList(siteFilters, "Value", "Text");
+
+            var siteSearch = Enum.GetValues(typeof(SitesSearchingBy))
+                .Cast<SitesSearchingBy>()
+                .Select(d => new SelectListItem
+                {
+                    Text = d.ToString(),
+                    Value = ((int)d).ToString()
+                }).ToList();
+            ViewData["siteSearchItems"] = new SelectList(siteSearch, "Value", "Text");
+
             return View(listSites);
         }
 
@@ -54,8 +92,15 @@ namespace ParaglidingProject.Web.Controllers
             {
                 using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/sites/{id}"))
                 {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    viewSite = JsonConvert.DeserializeObject<SiteAndFlightsDto>(apiResponse);
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        string apiResponse = await response.Content.ReadAsStringAsync();
+                        viewSite = JsonConvert.DeserializeObject<SiteAndFlightsDto>(apiResponse);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index");
+                    }
                 }
             }
 
@@ -163,8 +208,15 @@ namespace ParaglidingProject.Web.Controllers
             {
                 using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/sites/{id}"))
                 {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    viewSite = JsonConvert.DeserializeObject<SiteAndFlightsDto>(apiResponse);
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        string apiResponse = await response.Content.ReadAsStringAsync();
+                        viewSite = JsonConvert.DeserializeObject<SiteAndFlightsDto>(apiResponse);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index");
+                    }
                 }
             }
 
