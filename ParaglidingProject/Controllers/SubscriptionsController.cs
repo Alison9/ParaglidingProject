@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -16,23 +17,10 @@ namespace ParaglidingProject.Controllers
 {
     public class SubscriptionsController : Controller
     {
-        //private readonly ParaglidingClubContext _context;
-        private readonly IRepository<Subscription, int> SubscriptionsRepository;
-
-        public SubscriptionsController(IRepository<Subscription, int> repository)
-        {
-            SubscriptionsRepository = repository;
-        }
-
-        //public SubscriptionsController(ParaglidingClubContext context)
-        //{
-        //    _context = context;
-        //}
 
         // GET: Subscriptions
         public async Task<IActionResult> Index()
         {
-
             IEnumerable<SubscriptionDto> listSubscriptions = null;
             using (var httpClient = new HttpClient())
             {
@@ -46,27 +34,31 @@ namespace ParaglidingProject.Controllers
         }
 
         // GET: Subscriptions/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var subscription = await _context.Subscriptions
-        //        .Include(p => p.Payments)
-        //        .ThenInclude(pi => pi.Pilot)
-        //        .AsNoTracking()
-        //        .FirstOrDefaultAsync(y => y.YearID == id);
-              
-  
-        //    if (subscription == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(subscription);
-        //}
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            SubscriptionDto viewSubscription = null;
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/subscriptions/{id}"))
+                {
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        string apiResponse = await response.Content.ReadAsStringAsync();
+                        viewSubscription = JsonConvert.DeserializeObject<SubscriptionDto>(apiResponse);
+                    }
+                    else
+                    {
+                        //Redirect or send empty
+                        viewSubscription = new SubscriptionDto();
+                    }
+                }
+            }
+            return View(viewSubscription);
+        }
 
         //// GET: Subscriptions/Create
         //public IActionResult Create()
