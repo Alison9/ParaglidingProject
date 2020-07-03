@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    string filterText = null;
 }
 
 <h1>Sites</h1>
@@ -11,15 +12,31 @@
     <br />
     <a class="create" asp-action="Create" asp-route-pSiteType="@ParaglidingProject.SL.Core.Site.NS.TransfertObjects.TypeSite.Takeoff">Créer un nouveau site de décollage</a>
 </p>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Index">
+            <select name="filter">
+                <option value="@ParaglidingProject.SL.Core.Site.NS.Helpers.SitesFilters.NotActive">Not actives</option>
+                <option value="@ParaglidingProject.SL.Core.Site.NS.Helpers.SitesFilters.Altitude">Altitude</option>
+                <option value="@ParaglidingProject.SL.Core.Site.NS.Helpers.SitesFilters.Orientation">Orientation</option>
+            </select>
+            <input type="text" name="filterInfo" />
+
+            <div class="form-group">
+                <input type="submit" value="Filtrer" class="btn btn-primary add" />
+            </div>
+        </form>
+    </div>
+</div>
 <table class="table" cellspacing="0">
     <thead>
         <tr>
             <th>
-                <a  asp-action="Index" asp-route-pSiteSort="@ParaglidingProject.SL.Core.Site.NS.Helpers.SitesSorts.Name">@Html.DisplayNameFor(model => model.Name)</a>
+                <a asp-action="Index" asp-route-pSiteSort="@ParaglidingProject.SL.Core.Site.NS.Helpers.SitesSorts.Name">@Html.DisplayNameFor(model => model.Name)</a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Orientation)
-</th>
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.SiteType)
             </th>
@@ -27,8 +44,11 @@
                 @Html.DisplayNameFor(model => model.SiteGeoCoordinate)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.AltitudeTakeOff)
+            </th>
+            <th>
                 <a asp-action="Index" asp-route-pSiteSort="@ParaglidingProject.SL.Core.Site.NS.Helpers.SitesSorts.LevelRequired">@Html.DisplayNameFor(model => model.Level)</a>
-</th>
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -47,6 +67,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.SiteGeoCoordinate)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.AltitudeTakeOff)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Level.ID)

@@ -16,14 +16,22 @@ namespace ParaglidingProject.Web.Controllers
 {
     public class SitesController : Controller
     {
-
         // GET: Sites
-        public async Task<IActionResult> Index(SitesSorts pSiteSort)
+        public async Task<IActionResult> Index(SitesSorts pSiteSort,SitesFilters filter,string filterInfo)
         {
             IEnumerable<SiteDto> listSites = null;
+            string textToSort = "";
+            if(filter == SitesFilters.Orientation)
+            {
+                textToSort = "Orientation";
+            }
+            if(filter == SitesFilters.Altitude)
+            {
+                textToSort = "AltitudeTakeOff";
+            }
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/sites?SortBy={pSiteSort}"))
+                using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/sites?SortBy={pSiteSort}&FilterBy={filter}&{textToSort}={filterInfo}"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     listSites = JsonConvert.DeserializeObject<List<SiteDto>>(apiResponse);
