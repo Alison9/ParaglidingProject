@@ -13,8 +13,8 @@
     <div class="row">
         <div class="col-12">
             <form>
-                <select asp-items='ViewData["items"] as IEnumerable<SelectListItem>'></select>
-                <button class="styleLink" type="submit">filter</button>
+                <select name="SortList" asp-items='ViewData["items"] as IEnumerable<SelectListItem> '></select>
+                <button class="styleLink" value="SortList.Value" type="submit">filter</button>
             </form>
 
         </div>

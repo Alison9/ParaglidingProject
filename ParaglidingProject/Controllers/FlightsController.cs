@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -35,19 +36,9 @@ namespace ParaglidingProject.Web.Controllers
         }
 
         // GET: Flights
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([FromForm]string SortList = "0")
         {
-            List<FlightDto> flightsDto;
-            using (var httpClient = new HttpClient())
-            {
-
-                using (var response = await httpClient.GetAsync(apiAddressFlight))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    flightsDto = JsonConvert.DeserializeObject<List<FlightDto>>(apiResponse);
-                }
-            }
-
+            
             List<SelectListItem> items = Enum.GetValues(typeof(FlightSort))
                                                 .Cast<FlightSort>()
                                                 .Select(v => new SelectListItem
@@ -56,11 +47,43 @@ namespace ParaglidingProject.Web.Controllers
                                                     Value = ((int)v).ToString()
 
                                                 }).ToList();
-
-            ViewData["items"] = items;
+            //ViewData["items"] = items;
             
+            //foreach (var item in items)
+            //{
+            //    if (item.Selected)
+            //    {
+            //        userInput = item.Value;
+            //    }
+            //}
+
+
+
+            ViewData["items"] = new SelectList(items, "Value", "Text");
+
+
+            List<FlightDto> flightsDto = await LoadSortedList(SortList);
+
             return View(flightsDto);
         }
+
+        private static async Task<List<FlightDto>> LoadSortedList(string userInput)
+        {
+            List<FlightDto> pFlightsDto;
+            using (var httpClient = new HttpClient())
+            {
+                string fullApiAddress = $"{apiAddressFlight }?SortBy={userInput}";
+
+                using (var response = await httpClient.GetAsync(fullApiAddress))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    pFlightsDto = JsonConvert.DeserializeObject<List<FlightDto>>(apiResponse);
+                }
+            }
+
+            return pFlightsDto;
+        }
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
