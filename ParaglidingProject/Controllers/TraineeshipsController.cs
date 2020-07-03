@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using ParaglidingProject.Data;
 using ParaglidingProject.Models;
+using ParaglidingProject.SL.Core.TraineeShip.NS.TransferObjects;
 
 namespace ParaglidingProject.Controllers
 {
@@ -22,9 +26,24 @@ namespace ParaglidingProject.Controllers
         // GET: Courses
         public async Task<IActionResult> Index()
         {
-            var paraglidingClubContext = _context.Traineeships
-                .Include(c => c.License);
-            return View(await paraglidingClubContext.ToListAsync());
+            IEnumerable<TraineeShipDto> listTraineeships = null;
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync("http://localhost:50106/api/v1/Traineeships"))
+                {
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        string apiResponse = await response.Content.ReadAsStringAsync();
+                        listTraineeships = JsonConvert.DeserializeObject<List<TraineeShipDto>>(apiResponse);
+                    }
+                    else
+                    {
+                        listTraineeships = Enumerable.Empty<TraineeShipDto>();
+                    }
+                }
+            }
+
+            return View(listTraineeships);
         }
 
         // GET: Courses/Details/5
@@ -35,23 +54,25 @@ namespace ParaglidingProject.Controllers
                 return NotFound();
             }
 
-            var course = await _context.Traineeships
-                .Include(c => c.License)
-                    .ThenInclude(l => l.Level)
-                .Include(t => t.PilotTraineeships)
-                   .ThenInclude(p => p.Pilot)
-                .Include(p => p.TraineeshipPayments)
-                    .ThenInclude(p => p.Pilot)
+            TraineeshipAndPilotsDto viewTraineeship = new TraineeshipAndPilotsDto();
 
-                /*.ThenInclude(c => c.Level)*/ //Inclusion du niveau auquel donne droit la licence ?
-                                               //.AsNoTracking()
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (course == null)
+            using (var httpClient = new HttpClient())
             {
-                return NotFound();
+                using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/Traineeships/{id}"))
+                {
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        string apiResponse = await response.Content.ReadAsStringAsync();
+                        viewTraineeship = JsonConvert.DeserializeObject<TraineeshipAndPilotsDto>(apiResponse);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index");
+                    }
+                }
             }
 
-            return View(course);
+            return View(viewTraineeship);
         }
 
         // GET: Courses/Create
