@@ -155,3 +155,6 @@ select {
     border: 2px outset black;
     font-size:20px;
 }
+.nimportequoi {
+    display: flex;
+}
