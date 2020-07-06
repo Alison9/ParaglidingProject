@@ -10,7 +10,7 @@ namespace ParaglidingProject.SL.Core.TraineeShip.NS.NewFolder1
 {
     public class TraineeshipSSFP
     {
-        private const int DefaultPageSize = 5;
+        private const int DefaultPageSize = 10;
         private const int MaxPageSize = 10;
 
         private int _pageSize = DefaultPageSize;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -40,7 +41,7 @@ namespace ParaglidingProject.Controllers
             {
                 return NotFound();
             }
-            SubscriptionDto viewSubscription = null;
+            SubscriptionAndPilotsDto viewSubscription = null;
             using (var httpClient = new HttpClient())
             {
                 using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/subscriptions/{id}"))
@@ -48,85 +49,79 @@ namespace ParaglidingProject.Controllers
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
                         string apiResponse = await response.Content.ReadAsStringAsync();
-                        viewSubscription = JsonConvert.DeserializeObject<SubscriptionDto>(apiResponse);
+                        viewSubscription = JsonConvert.DeserializeObject<SubscriptionAndPilotsDto>(apiResponse);
                     }
                     else
                     {
                         //Redirect or send empty
-                        viewSubscription = new SubscriptionDto();
+                        viewSubscription = new SubscriptionAndPilotsDto();
                     }
                 }
             }
             return View(viewSubscription);
         }
 
-        //// GET: Subscriptions/Create
-        //public IActionResult Create()
-        //{
-        //    return View();
-        //}
+        // GET: Subscriptions/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
 
-        //// POST: Subscriptions/Create
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("YearID,Price")] Subscription subscription)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(subscription);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(subscription);
-        //}
+        // POST: Subscriptions/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(SubscriptionDto pSubscriptionDto)
+        {
+            using (HttpClient httpClient = new HttpClient())
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(pSubscriptionDto), Encoding.UTF8, "application/json");
+                var response =  await httpClient.PostAsync($"http://localhost:50106/api/v1/subscriptions/", content);
+            }
+            return RedirectToAction("Index");
+        }
 
-        //// GET: Subscriptions/Edit/5
-        //public async Task<IActionResult> Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // GET: Subscriptions/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            SubscriptionDto viewSubscription = new SubscriptionDto();
+            using (HttpClient httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/subscriptions/{id}"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    if(response.StatusCode != HttpStatusCode.OK)
+                    {
+                        return NotFound();
+                    }
+                    viewSubscription = JsonConvert.DeserializeObject<SubscriptionDto>(apiResponse);
+                }
+            }
 
-        //    var subscription = await _context.Subscriptions.FindAsync(id);
-        //    if (subscription == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return View(subscription);
-        //}
+            return View(viewSubscription);
+        }
 
-        //// POST: Subscriptions/Edit/5
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost, ActionName("Edit")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> EditPost(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    var subscriptionToUpdate = await _context.Subscriptions.FirstOrDefaultAsync(s => s.YearID == id);
-        //    if (await TryUpdateModelAsync<Subscription>(
-        //        subscriptionToUpdate, "", s => s.YearID, s => s.Price))
-        //    {
-        //        try
-        //        {
-        //            await _context.SaveChangesAsync();
-        //            return RedirectToAction(nameof(Index));
-        //        }
-        //        catch (DbUpdateException)
-        //        {
-        //            ModelState.AddModelError("", "Unable to save changes. " +
-        //        "Try again, and if the problem persists, " +
-        //        "see your system administrator.");
-        //        }
-        //    }
-        //    return View(subscriptionToUpdate);
-        //}
+        // POST: Subscriptions/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost, ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditPost(SubscriptionDto pSubscriptionDto)
+        {
+            SubscriptionDto viewSubscription = null;
+            using (var httpClient = new HttpClient())
+            {
+                string url = $"http://localhost:50106/api/v1/subscriptions";
+                var content = new StringContent(JsonConvert.SerializeObject(pSubscriptionDto), Encoding.UTF8, "application/json");
+            }
+
+            return View(viewSubscription);
+        }
 
         //// GET: Subscriptions/Delete/5
         //public async Task<IActionResult> Delete(int? id)

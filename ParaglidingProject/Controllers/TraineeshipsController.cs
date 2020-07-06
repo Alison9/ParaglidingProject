@@ -12,26 +12,24 @@ using Newtonsoft.Json;
 using ParaglidingProject.Data;
 using ParaglidingProject.Models;
 using ParaglidingProject.SL.Core.Licenses.NS.TransfertObjects;
+using ParaglidingProject.SL.Core.Site.NS.TransfertObjects;
+using ParaglidingProject.SL.Core.TraineeShip.NS.Helpers;
 using ParaglidingProject.SL.Core.TraineeShip.NS.TransferObjects;
 
 namespace ParaglidingProject.Controllers
 {
     public class TraineeshipsController : Controller
     {
-        private readonly ParaglidingClubContext _context;
-
-        public TraineeshipsController(ParaglidingClubContext context)
-        {
-            _context = context;
-        }
 
         // GET: Courses
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(TraineeShipSorts pTraineeshipSort, TraineeShipSearch search)
         {
             IEnumerable<TraineeShipDto> listTraineeships = null;
+
+
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync("http://localhost:50106/api/v1/Traineeships"))
+                using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/Traineeships?SortBy={pTraineeshipSort}&SearchBy={search}"))
                 {
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
@@ -44,6 +42,15 @@ namespace ParaglidingProject.Controllers
                     }
                 }
             }
+
+            var traineeshipSearch= Enum.GetValues(typeof(TraineeShipSearch))
+               .Cast<TraineeShipSearch>()
+               .Select(d => new SelectListItem
+               {
+                   Text = d.ToString(),
+                   Value = ((int)d).ToString()
+               }).ToList();
+            ViewData["traineeshipSearchItems"] = new SelectList(traineeshipSearch, "Value", "Text");
 
             return View(listTraineeships);
         }
@@ -105,7 +112,7 @@ namespace ParaglidingProject.Controllers
             using (var httpClient = new HttpClient())
             {
                 var content = new StringContent(JsonConvert.SerializeObject(pTraineeshipDto), Encoding.UTF8, "application/json");
-                var response = await httpClient.PostAsync("http://localhost:50106/api/v1/Traineeships/", content);
+                var response = await httpClient.PostAsync($"http://localhost:50106/api/v1/Traineeships/", content);
             }
 
             return RedirectToAction("Index");
@@ -119,13 +126,39 @@ namespace ParaglidingProject.Controllers
                 return NotFound();
             }
 
-            var course = await _context.Traineeships.FindAsync(id);
-            if (course == null)
+            TraineeshipAndPilotsDto viewTraineeship = new TraineeshipAndPilotsDto();
+
+            using (var httpClient = new HttpClient())
             {
-                return NotFound();
+                using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/Traineeships/{id}"))
+                {
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        string apiResponse = await response.Content.ReadAsStringAsync();
+                        viewTraineeship = JsonConvert.DeserializeObject<TraineeshipAndPilotsDto>(apiResponse);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index");
+                    }
+                }
             }
-            ViewData["LicenseID"] = new SelectList(_context.Licenses, "ID", "ID", course.LicenseID);
-            return View(course);
+
+
+            ICollection<LicenseDto> licensesDto = null;
+
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync("http://localhost:50106/api/v1/licenses/"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    if (response.StatusCode == HttpStatusCode.OK)
+                        licensesDto = JsonConvert.DeserializeObject<ICollection<LicenseDto>>(apiResponse);
+                }
+            }
+            ViewData["LicenseID"] = new SelectList(licensesDto, "LicenseID", "Title");
+
+            return View(viewTraineeship.TraineeshipDto);
         }
 
         // POST: Courses/Edit/5
@@ -133,35 +166,20 @@ namespace ParaglidingProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,StartDate,EndDate,CoursePrice,LicenseID")] Traineeship course)
+        public async Task<IActionResult> Edit(TraineeShipDto pTraineeshipDto)
         {
-            if (id != course.ID)
+            if (pTraineeshipDto == null)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            using (var httpClient = new HttpClient())
             {
-                try
-                {
-                    _context.Update(course);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CourseExists(course.ID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                var content = new StringContent(JsonConvert.SerializeObject(pTraineeshipDto), Encoding.UTF8, "application/json");
+                var response = await httpClient.PutAsync("http://localhost:50106/api/v1/Traineeships/", content);
             }
-            ViewData["LicenseID"] = new SelectList(_context.Licenses, "ID", "ID", course.LicenseID);
-            return View(course);
+
+            return RedirectToAction("Index");
         }
 
         // GET: Courses/Delete/5
@@ -172,15 +190,24 @@ namespace ParaglidingProject.Controllers
                 return NotFound();
             }
 
-            var course = await _context.Traineeships
-                .Include(c => c.License)
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (course == null)
+            TraineeshipAndPilotsDto viewTraineeship = new TraineeshipAndPilotsDto();
+            using (var httpClient = new HttpClient())
             {
-                return NotFound();
+                using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/Traineeships/{id}"))
+                {
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        string apiResponse = await response.Content.ReadAsStringAsync();
+                        viewTraineeship = JsonConvert.DeserializeObject<TraineeshipAndPilotsDto>(apiResponse);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index");
+                    }
+                }
             }
 
-            return View(course);
+            return View(viewTraineeship.TraineeshipDto);
         }
 
         // POST: Courses/Delete/5
@@ -188,15 +215,12 @@ namespace ParaglidingProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var course = await _context.Traineeships.FindAsync(id);
-            _context.Traineeships.Remove(course);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.DeleteAsync($"http://localhost:50106/api/v1/Traineeships/{id}");
+            }
+            return RedirectToAction("Index");
         }
 
-        private bool CourseExists(int id)
-        {
-            return _context.Traineeships.Any(e => e.ID == id);
-        }
     }
 }

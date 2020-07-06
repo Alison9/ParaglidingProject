@@ -1,47 +1,46 @@
-﻿@model ParaglidingProject.Models.Traineeship
+﻿@model ParaglidingProject.SL.Core.TraineeShip.NS.TransferObjects.TraineeShipDto
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h1>Publier</h1>
+    <h1>Editer le stage en date du @Model.TraineeShipStartDate au @Model.TraineeShipEndDate</h1>
 
-<h4>Cours</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="ID" />
+            <input type="hidden" asp-for="Traineeshipid" />
             <div class="form-group">
-                <label asp-for="StartDate" class="control-label"></label>
-                <input asp-for="StartDate" class="form-control" />
-                <span asp-validation-for="StartDate" class="text-danger"></span>
+                <label asp-for="TraineeShipStartDate" class="control-label"></label><br />
+                <input asp-for="TraineeShipStartDate" class="form-control" /><br />
+                <span asp-validation-for="TraineeShipStartDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="EndDate" class="control-label"></label>
-                <input asp-for="EndDate" class="form-control" />
-                <span asp-validation-for="EndDate" class="text-danger"></span>
+                <label asp-for="TraineeShipEndDate" class="control-label"></label><br />
+                <input asp-for="TraineeShipEndDate" class="form-control" /><br />
+                <span asp-validation-for="TraineeShipEndDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
+                <label asp-for="TraineeShipPrice" class="control-label"></label><br />
+                <input asp-for="TraineeShipPrice" class="form-control" /><br />
+                <span asp-validation-for="TraineeShipPrice" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="LicenseID" class="control-label"></label>
-                <select asp-for="LicenseID" class="form-control" asp-items="ViewBag.LicenseID"></select>
-                <span asp-validation-for="LicenseID" class="text-danger"></span>
-            </div>
+                <label asp-for="LicenseId" class="control-label"></label><br />
+                <select asp-for="LicenseId" class="form-control" asp-items="ViewBag.LicenseID"></select><br />
+                <span asp-validation-for="LicenseId" class="text-danger"></span>
+            </div><br />
             <div class="form-group">
-                <input type="submit" value="Enregistrer" class="btn btn-primary" />
+                <input type="submit" value="Enregistrer" class="btn btn-primary add" />
             </div>
         </form>
     </div>
 </div>
-
+<br />
 <div>
-    <a asp-action="Index">Retour à la liste</a>
+    <a class="styleLink" asp-action="Index">Retour à la liste</a>
 </div>
 
 @section Scripts {
