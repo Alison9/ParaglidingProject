@@ -75,5 +75,16 @@ namespace ParaglidingProject.SL.Core.Subscription.NS
             return subscriptionDto;
 
         }
+        public async Task CreateSubscription(SubscriptionDto pSubscriptionDto)
+        {
+            _paraContext.Subscriptions.Add(new Models.Subscription
+            {
+                Year = pSubscriptionDto.Id,
+                IsActive = true,
+                SubscriptionAmount = pSubscriptionDto.Amount
+            });
+
+             await _paraContext.SaveChangesAsync();
+        }
     }
 }

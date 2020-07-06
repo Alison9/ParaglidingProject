@@ -71,6 +71,12 @@ namespace ParaglidingProject.API.Controllers
 
             return Ok(Subscriptions);
         }
+        [HttpPost]
+        public async Task<ActionResult> CreateSubscription([FromBody] SubscriptionDto pSubscriptionDto)
+        {
+            await _SubscriptionService.CreateSubscription(pSubscriptionDto);
+            return Ok();
+        }
     }
 }
 

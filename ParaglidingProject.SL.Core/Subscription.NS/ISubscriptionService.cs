@@ -33,5 +33,6 @@ namespace ParaglidingProject.SL.Core.Subscription.NS
         /// <seealso cref="SubscriptionDto"/>
         /// </returns>
         Task<IReadOnlyCollection<SubscriptionDto>> GetAllSubscriptionAsync(SubscriptionSSPF Options);
+        Task CreateSubscription(SubscriptionDto subscriptionDto);
     }
 }
