@@ -2,6 +2,7 @@
 
 using ParaglidingProject.Data;
 using ParaglidingProject.SL.Core.Helpers;
+using ParaglidingProject.SL.Core.Pilot.NS.TransfertObjects;
 using ParaglidingProject.SL.Core.Subscription.NS.Helpers;
 using ParaglidingProject.SL.Core.Subscription.NS.transferObjects;
 using System;
@@ -56,6 +57,23 @@ namespace ParaglidingProject.SL.Core.Subscription.NS
               .FirstOrDefaultAsync(s => s.Id == id);
 
             return subscription;
+        }
+        public async Task<SubscriptionDto> GetPilotsBySubscription(int id)
+        {
+            SubscriptionDto subscriptionDto = new SubscriptionDto();
+            subscriptionDto = await _paraContext.Subscriptions
+                .AsNoTracking()
+                .Select(s => new SubscriptionDto
+                {
+                    Id = s.Year,
+                    Amount = s.SubscriptionAmount,
+                    NumberOfPayments = s.SubscriptionPayments.Count,
+                    IsActive = s.IsActive,
+                    TotalAmount = s.SubscriptionPayments.Count * s.SubscriptionAmount
+                }).FirstOrDefaultAsync(s => s.Id == id);
+
+            return subscriptionDto;
+
         }
     }
 }

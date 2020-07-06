@@ -125,5 +125,38 @@ namespace ParaglidingProject.SL.Core.Pilot.NS
             _paraContext.Entry(pilot).State = EntityState.Modified;
             await _paraContext.SaveChangesAsync();
         }
+        public async Task<IReadOnlyCollection<PilotDto>> GetPilotsBySubscription(int id)
+        {
+            var pilots = _paraContext.Pilots.Where(p => p.SubscriptionsPayments.Any(sp => sp.SubscriptionID == id)).Select(p => new PilotDto
+            {
+                FirstName = p.FirstName,
+                LastName = p.LastName,
+                Address = p.Address,
+                NumberOfFlights = p.Flights.Count,
+                PilotId = p.ID
+            }).ToList();
+
+            return pilots;
+        }
+
+        public async Task<IReadOnlyCollection<PilotDto>> GetPilotsByTraineeship(int pTraineeshipId)
+        {
+            var pilots = _paraContext.Pilots
+            .Where(p => p.TraineeshipPayments.Any(tp => tp.TraineeshipID == pTraineeshipId))
+            .Select(p => new PilotDto
+             {
+                 PilotId = p.ID,
+                 FirstName = p.FirstName,
+                 LastName = p.LastName,
+                 Address = p.Address,
+                 PhoneNumber = p.PhoneNumber,
+                 Weight = p.Weight,
+                 IsActive = p.IsActive,
+                 NumberOfFlights = p.Flights.Count
+
+             });
+
+            return await pilots.ToListAsync();
+        }
     }
 }

@@ -7,7 +7,7 @@ namespace ParaglidingProject.SL.Core.Subscription.NS.Helpers
 {
     public class SubscriptionSSPF
     {
-        private const int DefaultPageSize = 1;
+        private const int DefaultPageSize = 10;
         private const int MaxPageSize = 10;
 
         private int _pageSize = DefaultPageSize;

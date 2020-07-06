@@ -1,89 +1,61 @@
-﻿@model ParaglidingProject.Models.Traineeship
+﻿@model ParaglidingProject.SL.Core.TraineeShip.NS.TransferObjects.TraineeshipAndPilotsDto
 
 @{
     ViewData["Title"] = "Détails du stage";
 }
 
-<h1>Détails du stage du @Model.StartDate au @Model.EndDate</h1>
+<h1>Détails du stage du @Model.TraineeshipDto.TraineeShipStartDate au @Model.TraineeshipDto.TraineeShipEndDate</h1>
 
 <div>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.StartDate)
+            @Html.DisplayNameFor(model => model.TraineeshipDto.TraineeShipStartDate)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.StartDate)
+            @Html.DisplayFor(model => model.TraineeshipDto.TraineeShipStartDate)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.EndDate)
+            @Html.DisplayNameFor(model => model.TraineeshipDto.TraineeShipEndDate)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.EndDate)
+            @Html.DisplayFor(model => model.TraineeshipDto.TraineeShipEndDate)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
+            @Html.DisplayNameFor(model => model.TraineeshipDto.TraineeShipPrice)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Price)
+            @Html.DisplayFor(model => model.TraineeshipDto.TraineeShipPrice)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.License.Title)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.License.Title)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.License.Level.Name)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.License.Level.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PilotTraineeships)
-        </dt>
-        <dd class="col-sm-10">
-            @foreach (var item in Model.PilotTraineeships)
-                @Html.DisplayFor(modelItem => item.Pilot.FirstName)
-            <hr\>
-                @foreach (var item in Model.PilotTraineeships)
-                    @Html.DisplayFor(modelItem => item.Pilot.LastName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.TraineeshipPayments)
-        </dt>
-        <dd class="col-sm-10">
-            <table class="table" cellspacing="0">
-                <tr>
-                    <th>Prénom du pilote</th>
-                    <th>Nom du pilote</th>
-                    <th>Payé?</th>
-                    <th>Date de payment</th>
-                    <a class="btn btn-primary styleLink" asp-route-id="@Model.ID" asp-action="CreateParticipation">Ajouter un participant</a>
-                </tr>
-                @foreach (var item in Model.TraineeshipPayments)
-                {
+        @if (Model.PilotsDto.Count > 0)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.PilotsDto)
+            </dt>
+            <dd class="col-sm-10">
+                <table class="table" cellspacing="0">
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Pilot.FirstName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItems => item.Pilot.LastName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modeItems => item.IsPaid)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modeItems => item.PaymentDate)
-                        </td>
-                        <td>
-                            <a class="btn btn-primary styleLink" asp-route-PilotID="@item.PilotID" asp-route-TraineeshipID="@item.TraineeshipID" asp-action="EditParticipation">Editer</a> |
-                            <a class="btn btn-primary styleLink" asp-route-PilotID="@item.PilotID" asp-route-TraineeshipID="@item.TraineeshipID"  asp-action="DeleteParticipation">Supprimer</a>
-                        </td>
+                        <th>Pilote</th>
+                        <th>Adresse du pilote</th>
+                        <th>Numéro de téléphone du pilote</th>
                     </tr>
-                }
-            </table>
-        </dd>
+                    @foreach (var item in Model.PilotsDto)
+                    {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItems => item.FirstName)  @Html.DisplayFor(modelItems => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItems => item.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modeItems => item.PhoneNumber)
+                    </td>
+                </tr>
+                    }
+                </table>
+            </dd>
+        }
     </dl>
 </div>
 <div>

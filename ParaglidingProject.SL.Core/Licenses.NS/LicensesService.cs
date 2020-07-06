@@ -32,5 +32,19 @@ namespace ParaglidingProject.SL.Core.Licenses.NS
 
             return license;
         }
+
+        public async Task<IReadOnlyCollection<LicenseDto>> GetAllLicensesAsync()
+        {
+            var licenses = _paraContext.Licenses
+                .AsNoTracking()
+                .Select(l => new LicenseDto
+                {
+                    LicenseID = l.ID,
+                    Title = l.Title,
+                    LevelDifficultyIndex = l.Level.DifficultyIndex
+                });
+
+            return await licenses.ToListAsync();
+        }
     }
 }

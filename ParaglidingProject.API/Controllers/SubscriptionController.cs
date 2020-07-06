@@ -4,6 +4,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ParaglidingProject.SL.Core.Pilot.NS;
 using ParaglidingProject.SL.Core.Subscription.NS;
 using ParaglidingProject.SL.Core.Subscription.NS.Helpers;
 using ParaglidingProject.SL.Core.Subscription.NS.transferObjects;
@@ -20,10 +21,12 @@ namespace ParaglidingProject.API.Controllers
     public class SubscriptionController : ControllerBase
     {
         private readonly ISubscriptionService _SubscriptionService;
+        private readonly IPilotsService _pilotService;
 
-        public SubscriptionController(ISubscriptionService SubscriptionService)
+        public SubscriptionController(ISubscriptionService SubscriptionService,IPilotsService pilotsService)
         {
             this._SubscriptionService = SubscriptionService ?? throw new ArgumentNullException(nameof(SubscriptionService));
+            _pilotService = pilotsService ?? throw new ArgumentNullException(nameof(pilotsService));
         }
 
         /// <summary>
@@ -39,11 +42,14 @@ namespace ParaglidingProject.API.Controllers
         [HttpGet("{Id}", Name = "GetSubscriptionAsync")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<SubscriptionDto>> GetSubscriptionAsync([FromRoute] int Id)
+        public async Task<ActionResult<SubscriptionAndPilotsDto>> GetSubscriptionAsync([FromRoute] int id)
         {
-            var subscription = await _SubscriptionService.GetSubscriptionAsync(Id);
-            if (subscription == null) return NotFound("Couldn't find any associated Subscription");
-            return Ok(subscription);
+            SubscriptionAndPilotsDto subscriptionAndPilotsDto = new SubscriptionAndPilotsDto();
+            subscriptionAndPilotsDto.SubscriptionDto = await _SubscriptionService.GetSubscriptionAsync(id);
+            if (subscriptionAndPilotsDto.SubscriptionDto == null) return NotFound("Couldn't find any associated Subscription");
+            subscriptionAndPilotsDto.pilotDtos = await _pilotService.GetPilotsBySubscription(id);
+            if (subscriptionAndPilotsDto.pilotDtos == null) return NotFound("Couldn't fine any associated pilot");
+            return Ok(subscriptionAndPilotsDto);
         }
         /// <summary>
         /// get all subscriptions
