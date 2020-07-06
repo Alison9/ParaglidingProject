@@ -89,7 +89,7 @@ namespace ParaglidingProject.Controllers
             {
                 return NotFound();
             }
-            SubscriptionDto viewSubscription = new SubscriptionDto();
+            SubscriptionAndPilotsDto viewSubscription = null;
             using (HttpClient httpClient = new HttpClient())
             {
                 using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/subscriptions/{id}"))
@@ -99,28 +99,28 @@ namespace ParaglidingProject.Controllers
                     {
                         return NotFound();
                     }
-                    viewSubscription = JsonConvert.DeserializeObject<SubscriptionDto>(apiResponse);
+                    viewSubscription = JsonConvert.DeserializeObject<SubscriptionAndPilotsDto>(apiResponse);
                 }
             }
 
-            return View(viewSubscription);
+            return View(viewSubscription.SubscriptionDto);
         }
 
         // POST: Subscriptions/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost, ActionName("Edit")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditPost(SubscriptionDto pSubscriptionDto)
+        public async Task<IActionResult> Edit(SubscriptionDto pSubscriptionDto)
         {
-            SubscriptionDto viewSubscription = null;
             using (var httpClient = new HttpClient())
             {
                 string url = $"http://localhost:50106/api/v1/subscriptions";
                 var content = new StringContent(JsonConvert.SerializeObject(pSubscriptionDto), Encoding.UTF8, "application/json");
+                var response = await httpClient.PutAsync(url, content);
             }
 
-            return View(viewSubscription);
+            return RedirectToAction("Index");
         }
 
         //// GET: Subscriptions/Delete/5
