@@ -9,9 +9,9 @@ namespace ParaglidingProject.SL.Core.ParagliderModel.NS.Helpers
     public enum PargliderModelFilters
     {
         NoFilter = 0,
-        heavyweight = 2,
-        thinweight = 1,
-        pilotweight=3
+        Heavyweight = 2,
+        Thinweight = 1,
+        Pilotweight=3
     }
 
     public static class ParagliderModelFilter
@@ -23,15 +23,15 @@ namespace ParaglidingProject.SL.Core.ParagliderModel.NS.Helpers
                 case PargliderModelFilters.NoFilter:
                     return paraglidermodels;
 
-                case PargliderModelFilters.heavyweight:
+                case PargliderModelFilters.Heavyweight:
                     return paraglidermodels
                         .Where(p => p.MaxWeightPilot<=250&& p.MaxWeightPilot>=100);
                     
 
-                case PargliderModelFilters.thinweight:
+                case PargliderModelFilters.Thinweight:
                     return paraglidermodels
                         .Where(p => p.MinWeightPilot>=0 && p.MinWeightPilot<79);
-                case PargliderModelFilters.pilotweight:
+                case PargliderModelFilters.Pilotweight:
                     return paraglidermodels
                         .Where(p => p.MinWeightPilot <= pilotweight && p.MaxWeightPilot >= pilotweight);
                         

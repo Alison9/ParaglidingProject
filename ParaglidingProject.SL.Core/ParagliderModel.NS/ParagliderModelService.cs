@@ -46,9 +46,10 @@ namespace ParaglidingProject.SL.Core.ParagliderModel.NS
 
       public async Task<IReadOnlyCollection<ParagliderModelDto>> GetAllParagliderModelsAsync(ParagliderModelsSSFP options)
       {
-        var modelparaglider = _paraContext.ParagliderModels //DEFERED EXECUTION
-            .AsNoTracking()
-            .ParagliderModelSearchBy(options.SearchBy)
+            var modelparaglider = _paraContext.ParagliderModels //DEFERED EXECUTION
+                .AsNoTracking()
+                .ParagliderModelSearchBy(options.SearchBy, pSize: options.Size,pApprovalNumber: options.ApprovalNumber)
+            .ParagliderModelsSortsBy(options.SortsBy)
             .FilterParagliderModelBy(options.FilterBy,options.Pilotweight)
             .Select(p => new ParagliderModelDto // Projection
             {

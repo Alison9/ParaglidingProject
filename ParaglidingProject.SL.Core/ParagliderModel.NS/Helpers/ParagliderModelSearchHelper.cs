@@ -4,33 +4,28 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace ParaglidingProject.SL.Core.ParagliderModel.NS.Helpers
 {
+    public enum ParagliderModelSearch
+    {
+        None = 0,
+        ApprovalNumber = 1,
+        Size = 2
+    }
     public static class ParagliderModelSearchHelper
 	{
-		public static IQueryable<Models.ParagliderModel> ParagliderModelSearchBy(this IQueryable<Models.ParagliderModel> paragliderModels, string searchBy)
+		public static IQueryable<Models.ParagliderModel> ParagliderModelSearchBy(this IQueryable<Models.ParagliderModel> paragliderModels, 
+            ParagliderModelSearch searchBy, string pApprovalNumber = null, string pSize = null)
 		{
-            if (string.IsNullOrWhiteSpace(searchBy))
+            switch(searchBy)
             {
-                return paragliderModels;
+                case ParagliderModelSearch.None:
+                    return paragliderModels;
+                case ParagliderModelSearch.ApprovalNumber:
+                    return paragliderModels.Where(pa => pa.ApprovalNumber.Contains(pApprovalNumber));
+                case ParagliderModelSearch.Size:
+                    return paragliderModels.Where(s => s.Size.Contains(pSize));
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
-
-            if (searchBy.Contains("m²"))
-            {
-                var sanitizedSearchBy = searchBy.Substring(0, 2);
-                var sizeParsed = int.TryParse(sanitizedSearchBy, out var searchBySize);
-
-                if (sizeParsed)
-                    return paragliderModels.Where(pm => pm.Size.Contains(searchBySize.ToString()));
-            }
-
-            var dateParsed = DateTime.TryParse(searchBy, out var searchByDate);
-
-            if (dateParsed)
-                return paragliderModels.Where(pm => pm.ApprovalDate == searchByDate);
-
-            if (searchBy.Length == 8 && searchBy.Contains("/"))
-                return paragliderModels.Where(pm => pm.ApprovalNumber == searchBy);
-
-            throw new AmbiguousActionException("Search does not make any sense");
         }
     }
 }
