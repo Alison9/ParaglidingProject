@@ -1,4 +1,4 @@
-﻿@model ParaglidingProject.Models.Subscription
+﻿@model ParaglidingProject.SL.Core.Subscription.NS.transferObjects.SubscriptionDto
 @{
     ViewData["Title"] = "Edit";
 }
@@ -7,23 +7,18 @@
     Layout = "_Layout";
 }
 
-<h1>Editer les information des cotisations pour l'année @Model.Year</h1>
+<h1>Editer les information des cotisations pour l'année @Model.Id</h1>
 
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger validator"></div>
-            <input type="hidden" asp-for="Year" />
+            <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="Year" class="control-label">Année</label><br />
-            <input asp-for="Year" class="form-control" /><br />
-                <span asp-validation-for="Year" class="text-danger validator"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SubscriptionAmount" class="control-label">Prix</label><br />
-                <input asp-for="SubscriptionAmount" class="form-control" /><br />
-                <span asp-validation-for="SubscriptionAmount" class="text-danger validator"></span>
+                <label asp-for="Amount" class="control-label">Prix</label><br />
+                <input asp-for="Amount" class="form-control" /><br />
+                @*<span asp-validation-for="Amount" class="text-danger validator"></span>*@
             </div><br />
             <div class="form-group">
                 <input type="submit" action="EditPost" value="Sauver" class="btn btn-primary add" />

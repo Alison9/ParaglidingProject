@@ -12,15 +12,17 @@ using ParaglidingProject.SL.Core.Flights.NS.TransfertObjects;
 using ParaglidingProject.SL.Core.Paraglider.NS.Helpers;
 using ParaglidingProject.SL.Core.Paraglider.NS.TransfertObjects;
 using ParaglidingProject.SL.Core.ParagliderModel.NS.TransfertObjects;
+using static ParaglidingProject.SL.Core.Paraglider.NS.Helpers.ParagliderSortHelper;
 
 namespace ParaglidingProject.Controllers
 {
     public class ParaglidersController : Controller
     {
         // GET: Paraglidings
-        public async Task<IActionResult> Index(ParaglidersFilters filter, string paragliderfilterInfo, ParaglidersSearch search, string ParagliderserchInfo)
+        public async Task<IActionResult> Index(ParaglidersFilters filter, ParagliderSort sort,string paraglidersortInfo, string paragliderfilterInfo, ParaglidersSearch search, string ParagliderserchInfo)
         {
             IEnumerable<ParagliderDto> listParagliders = null;
+            string textToSort = "";
             string textTosearch = "";
             string textTofilter = "";
 
@@ -47,11 +49,25 @@ namespace ParaglidingProject.Controllers
             {
                 textTosearch = "Name";
             }
-           
+            // sort
+            if (sort == ParagliderSort.CommissionDate)
+            {
+                textToSort = "CommissionDate";
+            }
+
+            if (sort== ParagliderSort.ModelParaglider)
+            {
+                textToSort = "ParagliderModelId";
+            }
+            if (sort == ParagliderSort.RevisionDate)
+            {
+                textToSort = "LastRevisionDate";
+            }
+
 
             using (var httpClient = new HttpClient())
             {
-                string urlfullpath = $"http://localhost:50106/api/v1/paragliders?FilterBy={filter}&{textTofilter}={paragliderfilterInfo}&SearchBy={search}&{textTosearch}={ParagliderserchInfo}";
+                string urlfullpath = $"http://localhost:50106/api/v1/paragliders?SortBy={sort}&{textToSort}={paraglidersortInfo}&FilterBy={filter}&{textTofilter}={paragliderfilterInfo}&SearchBy={search}&{textTosearch}={ParagliderserchInfo}";
                 using (var response = await httpClient.GetAsync(urlfullpath))
                 {
                     if (response.StatusCode == HttpStatusCode.OK)
@@ -85,6 +101,19 @@ namespace ParaglidingProject.Controllers
                    Value = ((int)d).ToString()
                }).ToList();
         ViewData["paragliderSearchItems"] = new SelectList(paragliderSearch, "Value", "Text");
+            //to sort
+
+            var paragliderSort = Enum.GetValues(typeof(ParagliderSort))
+               .Cast<ParagliderSort>()
+               .Select(d => new SelectListItem
+               {
+                   Text = d.ToString(),
+                   Value = ((int)d).ToString()
+               }).ToList();
+            ViewData["paragliderSortItems"] = new SelectList(paragliderSort, "Value", "Text");
+
+
+
 
             return View(listParagliders);
         }

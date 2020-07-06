@@ -75,5 +75,25 @@ namespace ParaglidingProject.SL.Core.Subscription.NS
             return subscriptionDto;
 
         }
+        public void CreateSubscription(SubscriptionDto pSubscriptionDto)
+        {
+            _paraContext.Subscriptions.Add(new Models.Subscription
+            {
+                Year = pSubscriptionDto.Id,
+                IsActive = true,
+                SubscriptionAmount = pSubscriptionDto.Amount
+            });
+
+             _paraContext.SaveChanges();
+        }
+        public void UpdateSubscription(SubscriptionDto pSubscriptionDto)
+        {
+            Models.Subscription subscriptionToModify = _paraContext.Subscriptions.Where(s => s.Year == pSubscriptionDto.Id).FirstOrDefault();
+
+            subscriptionToModify.SubscriptionAmount = pSubscriptionDto.Amount;
+
+            _paraContext.Subscriptions.Update(subscriptionToModify);
+            _paraContext.SaveChanges();
+        }
     }
 }
