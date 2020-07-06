@@ -20,7 +20,10 @@ namespace ParaglidingProject.SL.Core.ParagliderModel.NS.Helpers
         public int TotalPages { get; private set; }
         public int TotalCount { get; private set; }
         public PargliderModelFilters FilterBy { get; set; }
-        public string SearchBy { get; set; }
+        public ParagliderModelSearch SearchBy { get; set; }
+        public string Size { get; set; }
+        public string ApprovalNumber { get; set; }
+        public ParagliderModelsSorts SortsBy { get; set; }
         public void SetPagingValues<T>(IQueryable<T> query)
         {
             TotalCount = query.Count();

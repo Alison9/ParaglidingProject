@@ -139,6 +139,7 @@ namespace ParaglidingProject.API.Controllers
                             PageNumber = options.PageNumber = -1,
                             options.PageSize,
                             options.SearchBy,
+                            options.FilterBy,
                             options.LastRevisionDate,
                             options.Name
                             
@@ -151,6 +152,7 @@ namespace ParaglidingProject.API.Controllers
                             PageNumber = options.PageNumber + 1,
                             options.PageSize,
                             options.SearchBy,
+                            options.FilterBy,
                             options.LastRevisionDate,
                             options.Name
                         });
@@ -160,6 +162,7 @@ namespace ParaglidingProject.API.Controllers
                         {
                             options.PageNumber,
                             options.PageSize,
+                            options.FilterBy,
                             options.SearchBy,
                             options.LastRevisionDate,
                             options.Name

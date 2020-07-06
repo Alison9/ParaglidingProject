@@ -26,7 +26,7 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS.Helpers
                     return paragliders.IgnoreQueryFilters().Where(pa => pa.IsActive == false);
                 case ParaglidersFilters.CommissionDate:
                 {
-                    return paragliders = paragliders.Where(pc => pc.CommissioningDate > DateTime.Parse(pCommissionDate));
+                    return paragliders = paragliders.Where(pc => pc.CommissioningDate >= DateTime.Parse(pCommissionDate));
                 }
                 case ParaglidersFilters.RevisionDate:
                 {
