@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using static ParaglidingProject.SL.Core.Paraglider.NS.Helpers.ParagliderSortHelper;
 
 namespace ParaglidingProject.SL.Core.Paraglider.NS.Helpers
 {
@@ -19,7 +20,8 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS.Helpers
         public string CommissionDate { get; set; }
         public string LastRevisionDate { get; set; }
         public int ParagliderModelId { get; set; }
-       
+        public ParagliderSort SortBy { get; set; }
+
         public ParaglidersFilters FilterBy 
         { 
             get => _filterBy;
