@@ -11,6 +11,7 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS.Helpers
 {
     public class ParaglidersSSFP
     {
+      
         private const int DefaultPageSize = 5;
         private const int MaxPageSize = 10;
         private ParaglidersFilters _filterBy;
@@ -18,6 +19,7 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS.Helpers
         public string CommissionDate { get; set; }
         public string LastRevisionDate { get; set; }
         public int ParagliderModelId { get; set; }
+       
         public ParaglidersFilters FilterBy 
         { 
             get => _filterBy;

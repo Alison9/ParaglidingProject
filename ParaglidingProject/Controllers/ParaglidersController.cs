@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -7,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using ParaglidingProject.SL.Core.Flights.NS.TransfertObjects;
+using ParaglidingProject.SL.Core.Paraglider.NS.Helpers;
 using ParaglidingProject.SL.Core.Paraglider.NS.TransfertObjects;
 using ParaglidingProject.SL.Core.ParagliderModel.NS.TransfertObjects;
 
@@ -15,17 +18,74 @@ namespace ParaglidingProject.Controllers
     public class ParaglidersController : Controller
     {
         // GET: Paraglidings
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(ParaglidersFilters filter, string paragliderfilterInfo, ParaglidersSearch search, string ParagliderserchInfo)
         {
             IEnumerable<ParagliderDto> listParagliders = null;
+            string textTosearch = "";
+            string textTofilter = "";
+
+            // to filter
+            if(filter == ParaglidersFilters.CommissionDate)
+            {
+                textTofilter = "CommissionDate";
+            }
+           
+            if (filter == ParaglidersFilters.ModelParaglider)
+            {
+                textTofilter = "ParagliderModelId";
+            }
+            if (filter == ParaglidersFilters.RevisionDate)
+            {
+                textTofilter = "LastRevisionDate";
+            }
+            // to search
+            if(search == ParaglidersSearch.LastRevisionDate)
+            {
+                textTosearch = "DateLastRevision";
+            }
+            if (search == ParaglidersSearch.Name)
+            {
+                textTosearch = "Name";
+            }
+           
+
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync("http://localhost:50106/api/v1/paragliders"))
+                string urlfullpath = $"http://localhost:50106/api/v1/paragliders?FilterBy={filter}&{textTofilter}={paragliderfilterInfo}&SearchBy={search}&{textTosearch}={ParagliderserchInfo}";
+                using (var response = await httpClient.GetAsync(urlfullpath))
                 {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    listParagliders = JsonConvert.DeserializeObject<List<ParagliderDto>>(apiResponse);
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        string apiResponse = await response.Content.ReadAsStringAsync();
+                        listParagliders = JsonConvert.DeserializeObject<List<ParagliderDto>>(apiResponse);
+                    }
+                    else
+                    {
+                        listParagliders = Enumerable.Empty<ParagliderDto>();
+                    }
                 }
             }
+            //to make filter
+            var paragliderFilter = Enum.GetValues(typeof(ParaglidersFilters))
+              .Cast<ParaglidersFilters>()
+                .Select(p => new SelectListItem
+                {
+                    Text = p.ToString(),
+                    Value = ((int)p).ToString()
+                }).ToList();
+
+            ViewData["paragliderFilterItems"] = new SelectList(paragliderFilter, "Value", "Text");
+        // To make search
+
+        var paragliderSearch = Enum.GetValues(typeof(ParaglidersSearch))
+               .Cast<ParaglidersSearch>()
+               .Select(d => new SelectListItem
+               {
+                   Text = d.ToString(),
+                   Value = ((int)d).ToString()
+               }).ToList();
+        ViewData["paragliderSearchItems"] = new SelectList(paragliderSearch, "Value", "Text");
+
             return View(listParagliders);
         }
 
