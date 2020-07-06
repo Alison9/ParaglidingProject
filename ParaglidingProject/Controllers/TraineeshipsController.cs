@@ -13,6 +13,7 @@ using ParaglidingProject.Data;
 using ParaglidingProject.Models;
 using ParaglidingProject.SL.Core.Licenses.NS.TransfertObjects;
 using ParaglidingProject.SL.Core.Site.NS.TransfertObjects;
+using ParaglidingProject.SL.Core.TraineeShip.NS.Helpers;
 using ParaglidingProject.SL.Core.TraineeShip.NS.TransferObjects;
 
 namespace ParaglidingProject.Controllers
@@ -21,12 +22,14 @@ namespace ParaglidingProject.Controllers
     {
 
         // GET: Courses
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(TraineeShipSorts pTraineeshipSort, TraineeShipSearch search)
         {
             IEnumerable<TraineeShipDto> listTraineeships = null;
+
+
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync("http://localhost:50106/api/v1/Traineeships"))
+                using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/Traineeships?SortBy={pTraineeshipSort}&SearchBy={search}"))
                 {
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
@@ -39,6 +42,15 @@ namespace ParaglidingProject.Controllers
                     }
                 }
             }
+
+            var traineeshipSearch= Enum.GetValues(typeof(TraineeShipSearch))
+               .Cast<TraineeShipSearch>()
+               .Select(d => new SelectListItem
+               {
+                   Text = d.ToString(),
+                   Value = ((int)d).ToString()
+               }).ToList();
+            ViewData["traineeshipSearchItems"] = new SelectList(traineeshipSearch, "Value", "Text");
 
             return View(listTraineeships);
         }
