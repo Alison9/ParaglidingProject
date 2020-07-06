@@ -25,6 +25,7 @@
         </form>
     </div>
     <div class="col-md-4">
+
         <form asp-action="Index">
             <select name="search" asp-items="@ViewData["paragliderSearchItems"] as IEnumerable<SelectListItem>">
             </select>
@@ -33,25 +34,30 @@
             <div class="form-group">
                 <input type="submit" value="Search" class="btn btn-primary add" />
             </div>
-        </form>
-    </div>
-</div>
 
+        </form>
+        
+    </div>
+    </div>
 <table class="table" cellspacing="0">
     <thead>
         <tr>
             <th>
-                <a asp-action="Index" asp-route-pSiteSort="@ParaglidingProject.SL.Core.Site.NS.Helpers.SitesSorts.Name">@Html.DisplayNameFor(model => model.Name)</a>
+                <a asp-action="Index" asp-route-sort="@ParaglidingProject.SL.Core.Paraglider.NS.Helpers.ParagliderSortHelper.ParagliderSort.Name">@Html.DisplayNameFor(model => model.Name)</a>
             </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.CommissioningDate)
+              </th>
+
+              <th>
+                <a asp-action="Index" asp-route-sort="@ParaglidingProject.SL.Core.Paraglider.NS.Helpers.ParagliderSortHelper.ParagliderSort.RevisionDate">@Html.DisplayNameFor(model => model.LastRevision)</a>
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastRevision)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ParagliderId)
-            </th>
+
+              <th>
+               @Html.DisplayNameFor(model => model.ParagliderId)
+              </th>
+            
             <th></th>
         </tr>
     </thead>

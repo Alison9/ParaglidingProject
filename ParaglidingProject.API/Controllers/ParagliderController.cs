@@ -140,6 +140,7 @@ namespace ParaglidingProject.API.Controllers
                             options.PageSize,
                             options.SearchBy,
                             options.FilterBy,
+                            options.SortBy,
                             options.LastRevisionDate,
                             options.Name
                             
@@ -153,6 +154,7 @@ namespace ParaglidingProject.API.Controllers
                             options.PageSize,
                             options.SearchBy,
                             options.FilterBy,
+                            options.SortBy,
                             options.LastRevisionDate,
                             options.Name
                         });
@@ -163,6 +165,7 @@ namespace ParaglidingProject.API.Controllers
                             options.PageNumber,
                             options.PageSize,
                             options.FilterBy,
+                            options.SortBy,
                             options.SearchBy,
                             options.LastRevisionDate,
                             options.Name
