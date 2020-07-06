@@ -1,4 +1,4 @@
-﻿@model ParaglidingProject.Models.Traineeship
+﻿@model ParaglidingProject.SL.Core.TraineeShip.NS.TransferObjects.TraineeShipDto
 
 @{
     ViewData["Title"] = "Delete";
@@ -6,40 +6,39 @@
 
 <h1>Suuprimer</h1>
 
-<h3>Voulez-vous supprimer ce cours</h3>
+<h3>Voulez-vous supprimer ce stage?</h3>
 <div>
-    <h4>Cours</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StartDate)
+            @Html.DisplayNameFor(model => model.TraineeShipStartDate)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StartDate)
+            @Html.DisplayFor(model => model.TraineeShipStartDate)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EndDate)
+            @Html.DisplayNameFor(model => model.TraineeShipEndDate)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EndDate)
+            @Html.DisplayFor(model => model.TraineeShipEndDate)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
+            @Html.DisplayNameFor(model => model.TraineeShipPrice)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
+            @Html.DisplayFor(model => model.TraineeShipPrice)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.License)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.License.ID)
+            @Html.DisplayFor(model => model.License.Title)
         </dd class>
     </dl>
     
     <form asp-action="Delete">
-        <input type="hidden" asp-for="ID" />
-        <input type="submit" value="Supprimer" class="btn btn-danger" /> |
-        <a asp-action="Index">Retour à la liste</a>
+        <input type="hidden" asp-for="Traineeshipid" />
+        <input type="submit" value="Supprimer" class="btn btn-danger add" /> |
+        <a class="styleLink" asp-action="Index">Retour à la liste</a>
     </form>
 </div>

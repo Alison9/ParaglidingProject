@@ -38,7 +38,8 @@ namespace ParaglidingProject.SL.Core.TraineeShip.NS
                      TraineeShipPrice=T.Price,
                      TraineeShipEndDate=T.EndDate,
                      TraineeshipIsActive=T.IsActive,
-                     LicenseId = T.LicenseID
+                     LicenseId = T.LicenseID,
+                     License = T.License
                  });
             options.SetPagingValues(traineeships);
 
@@ -60,7 +61,8 @@ namespace ParaglidingProject.SL.Core.TraineeShip.NS
                   TraineeShipPrice=t.Price,
                   TraineeShipEndDate=t.EndDate,
                   TraineeshipIsActive=t.IsActive,
-                  LicenseId = t.LicenseID
+                  LicenseId = t.LicenseID,
+                  License = t.License
               })
               .FirstOrDefaultAsync(p => p.Traineeshipid == id);
 
@@ -117,6 +119,28 @@ namespace ParaglidingProject.SL.Core.TraineeShip.NS
                 Price = pTraineeshipDto.TraineeShipPrice,
                 IsActive = true
             });
+            _paraContext.SaveChanges();
+        }
+
+        public void EditTraineeship(TraineeShipDto pTraineeshipDto)
+        {
+            var toModifyAsTraineeship = _paraContext.Traineeships.Select(s => s).Where(s => s.ID == pTraineeshipDto.Traineeshipid).FirstOrDefault();
+
+            toModifyAsTraineeship.StartDate = pTraineeshipDto.TraineeShipStartDate;
+            toModifyAsTraineeship.EndDate = pTraineeshipDto.TraineeShipEndDate;
+            toModifyAsTraineeship.Price = pTraineeshipDto.TraineeShipPrice;
+            toModifyAsTraineeship.LicenseID = pTraineeshipDto.LicenseId;
+
+            _paraContext.Traineeships.Update(toModifyAsTraineeship);
+            _paraContext.SaveChanges();
+        }
+
+        public void DeleteTraineeship(int pTraineeshipId)
+        {
+            var toDelete = _paraContext.Traineeships.Select(s => s).Where(s => s.ID == pTraineeshipId).FirstOrDefault();
+
+            toDelete.IsActive = false;
+            _paraContext.Traineeships.Update(toDelete);
             _paraContext.SaveChanges();
         }
     }

@@ -66,5 +66,11 @@ namespace ParaglidingProject.SL.Core.TraineeShip.NS
         /// </returns>
         Task<IReadOnlyCollection<TraineeShipDto>> GetTraineeshipsByPilotAsync(int pilotId);
         public void CreateTraineeship(TraineeShipDto pTraineeshipDto);
+
+        public void EditTraineeship(TraineeShipDto pTraineeshipDto);
+
+        public void DeleteTraineeship(int pTraineeshipId);
+
+
     }
 }

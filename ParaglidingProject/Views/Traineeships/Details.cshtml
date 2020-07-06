@@ -27,6 +27,12 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.TraineeshipDto.TraineeShipPrice)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TraineeshipDto.License)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TraineeshipDto.License.Title)
+        </dd>
         @if (Model.PilotsDto.Count > 0)
         {
             <dt class="col-sm-2">
@@ -41,17 +47,17 @@
                     </tr>
                     @foreach (var item in Model.PilotsDto)
                     {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItems => item.FirstName)  @Html.DisplayFor(modelItems => item.LastName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItems => item.Address)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modeItems => item.PhoneNumber)
-                    </td>
-                </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItems => item.FirstName)  @Html.DisplayFor(modelItems => item.LastName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItems => item.Address)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modeItems => item.PhoneNumber)
+                            </td>
+                        </tr>
                     }
                 </table>
             </dd>

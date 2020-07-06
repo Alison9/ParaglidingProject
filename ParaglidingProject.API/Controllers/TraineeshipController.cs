@@ -155,9 +155,23 @@ namespace ParaglidingProject.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<TraineeShipDto>> CreateTraineeship(TraineeShipDto pTraineeshipDto)
+        public async Task<ActionResult<TraineeShipDto>> CreateTraineeship([FromBody] TraineeShipDto pTraineeshipDto)
         {
             _TraineeshipService.CreateTraineeship(pTraineeshipDto);
+            return Ok();
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<TraineeShipDto>> EditTraineeship([FromBody] TraineeShipDto pTraineeshipDto)
+        {
+            _TraineeshipService.EditTraineeship(pTraineeshipDto);
+            return Ok();
+        }
+
+        [HttpDelete("{pTraineeshipId}")]
+        public async Task<ActionResult<TraineeShipDto>> DeleteTraineeship([FromRoute] int pTraineeshipId)
+        {
+            _TraineeshipService.DeleteTraineeship(pTraineeshipId);
             return Ok();
         }
     }
