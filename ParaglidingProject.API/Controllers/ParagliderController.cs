@@ -10,6 +10,7 @@ using ParaglidingProject.SL.Core.Paraglider.NS;
 using ParaglidingProject.SL.Core.Paraglider.NS.Helpers;
 using ParaglidingProject.SL.Core.Paraglider.NS.TransfertObjects;
 using ParaglidingProject.SL.Core.Flights.NS;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace ParaglidingProject.API.Controllers
 {
@@ -117,6 +118,24 @@ namespace ParaglidingProject.API.Controllers
         {
             _paragliderService.DeleteParaglider(pParagliderDtoId);
             return Ok();
+        }
+
+        [HttpPatch("{paragliderId}", Name = "PatchPilotAsync")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status503ServiceUnavailable)]
+        public async Task<ActionResult> PatchParagliderAsync([FromRoute] int paragliderId, [FromBody] JsonPatchDocument<ParagliderPatchDto> patchDocument)
+        {
+            var paragliderToPatch = await _paragliderService.GetParagliderToPatchAsync(paragliderId);
+            if (paragliderToPatch == null) return NotFound("No paraglider found");
+
+            patchDocument.ApplyTo(paragliderToPatch, ModelState);
+            if (!TryValidateModel(paragliderToPatch)) return ValidationProblem(ModelState);
+
+            var valuesMakeSense = paragliderToPatch.ValidateBusinessLogic();
+            if (valuesMakeSense == false) return ValidationProblem("One or more values are forbidden");
+
+            var patchSuccess = await _paragliderService.UpdateParagliderAsync(paragliderId, paragliderToPatch);
+            return patchSuccess == true ? NoContent() : StatusCode(StatusCodes.Status503ServiceUnavailable);
         }
 
 
