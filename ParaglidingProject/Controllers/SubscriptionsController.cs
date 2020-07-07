@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using ParaglidingProject.Data;
 using ParaglidingProject.Data.Repositories;
 using ParaglidingProject.Models;
+using ParaglidingProject.SL.Core.Subscription.NS.Helpers;
 using ParaglidingProject.SL.Core.Subscription.NS.transferObjects;
 
 namespace ParaglidingProject.Controllers
@@ -20,12 +21,13 @@ namespace ParaglidingProject.Controllers
     {
 
         // GET: Subscriptions
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(SubscriptionSorts pSortSubscription = SubscriptionSorts.noSubscriptionOrder)
         {
             IEnumerable<SubscriptionDto> listSubscriptions = null;
+            
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync("http://localhost:50106/api/v1/subscriptions"))
+                using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/subscriptions?OrderBy={pSortSubscription}"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     listSubscriptions = JsonConvert.DeserializeObject<List<SubscriptionDto>>(apiResponse);
@@ -123,134 +125,45 @@ namespace ParaglidingProject.Controllers
             return RedirectToAction("Index");
         }
 
-        //// GET: Subscriptions/Delete/5
-        //public async Task<IActionResult> Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // GET: Subscriptions/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            SubscriptionAndPilotsDto viewSubscription = null;
+            using (HttpClient httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/subscriptions/{id}"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    if (response.StatusCode != HttpStatusCode.OK)
+                    {
+                        return NotFound();
+                    }
+                    viewSubscription = JsonConvert.DeserializeObject<SubscriptionAndPilotsDto>(apiResponse);
+                }
+            }
 
-        //    var subscription = await _context.Subscriptions
-        //        .FirstOrDefaultAsync(m => m.YearID == id);
-        //    if (subscription == null)
-        //    {
-        //        return NotFound();
-        //    }
+            return View(viewSubscription.SubscriptionDto);
+        }
 
-        //    return View(subscription);
-        //}
+        // POST: Subscriptions/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            if(id == 0)
+            {
+                return NotFound();
+            }
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.DeleteAsync($"http://localhost:50106/api/v1/subscriptions/{id}");
+            }
 
-        //// POST: Subscriptions/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    var subscription = await _context.Subscriptions.FindAsync(id);
-        //    _context.Subscriptions.Remove(subscription);
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //}
-
-        //private bool SubscriptionExists(int id)
-        //{
-        //    return _context.Subscriptions.Any(e => e.YearID == id);
-        //}
-
-        //public async Task<IActionResult> EditPayment(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var payment = await _context.Payments
-        //        .Include(p => p.Pilot)
-        //        .Include(s => s.Subscription)
-        //        .FirstOrDefaultAsync(i => i.ID == id);
-        //        //.FindAsync(id);
-        //    if (payment == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return View(payment);
-        //}
-
-        //[HttpPost, ActionName("EditPayment")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> EditPaymentPost(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    var paymentToUpdate = await _context.Payments.FirstOrDefaultAsync(p => p.ID == id);
-        //    if (await TryUpdateModelAsync<Payment>(
-        //        paymentToUpdate, "", p => p.IsPay, p => p.DatePay))
-        //    {
-        //        try
-        //        {
-        //            await _context.SaveChangesAsync();
-        //            return RedirectToAction(nameof(Index));
-        //        }
-        //        catch (DbUpdateException)
-        //        {
-        //            ModelState.AddModelError("", "Unable to save changes. " +
-        //        "Try again, and if the problem persists, " +
-        //        "see your system administrator.");
-        //        }
-        //    }
-        //    return View(paymentToUpdate);
-        //}
-
-        //public async Task<IActionResult> DeletePayment(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var payment = await _context.Payments
-        //        .Include(p => p.Pilot)
-        //        .Include(s => s.Subscription)
-        //        .FirstOrDefaultAsync(m => m.ID == id);
-        //    if (payment == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(payment);
-        //}
-
-        //[HttpPost, ActionName("DeletePayment")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeletePaymentConfirmed(int id)
-        //{
-        //    var payment = await _context.Payments.FindAsync(id);
-        //    _context.Payments.Remove(payment);
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //}
-
-        //public IActionResult CreatePayment(int? id)
-        //{
-        //    ViewData["SubsciptionID"] = id;
-        //    ViewData["PilotID"] = new SelectList(_context.Pilots, "ID", "FirstName");
-        //    return View();
-        //}
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> CreatePayment([Bind("PilotID, SubsciptionID, IsPay,DatePay")] Payment payment)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(payment);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["PilotID"] = new SelectList(_context.Pilots, "ID", "FirstName", payment.PilotID);
-        //    return View(payment);
-        //}
+            return RedirectToAction("Index");
+        }
     }
 }

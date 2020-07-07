@@ -35,5 +35,7 @@ namespace ParaglidingProject.SL.Core.Subscription.NS
         Task<IReadOnlyCollection<SubscriptionDto>> GetAllSubscriptionAsync(SubscriptionSSPF Options);
         void CreateSubscription(SubscriptionDto subscriptionDto);
         void UpdateSubscription(SubscriptionDto subscriptionDto);
+
+        void DeleteSubscription(int id);
     }
 }
