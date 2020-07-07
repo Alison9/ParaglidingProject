@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using ParaglidingProject.SL.Core.Levels.NS;
 using ParaglidingProject.SL.Core.Levels.NS.TransfertObjects;
@@ -55,6 +56,24 @@ namespace ParaglidingProject.API.Controllers
             var levels = await _levelsService.GetAllLevelsAsync();
             if (levels == null) return NotFound("Collection was empty :O");
             return Ok(levels);
+        }
+
+        [AllowAnonymous]
+        [HttpPatch("{LevelId}", Name = "PatchLevelAsync")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status503ServiceUnavailable)]
+        public async Task<ActionResult> PatchLevelAsync([FromRoute] int LevelId , [FromBody] JsonPatchDocument<LevelPatchDto> patchDocument)
+        {
+            var levelToPatch = await _levelsService.GetLevelToPatchAsync(LevelId);
+            if (levelToPatch == null) return NotFound("Pilot does not exists");
+
+            patchDocument.ApplyTo(levelToPatch, ModelState);
+            if (!TryValidateModel(levelToPatch)) return ValidationProblem(ModelState);
+
+           
+
+            var patchSuccess = await _levelsService.UpdateLevelAsync(LevelId ,levelToPatch);
+            return patchSuccess == true ? NoContent() : StatusCode(StatusCodes.Status503ServiceUnavailable);
         }
     }
 }

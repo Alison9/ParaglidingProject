@@ -46,5 +46,33 @@ namespace ParaglidingProject.SL.Core.Levels.NS
 
             return await levels.ToListAsync();
         }
+
+        public async Task<bool?> UpdateLevelAsync(int LevelId, LevelPatchDto patchDto)
+        {
+            var levelToUpdate = await _paraContext.Levels
+                .FirstOrDefaultAsync(p => p.ID == LevelId);
+
+            if (levelToUpdate == null) return null;
+
+            levelToUpdate.Name = patchDto.Name;
+            levelToUpdate.Skill = patchDto.skill;
+
+            return await _paraContext.SaveChangesAsync() > 0;
+
+        }
+
+        public async Task<LevelPatchDto>GetLevelToPatchAsync(int LevelId)
+        {
+            return await _paraContext.Levels
+
+               .Where(p => p.ID == LevelId)
+               .Select(p => new LevelPatchDto
+               {
+                   Name = p.Name,
+                   skill = p.Skill
+               })
+               .FirstOrDefaultAsync();
+
+        }
     }
 }
