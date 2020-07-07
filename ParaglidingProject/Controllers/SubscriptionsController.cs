@@ -14,6 +14,7 @@ using ParaglidingProject.Data.Repositories;
 using ParaglidingProject.Models;
 using ParaglidingProject.SL.Core.Subscription.NS.Helpers;
 using ParaglidingProject.SL.Core.Subscription.NS.transferObjects;
+using ParaglidingProject.SL.Core.TraineeShip.NS.Helpers;
 
 namespace ParaglidingProject.Controllers
 {
@@ -21,18 +22,48 @@ namespace ParaglidingProject.Controllers
     {
 
         // GET: Subscriptions
-        public async Task<IActionResult> Index(SubscriptionSorts pSortSubscription = SubscriptionSorts.noSubscriptionOrder)
+        public async Task<IActionResult> Index(SubscriptionSorts pSortSubscription = SubscriptionSorts.noSubscriptionOrder,SubscriptionFilters filter = SubscriptionFilters.NoFilter, decimal? filterInfo = 0,SubscriptionSearches search = SubscriptionSearches.NoSearch,decimal? searchInfo = 0)
         {
             IEnumerable<SubscriptionDto> listSubscriptions = null;
-            
+            string filterNameAsString = null;
+            string searchNameAsString = null;
+            if(filter != SubscriptionFilters.NoFilter)
+            {
+                filterNameAsString = "AmountTrigger";
+            }
+            if(search != SubscriptionSearches.NoSearch)
+            {
+                searchNameAsString = "SearchingValue";
+            }
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/subscriptions?OrderBy={pSortSubscription}"))
+                string url = $"http://localhost:50106/api/v1/subscriptions?OrderBy={pSortSubscription}&FilterBy={filter}&{filterNameAsString}={filterInfo}&SearchBy={search}&{searchNameAsString}={searchInfo}";
+                using (var response = await httpClient.GetAsync(url))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     listSubscriptions = JsonConvert.DeserializeObject<List<SubscriptionDto>>(apiResponse);
                 }
             }
+            var subFilter = Enum.GetValues(typeof(SubscriptionFilters))
+                .Cast<SubscriptionFilters>()
+                .Select(d => new SelectListItem
+                {
+                    Text = d.ToString(),
+                    Value = ((int)d).ToString()
+                }).ToList();
+            ViewData["subscriFilter"] = new SelectList(subFilter, "Value", "Text");
+
+            var subSearch = Enum.GetValues(typeof(SubscriptionSearches))
+                .Cast<SubscriptionSearches>()
+                .Select(d => new SelectListItem
+                {
+                    Text = d.ToString(),
+                    Value = ((int)d).ToString()
+                }).ToList();
+            ViewData["subscriSearch"] = new SelectList(subSearch, "Value", "Text");
+
+            
+
             return View(listSubscriptions);
         }
 

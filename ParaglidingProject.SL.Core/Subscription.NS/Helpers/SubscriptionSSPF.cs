@@ -47,6 +47,8 @@ namespace ParaglidingProject.SL.Core.Subscription.NS.Helpers
         }
         public decimal AmountTrigger { get; set; }
         public SubscriptionSorts orderBy { get; set; }
+        public decimal SearchingValue { get; set; }
+        public SubscriptionSearches SearchBy { get; set; }
 
     }
 }
