@@ -13,20 +13,45 @@
     <div class="row">
         <div class="col-12">
             <form method="POST">
-                <select name="sortList" asp-items='ViewData["sortItems"] as IEnumerable<SelectListItem>'>
-                    <option value="" selected disabled>-- Select sort option --</option>
+                <select id="sortListID" name="userSort" asp-items='ViewData["sortItems"] as IEnumerable<SelectListItem>'>
+                    <option value='' selected disabled>Select</option>
                 </select>
-                <select name="filterList" asp-items='ViewData["filterItems"] as IEnumerable<SelectListItem>'>
-                    <option value="" selected disabled>-- Select filter option --</option>
+                <select id="primaryFilterListID" name="userFilter" asp-items='ViewData["filterItems"] as IEnumerable<SelectListItem>'>
+                    <option value='' selected disabled>Select</option>
                 </select>
-                <input name="filterListId" />
-                <input name="searchList"/>
-                <button class="styleLink" value="SortList.Value" type="submit">filter</button>
+                <select id="secondaryFilterListID" name="userSecondaryFilter" asp-items="@(new SelectList(string.Empty, "Value", "Text"))">
+                    <option value='' selected disabled>Select</option>
+                </select>
+                
+                <button class="styleLink" type="submit">GO AGANE</button>
             </form>
 
         </div>
     </div>
 </div>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script type="text/javascript">    
+
+    $(document).ready(function () {
+        $('#primaryFilterListID').change(function () {
+            var url = '@Url.Action("FillDropdownMenu")';
+            var ddlsource = "#primaryFilterListID";
+
+            $.getJSON(url, { selectedValue: $(ddlsource).val() }, function (dataList) {
+                var secondarySelect = $('#secondaryFilterListID');
+                secondarySelect.empty();
+
+                if (dataList != null && !jQuery.isEmptyObject(dataList)) {                   
+                    $.each(dataList, function (index, data) {
+                        secondarySelect.append(
+                            $('<option>').val(index).text(data.text))
+                    });
+                };
+            });
+        });
+    });
+</script>
+
 <table class="table" cellspacing="0">
     <thead>
         <tr>

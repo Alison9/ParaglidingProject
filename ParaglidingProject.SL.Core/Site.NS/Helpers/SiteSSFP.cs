@@ -89,6 +89,10 @@ namespace ParaglidingProject.SL.Core.Site.NS.Helpers
                     return false;
                 case SitesFilters.Altitude:
                     return true;
+                case SitesFilters.TakeOffSite:
+                    return true;
+                case SitesFilters.LandingSite:
+                    return true;
                 default:
                     return false;
             }
