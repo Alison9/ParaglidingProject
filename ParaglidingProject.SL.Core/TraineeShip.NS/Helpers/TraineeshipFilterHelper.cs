@@ -5,41 +5,41 @@ using System.Text;
 
 namespace ParaglidingProject.SL.Core.TraineeShip.NS.Helpers
 { 
-    public enum TraineeShipSearch
+    public enum TraineeshipFilters
     {
-       NoSearch=0,
+       NoFilter=0,
        past=1,
        future=2,
-        present=3
+       present=3
     }
-    public static class TraineeshhipSearch
+    public static class TraineeshipFilterHelper
     {
 
 
-        public static IQueryable<Models.Traineeship> SearchTraineeshipBy(this IQueryable<Models.Traineeship> traineeships, TraineeShipSearch searchBy)
+        public static IQueryable<Models.Traineeship> FilterTraineeshipBy(this IQueryable<Models.Traineeship> traineeships, TraineeshipFilters filterBy)
         {
             
-            switch (searchBy)
+            switch (filterBy)
             {
-                case TraineeShipSearch.NoSearch:
+                case TraineeshipFilters.NoFilter:
                     return traineeships;
 
-                case TraineeShipSearch.present:
+                case TraineeshipFilters.present:
                     return traineeships
                          .Where(t => t.StartDate <= DateTime.Today)
                          .Where(t => t.EndDate >= DateTime.Today);
                          
                          
-                case TraineeShipSearch.future:
+                case TraineeshipFilters.future:
                     return traineeships
                         .Where(t => t.StartDate > DateTime.Today);
-                case TraineeShipSearch.past:
+                case TraineeshipFilters.past:
                     return traineeships
                         .Where(t => t.EndDate<= DateTime.Today);
 
                 default:
                     throw new ArgumentOutOfRangeException
-                        (nameof(searchBy), searchBy, null);
+                        (nameof(filterBy), filterBy, null);
             }
 
 

@@ -18,9 +18,13 @@ namespace ParaglidingProject.SL.Core.TraineeShip.NS.NewFolder1
         public int PageNumber { get; set; } = 1;
         public TraineeShipSorts SortBy { get; set; }
         
-        public TraineeShipSearch SearchBy {get; set;}
-        
-          
+        public TraineeshipFilters FilterBy {get; set;}
+
+        public TraineeshipSearchs SearchBy { get; set; }
+        public string License { get; set; }
+        public string Price { get; set; }
+
+
         public int PageSize
         {
             get => _pageSize;

@@ -13,13 +13,24 @@
 <div class="nimportequoi">
     <div class="col-md-4">
         <form asp-action="Index">
-            <select name="search" asp-items="@ViewData["traineeshipSearchItems"] as IEnumerable<SelectListItem>">
+            <select name="filter" asp-items="@ViewData["traineeshipFilterItems"] as IEnumerable<SelectListItem>">
             </select>
 
             <div class="form-group">
-                <input type="submit" value="Search" class="btn btn-primary add" />
+                <input type="submit" value="Filtrer" class="btn btn-primary add" />
             </div>
         </form>
+        <div class="col-md-4">
+            <form asp-action="Index">
+                <select name="search" asp-items="@ViewData["traineeshipSearchItems"] as IEnumerable<SelectListItem>">
+                </select>
+                <input type="text" name="searchInfo" />
+
+                <div class="form-group">
+                    <input type="submit" value="Search" class="btn btn-primary add" />
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 <table class="table" cellspacing="0">

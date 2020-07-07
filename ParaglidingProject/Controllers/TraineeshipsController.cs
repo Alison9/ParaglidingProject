@@ -22,14 +22,23 @@ namespace ParaglidingProject.Controllers
     {
 
         // GET: Courses
-        public async Task<IActionResult> Index(TraineeShipSorts pTraineeshipSort, TraineeShipSearch search)
+        public async Task<IActionResult> Index(TraineeShipSorts pTraineeshipSort, TraineeshipFilters filter, TraineeshipSearchs search, string searchInfo)
         {
             IEnumerable<TraineeShipDto> listTraineeships = null;
 
+            string textToSearch = "";
+            if(search == TraineeshipSearchs.License)
+            {
+                textToSearch = "License";
+            }
+            if(search == TraineeshipSearchs.Price)
+            {
+                textToSearch = "Price";
+            }
 
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/Traineeships?SortBy={pTraineeshipSort}&SearchBy={search}"))
+                using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/Traineeships?SortBy={pTraineeshipSort}&FilterBy={filter}&SearchBy={search}&{textToSearch}={searchInfo}"))
                 {
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
@@ -43,8 +52,17 @@ namespace ParaglidingProject.Controllers
                 }
             }
 
-            var traineeshipSearch= Enum.GetValues(typeof(TraineeShipSearch))
-               .Cast<TraineeShipSearch>()
+            var traineeshipFilter= Enum.GetValues(typeof(TraineeshipFilters))
+               .Cast<TraineeshipFilters>()
+               .Select(d => new SelectListItem
+               {
+                   Text = d.ToString(),
+                   Value = ((int)d).ToString()
+               }).ToList();
+            ViewData["traineeshipFilterItems"] = new SelectList(traineeshipFilter, "Value", "Text");
+
+            var traineeshipSearch = Enum.GetValues(typeof(TraineeshipSearchs))
+               .Cast<TraineeshipSearchs>()
                .Select(d => new SelectListItem
                {
                    Text = d.ToString(),

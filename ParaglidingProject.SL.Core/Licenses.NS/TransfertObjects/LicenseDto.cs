@@ -8,6 +8,7 @@ namespace ParaglidingProject.SL.Core.Licenses.NS.TransfertObjects
     {
         public int LicenseID { get; set; }
         public string Title { get; set; }
+
         public int LevelDifficultyIndex { get; set; }
 
     }
