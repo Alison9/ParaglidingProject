@@ -27,6 +27,7 @@ namespace ParaglidingProject.SL.Core.Subscription.NS
                  .AsNoTracking()
                  .FilterSubscriptionBy(options.filterBy, options.AmountTrigger)
                  .SubscriptionSortBy(options.orderBy)
+                 .SearchSubscriptionBy(options.SearchBy,options.SearchingValue)
                  .Select(s => new SubscriptionDto
                  {
                       Id= s.Year,
@@ -34,7 +35,6 @@ namespace ParaglidingProject.SL.Core.Subscription.NS
                      NumberOfPayments = s.SubscriptionPayments.Count,
                      IsActive = s.IsActive,
                      TotalAmount = s.SubscriptionPayments.Count* s.SubscriptionAmount
-
                  });
             
             options.SetPagingValues(subscriptionsQuery);

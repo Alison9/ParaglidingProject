@@ -22,7 +22,7 @@ namespace ParaglidingProject.SL.Core.Subscription.NS.Helpers
                 case SubscriptionFilters.NoFilter:
                     return subscription;
                 case SubscriptionFilters.AmountFilter:
-                    return subscription.Where(s => s.SubscriptionAmount > 0 );
+                    return subscription.Where(s => s.SubscriptionAmount == amountTrigger);
                 case SubscriptionFilters.AmountMaxFilter:
                     return subscription.Where(s => s.SubscriptionAmount <= amountTrigger);
                 case SubscriptionFilters.AmountMinFilter:
