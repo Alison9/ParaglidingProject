@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ParaglidingProject.SL.Core.Licenses.NS;
+using ParaglidingProject.SL.Core.Licenses.NS.Helpers;
 using ParaglidingProject.SL.Core.Licenses.NS.TransfertObjects;
 
 namespace ParaglidingProject.API.Controllers
@@ -25,9 +26,9 @@ namespace ParaglidingProject.API.Controllers
         }
 
         [HttpGet("", Name = "GetAllLicensesAsync")]
-        public async Task<ActionResult<IReadOnlyCollection<LicenseDto>>> GetAllLicenses()
+        public async Task<ActionResult<IReadOnlyCollection<LicenseDto>>> GetAllLicenses([FromQuery] LicenseSSFP options)
         {
-            var licenses = await _licenseService.GetAllLicensesAsync();
+            var licenses = await _licenseService.GetAllLicensesAsync(options);
             if (licenses == null) return NotFound("Collection was empty :O");
             return Ok(licenses);
         }
