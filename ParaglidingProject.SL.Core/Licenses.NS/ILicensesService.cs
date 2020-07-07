@@ -1,4 +1,5 @@
-﻿using ParaglidingProject.SL.Core.Licenses.NS.TransfertObjects;
+﻿using ParaglidingProject.SL.Core.Licenses.NS.Helpers;
+using ParaglidingProject.SL.Core.Licenses.NS.TransfertObjects;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,6 +21,6 @@ namespace ParaglidingProject.SL.Core.Licenses.NS
         /// </returns>
         Task<LicenseDto> GetLicenseAsync(int id);
 
-        Task<IReadOnlyCollection<LicenseDto>> GetAllLicensesAsync();
+        Task<IReadOnlyCollection<LicenseDto>> GetAllLicensesAsync(LicenseSSFP options);
     }
 }

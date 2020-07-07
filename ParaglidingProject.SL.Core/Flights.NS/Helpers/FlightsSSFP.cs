@@ -39,6 +39,7 @@ namespace ParaglidingProject.SL.Core.Flights.NS.Helpers
         //Filter properties
         public FlightsFilters FilterBy { get; set; }
         public int TakeOffSiteId { get; set; }
+       
         public int LandingSiteId { get; set; }
 
         //Sort properties

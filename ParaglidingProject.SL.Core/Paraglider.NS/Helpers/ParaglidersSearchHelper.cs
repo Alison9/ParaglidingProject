@@ -13,7 +13,7 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS.Helpers
     }
     public static class ParaglidersSearchHelper
     {
-        public static IQueryable<Models.Paraglider> SearchParaglidersBy(this IQueryable<Models.Paraglider> paragliders, ParaglidersSSFP options )
+        public static IQueryable<Models.Paraglider> SearchParaglidersBy(this IQueryable<Models.Paraglider> paragliders,ParaglidersSSFP options )
         {
             switch(options.SearchBy)
             {

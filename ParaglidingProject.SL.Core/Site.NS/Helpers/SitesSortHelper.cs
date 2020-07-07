@@ -10,7 +10,8 @@ namespace ParaglidingProject.SL.Core.Site.NS.Helpers
         NoSort = 0,
         AltitudeTakeOff = 1,
         LevelRequired = 2,
-        Name = 3
+        Name = 3,
+
     }
     public static class SitesSortHelper
     {
