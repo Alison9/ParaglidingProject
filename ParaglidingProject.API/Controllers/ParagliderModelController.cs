@@ -5,8 +5,11 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Newtonsoft.Json.Schema;
+using ParaglidingProject.Models;
 using ParaglidingProject.SL.Core.Paraglider.NS;
 using ParaglidingProject.SL.Core.ParagliderModel.NS;
 using ParaglidingProject.SL.Core.ParagliderModel.NS.Helpers;
@@ -41,11 +44,20 @@ namespace ParaglidingProject.API.Controllers
             _ModelParagliderService.CreateParagliderModel(pParagliderModelDto);
             return Ok();
         }
-        [HttpPut]
-        public async Task<ActionResult<ParagliderModelDto>> EditParagliderModel([FromBody] ParagliderModelDto pParagliderModelDto)
+        [HttpPatch("{pParagliderModelId}")]
+        public async Task<ActionResult<ParagliderModelDto>> PatchParagliderModelAsync([FromRoute] int pParagliderModelId,[FromBody] JsonPatchDocument<ParagliderModelPatchDto> pParagliderModelPatchDocument)
         {
-            _ModelParagliderService.EditParagliderModel(pParagliderModelDto);
-            return Ok();
+            var paragliderModelToPatch = await _ModelParagliderService.GetParagliderModelToPatchAsync(pParagliderModelId);
+            if (paragliderModelToPatch == null) return NotFound("^ParagliderModel not found");
+
+            pParagliderModelPatchDocument.ApplyTo(paragliderModelToPatch, ModelState);
+            if (!TryValidateModel(paragliderModelToPatch)) return ValidationProblem(ModelState);
+
+            var valuesMakeSense = paragliderModelToPatch.ValidateBusinessLogic();
+            if (valuesMakeSense == false) return ValidationProblem("Some problem");
+
+            var patchSuccess = await _ModelParagliderService.EditParagliderModel(pParagliderModelId, paragliderModelToPatch);
+            return patchSuccess == true ? NoContent() : StatusCode(StatusCodes.Status503ServiceUnavailable);
         }
 
         [HttpDelete("{pModelId}")]
