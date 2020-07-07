@@ -95,5 +95,14 @@ namespace ParaglidingProject.SL.Core.Subscription.NS
             _paraContext.Subscriptions.Update(subscriptionToModify);
             _paraContext.SaveChanges();
         }
+        public void DeleteSubscription(int id)
+        {
+            Models.Subscription subscriptionToSoftDelete = _paraContext.Subscriptions.Where(s => s.Year == id).FirstOrDefault();
+
+            subscriptionToSoftDelete.IsActive = false;
+
+            _paraContext.Subscriptions.Update(subscriptionToSoftDelete);
+            _paraContext.SaveChanges();
+        }
     }
 }

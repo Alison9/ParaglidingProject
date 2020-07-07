@@ -17,10 +17,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                <a asp-action="Index" asp-route-pSortSubscription="@ParaglidingProject.SL.Core.Subscription.NS.Helpers.SubscriptionSorts.YearDesc">@Html.DisplayNameFor(model => model.Id)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Amount)
+                <a asp-action="Index" asp-route-pSortSubscription="@ParaglidingProject.SL.Core.Subscription.NS.Helpers.SubscriptionSorts.AmountAsc">@Html.DisplayNameFor(model => model.Amount)</a>
             </th>
             <th>
             </th>

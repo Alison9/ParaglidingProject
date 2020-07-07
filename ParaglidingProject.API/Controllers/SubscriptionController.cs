@@ -83,6 +83,12 @@ namespace ParaglidingProject.API.Controllers
              _SubscriptionService.UpdateSubscription(pSubscriptionDto);
             return Ok();
         }
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<SubscriptionDto>> DeleteSubscription([FromRoute] int id)
+        {
+            _SubscriptionService.DeleteSubscription(id);
+            return Ok();
+        }
     }
 }
 
