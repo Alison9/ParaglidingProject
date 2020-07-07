@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using ParaglidingProject.SL.Core.Pilot.NS;
 using ParaglidingProject.SL.Core.TraineeShip.NS;
@@ -21,6 +23,23 @@ namespace ParaglidingProject.API.Controllers
     {
         private readonly ITraineeShipService _TraineeshipService;
         private readonly IPilotsService _PilotService;
+
+        [AllowAnonymous]
+        [HttpPatch("{traineeshipsId}", Name = "PatchTraineeshipAsync")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status503ServiceUnavailable)]
+        public async Task<ActionResult> PatchTraineeshipAsync([FromRoute] int traineeshipId, [FromBody] JsonPatchDocument<TraineeshipPatchDto> patchDocument)
+        {
+            var traineeshipToPatch = await _TraineeshipService.GetTraineeshipToPatchAsync(traineeshipId);
+            if (traineeshipToPatch == null) return NotFound("Traineeship does not exists");
+
+            patchDocument.ApplyTo(traineeshipToPatch, ModelState);
+            if (!TryValidateModel(traineeshipToPatch)) return ValidationProblem(ModelState);
+
+
+            var patchSuccess = await _TraineeshipService.UpdateTraineeshipAsync(traineeshipId, traineeshipToPatch);
+            return patchSuccess == true ? NoContent() : StatusCode(StatusCodes.Status503ServiceUnavailable);
+        }
 
         public TraineeshipController(ITraineeShipService TraineeshipService, IPilotsService PilotService)
         {

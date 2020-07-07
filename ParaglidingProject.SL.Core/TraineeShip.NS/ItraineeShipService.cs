@@ -71,6 +71,9 @@ namespace ParaglidingProject.SL.Core.TraineeShip.NS
 
         public void DeleteTraineeship(int pTraineeshipId);
 
+        Task<bool?> UpdateTraineeshipAsync(int traineeshipId, TraineeshipPatchDto patchDto);
 
+        
+        Task<TraineeshipPatchDto> GetTraineeshipToPatchAsync(int traineeshipId);
     }
 }
