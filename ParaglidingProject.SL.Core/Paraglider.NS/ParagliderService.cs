@@ -111,5 +111,30 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS
 
             return await paragliders.ToListAsync();
         }
+
+        public async Task<bool?> UpdateParagliderAsync(int paragliderId, ParagliderPatchDto paragliderPatchDto)
+        {
+            var paragliderToUpdate = await _paraContext.Paragliders.FirstOrDefaultAsync(p => p.ID == paragliderId);
+
+            if (paragliderToUpdate == null) return null;
+
+            paragliderToUpdate.Name = paragliderPatchDto.Name;
+            paragliderToUpdate.LastRevisionDate = paragliderPatchDto.LastRevision;
+
+            return await _paraContext.SaveChangesAsync() > 0;
+
+        }
+
+        public async Task<ParagliderPatchDto> GetParagliderToPatchAsync(int paragliderId)
+        {
+            return await _paraContext.Paragliders
+                .Where(p => p.ID == paragliderId)
+                .Select(p => new ParagliderPatchDto
+                {
+                    Name = p.Name,
+                    LastRevision = p.LastRevisionDate
+                })
+                .FirstOrDefaultAsync();
+        }
     }
 }

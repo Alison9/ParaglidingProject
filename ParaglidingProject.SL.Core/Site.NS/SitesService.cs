@@ -111,5 +111,33 @@ namespace ParaglidingProject.SL.Core.Site.NS
             _paraContext.SaveChanges();
         }
 
+        public async Task<SitePatchDto> GetSiteToPatchAsync(int id)
+        {
+            SitePatchDto site = await _paraContext.Sites
+                .Where(s => s.ID == id)
+                .Select(s => new SitePatchDto
+                {
+                    Name = s.Name,
+                    Orientation = s.Orientation,
+                    SiteGeoCoordinate = s.SiteGeoCoordinate
+                })
+                .FirstOrDefaultAsync();
+
+            return site;
+        }
+
+        public async Task<bool?> UpdateSiteAsync(int id, SitePatchDto patchDto)
+        {
+            var siteToUpdate = await _paraContext.Sites
+                .FirstOrDefaultAsync(p => p.ID == id);
+
+            if (siteToUpdate == null) return null;
+
+            siteToUpdate.Name = patchDto.Name;
+            siteToUpdate.Orientation = patchDto.Orientation;
+            siteToUpdate.SiteGeoCoordinate = patchDto.SiteGeoCoordinate;
+
+            return await _paraContext.SaveChangesAsync() > 0;
+        }
     }
 }

@@ -57,5 +57,19 @@ namespace ParaglidingProject.SL.Core.Site.NS
         void CreateSite(SiteDto siteDto);
         void EditSite(SiteDto siteDto);
         void DeleteSite(int id);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="patchDto"></param>
+        /// <returns></returns>
+        Task<bool?> UpdateSiteAsync(int id, SitePatchDto patchDto);
+
+        /// <summary>
+        /// Asynchronously retrieve a Site to patch.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<SitePatchDto> GetSiteToPatchAsync(int id);
     }
 }

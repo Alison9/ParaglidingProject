@@ -33,5 +33,9 @@ namespace ParaglidingProject.SL.Core.Paraglider.NS
         void DeleteParaglider(int paragliderDtoId);
 
         Task<IReadOnlyCollection<ParagliderDto>> GetParaglidersByModelParaglider(int id);
+
+        Task<bool?> UpdateParagliderAsync(int paragliderId, ParagliderPatchDto paragliderPatchDto);
+
+        Task<ParagliderPatchDto> GetParagliderToPatchAsync(int paragliderId);
     }
 }

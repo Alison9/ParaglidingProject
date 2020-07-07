@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.JsonPatch;
 using ParaglidingProject.SL.Core.Paraglider.NS.TransfertObjects;
 using ParaglidingProject.SL.Core.ParagliderModel.NS.Helpers;
 using ParaglidingProject.SL.Core.ParagliderModel.NS.TransfertObjects;
@@ -127,15 +128,18 @@ namespace ParaglidingProject.Controllers
         // GET: ModelParaglidings/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
-            ParagliderModelDto paragliderModel;
+            ParagliderModelDto paragliderModel = null;
+            ParagliderModelAndParagliders pmAndpDto = null;
             using (var httpClient = new HttpClient())
             {
                 using (var response = await httpClient.GetAsync($"http://localhost:50106/api/v1/paragliderModels/{id}"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
-                    paragliderModel = JsonConvert.DeserializeObject<ParagliderModelDto>(apiResponse);
+                    pmAndpDto = JsonConvert.DeserializeObject<ParagliderModelAndParagliders>(apiResponse);
+                    paragliderModel = pmAndpDto.ParagliderModelDto;
                 }
             }
+
             return View(paragliderModel);
         }
 
@@ -146,10 +150,15 @@ namespace ParaglidingProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditPost(ParagliderModelDto pParaModelToModify)
         {
+            ParagliderModelPatchDto paragliderModelAsPatchDto = new ParagliderModelPatchDto
+            {
+                MaxWeightPilot = pParaModelToModify.MaxWeightPilot,
+                MinWeightPilot = pParaModelToModify.MinWeightPilot
+            };
             using (var httpClient = new HttpClient())
             {
-                var content = new StringContent(JsonConvert.SerializeObject(pParaModelToModify), Encoding.UTF8, "application/json");
-                var response = await httpClient.PutAsync("http://localhost:50106/api/v1/paragliderModels/", content);
+                var content = new StringContent(JsonConvert.SerializeObject(paragliderModelAsPatchDto), Encoding.UTF8, "application/json-patch+json");
+                var response = await httpClient.PatchAsync($"http://localhost:50106/api/v1/paragliderModels/{pParaModelToModify.ID}", content);
             }
             return RedirectToAction("Index");
         }

@@ -35,5 +35,14 @@ namespace ParaglidingProject.SL.Core.Levels.NS
         /// <seealso cref="LevelDto"/>
         /// </returns>
         Task<IReadOnlyCollection<LevelDto>> GetAllLevelsAsync();
+
+      
+        Task <bool?> UpdateLevelAsync(int LevelId, LevelPatchDto patchDto);
+
+       
+        Task <LevelPatchDto> GetLevelToPatchAsync(int LevelId);
+
+
+
     }
 }
