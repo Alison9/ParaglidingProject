@@ -79,18 +79,24 @@ namespace ParaglidingProject.SL.Core.ParagliderModel.NS
             });
             _paraContext.SaveChanges();
         }
-        public void EditParagliderModel(ParagliderModelDto pParagliderModelDto)
+        public async Task<bool?> EditParagliderModel(int paragliderId,ParagliderModelPatchDto pParagliderPatch)
         {
-           var toModifyAsParaglider = _paraContext.ParagliderModels.Select(p => p).Where(pId => pId.ID == pParagliderModelDto.ID).FirstOrDefault();
+           var toModifyAsParaglider = _paraContext.ParagliderModels.Select(p => p).Where(pId => pId.ID == paragliderId).FirstOrDefault();
 
-            toModifyAsParaglider.MaxWeightPilot = (int)pParagliderModelDto.MaxWeightPilot;
-            toModifyAsParaglider.MinWeightPilot = (int)pParagliderModelDto.MinWeightPilot;
-            toModifyAsParaglider.ApprovalDate = pParagliderModelDto.ApprovalDate;
-            toModifyAsParaglider.ApprovalNumber = pParagliderModelDto.ApprovalNumber;
-            toModifyAsParaglider.Size = pParagliderModelDto.Size;
+            toModifyAsParaglider.MaxWeightPilot = (int)pParagliderPatch.MaxWeightPilot;
+            toModifyAsParaglider.MinWeightPilot = (int)pParagliderPatch.MinWeightPilot;
 
-            _paraContext.ParagliderModels.Update(toModifyAsParaglider);
-            _paraContext.SaveChanges();
+            return await _paraContext.SaveChangesAsync() > 0;
+        }
+        public async Task<ParagliderModelPatchDto> GetParagliderModelToPatchAsync(int pParagliderId)
+        {
+            return await _paraContext.ParagliderModels
+                .Where(pm => pm.ID == pParagliderId)
+                .Select(pm => new ParagliderModelPatchDto
+                {
+                    MaxWeightPilot = pm.MaxWeightPilot,
+                    MinWeightPilot = pm.MinWeightPilot
+                }).FirstOrDefaultAsync();
         }
         public void DeleteParagliderModel(int id)
         {
