@@ -11,6 +11,8 @@ namespace ParaglidingProject.Models
     {
         [Display(Name="Numero du modèle")]
         public int ID { get; set; }
+        [Display(Name = "Nom du modèle")]
+        public string Name { get; set; }
         [Display(Name = "Taille")]
         public string Size { get; set; }
         [Display(Name = "Poids Maximum du pilote")]
