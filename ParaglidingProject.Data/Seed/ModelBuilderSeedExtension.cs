@@ -370,7 +370,8 @@ namespace ParaglidingProject.Data.Seed
                         MaxWeightPilot = 70,
                         ApprovalNumber = "EN/LTF A",
                         ApprovalDate = DateTime.Parse("1990-03-02"),
-                        IsActive = true
+                        IsActive = true,
+                        Name = "Advance ALPHA 6 22"
                     }, 
                     new ParagliderModel
                     {
@@ -380,7 +381,8 @@ namespace ParaglidingProject.Data.Seed
                         MaxWeightPilot = 80,
                         ApprovalNumber = "EN/LTF A",
                         ApprovalDate = DateTime.Parse("1993-09-17"),
-                        IsActive = true
+                        IsActive = true,
+                        Name = "Advance ALPHA 6 24"
                     },
                     new ParagliderModel
                     {
@@ -390,7 +392,9 @@ namespace ParaglidingProject.Data.Seed
                         MaxWeightPilot = 95,
                         ApprovalNumber = "EN/LTF A",
                         ApprovalDate = DateTime.Parse("2001-07-21"),
-                        IsActive = true
+                        IsActive = true,
+                        Name = "Niviuk Hook 5 26"
+                        
                     },
                     new ParagliderModel
                     {
@@ -400,7 +404,8 @@ namespace ParaglidingProject.Data.Seed
                         MaxWeightPilot = 110,
                         ApprovalNumber = "EN/LTF A",
                         ApprovalDate = DateTime.Parse("2002-10-02"),
-                        IsActive = true
+                        IsActive = true,
+                        Name = "Niviuk Hook 5 28"
                     },
                     new ParagliderModel
                     {
@@ -410,7 +415,8 @@ namespace ParaglidingProject.Data.Seed
                         MaxWeightPilot = 130,
                         ApprovalNumber = "EN/LTF A",
                         ApprovalDate = DateTime.Parse("2019-11-17"),
-                        IsActive = false
+                        IsActive = false,
+                        Name = "Ozone Buzz Z6"
                     }
                 ) ;
         }
